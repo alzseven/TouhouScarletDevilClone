@@ -127,14 +127,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BHBullet.cpp" />
+    <ClCompile Include="BHEnemy.cpp" />
+    <ClCompile Include="BHObject.cpp" />
+    <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Image.cpp" />
+    <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BHBullet.h" />
+    <ClInclude Include="BHEnemy.h" />
+    <ClInclude Include="BHObject.h" />
+    <ClInclude Include="BHPlayer.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Image.h" />
+    <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

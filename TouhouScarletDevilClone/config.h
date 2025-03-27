@@ -12,11 +12,11 @@
 
 using namespace std;
 
-//#include "KeyManager.h"
+#include "KeyManager.h"
 //#include "ImageManager.h"
 //#include "TimerManager.h"
 
-
+#define PI			3.1415926535
 #define WINSIZE_X	600
 #define WINSIZE_Y	800
 #define DEG_TO_RAD(degree) ((3.1415926535 / 180.0) * degree)
@@ -30,3 +30,11 @@ typedef struct tagFPOINT
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
+
+class Image;
+struct SHAPE {
+	const wchar_t* TextureName;
+	float Size;
+	float Hit;
+	Image* Texture[2];
+};
