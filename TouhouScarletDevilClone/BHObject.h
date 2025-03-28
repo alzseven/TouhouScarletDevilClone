@@ -5,14 +5,17 @@ class Image;
 class BHObject
 {
 protected:
-	//TODO: ICollideable, IRenderable
-	SHAPE* Shape;
-	float scale;
-	float imgAlpha;
 	bool isAlive;
-
+	
 	FPOINT position;
-	float radianAngleDirection;
+	float radianAngle;
+
+	//TODO: ICollideable
+	float hit;
+
+	//TODO:
+	Image* image;
+	
 	//identifier for determine if something could be harmful to player
 public:
 	BHObject() = default;
@@ -20,17 +23,15 @@ public:
 
 	virtual void Update() = 0;
 
-	virtual void Init(SHAPE* shape, FPOINT position, float angle);
+	virtual void Init(Image* image, float hit, FPOINT position, float radianAngle);
 
-	void RenderSub(HDC hdc, Image* image, float size, float fade);
-	//void RenderSub(CTexture* texture, float size, float fade);
-	void Render(HDC hdc);
+	// void RenderSub(HDC hdc, Image* image, float size, float fade);
+	virtual void Render(HDC hdc);
 	
-	bool IsHit(BHObject* BHObject);
+	// bool IsHit(BHObject* BHObject);
 	//TODO: Quad-Tree Optimization how?
 	//bool IsHit(CTaskList * list);
 
 	//TODO:
-	inline void SetShape(int shape_id) { Shape = new SHAPE(); };
+	// inline void SetShape(int shape_id) { Shape = new SHAPE(); };
 };
-

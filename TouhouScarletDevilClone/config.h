@@ -21,6 +21,7 @@ using namespace std;
 #define WINSIZE_Y	800
 #define DEG_TO_RAD(degree) ((3.1415926535 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.1415926535) * radian)
+#define TEMP_DELTA_TIME 0.001666667f
 
 typedef struct tagFPOINT
 {
@@ -31,10 +32,10 @@ typedef struct tagFPOINT
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 
-class Image;
-struct SHAPE {
-	const wchar_t* TextureName;
-	float Size;
-	float Hit;
-	Image* Texture[2];
-};
+// class Image;
+// struct SHAPE {
+// 	const wchar_t* TextureName;
+// 	float Size;
+// 	float Hit;
+// 	Image* Texture;
+// };

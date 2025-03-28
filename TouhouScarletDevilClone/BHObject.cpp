@@ -1,23 +1,32 @@
 #include "BHObject.h"
 #include "Image.h"
 
-void BHObject::Init(SHAPE* shape, FPOINT position, float angle)
+// void BHObject::Init(SHAPE* shape, FPOINT position, float angle)
+// {
+// 	// this->Shape = shape;
+// 	this->position = position;
+// 	this->radianAngle = angle;
+// 	// scale = 1;
+// 	// imgAlpha = 1;
+// 	isAlive = true;
+// 	
+// }
+void BHObject::Init(Image* image, float hit,  FPOINT position, float radianAngle)
 {
-	this->Shape = shape;
+	this->image = image;
 	this->position = position;
-	this->radianAngleDirection = angle;
-	scale = 1;
-	imgAlpha = 1;
+	this->radianAngle = radianAngle;
 	isAlive = true;
-	
 }
 
-void BHObject::RenderSub(HDC hdc, Image* image, float size, float fade) {
-	if (image) {
-		image->FrameRender(hdc, position.x, position.y, size, size, 1);
-	}
 
-}
+
+// void BHObject::RenderSub(HDC hdc, Image* image, float size, float fade) {
+// 	if (image) {
+// 		image->FrameRender(hdc, position.x, position.y, 27, 36, 1);
+// 	}
+//
+// }
 
 //void BHObject::RenderSub(CTexture* texture, float size, float fade)
 //{
@@ -48,7 +57,13 @@ void BHObject::RenderSub(HDC hdc, Image* image, float size, float fade) {
 
 void BHObject::Render(HDC hdc)
 {
-	RenderSub(hdc, Shape->Texture[0], Shape->Size, 1.f);
+	if (image)
+	{
+		//TODO : index how, size how
+		image->FrameRender(hdc, position.x, position.y, 27, 36, 0, true);
+	}
+	
+	// RenderSub(hdc, Shape->Texture, Shape->Size, 1.f);
 	/*int i= ShowColor ?1:0;
 	if (ShowHit) {
 		RenderSub(Shape->Texture[i], Shape->Size, 0.25f);
@@ -64,9 +79,9 @@ void BHObject::Render(HDC hdc)
 	}*/
 }
 
-bool BHObject::IsHit(BHObject* bhObject)
-{
-	//TODO: commonfunction.h GetDistance, compare with (r1+r2) * (r1+r2)
-	float dx = bhObject->position.x - position.x, dy = bhObject->position.y - position.y, hit = bhObject->Shape->Hit + Shape->Hit;
-	return dx * dx - +dy * dy < hit * hit;
-}
+// bool BHObject::IsHit(BHObject* bhObject)
+// {
+// 	//TODO: commonfunction.h GetDistance, compare with (r1+r2) * (r1+r2)
+// 	float dx = bhObject->position.x - position.x, dy = bhObject->position.y - position.y, hit = bhObject->Shape->Hit + Shape->Hit;
+// 	return dx * dx - +dy * dy < hit * hit;
+// }
