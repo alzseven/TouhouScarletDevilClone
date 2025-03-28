@@ -30,26 +30,35 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BHBullet.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BHEnemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BHObject.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BHPlayer.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Image.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="TouhouScarletDevilCloneGame.cpp">
+      <Filter>TouhouScarletDevilCloneGame</Filter>
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>2D Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="IBulletFactory.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="BHPlayer.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="BHObject.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="BHEnemy.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="BHBullet.cpp">
+      <Filter>2D Framwork</Filter>
+    </ClCompile>
+    <ClCompile Include="Image.cpp">
+      <Filter>2D Framwork\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -59,29 +68,38 @@
     <ClInclude Include="MainGame.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="TouhouScarletDevilCloneGame.h">
+      <Filter>TouhouScarletDevilCloneGame</Filter>
+    </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BHBullet.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BHEnemy.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BHObject.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="BHPlayer.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Image.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Singleton.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framwork\Core</Filter>
     </ClInclude>
     <ClInclude Include="KeyManager.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Singleton.h">
+      <Filter>2D Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BHBullet.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="BHEnemy.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="BHObject.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="BHPlayer.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="IBulletFactory.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>2D Framwork</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>2D Framwork\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

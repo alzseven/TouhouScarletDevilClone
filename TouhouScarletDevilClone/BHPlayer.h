@@ -7,22 +7,13 @@ class IBulletFactory;
 class Image;
 class BHPlayer : public BHObject
 {
-	// SHAPE* Shape;
-	// Image* image;
-	// float scale;
-	// float imgAlpha;
-	// bool isAlive;
-
-	// FPOINT position;
-	// float radianAngleDirection;
 	int frameIndex;
 	float timeElapsed;
 	float shootDelay;
 	BulletManager* bulletManager;
 	IBulletFactory* level1BulletFactory;
 	IBulletFactory* level2BulletFactory;
-	// BulletManager* subweaponBulletManager;
-	// IBulletFactory* SubWeaponFactory;
+
 	int tempLevel;
 	Image* moveImage;
 	FPOINT moveDir;
