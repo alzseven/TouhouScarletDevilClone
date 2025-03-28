@@ -1,7 +1,8 @@
 #include "config.h"
 #include "MainGame.h"
 #include "Image.h"
-#include "BHPlayer.h"
+#include "TouhouScarletDevilCloneGame.h"
+
 
 void MainGame::Init()
 {
@@ -11,33 +12,28 @@ void MainGame::Init()
 	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
 	{
 		MessageBox(g_hWnd,
-			TEXT("백버퍼 생성 실패"), TEXT("경고"), MB_OK);
+			TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
 	}
 	background = new Image();
 	if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
 	{
 		MessageBox(g_hWnd,
-			TEXT("Image/_.bmp 생성 실패"), TEXT("경고"), MB_OK);
+			TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
 	}
 
-	player = new BHPlayer();
-	Image* image = new Image();
-	if (FAILED(image->Init(TEXT("Image/Label36.bmp"), 27, 36)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Image/_.bmp 생성 실패"), TEXT("경고"), MB_OK);
-	}
-	SHAPE* shape = new SHAPE{ TEXT("name"), 27, 18, image };
-	player->Init(shape, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90);
+	gameInstance = new TouhouScarletDevilCloneGame();
+	gameInstance->Init();
 }
 
 void MainGame::Release()
 {
-	if (player) {
-		delete player;
-		player = nullptr;
+	if (gameInstance)
+	{
+		gameInstance->Release();
+		delete gameInstance;
+		gameInstance = nullptr;
 	}
-
+	
 	if (background)
 	{
 		background->Release();
@@ -57,7 +53,8 @@ void MainGame::Release()
 
 void MainGame::Update()
 {
-	player->Update();
+	gameInstance->Update();
+	
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
@@ -68,7 +65,8 @@ void MainGame::Render()
 	background->Render(hBackBufferDC);
 	backBuffer->Render(hBackBufferDC);
 
-	player->Render(hBackBufferDC);
+	if (gameInstance) gameInstance->Render(hBackBufferDC);
+
 
 	backBuffer->Render(hdc);
 }
