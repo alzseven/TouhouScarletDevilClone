@@ -41,7 +41,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		NULL, NULL, g_hInstance, NULL);
 
 	ShowWindow(g_hWnd, nCmdShow);
-
+	CoInitialize(NULL);
+	ImageManager::GetInstance()->Init();
 	//TimerManager::GetInstance()->Init();
 	g_mainGame.Init();
 
@@ -64,8 +65,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			g_mainGame.Render();
 		}
 	}
-
+	CoUninitialize();
 	g_mainGame.Release();
+	ImageManager::GetInstance()->Release();
 	//TimerManager::GetInstance()->Release();
 
 	return message.wParam;

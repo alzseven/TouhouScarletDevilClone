@@ -26,8 +26,9 @@ void MainGame::Init()
 	
 	D2DImage::InitD2D(g_hWnd);
 	
-	testImage = new D2DImage();
-	testImage->LoadFromFile(TEXT("Image/Marisa_Move_Vertical.bmp"));
+	testImage = ImageManager::GetInstance()->AddImage("enemy1", TEXT("Image/enemy1.png"), 4, 1);
+	testImage->LoadFromFile(TEXT("Image/enemy1.png"),4,1);
+
 }
 
 void MainGame::Release()
@@ -52,7 +53,6 @@ void MainGame::Release()
 		delete backBuffer;
 		backBuffer = nullptr;
 	}
-
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -61,6 +61,15 @@ void MainGame::Update()
 	gameInstance->Update();
 	
 	InvalidateRect(g_hWnd, NULL, false);
+	timer++;
+	if (timer >= 5)
+	{
+		frame++;
+		angle++;
+		timer = 0;
+	}
+	if (frame >= 4)frame = 0;
+	if (angle > 360) angle = 0;
 }
 
 void MainGame::Render()
@@ -79,8 +88,15 @@ void MainGame::Render()
 	//
 	//
 	// backBuffer->Render(hdc);
-
-	testImage->Draw(WINSIZE_X / 2, WINSIZE_Y / 2);
+	/*for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 30; j++)
+		{
+			testImage->Middle_RenderFrameScale(j * 18,i * 18,2,2, frame, angle, false, false, 1.0f);
+		}
+	}*/
+	testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
+	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);
 	D2DImage::EndDraw();
 }
 
