@@ -139,6 +139,7 @@
     <ClCompile Include="IBHObjectControllerState.cpp" />
     <ClCompile Include="IBulletFactory.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="IPatternInfo.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
@@ -161,6 +162,7 @@
     <ClInclude Include="IBulletFactory.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="ImageManager.h" />
     <ClInclude Include="IPatternInfo.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include <windows.h>
 #include <d2d1.h>
 #include <wincodec.h>
@@ -27,8 +27,36 @@ public:
     HRESULT LoadFromFile(const wchar_t* filePath);
     HRESULT LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFrameY);
 
-    void Draw(float x, float y, float angle = 0.0f, bool flipX = false, bool flipY = false);
-    void DrawFrame(float x, float y, int frameIndex, float angle = 0.0f, bool flipX = false, bool flipY = false);
+    //x좌표, y좌표, 각도(도),좌우반전,상하반전,투명도(0.0~1.0)
+    void Render(float x, float y, float angle = 0.0f,
+        bool flipX = false, bool flipY = false, 
+        float alpha=1.0f);
+    //x좌표, y좌표,현재프레임 ,각도(도),좌우반전,상하반전,투명도(0.0~1.0)
+    void RenderFrame(float x, float y, int frameIndex, float angle = 0.0f, 
+        bool flipX = false, bool flipY = false, 
+        float alpha=1.0f);
+    //x좌표, y좌표,가로배율,세로배율,현재프레임 ,각도(도),좌우반전,상하반전,투명도(0.0~1.0)
+    void RenderFrameScale(float x, float y,float scaleX,float scaleY,
+        int frameIndex, float angle = 0.0f,
+        bool flipX = false, bool flipY = false,
+        float alpha = 1.0f);
+    //좌표의 기준이 중심
+    void Middle_Render(float x, float y, float angle = 0.0f, 
+        bool flipX = false, bool flipY = false, 
+        float alpha = 1.0f);
+    //좌표의 기준이 중심
+    void Middle_RenderFrame(float x, float y, int frameIndex, float angle = 0.0f, 
+        bool flipX = false, bool flipY = false, 
+        float alpha = 1.0f);
+    //좌표의 기준이 중심
+    void Middle_RenderFrameScale(float x, float y, float scaleX, float scaleY,
+        int frameIndex, float angle = 0.0f,
+        bool flipX = false, bool flipY = false,
+        float alpha = 1.0f);
 
     void Release();
+    inline int GetMaxFrameX() { return maxFrameX; }
+    inline int GetMaxFrameY() { return maxFrameY; }
+
+    static void ReleaseLast();
 };

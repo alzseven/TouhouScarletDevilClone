@@ -41,7 +41,7 @@ HRESULT D2DImage::LoadFromFile(const wchar_t* filePath) {
     IWICBitmapDecoder* decoder = nullptr;
     IWICBitmapFrameDecode* frame = nullptr;
     IWICFormatConverter* converter = nullptr;
-    CoInitialize(NULL);
+    
     HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
         IID_PPV_ARGS(&wicFactory));
     if (FAILED(hr)) return hr;
@@ -84,7 +84,8 @@ HRESULT D2DImage::LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFr
     return S_OK;
 }
 
-void D2DImage::Draw(float x, float y, float angle, bool flipX, bool flipY) {
+void D2DImage::Middle_Render(float x, float y, float angle, 
+    bool flipX, bool flipY, float alpha) {
     if (!bitmap || !renderTarget) return;
 
     D2D1_SIZE_F bmpSize = bitmap->GetSize();
@@ -97,11 +98,12 @@ void D2DImage::Draw(float x, float y, float angle, bool flipX, bool flipY) {
     transform = transform * D2D1::Matrix3x2F::Translation(x + bmpSize.width / 2.0f, y + bmpSize.height / 2.0f);
 
     renderTarget->SetTransform(transform);
-    renderTarget->DrawBitmap(bitmap, D2D1::RectF(0, 0, bmpSize.width, bmpSize.height));
+    renderTarget->DrawBitmap(bitmap, D2D1::RectF(0, 0, bmpSize.width, bmpSize.height), alpha);
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
-void D2DImage::DrawFrame(float x, float y, int frameIndex, float angle, bool flipX, bool flipY) {
+void D2DImage::Middle_RenderFrame(float x, float y, int frameIndex,
+    float angle, bool flipX, bool flipY, float alpha) {
     if (!bitmap || !renderTarget || maxFrameX <= 0 || maxFrameY <= 0) return;
 
     int totalFrames = maxFrameX * maxFrameY;
@@ -136,8 +138,74 @@ void D2DImage::DrawFrame(float x, float y, int frameIndex, float angle, bool fli
     transform = transform * D2D1::Matrix3x2F::Rotation(angle, D2D1::Point2F(centerX, centerY));
 
     renderTarget->SetTransform(transform);
-    renderTarget->DrawBitmap(bitmap, destRect, 1.0f, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+}
+
+void D2DImage::Middle_RenderFrameScale(float x, float y, float scaleX, float scaleY, int frameIndex, float angle, bool flipX, bool flipY, float alpha)
+{
+    if (!bitmap || !renderTarget || maxFrameX <= 0 || maxFrameY <= 0) return;
+
+    int totalFrames = maxFrameX * maxFrameY;
+    frameIndex %= totalFrames;
+
+    int fx = frameIndex % maxFrameX;
+    int fy = frameIndex / maxFrameX;
+
+    D2D1_RECT_F srcRect = D2D1::RectF(
+        static_cast<float>(fx * frameWidth),
+        static_cast<float>(fy * frameHeight),
+        static_cast<float>((fx + 1) * frameWidth),
+        static_cast<float>((fy + 1) * frameHeight)
+    );
+
+    float halfWidth = frameWidth  / 2.0f;
+    float halfHeight = frameHeight / 2.0f;
+
+    float centerX = x;
+    float centerY = y;
+
+    D2D1_RECT_F destRect = D2D1::RectF(
+        centerX - halfWidth,
+        centerY - halfHeight,
+        centerX + halfWidth,
+        centerY + halfHeight
+    );
+
+    D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
+
+    float finalScaleX = scaleX * (flipX ? -1.0f : 1.0f);
+    float finalScaleY = scaleY * (flipY ? -1.0f : 1.0f);
+
+    transform = transform * D2D1::Matrix3x2F::Scale(
+        finalScaleX, finalScaleY,
+        D2D1::Point2F(centerX, centerY)
+    );
+
+    transform = transform * D2D1::Matrix3x2F::Rotation(
+        angle,
+        D2D1::Point2F(centerX, centerY)
+    );
+
+    renderTarget->SetTransform(transform);
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, srcRect);
+    renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+}
+
+void D2DImage::Render(float x, float y, float angle, bool flipX, bool flipY, float alpha)
+{
+    D2D1_SIZE_F bmpSize = bitmap->GetSize();
+    Middle_Render(x + bmpSize.width / 2, y + bmpSize.height / 2, angle, flipX, flipY, alpha);
+}
+
+void D2DImage::RenderFrame(float x, float y, int frameIndex, float angle, bool flipX, bool flipY, float alpha)
+{
+    Middle_RenderFrame(x + frameWidth / 2, y + frameHeight / 2, frameIndex, angle, flipX, flipY, alpha);
+}
+
+void D2DImage::RenderFrameScale(float x, float y, float scaleX, float scaleY, int frameIndex, float angle, bool flipX, bool flipY, float alpha)
+{
+    Middle_RenderFrameScale(x + frameWidth / 2, y + frameHeight / 2, scaleX, scaleY, frameIndex, angle, flipX, flipY, alpha);
 }
 
 ID2D1HwndRenderTarget* D2DImage::GetRenderTarget() {
@@ -149,4 +217,17 @@ void D2DImage::Release() {
         renderTarget->Release();
         renderTarget = nullptr;
     }
+    
+
 }
+
+//프로그램이 종료될 때 단 한번만 호출
+//factory가 static임
+void D2DImage::ReleaseLast()
+{
+    if (factory) {
+        factory->Release();
+        factory = nullptr;
+    }
+}
+

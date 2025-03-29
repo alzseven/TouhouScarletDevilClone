@@ -13,6 +13,9 @@ private:
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
 	D2DImage* testImage;
+	int timer = 0;
+	int frame = 0;
+	float angle = 0;
 public:
 	void Init();
 	void Release();
