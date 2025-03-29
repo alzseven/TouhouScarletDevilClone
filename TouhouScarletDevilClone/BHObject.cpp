@@ -1,4 +1,6 @@
 #include "BHObject.h"
+
+#include "CollisionManager.h"
 #include "Image.h"
 
 // void BHObject::Init(SHAPE* shape, FPOINT position, float angle)
@@ -14,9 +16,12 @@
 void BHObject::Init(Image* image, float hit,  FPOINT position, float radianAngle)
 {
 	this->image = image;
-	this->position = position;
+	this->position = new FPOINT(position);
+	// this->position = position;
 	this->radianAngle = radianAngle;
+	this->hit = hit;
 	isAlive = true;
+	CollisionManager::GetInstance()->AddCollisionObject(this);
 }
 
 
@@ -60,7 +65,7 @@ void BHObject::Render(HDC hdc)
 	if (image)
 	{
 		//TODO : index how, size how
-		image->FrameRender(hdc, position.x, position.y, 27, 36, 0, true);
+		image->FrameRender(hdc, position->x, position->y, 16, 32, 0, true);
 	}
 	
 	// RenderSub(hdc, Shape->Texture, Shape->Size, 1.f);

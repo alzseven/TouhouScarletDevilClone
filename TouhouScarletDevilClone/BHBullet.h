@@ -16,9 +16,15 @@ public:
 
 	void Init(Image* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed);
 	
-
+	void Release() override;
+	
 	// BHObject을(를) 통해 상속됨
 	void Update() override;
 	void Render(HDC hdc) override;
+
+	void OnHit(ICircleCollideable* hitObject) override;
+	
+	inline float GetHit() override { return hit; }
+
 };
 

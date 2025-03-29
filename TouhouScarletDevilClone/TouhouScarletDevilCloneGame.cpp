@@ -2,6 +2,7 @@
 
 #include "BHEnemy.h"
 #include "BHPlayer.h"
+#include "CollisionManager.h"
 #include "Image.h"
 
 void TouhouScarletDevilCloneGame::Init()
@@ -32,7 +33,7 @@ void TouhouScarletDevilCloneGame::Init()
 
     enemy = new BHEnemy();
     Image* image2 = new Image();
-    if (FAILED(image2->Init(TEXT("Image/rocket.bmp"), 104, 128, 1, 1, true, RGB(255,0,255))))
+    if (FAILED(image2->Init(TEXT("Image/rocket.bmp"), 52, 64, 1, 1, true, RGB(255,0,255))))
     {
         MessageBox(g_hWnd,
             TEXT("Failed to create : Image/rocket.bmp"), TEXT("Warning"), MB_OK);
@@ -42,16 +43,20 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release()
 {
-    if (enemy)
-    {
-        delete enemy;
-        enemy = nullptr;
-    }
+    CollisionManager::GetInstance()->Release();
     
-    if (player) {
-        delete player;
-        player = nullptr;
-    }
+    // if (enemy)
+    // {
+    //     enemy->Release();
+    //     delete enemy;
+    //     enemy = nullptr;
+    // }
+    //
+    // if (player) {
+    //     player->Release();
+    //     delete player;
+    //     player = nullptr;
+    // }
 
     if (bgImage)
     {
@@ -59,12 +64,15 @@ void TouhouScarletDevilCloneGame::Release()
         delete bgImage;
         bgImage = nullptr;
     }
+
+    
 }
 
 void TouhouScarletDevilCloneGame::Update()
 {
     player->Update();
     enemy->Update();
+    CollisionManager::GetInstance()->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)

@@ -27,5 +27,14 @@ public:
     void Update() override;
 
     void Shoot();
+
+    void OnHit(ICircleCollideable* hitObject) override;
+
+    void Release() override;
+
+    void GetDamaged();
+    
+    inline float GetHit() override { return hit; }
+    // inline FPOINT GetPos() override { return position; }
 };
 

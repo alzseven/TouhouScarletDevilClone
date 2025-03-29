@@ -39,7 +39,7 @@ pair<BHBullet*, int> MarisaLevel1BulletFactory::CreateBullet(FPOINT pos, float r
             TEXT("Image/Marisa_Bullet.bmp 생성 실패"), TEXT("경고"), MB_OK);
     }
     BHBullet* bullet =  new BHBullet();
-    bullet->Init(image, 32.f, pos, radianAngle, 0 , 0 ,1.f);
+    bullet->Init(image, 32.f, pos, radianAngle, 0 , 0 ,0.1f);
     return {new BHBullet[]{*bullet}, 1};
 }
 

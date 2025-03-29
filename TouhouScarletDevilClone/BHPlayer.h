@@ -49,8 +49,15 @@ public:
 	
 	void Update() override;
 
+	void OnHit(ICircleCollideable* hitObject) override;
+
 	void Shoot();
 
 	void ShootSubWeapon(bool isAccumulating);
+
+	void Release() override;
+	
+	inline float GetHit() override { return hit; }
+	// inline FPOINT GetPos() override { return position; }
 };
 

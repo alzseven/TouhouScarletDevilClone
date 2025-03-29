@@ -1,6 +1,7 @@
 #include "BHPlayer.h"
 #include "config.h"
 #include "BulletManager.h"
+#include "CommonFunction.h"
 #include "IBulletFactory.h"
 #include "Image.h"
 // #include "BHEnemy.h"
@@ -10,7 +11,7 @@
 void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
-
+    
     //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
     level1BulletFactory = new MarisaLevel1BulletFactory();
@@ -19,7 +20,7 @@ void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
     bulletManager->ChangeBulletFactory(level1BulletFactory);
 
     timeElapsed = 0;
-    shootDelay = 0.15f;
+    shootDelay = 0.5f;
     
     // subweaponBulletManager = new BulletManager();
     // SubWeaponFactory = new MarisaSubWeaponBulletFactory();
@@ -56,13 +57,13 @@ void BHPlayer::Render(HDC hdc)
     {
         if (moveImage)
         {
-            moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
+            moveImage->FrameRender(hdc, position->x, position->y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
     else
     {
         if (image) {
-            image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
+            image->FrameRender(hdc, position->x, position->y, 27, 36, frameIndex);
         }
     }
 
@@ -70,6 +71,7 @@ void BHPlayer::Render(HDC hdc)
     {
         bulletManager->Render(hdc);
     }
+    RenderEllipseAtCenter(hdc, position->x, position->y, hit*2, hit*2);
     // if (subweaponBulletManager)
     // {
     //     subweaponBulletManager->Render(hdc);
@@ -85,8 +87,8 @@ void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift)
     float angle = atan2(moveDirection.x , moveDirection.y);
     
     //TODO: SetSpeed;
-    position.x += sin(angle) * (isPressingShift ? 0.1f : 0.2f);
-    position.y += cos(angle) * (isPressingShift ? 0.1f : 0.2f);
+    position->x += sin(angle) * (isPressingShift ? 0.1f : 0.2f);
+    position->y += cos(angle) * (isPressingShift ? 0.1f : 0.2f);
 
 }
 
@@ -146,12 +148,17 @@ void BHPlayer::Update()
     // }
 }
 
+void BHPlayer::OnHit(ICircleCollideable* hitObject)
+{
+    
+}
+
 void BHPlayer::Shoot()
 {
     if (timeElapsed >= shootDelay)
     {
         //TODO: Separate shooting angle;
-        bulletManager->AddBullet(position, DEG_TO_RAD(-90.f));
+        bulletManager->AddBullet(*position, DEG_TO_RAD(-90.f));
         
         timeElapsed = 0.f;
     }
@@ -169,10 +176,10 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
 
 void BHPlayer::MoveBackToBorder() {
     //TODO: Move back(amount of size / 2) when go out screen
-    if (position.x < 0) position.x = 0;
-    if (position.x > WINSIZE_X) position.x = WINSIZE_X;
-    if (position.y < 0) position.y = 0;
-    if (position.y > WINSIZE_Y) position.y = WINSIZE_Y;
+    if (position->x < 0) position->x = 0;
+    if (position->x > WINSIZE_X) position->x = WINSIZE_X;
+    if (position->y < 0) position->y = 0;
+    if (position->y > WINSIZE_Y) position->y = WINSIZE_Y;
 }
 
 // void BHPlayer::OnCollide(BHObject* objectCollided)
@@ -193,3 +200,24 @@ void BHPlayer::MoveBackToBorder() {
 //         return;
 //     }
 // }
+
+void BHPlayer::Release()
+{
+    
+    
+    if (image)
+    {
+        image->Release();
+        delete image;
+    }
+    if (moveImage)
+    {
+        moveImage->Release();
+        delete moveImage;
+    }
+    if (position)
+    {
+        delete position;
+        position = nullptr;
+    }
+}

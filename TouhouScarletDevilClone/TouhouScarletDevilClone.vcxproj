@@ -132,6 +132,7 @@
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="IBulletFactory.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -146,9 +147,12 @@
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="CollisionManager.h" />
+    <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="IBulletFactory.h" />
+    <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
