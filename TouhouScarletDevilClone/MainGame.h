@@ -3,6 +3,8 @@
 
 class TouhouScarletDevilCloneGame;
 class Image;
+
+class D2DImage;
 class MainGame : public GameObject
 {
 private:
@@ -10,7 +12,7 @@ private:
 	Image* backBuffer;
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
-
+	D2DImage* testImage;
 public:
 	void Init();
 	void Release();

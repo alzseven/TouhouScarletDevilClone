@@ -41,8 +41,7 @@ void TouhouScarletDevilCloneGame::Init()
     }
     enemy->Init(image2, 52 , {WINSIZE_X / 2, 100}, 90.f);
 
-    testImage = new D2DImage();
-    testImage->LoadFromFile(TEXT("Image/Marisa_Move_Vertical.bmp"));
+
 }
 
 void TouhouScarletDevilCloneGame::Release()
@@ -82,7 +81,7 @@ void TouhouScarletDevilCloneGame::Update()
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
 
-    testImage->Draw(WINSIZE_X / 2, WINSIZE_Y / 2);
+
     bgImage->Render(hdc);
     player->Render(hdc);
     enemy->Render(hdc);

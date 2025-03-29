@@ -23,7 +23,11 @@ void MainGame::Init()
 
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
+	
 	D2DImage::InitD2D(g_hWnd);
+	
+	testImage = new D2DImage();
+	testImage->LoadFromFile(TEXT("Image/Marisa_Move_Vertical.bmp"));
 }
 
 void MainGame::Release()
@@ -65,15 +69,18 @@ void MainGame::Render()
 	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
     
 
-	HDC hBackBufferDC = backBuffer->GetMemDC();
+	// HDC hBackBufferDC = backBuffer->GetMemDC();
+	//
+	// background->Render(hBackBufferDC);
+	// backBuffer->Render(hBackBufferDC);
+	//
+	// if (gameInstance) gameInstance->Render(hBackBufferDC);
+	//
+	//
+	//
+	// backBuffer->Render(hdc);
 
-	background->Render(hBackBufferDC);
-	backBuffer->Render(hBackBufferDC);
-
-	if (gameInstance) gameInstance->Render(hBackBufferDC);
-
-
-	backBuffer->Render(hdc);
+	testImage->Draw(WINSIZE_X / 2, WINSIZE_Y / 2);
 	D2DImage::EndDraw();
 }
 
