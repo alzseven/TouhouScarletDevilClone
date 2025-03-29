@@ -69,16 +69,16 @@ void MainGame::Render()
 	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
     
 
-	// HDC hBackBufferDC = backBuffer->GetMemDC();
-	//
-	// background->Render(hBackBufferDC);
-	// backBuffer->Render(hBackBufferDC);
-	//
-	// if (gameInstance) gameInstance->Render(hBackBufferDC);
-	//
-	//
-	//
-	// backBuffer->Render(hdc);
+	HDC hBackBufferDC = backBuffer->GetMemDC();
+	
+	background->Render(hBackBufferDC);
+	backBuffer->Render(hBackBufferDC);
+	
+	if (gameInstance) gameInstance->Render(hBackBufferDC);
+	
+	
+	
+	backBuffer->Render(hdc);
 
 	testImage->Draw(WINSIZE_X / 2, WINSIZE_Y / 2);
 	D2DImage::EndDraw();
