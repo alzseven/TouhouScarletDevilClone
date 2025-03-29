@@ -3,11 +3,12 @@
 
 class Image;
 class BHPlayer;
-
+class BHEnemy;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
     BHPlayer* player;
+    BHEnemy* enemy;
     Image* bgImage;
 public:
     void Init();

@@ -13,14 +13,17 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="2D Framwork">
-      <UniqueIdentifier>{0024ea15-29ee-4296-8d1b-c820fc3a4d15}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2D Framwork\Core">
-      <UniqueIdentifier>{18185ca6-fd98-4000-865b-a43a5c34323a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="TouhouScarletDevilCloneGame">
       <UniqueIdentifier>{7fb68a4d-4ab7-44e9-8baf-dd8c86fad9f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Bullet Hell Framwork">
+      <UniqueIdentifier>{0024ea15-29ee-4296-8d1b-c820fc3a4d15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Bullet Hell Framwork\Core">
+      <UniqueIdentifier>{18185ca6-fd98-4000-865b-a43a5c34323a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Bullet Hell Framwork\BHGameObject">
+      <UniqueIdentifier>{161951ab-9bb3-4f22-a718-25e806cd4289}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -34,31 +37,31 @@
       <Filter>TouhouScarletDevilCloneGame</Filter>
     </ClCompile>
     <ClCompile Include="KeyManager.cpp">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClCompile>
     <ClCompile Include="IBulletFactory.cpp">
-      <Filter>2D Framwork</Filter>
+      <Filter>2D Bullet Hell Framwork</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
-      <Filter>2D Framwork</Filter>
-    </ClCompile>
-    <ClCompile Include="BHPlayer.cpp">
-      <Filter>2D Framwork</Filter>
-    </ClCompile>
-    <ClCompile Include="BHObject.cpp">
-      <Filter>2D Framwork</Filter>
-    </ClCompile>
-    <ClCompile Include="BHEnemy.cpp">
-      <Filter>2D Framwork</Filter>
-    </ClCompile>
-    <ClCompile Include="BHBullet.cpp">
-      <Filter>2D Framwork</Filter>
+      <Filter>2D Bullet Hell Framwork</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BHBullet.cpp">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BHEnemy.cpp">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BHObject.cpp">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BHPlayer.cpp">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -72,34 +75,34 @@
       <Filter>TouhouScarletDevilCloneGame</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
     <ClInclude Include="KeyManager.h">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
     <ClInclude Include="Singleton.h">
-      <Filter>2D Framwork\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="BHBullet.h">
-      <Filter>2D Framwork</Filter>
-    </ClInclude>
-    <ClInclude Include="BHEnemy.h">
-      <Filter>2D Framwork</Filter>
-    </ClInclude>
-    <ClInclude Include="BHObject.h">
-      <Filter>2D Framwork</Filter>
-    </ClInclude>
-    <ClInclude Include="BHPlayer.h">
-      <Filter>2D Framwork</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
     <ClInclude Include="IBulletFactory.h">
-      <Filter>2D Framwork</Filter>
+      <Filter>2D Bullet Hell Framwork</Filter>
     </ClInclude>
     <ClInclude Include="BulletManager.h">
-      <Filter>2D Framwork</Filter>
+      <Filter>2D Bullet Hell Framwork</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>2D Framwork\Core</Filter>
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BHBullet.h">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BHEnemy.h">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BHObject.h">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="BHPlayer.h">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

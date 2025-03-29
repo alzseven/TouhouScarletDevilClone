@@ -1,5 +1,6 @@
 ﻿#include "TouhouScarletDevilCloneGame.h"
 
+#include "BHEnemy.h"
 #include "BHPlayer.h"
 #include "Image.h"
 
@@ -28,10 +29,25 @@ void TouhouScarletDevilCloneGame::Init()
             TEXT("Failed to create : Image/Marisa_Move_Left.bmp"), TEXT("Warning"), MB_OK);
     }
     player->SetMoveImage(moveImage);
+
+    enemy = new BHEnemy();
+    Image* image2 = new Image();
+    if (FAILED(image2->Init(TEXT("Image/rocket.bmp"), 104, 128, 1, 1, true, RGB(255,0,255))))
+    {
+        MessageBox(g_hWnd,
+            TEXT("Failed to create : Image/rocket.bmp"), TEXT("Warning"), MB_OK);
+    }
+    enemy->Init(image2, 52 , {WINSIZE_X / 2, 100}, 90.f);
 }
 
 void TouhouScarletDevilCloneGame::Release()
 {
+    if (enemy)
+    {
+        delete enemy;
+        enemy = nullptr;
+    }
+    
     if (player) {
         delete player;
         player = nullptr;
@@ -48,10 +64,12 @@ void TouhouScarletDevilCloneGame::Release()
 void TouhouScarletDevilCloneGame::Update()
 {
     player->Update();
+    enemy->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
     bgImage->Render(hdc);
     player->Render(hdc);
+    enemy->Render(hdc);
 }

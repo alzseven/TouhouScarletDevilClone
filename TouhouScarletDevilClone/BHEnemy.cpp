@@ -1,4 +1,5 @@
 #include "BHEnemy.h"
+#include "Image.h"
 
 void BHEnemy::Init(Image* image, float hit, FPOINT position, float radianAngle)
 {
@@ -12,7 +13,11 @@ void BHEnemy::Move(FPOINT moveDirection)
 
 void BHEnemy::Render(HDC hdc)
 {
-    BHObject::Render(hdc);
+    if (image)
+    {
+        //TODO : index how, size how
+        image->FrameRender(hdc, position.x, position.y, 52, 64, 0, true);
+    }
 }
 
 void BHEnemy::Update()
