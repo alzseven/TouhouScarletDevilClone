@@ -83,14 +83,19 @@ void BHPlayer::Render(HDC hdc)
 void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift)
 {
     if (moveDirection.x == 0 && moveDirection.y == 0) return;
-    //
+
     float angle = atan2(moveDirection.x , moveDirection.y);
     
     //TODO: SetSpeed;
-    position->x += sin(angle) * (isPressingShift ? 0.1f : 0.2f);
-    position->y += cos(angle) * (isPressingShift ? 0.1f : 0.2f);
-
+    Move(angle,(isPressingShift ? 0.1f : 0.2f));
 }
+
+void BHPlayer::Move(float angle, float speed)
+{
+    position->x += sin(angle) * speed;
+    position->y += cos(angle) * speed;
+}
+
 
 //TOOD: get deltaTime from param
 void BHPlayer::Update()

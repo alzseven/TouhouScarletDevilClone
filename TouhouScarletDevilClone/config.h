@@ -39,3 +39,43 @@ extern HINSTANCE g_hInstance;
 // 	float Hit;
 // 	Image* Texture;
 // };
+
+
+struct EnemyPatternInfo
+{
+	float startTime;
+	float angle;
+	float angleRate;
+	float movementSpeed;
+	float movementSpeedRate;
+};
+
+// class Task
+// {
+// private:
+// 	bool valid = false;
+// 	// float angle = 0.0f;
+// 	// float speed = GAME_SPEED;
+// 	int tick = 0;
+// 	int currentTick = 0;
+// 	int colors = 0;
+// 	float size = 10;
+//
+// 	float accuracy = 1;
+// 	bool targetValid = false;
+// 	FP* target;
+//
+// public:
+// 	Task();
+// 	~Task();
+// 	//¿œπ›≈∫
+// 	void pushTask(float angle, float speed, int tick, int size, int colors);
+// 	//¿Øµµ≈∫
+// 	void pushTask(float angle, float speed, int tick, int color, int size, FP* target, int accuracy);
+// 	void Update(FP& pos, int& taskIdx);
+// 	FP calcNextMove();
+// 	void ReleaseTask(int& counter);
+//
+// 	float getSize();
+// 	int getColor();
+// };

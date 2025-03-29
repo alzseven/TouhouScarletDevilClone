@@ -63,6 +63,9 @@
     <ClCompile Include="BHPlayer.cpp">
       <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -103,6 +106,15 @@
     </ClInclude>
     <ClInclude Include="BHPlayer.h">
       <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CommonFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ICircleCollideable.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

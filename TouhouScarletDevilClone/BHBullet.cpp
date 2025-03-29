@@ -39,15 +39,10 @@ void BHBullet::Render(HDC hdc)
 
 void BHBullet::Update()
 {
-	//rad angle
-	float rad = radianAngle;
+	Move(radianAngle, movementSpeed);
 	
-	// update position with using angle and movement speed
-	position->x += movementSpeed * cosf(rad);
-	position->y += movementSpeed * sinf(rad);
-
 	// add angularaccel to radAngle
-	radianAngle += DEG_TO_RAD(AngleRate);
+	radianAngle += AngleRate;
 	
 	// add accel to movementSpeed;
 	movementSpeed += SpeedRate;
@@ -58,5 +53,14 @@ void BHBullet::Update()
 void BHBullet::OnHit(ICircleCollideable* hitObject)
 {
 	
+}
+
+void BHBullet::Move(float angle, float speed)
+{
+	// update position with using angle and movement speed
+	position->x += speed * cosf(angle);
+	position->y += speed * sinf(angle);
+
+
 }
 

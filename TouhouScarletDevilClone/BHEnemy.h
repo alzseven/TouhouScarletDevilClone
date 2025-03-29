@@ -1,5 +1,6 @@
 #pragma once
 #include "BHObject.h"
+// class IPatternInfo;
 class BHEnemy : public BHObject
 {
 private:
@@ -10,7 +11,9 @@ private:
     int tempLevel;
     Image* moveImage;
     FPOINT moveDir;
-    
+
+    // IPatternInfo* patterns;
+    // IPatternInfo* currentPattern;
 public:
     // »ý¼ºÀÚ
     BHEnemy() = default;
@@ -20,7 +23,7 @@ public:
     
     void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
 
-    virtual void Move(FPOINT moveDirection);
+    virtual void Move(float angle, float speed);
     
     void Render(HDC hdc) override;
 

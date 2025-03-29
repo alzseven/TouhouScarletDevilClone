@@ -30,6 +30,9 @@ public:
 	//TODO:
 	virtual void Move(FPOINT moveDirection, bool isPressingShift);
 
+	void Move(float angle, float speed) override;
+	
+
 	// virtual void Update();
 
 	// void RenderSub(HDC hdc, Image* image, float size, float fade);

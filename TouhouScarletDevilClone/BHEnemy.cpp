@@ -3,14 +3,19 @@
 #include "BHBullet.h"
 #include "CommonFunction.h"
 #include "Image.h"
+// #include "IPatternInfo.h"
 
 void BHEnemy::Init(Image* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
+
+    // patterns = new IPatternInfo[5];
+    // currentPattern = &patterns[0];
+    // currentPattern->OnEnter();
 }
 
 //TODO: Refactor as moveinfo
-void BHEnemy::Move(FPOINT moveDirection)
+void BHEnemy::Move(float angle, float speed)
 {
     if (isAlive == false) return;
 }
@@ -29,6 +34,8 @@ void BHEnemy::Render(HDC hdc)
 void BHEnemy::Update()
 {
     if (isAlive == false) return;
+    // currentPattern->Update();
+    //TODO: how do we change patterns?
 }
 
 void BHEnemy::Shoot()
@@ -39,6 +46,7 @@ void BHEnemy::Shoot()
 void BHEnemy::OnHit(ICircleCollideable* hitObject)
 {
     // GetDamaged();
+    //TODO: Determine with other way...
     BHBullet* bHBullet = dynamic_cast<BHBullet*>(hitObject);
     if (bHBullet)
     {
@@ -62,5 +70,6 @@ void BHEnemy::Release()
 
 void BHEnemy::GetDamaged()
 {
+    //TODO: Do something(drop score/power ups...)
     isAlive = false;
 }

@@ -84,6 +84,10 @@ void BHObject::Render(HDC hdc)
 	}*/
 }
 
+void BHObject::Move(float angle, float speed)
+{
+}
+
 // bool BHObject::IsHit(BHObject* bhObject)
 // {
 // 	//TODO: commonfunction.h GetDistance, compare with (r1+r2) * (r1+r2)

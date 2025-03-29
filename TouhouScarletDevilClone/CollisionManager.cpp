@@ -28,24 +28,6 @@ void CollisionManager::Update()
             }
         }
     }
-
-    // for (std::vector<ICircleCollideable*>::iterator a = collisions.begin(); a != collisions.end() - 1; ++a)
-    // {
-    //     for (std::vector<ICircleCollideable*>::iterator b = a + 1; b != collisions.end(); ++b)
-    //     {
-    //         if (IsCircleCollided((*a)->GetPos(),(*b)->GetPos() ,(*a)->GetHit(),(*b)->GetHit()))
-    //         {
-    //             FPOINT aPos = (*a)->GetPos();
-    //             FPOINT bPos = (*b)->GetPos();
-    //             float aHit = (*a)->GetHit();
-    //             float bHit = (*b)->GetHit();
-    //             string aType = (*a)->GetType();
-    //             string bType = (*b)->GetType();
-    //
-    //             (*a)->OnHit(*b);
-    //         }
-    //     }
-    // }
 }
 
 void CollisionManager::AddCollisionObject(ICircleCollideable* collisionObject)

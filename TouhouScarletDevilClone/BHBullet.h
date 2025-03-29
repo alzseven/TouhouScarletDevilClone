@@ -26,5 +26,6 @@ public:
 	
 	inline float GetHit() override { return hit; }
 
+	void Move(float angle, float speed) override;
 };
 

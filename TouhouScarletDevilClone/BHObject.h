@@ -30,6 +30,7 @@ public:
 
 	virtual void Render(HDC hdc);
 
+	virtual void Move(float angle, float speed);
 
 	
 	// bool IsHit(BHObject* BHObject);
