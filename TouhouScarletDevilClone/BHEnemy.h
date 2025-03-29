@@ -1,5 +1,7 @@
 #pragma once
 #include "BHObject.h"
+class BHObjectController;
+
 // class IPatternInfo;
 class BHEnemy : public BHObject
 {
@@ -12,6 +14,8 @@ private:
     Image* moveImage;
     FPOINT moveDir;
 
+    BHObjectController* controller;
+    
     // IPatternInfo* patterns;
     // IPatternInfo* currentPattern;
 public:

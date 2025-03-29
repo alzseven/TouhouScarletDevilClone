@@ -2,7 +2,6 @@
 #include "MainGame.h"
 #include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
-#include "D2DImage.h"
 
 void MainGame::Init()
 {
@@ -23,7 +22,6 @@ void MainGame::Init()
 
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
-	D2DImage::InitD2D(g_hWnd);
 }
 
 void MainGame::Release()
@@ -61,10 +59,6 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	D2DImage::BeginDraw();
-	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
-    
-
 	HDC hBackBufferDC = backBuffer->GetMemDC();
 
 	background->Render(hBackBufferDC);
@@ -74,7 +68,6 @@ void MainGame::Render()
 
 
 	backBuffer->Render(hdc);
-	D2DImage::EndDraw();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

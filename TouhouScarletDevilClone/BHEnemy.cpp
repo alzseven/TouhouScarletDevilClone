@@ -1,7 +1,9 @@
 #include "BHEnemy.h"
 
 #include "BHBullet.h"
+#include "BHObjectController.h"
 #include "CommonFunction.h"
+#include "IBHObjectControllerState.h"
 #include "Image.h"
 // #include "IPatternInfo.h"
 
@@ -9,6 +11,12 @@ void BHEnemy::Init(Image* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
 
+    BHObjectInitialMove* moveState = new BHObjectInitialMove();
+    moveState->Init(this, 10.f);
+    moveState->Launch(DEG_TO_RAD(radianAngle), DEG_TO_RAD(0.f), 1.f, 0.f);
+    
+    controller->SetStates(moveState);
+    controller->Init();
     // patterns = new IPatternInfo[5];
     // currentPattern = &patterns[0];
     // currentPattern->OnEnter();
@@ -34,7 +42,7 @@ void BHEnemy::Render(HDC hdc)
 void BHEnemy::Update()
 {
     if (isAlive == false) return;
-    // currentPattern->Update();
+    controller->Update();
     //TODO: how do we change patterns?
 }
 
