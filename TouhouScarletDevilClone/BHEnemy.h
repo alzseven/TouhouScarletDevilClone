@@ -30,7 +30,7 @@ public:
     
     void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
 
-    virtual void Move(float angle, float speed);
+    virtual void Move(float angle, float speed, float dt);
     
     void Render(HDC hdc) override;
 

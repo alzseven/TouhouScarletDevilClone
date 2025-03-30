@@ -29,9 +29,11 @@ void BHEnemy::Init(Image* image, float hit, FPOINT position, float radianAngle)
 }
 
 //TODO: Refactor as moveinfo
-void BHEnemy::Move(float angle, float speed)
+void BHEnemy::Move(float angle, float speed, float dt)
 {
     if (isAlive == false) return;
+    position.x += sin(angle) * speed * dt;
+    position.y += cos(angle) * speed * dt;
 }
 
 void BHEnemy::Render(HDC hdc)
@@ -65,13 +67,16 @@ void BHEnemy::Update(float dt)
     if (isAlive == false) return;
     static float elapsed;
     elapsed += dt;
+    Move(radianAngle, 20.f, dt);
     if (bulletManager)
     {
         bulletManager->Update(dt);
         if (elapsed >= 0.5f)
         {
+            
             Shoot();
             elapsed -= 0.5f;
+            radianAngle += DEG_TO_RAD(5.f);
         }
     }
     // controller->Update();
