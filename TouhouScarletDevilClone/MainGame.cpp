@@ -50,9 +50,9 @@ void MainGame::Release()
 	ReleaseDC(g_hWnd, hdc);
 }
 
-void MainGame::Update()
+void MainGame::Update(float dt)
 {
-	gameInstance->Update();
+	gameInstance->Update(dt);
 	
 	InvalidateRect(g_hWnd, NULL, false);
 }

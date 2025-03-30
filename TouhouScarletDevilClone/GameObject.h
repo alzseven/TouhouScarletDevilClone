@@ -4,12 +4,12 @@
 class GameObject
 {
 public:
-	void Init();
-	void Release();
-	void Update();
-	void Render(HDC hdc);
+	virtual void Init() = 0;
+	virtual void Release() = 0;
+	virtual void Update(float dt) = 0;
+	virtual void Render(HDC hdc) = 0;
 
-	GameObject();
-	~GameObject();
+	GameObject() = default;
+	virtual ~GameObject() = default;
 };
 

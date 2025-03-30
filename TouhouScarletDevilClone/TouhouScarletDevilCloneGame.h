@@ -1,19 +1,14 @@
 ﻿#pragma once
 #include "GameObject.h"
 
-class Image;
-class BHPlayer;
-class BHEnemy;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
-    BHPlayer* player;
-    BHEnemy* enemy;
-    Image* bgImage;
+    // Add game contents
 public:
     void Init();
     void Release();
-    void Update();
+    void Update(float dt);
     void Render(HDC hdc);
 
     TouhouScarletDevilCloneGame() = default;

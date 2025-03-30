@@ -1,96 +1,22 @@
 #include "BHObject.h"
 
-#include "CollisionManager.h"
+#include "CircleCollisionManager.h"
 #include "Image.h"
 
-// void BHObject::Init(SHAPE* shape, FPOINT position, float angle)
-// {
-// 	// this->Shape = shape;
-// 	this->position = position;
-// 	this->radianAngle = angle;
-// 	// scale = 1;
-// 	// imgAlpha = 1;
-// 	isAlive = true;
-// 	
-// }
 void BHObject::Init(Image* image, float hit,  FPOINT position, float radianAngle)
 {
 	this->image = image;
-	this->position = new FPOINT(position);
-	// this->position = position;
+	this->position = position;
 	this->radianAngle = radianAngle;
 	this->hit = hit;
 	isAlive = true;
-	CollisionManager::GetInstance()->AddCollisionObject(this);
+	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 }
-
-
-
-// void BHObject::RenderSub(HDC hdc, Image* image, float size, float fade) {
-// 	if (image) {
-// 		image->FrameRender(hdc, position.x, position.y, 27, 36, 1);
-// 	}
-//
-// }
-
-//void BHObject::RenderSub(CTexture* texture, float size, float fade)
-//{
-//	if (texture) {
-//		float 
-//			sw=Graphics->GetHeight()*MaxX/MaxY*0.5f,
-//			sh=Graphics->GetHeight()/MaxY*0.5f,
-//			c=cosf(D3DX_PI*2*Angle),
-//			s=sinf(D3DX_PI*2*Angle),
-//			dx=size*Scale*sw,
-//			dx0=c*dx,
-//			dx1=s*dx,
-//			dy=size*Scale*sh,
-//			dy0=-s*dy,
-//			dy1=c*dy,
-//			x=(X+1)*sw,
-//			y=(Y+1)*sh;
-//		D3DCOLOR color=D3DXCOLOR(1, 1, 1, Alpha*fade);
-//		texture->Draw(
-//			x-dx0-dy0, y-dx1-dy1, color, 0, 0,
-//			x+dx0-dy0, y+dx1-dy1, color, 1, 0,
-//			x-dx0+dy0, y-dx1+dy1, color, 0, 1,
-//			x+dx0+dy0, y+dx1+dy1, color, 1, 1
-//		);
-//	}
-//}
-
 
 void BHObject::Render(HDC hdc)
 {
 	if (image)
 	{
-		//TODO : index how, size how
-		image->FrameRender(hdc, position->x, position->y, 16, 32, 0, true);
+		image->FrameRender(hdc, position.x, position.y, 16, 32, 0, true);
 	}
-	
-	// RenderSub(hdc, Shape->Texture, Shape->Size, 1.f);
-	/*int i= ShowColor ?1:0;
-	if (ShowHit) {
-		RenderSub(Shape->Texture[i], Shape->Size, 0.25f);
-		RenderSub(ShapeList[ShHit].Texture[i], Shape->Hit, 1);
-	} else {
-		RenderSub(Shape->Texture[i], Shape->Size, 1);
-		if (ShowColor) {
-			LPDIRECT3DDEVICE9 device=Graphics->GetDevice();
-			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_ONE);
-			RenderSub(Shape->Texture[i], Shape->Size*1.1f, 0.3f);
-			device->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA);
-		}
-	}*/
 }
-
-void BHObject::Move(float angle, float speed)
-{
-}
-
-// bool BHObject::IsHit(BHObject* bhObject)
-// {
-// 	//TODO: commonfunction.h GetDistance, compare with (r1+r2) * (r1+r2)
-// 	float dx = bhObject->position.x - position.x, dy = bhObject->position.y - position.y, hit = bhObject->Shape->Hit + Shape->Hit;
-// 	return dx * dx - +dy * dy < hit * hit;
-// }

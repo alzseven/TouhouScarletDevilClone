@@ -9,19 +9,17 @@
 #include <bitset>
 #include <cmath>
 #include <vector>
+#include <array>
 
 using namespace std;
 
 #include "KeyManager.h"
-//#include "ImageManager.h"
-//#include "TimerManager.h"
 
 #define PI			3.1415926535
 #define WINSIZE_X	600
 #define WINSIZE_Y	800
 #define DEG_TO_RAD(degree) ((3.1415926535 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.1415926535) * radian)
-#define TEMP_DELTA_TIME 0.001666667f
 
 typedef struct tagFPOINT
 {
@@ -32,50 +30,22 @@ typedef struct tagFPOINT
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 
-// class Image;
-// struct SHAPE {
-// 	const wchar_t* TextureName;
-// 	float Size;
-// 	float Hit;
-// 	Image* Texture;
-// };
 
-
-struct EnemyPatternInfo
-{
-	float startTime;
-	float angle;
-	float angleRate;
-	float movementSpeed;
-	float movementSpeedRate;
+enum CollisionLayerMask {
+	LAYER_PLAYER        = 0x0001,
+	LAYER_ENEMY         = 0x0002,
+	LAYER_PLAYER_BULLET = 0x0004,
+	LAYER_ENEMY_BULLET  = 0x0008,
+	LAYER_ITEM          = 0x0010
+};
+typedef uint16_t CollisionLayer;
+struct CollisionMatrixEntry {
+	CollisionLayer layer1;
+	CollisionLayer layer2;
 };
 
-// class Task
-// {
-// private:
-// 	bool valid = false;
-// 	// float angle = 0.0f;
-// 	// float speed = GAME_SPEED;
-// 	int tick = 0;
-// 	int currentTick = 0;
-// 	int colors = 0;
-// 	float size = 10;
-//
-// 	float accuracy = 1;
-// 	bool targetValid = false;
-// 	FP* target;
-//
-// public:
-// 	Task();
-// 	~Task();
-// 	//¿œπ›≈∫
-// 	void pushTask(float angle, float speed, int tick, int size, int colors);
-// 	//¿Øµµ≈∫
-// 	void pushTask(float angle, float speed, int tick, int color, int size, FP* target, int accuracy);
-// 	void Update(FP& pos, int& taskIdx);
-// 	FP calcNextMove();
-// 	void ReleaseTask(int& counter);
-//
-// 	float getSize();
-// 	int getColor();
-// };
+CollisionMatrixEntry collisionMatrix[] = {
+	{LAYER_PLAYER, LAYER_ENEMY_BULLET},
+	{LAYER_ENEMY, LAYER_PLAYER_BULLET},
+	{LAYER_PLAYER, LAYER_ITEM},
+};

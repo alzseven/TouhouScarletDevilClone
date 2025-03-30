@@ -14,7 +14,7 @@ private:
 public:
 	void Init();
 	void Release();
-	void Update();
+	void Update(float dt);
 	void Render();
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
