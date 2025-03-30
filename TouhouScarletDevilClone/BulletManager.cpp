@@ -21,6 +21,7 @@ void BulletManager::Release()
     vecBullets.clear();
     if (bulletShooter)
     {
+        bulletShooter->Release();
         delete bulletShooter;
     }
 }

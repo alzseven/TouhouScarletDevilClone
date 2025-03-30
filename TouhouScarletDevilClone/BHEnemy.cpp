@@ -98,11 +98,11 @@ void BHEnemy::OnHit(ICollideable* hitObject)
 
 void BHEnemy::Release()
 {
-    if (image)
-    {
-        image->Release();
-        delete image;
-    }
+    // if (image)
+    // {
+    //     image->Release();
+    //     delete image;
+    // }
     // if (position)
     // {
     //     delete position;

@@ -26,8 +26,9 @@ void CircleCollisionManager::Update()
             ICircleCollideable* objA = collisions[i];
             ICircleCollideable* objB = collisions[j];
             
-            if (ShouldCollide(objA->GetLayer(), objB->GetLayer()) && IsCircleCollided(objA->GetPos(), objB->GetPos(),
-                objA->GetHitRadius(), objB->GetHitRadius()))
+            if (ShouldCollide(objA->GetLayer(), objB->GetLayer()) &&
+                IsCircleCollided(objA->GetPos(), objB->GetPos(),
+                    objA->GetHitRadius(), objB->GetHitRadius()))
             {
                 objA->OnHit(objB);
                 objB->OnHit(objA);
@@ -44,10 +45,10 @@ void CircleCollisionManager::AddCollisionObject(ICircleCollideable* collisionObj
 bool CircleCollisionManager::ShouldCollide(CollisionLayer layerA, CollisionLayer layerB)
 {
     //TODO:
-    for (int i=0; i<3; i++)
+    for (auto& i : collisionMatrix)
     {
-        if ((layerA & collisionMatrix[i].layer1 && layerB & collisionMatrix[i].layer2) ||
-            (layerA & collisionMatrix[i].layer2 && layerB & collisionMatrix[i].layer1))
+        if ((layerA & i.layer1 && layerB & i.layer2) ||
+            (layerA & i.layer2 && layerB & i.layer1))
         {
             return true;
         }

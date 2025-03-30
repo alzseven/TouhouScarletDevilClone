@@ -11,6 +11,7 @@ private:
 public:
     void Init();
     void AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, float radianAngle);
+    void Release();
     BulletShooter() = default;
     virtual ~BulletShooter() = default;
 private:

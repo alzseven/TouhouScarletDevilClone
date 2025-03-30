@@ -16,7 +16,7 @@ void BHBullet::Init(Image* image, float hit, FPOINT position, float radianAngle,
 	this->SpeedRate = speedRate;
 	this->movementSpeed = movementSpeed;
 	//TODO:
-	if (angleRate < 0)
+	if (angleRate <= 0)
 	{
 		SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
 	}
@@ -29,15 +29,16 @@ void BHBullet::Init(Image* image, float hit, FPOINT position, float radianAngle,
 
 void BHBullet::Release()
 {
-	if (image)
-	{
-		image->Release();
-		delete image;
-	}
+	// if (image)
+	// {
+	// 	image->Release();
+	// 	delete image;
+	// }
 }
 
 void BHBullet::Render(HDC hdc)
 {
+	if (isAlive == false) return;
 	BHObject::Render(hdc);
 	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
 	// 기존 펜 받아서
@@ -54,6 +55,7 @@ void BHBullet::Render(HDC hdc)
 
 void BHBullet::Update(float dt)
 {
+	if (isAlive == false) return;
 	Move(radianAngle, movementSpeed, dt);
 	
 	// add angularaccel to radAngle
@@ -67,13 +69,26 @@ void BHBullet::Update(float dt)
 
 void BHBullet::OnHit(ICollideable* hitObject)
 {
+	
+	isAlive = false;
+	Reset();
 	pool->Release(this);
 }
 
 void BHBullet::Move(float angle, float speed, float dt)
 {
+	if (isAlive == false) return;
 	// update position with using angle and movement speed
 	position.x += speed * cosf(angle) * dt;
 	position.y += speed * sinf(angle) * dt;
+}
+
+void BHBullet::Reset()
+{
+	position = {WINSIZE_X * 2, WINSIZE_Y * 2};
+	radianAngle = 0;
+	AngleRate = 0;
+	SpeedRate = 0;
+	movementSpeed = 0;
 }
 

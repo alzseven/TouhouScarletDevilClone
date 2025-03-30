@@ -19,6 +19,7 @@ public:
 
     void Release(T* obj);
 
+    void Clear();
     // auto GetActiveObjects() {
     //     return pool | std::views::filter([](const T& o){ return o.isActive; });
     // }
@@ -57,4 +58,15 @@ void ObjectPool<T>::Release(T* obj)
     // obj->Reset();
     // obj->isActive = false;
     freeList.push(obj - &pool[0]);
+}
+
+template <typename T>
+void ObjectPool<T>::Clear()
+{
+    pool.clear();
+    while(!freeList.empty())
+    {
+        freeList.pop();
+    }
+    
 }

@@ -230,16 +230,16 @@ void BHPlayer::Release()
         delete bulletManager;
     }
     
-    if (image)
-    {
-        image->Release();
-        delete image;
-    }
-    if (moveImage)
-    {
-        moveImage->Release();
-        delete moveImage;
-    }
+    // if (image)
+    // {
+    //     image->Release();
+    //     delete image;
+    // }
+    // if (moveImage)
+    // {
+    //     moveImage->Release();
+    //     delete moveImage;
+    // }
     // if (position)
     // {
     //     delete position;

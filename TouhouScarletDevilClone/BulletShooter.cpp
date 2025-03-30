@@ -1,6 +1,7 @@
 ﻿#include "BulletShooter.h"
 #include "BHBullet.h"
 #include "Image.h"
+#include "ImageManager.h"
 
 void BulletShooter::Init()
 {
@@ -20,14 +21,23 @@ void BulletShooter::AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, fl
     // }
 }
 
+void BulletShooter::Release()
+{
+    if(bulletPool != nullptr)
+    {
+        bulletPool->Clear();
+        delete bulletPool;
+    }
+}
+
 BHBullet* BulletShooter::CreateBullet(FPOINT pos, float radianAngle)
 {
-    Image* image = new Image();
-    if (FAILED(image->Init(TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255))))
-    {
-        MessageBox(g_hWnd,
-            TEXT("Image/Marisa_Bullet.bmp 생성 실패"), TEXT("경고"), MB_OK);
-    }
+    Image* image = ImageManager::GetInstance()->AddImage("Marisa_Bullet",TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255));
+    // if (FAILED(image->Init(TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255))))
+    // {
+    //     MessageBox(g_hWnd,
+    //         TEXT("Image/Marisa_Bullet.bmp 생성 실패"), TEXT("경고"), MB_OK);
+    // }
     BHBullet* bullet = bulletPool->Allocate();
     bullet->Init(image, 16.f, {pos.x, pos.y}, radianAngle, 0 , 0 ,40.f);
     bullet->SetPool(bulletPool);

@@ -31,6 +31,7 @@ public:
 
 	void Move(float angle, float speed, float dt); // override;
 
+	void Reset();
 	// inline FPOINT* GetPos() override { return &position; }
 };
 
