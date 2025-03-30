@@ -9,7 +9,7 @@ protected:
 	bool isAlive;
 	FPOINT position;
 	float radianAngle;
-	float hit;
+
 	Image* image;
 public:
 	BHObject() = default;
@@ -17,8 +17,10 @@ public:
 
 	virtual void Init(Image* image, float hit, FPOINT position, float radianAngle);
 	virtual void Release() = 0;
-	virtual void Update() = 0;
+	virtual void Update(float dt) = 0;
 	virtual void Render(HDC hdc);
+
+	void OnHit(ICollideable* hitObject) override = 0;
 	
 	inline FPOINT* GetPos() override { return &position; }
 };

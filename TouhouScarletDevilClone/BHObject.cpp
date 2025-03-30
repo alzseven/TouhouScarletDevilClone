@@ -8,7 +8,7 @@ void BHObject::Init(Image* image, float hit,  FPOINT position, float radianAngle
 	this->image = image;
 	this->position = position;
 	this->radianAngle = radianAngle;
-	this->hit = hit;
+	this->hitRadius = hit;
 	isAlive = true;
 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 }
@@ -20,3 +20,4 @@ void BHObject::Render(HDC hdc)
 		image->FrameRender(hdc, position.x, position.y, 16, 32, 0, true);
 	}
 }
+

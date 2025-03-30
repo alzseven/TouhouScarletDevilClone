@@ -4,9 +4,11 @@
 
 class ICircleCollideable : public ICollideable
 {
+protected:
+    float hitRadius;
 public:
     ICircleCollideable() = default;
     ~ICircleCollideable() override = default;
     
-    virtual float GetHitRadius() = 0;
+    inline float GetHitRadius() const {return hitRadius;}
 };

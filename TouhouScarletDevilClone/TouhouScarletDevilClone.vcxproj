@@ -19,7 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BHBullet.h" />
+    <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
+    <ClInclude Include="BHPlayer.h" />
+    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="BulletShooter.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
@@ -35,7 +40,12 @@
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BHBullet.cpp" />
+    <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
+    <ClCompile Include="BHPlayer.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="KeyManager.cpp" />
