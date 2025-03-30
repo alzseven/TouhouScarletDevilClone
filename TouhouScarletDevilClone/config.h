@@ -44,8 +44,4 @@ struct CollisionMatrixEntry {
 	CollisionLayer layer2;
 };
 
-CollisionMatrixEntry collisionMatrix[] = {
-	{LAYER_PLAYER, LAYER_ENEMY_BULLET},
-	{LAYER_ENEMY, LAYER_PLAYER_BULLET},
-	{LAYER_PLAYER, LAYER_ITEM},
-};
+

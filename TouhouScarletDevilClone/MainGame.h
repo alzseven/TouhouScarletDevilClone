@@ -3,7 +3,7 @@
 
 class TouhouScarletDevilCloneGame;
 class Image;
-class MainGame : public GameObject
+class MainGame
 {
 private:
 	HDC hdc;
