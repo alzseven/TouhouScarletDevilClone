@@ -17,6 +17,8 @@ using namespace std;
 #include "KeyManager.h"
 #include "ImageManager.h"
 #include "TimerManager.h"
+#include "ShapeManager.h"
+
 
 #define PI			3.1415926535
 #define WINSIZE_X	600

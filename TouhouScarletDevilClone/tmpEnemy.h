@@ -1,7 +1,7 @@
 #pragma once
 #include "config.h"
 
-class D2DImage;
+class Shape;
 class Missile;
 class MissileFactory;
 
@@ -9,7 +9,7 @@ class tmpEnemy
 {
 private:
 	FPOINT pos;
-	D2DImage* image = nullptr;
+	Shape* shape = nullptr;
 	MissileFactory* m_factory = nullptr;
 
 	float e_angle = 0;

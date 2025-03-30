@@ -1,11 +1,13 @@
 #include "tmpEnemy.h"
 #include "Missile.h"
+#include "Shape.h"
 #include "D2DImage.h"
 #include "MissileFactory.h"
 
 tmpEnemy::tmpEnemy()
 {
-	image = ImageManager::GetInstance()->AddImage("enemy", TEXT("Image/enemy1.png"), 4, 1);
+	D2DImage* image = ImageManager::GetInstance()->AddImage("enemy", TEXT("Image/enemy1.png"), 4, 1);
+	shape = ShapeManager::GetInstance()->AddShapeCharacter("enemy", image, 3.0f);
 	m_factory = new MissileFactory();
 	m_factory->Init(500);
 }
@@ -17,9 +19,9 @@ void tmpEnemy::Init(FPOINT pos)
 
 	m_size = 5.0f;
 	m_angle = 90.0f;
-	m_angleRate = -0.5f;
-	m_speed = 2.0f;
-	m_speedRate = 0.01f;
+	m_angleRate = 1.1f;
+	m_speed = 5.0f;
+	m_speedRate = 0.0f;
 
 	d_timer = 0;
 	delay = 0.01f;
@@ -32,16 +34,25 @@ void tmpEnemy::Update()
 	if (d_timer >= delay)
 	{
 		d_timer -= delay;
-		m_angle += 95.0f;
-		m_factory->active()->Init(pos, m_size,
-			m_angle, m_angleRate,
-			m_speed, m_speedRate);
+		m_angle += 1.0f;
+		for (int i = 0; i < 4; i++)
+		{
+			Missile* m = m_factory->active();
+			if (m)
+			{
+				m->Init(pos, m_size,
+					m_angle + i * 90, m_angleRate,
+					m_speed, m_speedRate);
+			}
+			
+		}
+		
 	}
 	if (i_timer >= 0.2f)
 	{
 		i_timer -= 0.2f;
 		idx++;
-		if (idx >= image->GetMaxFrame())
+		if (idx >= shape->image->GetMaxFrame())
 		{
 			idx = 0;
 		}
@@ -51,7 +62,7 @@ void tmpEnemy::Update()
 
 void tmpEnemy::Render()
 {
-	image->Middle_RenderFrame(pos.x, pos.y, idx);
+	shape->image->Middle_RenderFrame(pos.x, pos.y, idx);
 	m_factory->Render();
 }
 

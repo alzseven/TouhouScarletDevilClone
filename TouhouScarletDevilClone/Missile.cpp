@@ -1,9 +1,10 @@
 #include "Missile.h"
+#include "Shape.h"
 #include "D2DImage.h"
 
 Missile::Missile()
 {
-	image = ImageManager::GetInstance()->AddImage("Missile", TEXT("Image/Marisa_Bullet.bmp"));
+	shape = ShapeManager::GetInstance()->AddShapeCircle("Missile", TEXT("Image/Marisa_Bullet.bmp"), 3.0f);
 }
 
 void Missile::Init()
@@ -34,7 +35,7 @@ void Missile::Update()
 
 void Missile::Render()
 {
-	image->Middle_Render(pos.x, pos.y, imageAngle);
+	shape->image->Middle_Render(pos.x, pos.y, imageAngle);
 }
 
 void Missile::Release()

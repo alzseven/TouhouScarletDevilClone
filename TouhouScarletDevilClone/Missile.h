@@ -1,12 +1,12 @@
 #pragma once
 #include "config.h"
 
-class D2DImage;
+class Shape;
 class Missile
 {
 private:
 	FPOINT		pos = { 0,0 };
-	D2DImage*	image = nullptr;
+	Shape*	shape = nullptr;
 	float size = 0;
 	float imageAngle = 0;
 

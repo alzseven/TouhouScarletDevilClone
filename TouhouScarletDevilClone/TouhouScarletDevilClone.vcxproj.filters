@@ -99,6 +99,12 @@
     <ClCompile Include="MissileFactory.cpp">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -178,6 +184,12 @@
     </ClInclude>
     <ClInclude Include="MissileFactory.h">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeManager.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
