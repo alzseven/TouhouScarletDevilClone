@@ -10,12 +10,13 @@
 #include <cmath>
 #include <vector>
 #include <map>
+#include <list>
+
 using namespace std;
 
 #include "KeyManager.h"
 #include "ImageManager.h"
-//#include "ImageManager.h"
-//#include "TimerManager.h"
+#include "TimerManager.h"
 
 #define PI			3.1415926535
 #define WINSIZE_X	600

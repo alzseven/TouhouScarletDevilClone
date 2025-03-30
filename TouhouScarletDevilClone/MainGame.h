@@ -5,6 +5,7 @@ class TouhouScarletDevilCloneGame;
 class Image;
 
 class D2DImage;
+class tmpEnemy;
 class MainGame : public GameObject
 {
 private:
@@ -13,6 +14,7 @@ private:
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
 	D2DImage* testImage;
+	tmpEnemy* tenemy;
 	int timer = 0;
 	int frame = 0;
 	float angle = 0;

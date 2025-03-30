@@ -145,6 +145,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="MissileFactory.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TimerManager.cpp" />
     <ClCompile Include="tmpEnemy.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
   </ItemGroup>
@@ -169,7 +172,10 @@
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Missile.h" />
+    <ClInclude Include="MissileFactory.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TimerManager.h" />
     <ClInclude Include="tmpEnemy.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
   </ItemGroup>

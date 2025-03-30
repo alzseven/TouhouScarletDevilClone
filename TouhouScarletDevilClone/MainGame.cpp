@@ -3,6 +3,7 @@
 #include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
 #include "D2DImage.h"
+#include "tmpEnemy.h"
 
 void MainGame::Init()
 {
@@ -29,6 +30,8 @@ void MainGame::Init()
 	testImage = ImageManager::GetInstance()->AddImage("enemy1", TEXT("Image/enemy1.png"), 4, 1);
 	testImage->LoadFromFile(TEXT("Image/enemy1.png"),4,1);
 
+	tenemy = new tmpEnemy;
+	tenemy->Init({ 200.0f,100.0f });
 }
 
 void MainGame::Release()
@@ -53,6 +56,12 @@ void MainGame::Release()
 		delete backBuffer;
 		backBuffer = nullptr;
 	}
+	if (tenemy)
+	{
+		tenemy->Release();
+		delete tenemy;
+		tenemy = nullptr;
+	}
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -68,6 +77,7 @@ void MainGame::Update()
 		angle++;
 		timer = 0;
 	}
+	tenemy->Update();
 	if (frame >= 4)frame = 0;
 	if (angle > 360) angle = 0;
 }
@@ -95,8 +105,10 @@ void MainGame::Render()
 			testImage->Middle_RenderFrameScale(j * 18,i * 18,2,2, frame, angle, false, false, 1.0f);
 		}
 	}*/
-	testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
-	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);
+	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
+	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
+
+	tenemy->Render();
 	D2DImage::EndDraw();
 }
 

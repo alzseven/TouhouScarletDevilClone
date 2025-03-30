@@ -57,6 +57,6 @@ public:
     void Release();
     inline int GetMaxFrameX() { return maxFrameX; }
     inline int GetMaxFrameY() { return maxFrameY; }
-
+    inline int GetMaxFrame() { return maxFrameX * maxFrameY; }
     static void ReleaseLast();
 };

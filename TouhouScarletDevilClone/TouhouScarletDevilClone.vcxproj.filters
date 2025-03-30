@@ -25,6 +25,9 @@
     <Filter Include="2D Bullet Hell Framwork\BHGameObject">
       <UniqueIdentifier>{161951ab-9bb3-4f22-a718-25e806cd4289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Bullet Hell Framwork\JiunTest">
+      <UniqueIdentifier>{5694a3a3-0dce-40d8-bda9-1866a8a6bfb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,9 +72,6 @@
     <ClCompile Include="BHObjectController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="D2DImage.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="IBHObjectControllerState.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -81,11 +81,23 @@
     <ClCompile Include="ImageManager.cpp">
       <Filter>헤더 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="TimerManager.cpp">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
     <ClCompile Include="Missile.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
     <ClCompile Include="tmpEnemy.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileFactory.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,9 +152,6 @@
     <ClInclude Include="BHObjectController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="D2DImage.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="IBHObjectControllerState.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -152,11 +161,23 @@
     <ClInclude Include="ImageManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TimerManager.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
     <ClInclude Include="Missile.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
     <ClInclude Include="tmpEnemy.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImage.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileFactory.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
