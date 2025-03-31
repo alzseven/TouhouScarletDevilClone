@@ -8,9 +8,9 @@ class Shape
 public:
 	D2DImage* image = nullptr;
 
-	Shape() {};
+	Shape() = default;
 	Shape(D2DImage* image);
-	virtual ~Shape() {};
+	virtual ~Shape() = default;
 	virtual float getHitWidth() = 0;
 	virtual float getHitHeight() = 0;
 };
