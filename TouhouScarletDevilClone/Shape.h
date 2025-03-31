@@ -5,14 +5,15 @@ class D2DImage;
 
 class Shape
 {
+protected:
+	D2DImage* image;
 public:
-	D2DImage* image = nullptr;
-
 	Shape() = default;
 	Shape(D2DImage* image);
 	virtual ~Shape() = default;
-	virtual float getHitWidth() = 0;
-	virtual float getHitHeight() = 0;
+	virtual float GetHitWidth() = 0;
+	virtual float GetHitHeight() = 0;
+	inline D2DImage* GetImage() const { return image; }
 };
 
 class ShapeRect : public Shape
@@ -23,8 +24,8 @@ public:
 	float scaleX = 1.f, scaleY = 1.f;
 	ShapeRect(D2DImage* image, float scaleX = 1.f, float scaleY = 1.f,
 		float width = 0.f, float height = 0.f);
-	virtual float getHitWidth() override;
-	virtual float getHitHeight() override;
+	inline float GetHitWidth() override { return width; }
+	inline float GetHitHeight() override { return height; }
 };
 
 class ShapeCircle : public Shape
@@ -32,7 +33,7 @@ class ShapeCircle : public Shape
 public:
 	float radius;
 	ShapeCircle(D2DImage* image, float radius = 0.f);
-	virtual float getHitWidth() override;
-	virtual float getHitHeight() override;
+	inline float GetHitWidth() override { return radius * 2; }
+	inline float GetHitHeight() override { return radius * 2; }
 };
 

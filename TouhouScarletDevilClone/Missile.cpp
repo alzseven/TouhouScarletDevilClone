@@ -35,7 +35,7 @@ void Missile::Update()
 
 void Missile::Render()
 {
-	shape->image->Middle_Render(pos.x, pos.y, imageAngle);
+	shape->GetImage()->Middle_Render(pos.x, pos.y, imageAngle);
 }
 
 void Missile::Release()
@@ -44,8 +44,8 @@ void Missile::Release()
 
 bool Missile::IsOutofScreen()
 {
-	float width = shape->image->GetWidth();
-	float height = shape->image->GetHeight();
+	float width = shape->GetImage()->GetWidth();
+	float height = shape->GetImage()->GetHeight();
 
 	float right = pos.x + width / 2;
 	float left = pos.x - width / 2;
