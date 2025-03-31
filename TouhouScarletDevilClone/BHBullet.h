@@ -3,6 +3,7 @@
 #include "config.h"
 #include "ObjectPool.h"
 
+class D2DImage;
 class BHBullet : public BHObject
 {
 protected:
@@ -14,9 +15,9 @@ protected:
 	float movementSpeed;
 	ObjectPool<BHBullet>* pool;
 public:
-	void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
+	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
 
-	void Init(Image* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed);
+	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed);
 	
 	void Release() override;
 	

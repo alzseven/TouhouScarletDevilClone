@@ -27,7 +27,7 @@ public:
 	VEnemy(MissileFactory* missileFactory);
 	virtual ~VEnemy() {};
 	virtual void Init(FPOINT pos);
-	virtual void Update();
+	virtual void Update(float dt);
 	virtual void Render();
 	virtual void Release();
 	bool checkTimer(float& nextTime, float delay);

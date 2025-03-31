@@ -9,21 +9,18 @@ void MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
 
-	backBuffer = new Image();
-	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
-	}
-	background = new Image();
-	if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
-	}
-
-	gameInstance = new TouhouScarletDevilCloneGame();
-	gameInstance->Init();
+	// backBuffer = new Image();
+	// if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
+	// {
+	// 	MessageBox(g_hWnd,
+	// 		TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
+	// }
+	// background = new Image();
+	// if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
+	// {
+	// 	MessageBox(g_hWnd,
+	// 		TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
+	// }
 
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
@@ -32,6 +29,9 @@ void MainGame::Init()
 	enemyFactory->Init(100);
 	VEnemy* vEnemy = enemyFactory->active();
 	vEnemy->Init({ 200,100 });
+
+	gameInstance = new TouhouScarletDevilCloneGame();
+	gameInstance->Init();
 }
 
 void MainGame::Release()
@@ -43,19 +43,19 @@ void MainGame::Release()
 		gameInstance = nullptr;
 	}
 	
-	if (background)
-	{
-		background->Release();
-		delete background;
-		background = nullptr;
-	}
-
-	if (backBuffer)
-	{
-		backBuffer->Release();
-		delete backBuffer;
-		backBuffer = nullptr;
-	}
+	// if (background)
+	// {
+	// 	background->Release();
+	// 	delete background;
+	// 	background = nullptr;
+	// }
+	//
+	// if (backBuffer)
+	// {
+	// 	backBuffer->Release();
+	// 	delete backBuffer;
+	// 	backBuffer = nullptr;
+	// }
 	if (enemyFactory)
 	{
 		enemyFactory->Release();
@@ -77,7 +77,7 @@ void MainGame::Update(float dt)
 		angle++;
 		timer = 0;
 	}
-	enemyFactory->Update();
+	enemyFactory->Update(dt);
 	if (frame >= 4)frame = 0;
 	if (angle > 360) angle = 0;
 }

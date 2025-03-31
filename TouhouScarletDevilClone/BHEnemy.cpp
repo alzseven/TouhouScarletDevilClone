@@ -5,12 +5,13 @@
 #include "CommonFunction.h"
 // #include "IBHObjectControllerState.h"
 #include "BulletManager.h"
+#include "D2DImage.h"
 #include "EnemyController.h"
 #include "Image.h"
 #include "IObjectActionPattern.h"
 // #include "IPatternInfo.h"
 
-void BHEnemy::Init(Image* image, float hit, FPOINT position, float radianAngle)
+void BHEnemy::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
 
@@ -61,7 +62,8 @@ void BHEnemy::Render(HDC hdc)
     if (image)
     {
         //TODO : index how, size how
-        image->FrameRender(hdc, position.x, position.y, 52, 64, 0, true);
+        image->Render(position.x, position.y);
+        // image->FrameRender(hdc, position.x, position.y, 52, 64, 0, true);
     }
     if (bulletManager)
     {

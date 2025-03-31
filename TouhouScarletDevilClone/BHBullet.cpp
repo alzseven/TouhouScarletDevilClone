@@ -2,13 +2,14 @@
 
 #include "CommonFunction.h"
 #include "Image.h"
+#include "D2DImage.h"
 
-void BHBullet::Init(Image* image, float hit, FPOINT position, float radianAngle)
+void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
 {
 	BHObject::Init(image, hit, position, radianAngle);
 }
 
-void BHBullet::Init(Image* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
+void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
 	float movementSpeed)
 {
 	Init(image, hit, position, radianAngle);

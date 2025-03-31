@@ -4,12 +4,13 @@
 #include "CommonFunction.h"
 // #include "IBulletFactory.h"
 #include "BulletManager.h"
+#include "D2DImage.h"
 #include "Image.h"
 // #include "BHEnemy.h"
 // #include "BHBullet.h"
 
 //TODO: Initialize delay in certain value from parameter
-void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
+void BHPlayer::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
     
@@ -56,13 +57,15 @@ void BHPlayer::Render(HDC hdc)
     {
         if (moveImage)
         {
-            moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
+            moveImage->RenderFrame(position.x, position.y,frameIndex);
+            // moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
     else
     {
         if (image) {
-            image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
+            image->RenderFrame(position.x, position.y,frameIndex);
+            // image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
         }
     }
 

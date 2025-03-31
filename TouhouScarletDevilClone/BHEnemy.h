@@ -4,7 +4,7 @@
 
 class EnemyController;
 class BulletManager;
-
+class D2DImage;
 // class IPatternInfo;
 class BHEnemy : public BHObject
 {
@@ -14,7 +14,7 @@ private:
     float shootDelay;
 
     int tempLevel;
-    Image* moveImage;
+    D2DImage* moveImage;
     FPOINT moveDir;
 
     BulletManager* bulletManager;
@@ -28,9 +28,9 @@ public:
     BHEnemy() = default;
     virtual ~BHEnemy () = default;
 
-    inline void SetMoveImage(Image* moveImage) { this->moveImage = moveImage; }
+    inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
     
-    void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
+    void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
 
     void Move(float angle, float speed, float dt) override;
     

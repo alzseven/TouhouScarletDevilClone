@@ -12,7 +12,7 @@ public:
 	virtual ~MissileFactory() {};
 	void Init(int size);
 
-	void Update();
+	void Update(float dt);
 	void Render();
 	void Release();
 

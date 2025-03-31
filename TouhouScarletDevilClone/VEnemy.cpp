@@ -32,9 +32,9 @@ void VEnemy::Init(FPOINT pos)
 	frameDelay = 0.2;
 }
 
-void VEnemy::Update()
+void VEnemy::Update(float dt)
 {
-	timer += TimerManager::GetInstance()->GetDeltaTime();
+	timer += dt;
 	
 	if ((iter != patternMap.end())&&(iter->first - timer <= 0.0f))
 	{

@@ -14,12 +14,12 @@ void EnemyFactory::Init(int size)
 	
 }
 
-void EnemyFactory::Update()
+void EnemyFactory::Update(float dt)
 {
-	missileFactory->Update();
+	missileFactory->Update(dt);
 	for (auto iter = activeList.begin(); iter != activeList.end(); )
 	{
-		(*iter)->Update();
+		(*iter)->Update(dt);
 		if ((*iter)->IsOutofScreen())
 		{
 			freeList.push_back(*iter);

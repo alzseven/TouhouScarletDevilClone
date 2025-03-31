@@ -6,6 +6,7 @@ class BulletManager;
 // class BulletManager;
 // class IBulletFactory;
 class Image;
+class D2DImage;
 class BHPlayer : public BHObject
 {
 	int frameIndex;
@@ -16,17 +17,17 @@ class BHPlayer : public BHObject
 	// IBulletFactory* level2BulletFactory;
 
 	// int tempLevel;
-	Image* moveImage;
+	D2DImage* moveImage;
 	FPOINT moveDir;
 public:
 	// »ý¼ºÀÚ
 	BHPlayer() = default;
 	~BHPlayer() override = default;
 
-	inline void SetMoveImage(Image* moveImage) { this->moveImage = moveImage; }
+	inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 	 
 	// virtual  void Init(Image* image, FPOINT position, float angle);
-	void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
+	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
 	
 	//TODO:
 	virtual void Move(FPOINT moveDirection, bool isPressingShift, float dt);

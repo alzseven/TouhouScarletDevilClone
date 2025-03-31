@@ -3,7 +3,7 @@
 
 class TouhouScarletDevilCloneGame;
 
-class Image
+class Image;
 class D2DImage;
 class EnemyFactory;
 class MainGame : public GameObject

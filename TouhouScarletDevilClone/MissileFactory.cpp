@@ -11,7 +11,7 @@ void MissileFactory::Init(int size)
 	}
 }
 
-void MissileFactory::Update()
+void MissileFactory::Update(float dt)
 {
 	for (auto iter = activeList.begin(); iter != activeList.end(); )
 	{
