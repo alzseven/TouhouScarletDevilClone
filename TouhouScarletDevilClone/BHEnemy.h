@@ -2,6 +2,7 @@
 #include "BHObject.h"
 // class BHObjectController;
 
+class EnemyController;
 class BulletManager;
 
 // class IPatternInfo;
@@ -17,6 +18,7 @@ private:
     FPOINT moveDir;
 
     BulletManager* bulletManager;
+    EnemyController* ec;
     // BHObjectController* controller;
     
     // IPatternInfo* patterns;
@@ -30,13 +32,13 @@ public:
     
     void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
 
-    virtual void Move(float angle, float speed, float dt);
+    void Move(float angle, float speed, float dt) override;
     
     void Render(HDC hdc) override;
 
     void Update(float dt) override;
 
-    void Shoot();
+    void Shoot(float angle, int shootAmount = 1) override;
 
     void OnHit(ICollideable* hitObject) override;
 

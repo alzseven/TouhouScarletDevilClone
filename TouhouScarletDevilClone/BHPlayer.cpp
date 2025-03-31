@@ -15,10 +15,7 @@ void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
     
     // //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
-    // level1BulletFactory = new MarisaLevel1BulletFactory();
-    // level2BulletFactory = new MarisaLevel2BulletFactory();
     bulletManager->Init();
-    // bulletManager->ChangeBulletFactory(level1BulletFactory);
 
     timeElapsed = 0;
     shootDelay = 0.5f;
@@ -154,7 +151,7 @@ void BHPlayer::Update(float dt)
         bulletManager->Update(dt);
         if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
         {
-            Shoot();
+            Shoot(DEG_TO_RAD(-90.f));
             ShootSubWeapon(isPressingShift);
         }
         // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
@@ -174,12 +171,12 @@ void BHPlayer::OnHit(ICollideable* hitObject)
     int a = 0;
 }
 
-void BHPlayer::Shoot()
+void BHPlayer::Shoot(float angle, int shootAmount)
 {
     // if (timeElapsed >= shootDelay)
     // {
     //     //TODO: Separate shooting angle;
-    bulletManager->AddBullet(position, DEG_TO_RAD(-90.f));
+    bulletManager->AddBullet(position, angle);
     //     
     //     timeElapsed = 0.f;
     // }

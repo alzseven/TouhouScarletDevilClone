@@ -31,7 +31,7 @@ public:
 	//TODO:
 	virtual void Move(FPOINT moveDirection, bool isPressingShift, float dt);
 
-	void Move(float angle, float speed, float dt); //override;
+	void Move(float angle, float speed, float dt) override;
 	
 
 	// virtual void Update();
@@ -55,7 +55,7 @@ public:
 
 	void OnHit(ICollideable* hitObject) override;
 
-	void Shoot();
+	void Shoot(float angle, int shootAmount = 1) override;
 
 	void ShootSubWeapon(bool isAccumulating);
 
