@@ -39,6 +39,7 @@
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="PathMaker.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileFactory.h" />
     <ClInclude Include="ObjectPool.h" />
@@ -67,6 +68,7 @@
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="PathMaker.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileFactory.cpp" />
     <ClCompile Include="Pattern.cpp" />
