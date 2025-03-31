@@ -1,6 +1,6 @@
 ﻿#include "BulletShooter.h"
 #include "BHBullet.h"
-#include "Image.h"
+// #include "Image.h"
 #include "ImageManager.h"
 
 void BulletShooter::Init()

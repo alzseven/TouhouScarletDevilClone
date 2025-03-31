@@ -2,7 +2,7 @@
 
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
-#include "Image.h"
+// #include "Image.h"
 
 void BHObject::Init(D2DImage* image, float hit,  FPOINT position, float radianAngle)
 {

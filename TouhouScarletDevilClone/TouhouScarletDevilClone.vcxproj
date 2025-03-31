@@ -35,7 +35,6 @@
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
     <ClInclude Include="IObjectActionPattern.h" />
-    <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
@@ -62,7 +61,6 @@
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
-    <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
