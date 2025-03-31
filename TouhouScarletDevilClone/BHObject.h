@@ -12,17 +12,19 @@ protected:
 	FPOINT position;
 	float radianAngle;
 
-	D2DImage* image;
-
+	// D2DImage* image;
+	Shape* shape;
 
 public:
 	BHObject() = default;
 	~BHObject() override = default;
 
-	virtual void Init(D2DImage* image, float hit, FPOINT position, float radianAngle);
+	virtual void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle);
+	// virtual void Init(D2DImage* image, float hitRadius, FPOINT position, float radianAngle);
 	virtual void Release() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Render(HDC hdc);
+	bool IsOutofScreen();
 
 	void OnHit(ICollideable* hitObject) override = 0;
 	

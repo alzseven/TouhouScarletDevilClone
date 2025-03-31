@@ -29,8 +29,9 @@ public:
     virtual ~BHEnemy () = default;
 
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
-    
-    void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
+
+    void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
+    // void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
 
     void Move(float angle, float speed, float dt) override;
     

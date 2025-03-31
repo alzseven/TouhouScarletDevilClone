@@ -4,96 +4,100 @@
 #include "CommonFunction.h"
 // #include "IBulletFactory.h"
 #include "BulletManager.h"
+#include "CircleCollisionManager.h"
 #include "D2DImage.h"
+#include "Shape.h"
 // #include "Image.h"
 // #include "BHEnemy.h"
 // #include "BHBullet.h"
 
-//TODO: Initialize delay in certain value from parameter
-void BHPlayer::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
-    BHObject::Init(image, hit, position, radianAngle);
-    
-    // //TODO : Separate with weapon system?
+    this->hitRadius = hitRadius;
+    this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("Marisa_Move_Vertical.bmp"),hitRadius);
+    this->position = pos;
+    this->radianAngle = radianAngle;
+    isAlive = true;
+    CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+
+    //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
     bulletManager->Init();
 
     timeElapsed = 0;
+    //TODO: Initialize delay in certain value from parameter
     shootDelay = 0.5f;
-    
-    // subweaponBulletManager = new BulletManager();
-    // SubWeaponFactory = new MarisaSubWeaponBulletFactory();
-    // subweaponBulletManager->Init();
-    // subweaponBulletManager->ChangeBulletFactory(SubWeaponFactory);
-    //
-
     moveDir = { 0,0 };
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
 
-// void BHPlayer::Init(Image* image, FPOINT position, float angle)
+
+// void BHPlayer::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
 // {
-//     // this->Shape = shape;
-//     this->image = image;
-//     this->position = position;
-//     this->radianAngleDirection = angle;
-//     scale = 1;
-//     imgAlpha = 1;
-//     isAlive = true;
-// 	frameIndex = 0;
+//     BHObject::Init(image, hit, position, radianAngle);
+//     
+//     //TODO : Separate with weapon system?
+//     bulletManager = new BulletManager();
+//     bulletManager->Init();
+//
+//     timeElapsed = 0;
+//     //TODO: Initialize delay in certain value from parameter
+//     shootDelay = 0.5f;
+//     
+//     // subweaponBulletManager = new BulletManager();
+//     // SubWeaponFactory = new MarisaSubWeaponBulletFactory();
+//     // subweaponBulletManager->Init();
+//     // subweaponBulletManager->ChangeBulletFactory(SubWeaponFactory);
+//     //
+//
+//     moveDir = { 0,0 };
+//     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 // }
 
-// void BHPlayer::RenderSub(HDC hdc, Image* image, float size, float fade)
-// {
-//     if (image) {
-//         image->FrameRender(hdc, position.x, position.y, 27, 36, 0);
-//     }
-// }
-//
 void BHPlayer::Render(HDC hdc)
 {
-    // RenderSub(hdc, Shape->Texture, Shape->Size, 1.f);
     if (abs(moveDir.x) > FLT_EPSILON)
     {
         if (moveImage)
         {
             moveImage->RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
-            // moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
     else
     {
-        if (image) {
-            image->RenderFrame(position.x, position.y,frameIndex);
-            // image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
+        if (shape && shape->GetImage())
+        {
+            //TODO: separate frameIndex
+            shape->GetImage()->RenderFrame(position.x, position.y,frameIndex);
         }
+        // if (image) {
+        //     image->RenderFrame(position.x, position.y,frameIndex);
+        // }
     }
 
-    HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
-    // 기존 펜 받아서
-    HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
-    HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
-    
-    RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
-
-    SelectObject(hdc, hOldPen);
-    SelectObject(hdc, oldbrush);
-    // 삭제
-    DeleteObject(hPen);
+    // HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
+    // // 기존 펜 받아서
+    // HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
+    // HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
+    //
+    // RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
+    //
+    // SelectObject(hdc, hOldPen);
+    // SelectObject(hdc, oldbrush);
+    // // 삭제
+    // DeleteObject(hPen);
 
     if (bulletManager)
     {
         bulletManager->Render(hdc);
     }
 
-    
-    
-    
     // if (subweaponBulletManager)
     // {
     //     subweaponBulletManager->Render(hdc);
     // }
 }
+
 
 
 
@@ -178,7 +182,6 @@ void BHPlayer::Shoot(float angle, int shootAmount)
 {
     // if (timeElapsed >= shootDelay)
     // {
-    //     //TODO: Separate shooting angle;
     bulletManager->AddBullet(position, angle);
     //     
     //     timeElapsed = 0.f;
@@ -196,31 +199,21 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
 
 
 void BHPlayer::MoveBackToBorder() {
-    //TODO: Move back(amount of size / 2) when go out screen
-    if (position.x < 0) position.x = 0;
-    if (position.x > WINSIZE_X) position.x = WINSIZE_X;
-    if (position.y < 0) position.y = 0;
-    if (position.y > WINSIZE_Y) position.y = WINSIZE_Y;
-}
+    if (shape == nullptr) return;
 
-// void BHPlayer::OnCollide(BHObject* objectCollided)
-// {	
-//     //TODO: Check collision
-//     //TODO: if collides with enemy or enemy bullet, than:
-//     //TODO:  alive false
-//     //TODO:  do something such as invincible...
-//     BHEnemy* enemy = static_cast<BHEnemy*>(objectCollided);
-//     if (enemy) {
-//
-//         return;
-//     }
-//     BHBullet* bullet = static_cast<BHBullet*>(objectCollided);
-//     if (bullet) {
-//         //...
-//
-//         return;
-//     }
-// }
+    const float width = shape->GetImage()->GetWidth();
+    const float height = shape->GetImage()->GetHeight();
+
+    const float right = position.x + width / 2;
+    const float left = position.x - width / 2;
+    const float top = position.y - height / 2;
+    const float bottom = position.y + height / 2;
+
+    if (right < 0) position.x = width / 2;
+    if (left > WINSIZE_X) position.x = WINSIZE_X - width / 2;
+    if (top < 0) position.y = height / 2;
+    if (bottom > WINSIZE_Y) position.y = WINSIZE_Y - height / 2;
+}
 
 void BHPlayer::Release()
 {
@@ -229,20 +222,4 @@ void BHPlayer::Release()
         bulletManager->Release();
         delete bulletManager;
     }
-    
-    // if (image)
-    // {
-    //     image->Release();
-    //     delete image;
-    // }
-    // if (moveImage)
-    // {
-    //     moveImage->Release();
-    //     delete moveImage;
-    // }
-    // if (position)
-    // {
-    //     delete position;
-    //     position = nullptr;
-    // }
 }

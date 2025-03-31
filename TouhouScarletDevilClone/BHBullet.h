@@ -7,7 +7,6 @@ class D2DImage;
 class BHBullet : public BHObject
 {
 protected:
-
 	// angluar accel
 	float AngleRate;
 	// accel
@@ -15,9 +14,11 @@ protected:
 	float movementSpeed;
 	ObjectPool<BHBullet>* pool;
 public:
-	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
+	// void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
+	void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
+	// void Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
 
-	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
+	void Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
 	
 	void Release() override;
 	

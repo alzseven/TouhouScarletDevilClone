@@ -2,17 +2,21 @@
 
 #include "CommonFunction.h"
 // #include "Image.h"
+#include "CircleCollisionManager.h"
 #include "D2DImage.h"
 
-void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
-	BHObject::Init(image, hit, position, radianAngle);
+	this->hitRadius = hitRadius;
+	this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("Image/Marisa_Bullet.bmp"),hitRadius);
+	this->position = pos;
+	this->radianAngle = radianAngle;
+	isAlive = true;
+	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 }
 
-void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
-	float movementSpeed, bool isPlayerBullet)
+void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet)
 {
-	Init(image, hit, position, radianAngle);
 	this->AngleRate = angleRate;
 	this->SpeedRate = speedRate;
 	this->movementSpeed = movementSpeed;
@@ -25,8 +29,33 @@ void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAng
 	{
 		SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
 	}
-
 }
+
+
+// void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+// {
+// 	BHObject::Init(image, hit, position, radianAngle);
+// }
+
+// void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
+// 	float movementSpeed, bool isPlayerBullet)
+// {
+// 	Init(image, hit, position, radianAngle);
+// 	this->AngleRate = angleRate;
+// 	this->SpeedRate = speedRate;
+// 	this->movementSpeed = movementSpeed;
+// 	
+// 	if (isPlayerBullet)
+// 	{
+// 		SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
+// 	}
+// 	else
+// 	{
+// 		SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
+// 	}
+//
+// }
+
 
 void BHBullet::Release()
 {

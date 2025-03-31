@@ -18,10 +18,10 @@ public:
 
 class ShapeRect : public Shape
 {
-public:
 	float width = 0.f;
 	float height = 0.f;
 	float scaleX = 1.f, scaleY = 1.f;
+public:
 	ShapeRect(D2DImage* image, float scaleX = 1.f, float scaleY = 1.f,
 		float width = 0.f, float height = 0.f);
 	inline float GetHitWidth() override { return width; }
@@ -30,8 +30,8 @@ public:
 
 class ShapeCircle : public Shape
 {
-public:
 	float radius;
+public:
 	ShapeCircle(D2DImage* image, float radius = 0.f);
 	inline float GetHitWidth() override { return radius * 2; }
 	inline float GetHitHeight() override { return radius * 2; }

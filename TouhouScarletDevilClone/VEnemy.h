@@ -13,7 +13,7 @@ protected:
 	MissileFactory* m_factory = nullptr;
 	float timer = 0;
 
-	vector<Pattern> patterns;
+	vector<Pattern*> patterns;
 	int current_pattern = -1;
 	vector<pair<float, int>> patternMap;
 	vector<pair<float, int>>::iterator iter;
@@ -34,15 +34,3 @@ public:
 	bool IsOutofScreen();
 };
 
-class Pattern
-{
-public:
-	string shapeId;
-	int			fireCount = 0;
-	float		s_delay = 0;
-
-	float		m_angle = 0;
-	float		m_angleRate = 0;
-	float		m_speed = 0;
-	float		m_speedRate = 0;
-};

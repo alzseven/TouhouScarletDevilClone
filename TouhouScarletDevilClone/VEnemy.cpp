@@ -3,6 +3,7 @@
 #include "Shape.h"
 #include "D2DImage.h"
 #include "MissileFactory.h"
+#include "Pattern.h"
 
 VEnemy::VEnemy(MissileFactory* missileFactory)
 {
@@ -20,8 +21,8 @@ void VEnemy::Init(FPOINT pos)
 {
 	this->pos = pos;
 	
-	patterns.push_back({"kunai",5, 0.1f,90.0f,0,5.0f,0});
-	patterns.push_back({ "ball_green",5, 0.1f,45.0f,0,5.0f,0 });
+	patterns.push_back(new Pattern{"kunai",5, 0.1f,90.0f,0,5.0f,0});
+	patterns.push_back(new Pattern{ "ball_green",5, 0.1f,45.0f,0,5.0f,0 });
 	patternMap.push_back({ 0.0f,0 });
 	patternMap.push_back({ 1.f,0 });
 	patternMap.push_back({ 2.f,1 });
@@ -44,15 +45,15 @@ void VEnemy::Update(float dt)
 	
 	if (current_pattern != -1)
 	{
-		Pattern& p = patterns[current_pattern];
-		if (checkTimer(shoot_next, p.s_delay))
+		Pattern* p = patterns[current_pattern];
+		if (checkTimer(shoot_next, p->s_delay))
 		{
 			shoot_cnt++;
-			m_factory->active()->Init(p.shapeId, pos, 
-				p.m_angle + shoot_cnt * 10, p.m_angleRate, 
-				p.m_speed, p.m_speedRate);
+			m_factory->active()->Init(p->shapeId, pos, 
+				p->m_angle + shoot_cnt * 10, p->m_angleRate, 
+				p->m_speed, p->m_speedRate);
 		}
-		if (shoot_cnt >= p.fireCount)
+		if (shoot_cnt >= p->fireCount)
 		{
 			shoot_cnt = 0;
 			current_pattern = -1;
@@ -67,7 +68,7 @@ void VEnemy::Update(float dt)
 	if (checkTimer(frameNext, frameDelay))
 	{
 		idx++;
-		if (idx >= shape->image->GetMaxFrame())
+		if (idx >= shape->GetImage()->GetMaxFrame())
 		{
 			idx = 0;
 		}
@@ -77,7 +78,7 @@ void VEnemy::Update(float dt)
 
 void VEnemy::Render()
 {
-	shape->image->Middle_RenderFrame(pos.x, pos.y, idx);
+	shape->GetImage()->Middle_RenderFrame(pos.x, pos.y, idx);
 	//m_factory->Render();
 }
 
@@ -99,8 +100,8 @@ bool VEnemy::checkTimer(float& nextTime, float delay)
 
 bool VEnemy::IsOutofScreen()
 {
-	float width = shape->image->GetWidth();
-	float height = shape->image->GetHeight();
+	float width = shape->GetImage()->GetWidth();
+	float height = shape->GetImage()->GetHeight();
 
 	float right = pos.x + width / 2;
 	float left = pos.x - width / 2;

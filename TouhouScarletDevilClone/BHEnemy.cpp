@@ -8,12 +8,33 @@
 #include "D2DImage.h"
 #include "EnemyController.h"
 // #include "Image.h"
+#include "CircleCollisionManager.h"
 #include "IObjectActionPattern.h"
+#include "Shape.h"
 // #include "IPatternInfo.h"
 
-void BHEnemy::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+// void BHEnemy::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+// {
+//     BHObject::Init(image, hit, position, radianAngle);
+//
+//     bulletManager = new BulletManager();
+//     bulletManager->Init();
+//     SetCollisionLayer(LAYER_ENEMY, LAYER_PLAYER_BULLET);
+//
+//     //TEST
+//     ec = new EnemyController();
+//     ec->SetTarget(this);
+//     ec->Init();
+// }
+
+void BHEnemy::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
-    BHObject::Init(image, hit, position, radianAngle);
+    this->hitRadius = hitRadius;
+    this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("enemy1.png"),hitRadius);
+    this->position = pos;
+    this->radianAngle = radianAngle;
+    isAlive = true;
+    CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 
     bulletManager = new BulletManager();
     bulletManager->Init();
@@ -36,9 +57,9 @@ void BHEnemy::Move(float angle, float speed, float dt)
 void BHEnemy::Render(HDC hdc)
 {
     if (isAlive == false) return;
-    if (image)
+    if (shape && shape->GetImage())
     {
-        image->Render(position.x, position.y);
+        shape->GetImage()->Render(position.x, position.y);
     }
     if (bulletManager)
     {

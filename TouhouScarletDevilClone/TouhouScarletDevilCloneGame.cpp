@@ -15,14 +15,14 @@ void TouhouScarletDevilCloneGame::Init()
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
     
     player = new BHPlayer();
-    D2DImage* image = ImageManager::GetInstance()->AddImage("Marisa_Move_Vertical",TEXT("Image/Marisa_Move_Vertical.bmp"), 4,1);
-    player->Init(image, 18, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
+    // D2DImage* image = ImageManager::GetInstance()->AddImage("Marisa_Move_Vertical",TEXT("Image/Marisa_Move_Vertical.bmp"), 4,1);
+    player->Init("Marisa", 18, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
     D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
     player->SetMoveImage(moveImage);
 
     enemy = new BHEnemy();
-    D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
-    enemy->Init(image2, 26 , {WINSIZE_X / 2, 100}, 90.f);
+    // D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
+    enemy->Init("Enemy", 26 , {WINSIZE_X / 2, 100}, 90.f);
 
     enemyFactory = new EnemyFactory;
     enemyFactory->Init(100);
