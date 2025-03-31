@@ -8,9 +8,7 @@ void ImageManager::Init()
 
 void ImageManager::Release()
 {
-	
-	map<string, D2DImage*>::iterator iter;
-	for (iter = mapImages.begin(); iter != mapImages.end(); iter++)
+	for (map<string, D2DImage*>::iterator iter = mapImages.begin(); iter != mapImages.end(); ++iter)
 	{
 		if (iter->second)
 		{
@@ -20,15 +18,14 @@ void ImageManager::Release()
 		}
 	}
 	mapImages.clear();
+	//TODO: Check is this safe
 	D2DImage::ReleaseLast();
 	ReleaseInstance();
 }
 
-D2DImage* ImageManager::AddImage(string key,
-	const wchar_t* filePath)
+D2DImage* ImageManager::AddImage(string key, const wchar_t* filePath)
 {
-	D2DImage* image = nullptr;
-	image = FindImage(key);
+	D2DImage* image = FindImage(key);
 	if (image)	return image;
 
 	image = new D2DImage();
@@ -47,13 +44,11 @@ D2DImage* ImageManager::AddImage(string key,
 D2DImage* ImageManager::AddImage(string key,
 	const wchar_t* filePath, int maxFrameX, int maxFrameY)
 {
-	D2DImage* image = nullptr;
-	image = FindImage(key);
+	D2DImage* image = FindImage(key);
 	if (image)	return image;
 
 	image = new D2DImage();
-	if (FAILED(image->LoadFromFile(filePath,
-		maxFrameX, maxFrameY)))
+	if (FAILED(image->LoadFromFile(filePath, maxFrameX, maxFrameY)))
 	{
 		image->Release();
 		delete image;
@@ -67,8 +62,7 @@ D2DImage* ImageManager::AddImage(string key,
 
 void ImageManager::DeleteImage(string key)
 {
-	map<string, D2DImage*>::iterator iter;
-	iter = mapImages.find(key);
+	map<string, D2DImage*>::iterator iter = mapImages.find(key);
 
 	if (iter == mapImages.end()) return;
 
@@ -81,8 +75,7 @@ void ImageManager::DeleteImage(string key)
 
 D2DImage* ImageManager::FindImage(string key)
 {
-	map<string, D2DImage*>::iterator iter;
-	iter = mapImages.find(key);
+	map<string, D2DImage*>::iterator iter = mapImages.find(key);
 
 	if (iter == mapImages.end()) return nullptr;
 
