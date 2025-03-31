@@ -35,7 +35,7 @@
     </ClCompile>
     <ClCompile Include="MainGame.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
+	</ClCompile>
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp">
       <Filter>TouhouScarletDevilCloneGame</Filter>
     </ClCompile>
