@@ -57,7 +57,7 @@ void BHPlayer::Render(HDC hdc)
     {
         if (moveImage)
         {
-            moveImage->RenderFrame(position.x, position.y,frameIndex,0,moveDir.x < 0);
+            moveImage->RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
             // moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
