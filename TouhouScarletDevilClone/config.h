@@ -17,8 +17,8 @@ using namespace std;
 #include "KeyManager.h"
 
 #define PI			3.1415926535
-#define WINSIZE_X	600
-#define WINSIZE_Y	800
+#define WINSIZE_X	900
+#define WINSIZE_Y	680
 #define DEG_TO_RAD(degree) ((3.1415926535 / 180.0) * degree)
 #define RAD_TO_DEG(radian) ((180.0 / 3.1415926535) * radian)
 

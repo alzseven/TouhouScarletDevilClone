@@ -74,6 +74,7 @@ public:
 	void Render(HDC hdc, int destX = 0, int destY = 0);
 	void Render(HDC hdc, int destX, int destY, int frameIndex, bool isFlip = false);
 	void FrameRender(HDC hdc, int destX, int destY, int frameX, int frameY, int frameIndex, bool isFlip = false);
+	void FrameRenderRaw(HDC hdc, int destX, int destY, int frameX, int frameY);
 
 	// 메모리 해제
 	void Release();
@@ -102,5 +103,9 @@ public:
 		}
 		return 0;
 	}
+
+	int GetFrameWidth() const { return imageInfo->frameWidth; }
+	int GetFrameHeight() const { return imageInfo->frameHeight; }
+	int GetMaxFrameX() const { return imageInfo->maxFrameX; }
 };
 

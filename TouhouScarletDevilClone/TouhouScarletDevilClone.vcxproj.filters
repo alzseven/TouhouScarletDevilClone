@@ -25,6 +25,9 @@
     <Filter Include="2D Bullet Hell Framwork\BHGameObject">
       <UniqueIdentifier>{161951ab-9bb3-4f22-a718-25e806cd4289}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Bullet Hell Framwork\UI">
+      <UniqueIdentifier>{6b22099b-a205-4088-a908-e4051479aa48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,17 +48,35 @@
     <ClCompile Include="CircleCollisionManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjectPool.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BHObject.cpp">
       <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="BHBullet.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BHEnemy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BHPlayer.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="BulletShooter.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>2D Bullet Hell Framwork\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,9 +113,6 @@
     <ClInclude Include="CircleCollisionManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ICollideable.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -103,6 +121,30 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHEnemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHPlayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletShooter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>2D Bullet Hell Framwork\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "MainGame.h"
 #include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
+#include "UI.h"
 
 void MainGame::Init()
 {
@@ -13,13 +14,7 @@ void MainGame::Init()
 		MessageBox(g_hWnd,
 			TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
 	}
-	background = new Image();
-	if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
-	}
-
+	ui = new UI();
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
 }
@@ -33,12 +28,6 @@ void MainGame::Release()
 		gameInstance = nullptr;
 	}
 	
-	if (background)
-	{
-		background->Release();
-		delete background;
-		background = nullptr;
-	}
 
 	if (backBuffer)
 	{
@@ -47,21 +36,26 @@ void MainGame::Release()
 		backBuffer = nullptr;
 	}
 
+	if (ui)
+	{
+		delete ui;
+		ui = nullptr;
+	}
+
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update(float dt)
 {
 	gameInstance->Update(dt);
-	
+	ui->Update(dt);
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
 void MainGame::Render()
 {
 	HDC hBackBufferDC = backBuffer->GetMemDC();
-
-	background->Render(hBackBufferDC);
+	ui->Render(hBackBufferDC);
 	backBuffer->Render(hBackBufferDC);
 
 	if (gameInstance) gameInstance->Render(hBackBufferDC);
