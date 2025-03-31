@@ -44,9 +44,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	CoInitialize(NULL);
 	ImageManager::GetInstance()->Init();
 	TimerManager::GetInstance()->Init();
-	ShapeManager::GetInstance()->Init();
 	g_mainGame.Init();
-
+	
 	MSG message;
 	while (true)
 	{

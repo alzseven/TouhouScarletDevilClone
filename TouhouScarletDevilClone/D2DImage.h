@@ -58,5 +58,7 @@ public:
     inline int GetMaxFrameX() { return maxFrameX; }
     inline int GetMaxFrameY() { return maxFrameY; }
     inline int GetMaxFrame() { return maxFrameX * maxFrameY; }
+    inline int GetWidth() { return bitmap->GetSize().width; }
+    inline int GetHeight() { return bitmap->GetSize().height; }
     static void ReleaseLast();
 };

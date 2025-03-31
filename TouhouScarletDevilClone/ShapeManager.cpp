@@ -4,6 +4,12 @@
 
 void ShapeManager::Init()
 {
+    D2DImage* image = nullptr;
+    image = ImageManager::GetInstance()->AddImage("enemy", TEXT("Image/enemy1.png"), 4, 1);
+    ShapeManager::GetInstance()->AddShapeCharacter("enemy", image, 3.0f);
+
+    ShapeManager::GetInstance()->AddShapeCircle("kunai", TEXT("Image/kunai.png"), 3.0f);
+    ShapeManager::GetInstance()->AddShapeCircle("ball_green", TEXT("Image/ball_green.png"), 3.0f);
 }
 
 void ShapeManager::Release()

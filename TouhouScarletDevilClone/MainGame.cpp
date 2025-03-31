@@ -3,7 +3,8 @@
 #include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
 #include "D2DImage.h"
-#include "tmpEnemy.h"
+#include "EnemyFactory.h"
+#include "VEnemy.h"
 
 void MainGame::Init()
 {
@@ -26,12 +27,12 @@ void MainGame::Init()
 	gameInstance->Init();
 	
 	D2DImage::InitD2D(g_hWnd);
-	
-	testImage = ImageManager::GetInstance()->AddImage("enemy1", TEXT("Image/enemy1.png"), 4, 1);
-	testImage->LoadFromFile(TEXT("Image/enemy1.png"),4,1);
+	ShapeManager::GetInstance()->Init();
 
-	tenemy = new tmpEnemy;
-	tenemy->Init({ 200.0f,100.0f });
+	enemyFactory = new EnemyFactory;
+	enemyFactory->Init(100);
+	VEnemy* vEnemy = enemyFactory->active();
+	vEnemy->Init({ 200,100 });
 }
 
 void MainGame::Release()
@@ -56,11 +57,11 @@ void MainGame::Release()
 		delete backBuffer;
 		backBuffer = nullptr;
 	}
-	if (tenemy)
+	if (enemyFactory)
 	{
-		tenemy->Release();
-		delete tenemy;
-		tenemy = nullptr;
+		enemyFactory->Release();
+		delete enemyFactory;
+		enemyFactory = nullptr;
 	}
 	ReleaseDC(g_hWnd, hdc);
 }
@@ -77,7 +78,7 @@ void MainGame::Update()
 		angle++;
 		timer = 0;
 	}
-	tenemy->Update();
+	enemyFactory->Update();
 	if (frame >= 4)frame = 0;
 	if (angle > 360) angle = 0;
 }
@@ -108,7 +109,7 @@ void MainGame::Render()
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
 
-	tenemy->Render();
+	enemyFactory->Render();
 	D2DImage::EndDraw();
 }
 

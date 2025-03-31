@@ -89,7 +89,7 @@ void D2DImage::Middle_Render(float x, float y, float angle,
     if (!bitmap || !renderTarget) return;
 
     D2D1_SIZE_F bmpSize = bitmap->GetSize();
-    D2D1_RECT_F destRect = D2D1::RectF(x, y, x + bmpSize.width, y + bmpSize.height);
+    D2D1_RECT_F destRect = D2D1::RectF(x - bmpSize.width / 2, y - bmpSize.height / 2, x + bmpSize.width/2, y + bmpSize.height/2);
 
     D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();
     transform = transform * D2D1::Matrix3x2F::Translation(-bmpSize.width / 2.0f, -bmpSize.height / 2.0f);
@@ -119,14 +119,14 @@ void D2DImage::Middle_RenderFrame(float x, float y, int frameIndex,
         static_cast<float>((fy + 1) * frameHeight)
     );
 
-    float centerX = x + frameWidth / 2.0f;
-    float centerY = y + frameHeight / 2.0f;
+    float centerX = x;
+    float centerY = y;
 
     D2D1_RECT_F destRect = D2D1::RectF(
-        centerX - frameWidth / 2.0f,
-        centerY - frameHeight / 2.0f,
-        centerX + frameWidth / 2.0f,
-        centerY + frameHeight / 2.0f
+        centerX - (float)frameWidth / 2.0f,
+        centerY - (float)frameHeight / 2.0f,
+        centerX + (float)frameWidth / 2.0f,
+        centerY + (float)frameHeight / 2.0f
     );
 
     D2D1::Matrix3x2F transform = D2D1::Matrix3x2F::Identity();

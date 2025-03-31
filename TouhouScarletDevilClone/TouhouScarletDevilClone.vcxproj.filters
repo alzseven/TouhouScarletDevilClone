@@ -93,9 +93,6 @@
     <ClCompile Include="Missile.cpp">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
-    <ClCompile Include="tmpEnemy.cpp">
-      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
-    </ClCompile>
     <ClCompile Include="MissileFactory.cpp">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
@@ -103,6 +100,15 @@
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
     <ClCompile Include="ShapeManager.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="VEnemy.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Pattern.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -176,9 +182,6 @@
     <ClInclude Include="Missile.h">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
-    <ClInclude Include="tmpEnemy.h">
-      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
-    </ClInclude>
     <ClInclude Include="D2DImage.h">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
@@ -189,6 +192,15 @@
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
     <ClInclude Include="ShapeManager.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="VEnemy.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFactory.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Pattern.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

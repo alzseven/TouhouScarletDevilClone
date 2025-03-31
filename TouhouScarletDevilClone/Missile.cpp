@@ -4,17 +4,17 @@
 
 Missile::Missile()
 {
-	shape = ShapeManager::GetInstance()->AddShapeCircle("Missile", TEXT("Image/Marisa_Bullet.bmp"), 3.0f);
+	
 }
 
 void Missile::Init()
 {
 }
 
-void Missile::Init(FPOINT pos,float size, float angle, float angleRate, float speed, float speedRate)
+void Missile::Init(string shapeId,FPOINT pos, float angle, float angleRate, float speed, float speedRate)
 {
+	this->shape = ShapeManager::GetInstance()->FindShape(shapeId);
 	this->pos = pos;
-	this->size = size;
 	this->angle = angle;
 	this->angleRate = angleRate;
 	this->speed = speed;
@@ -44,10 +44,13 @@ void Missile::Release()
 
 bool Missile::IsOutofScreen()
 {
-	float right = pos.x + size / 2;
-	float left = pos.x - size / 2;
-	float top = pos.y - size / 2;
-	float bottom = pos.y + size / 2;
+	float width = shape->image->GetWidth();
+	float height = shape->image->GetHeight();
+
+	float right = pos.x + width / 2;
+	float left = pos.x - width / 2;
+	float top = pos.y - height / 2;
+	float bottom = pos.y + height / 2;
 
 	if (right < 0 || left > WINSIZE_X
 		|| bottom < 0 || top > WINSIZE_Y)
