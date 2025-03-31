@@ -258,3 +258,17 @@ void Image::Release()
         imageInfo = nullptr;
     }
 }
+
+void Image::FrameRenderRaw(HDC hdc, int destX, int destY, int frameX, int frameY)
+{
+    BitBlt(
+        hdc,
+        destX, destY,
+        imageInfo->frameWidth,
+        imageInfo->frameHeight,
+        imageInfo->hMemDC,
+        imageInfo->frameWidth * frameX,
+        imageInfo->frameHeight * frameY,
+        SRCCOPY
+    );
+}

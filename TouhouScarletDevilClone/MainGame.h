@@ -3,6 +3,7 @@
 
 class TouhouScarletDevilCloneGame;
 class Image;
+class UI;
 class MainGame
 {
 private:
@@ -10,6 +11,7 @@ private:
 	Image* backBuffer;
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
+	UI* ui;
 
 public:
 	void Init();
