@@ -43,9 +43,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ShowWindow(g_hWnd, nCmdShow);
 	CoInitialize(NULL);
 	ImageManager::GetInstance()->Init();
-	//TimerManager::GetInstance()->Init();
+	TimerManager::GetInstance()->Init();
 	g_mainGame.Init();
-
+	
 	MSG message;
 	while (true)
 	{
@@ -60,7 +60,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-			//TimerManager::GetInstance()->Update();
+			TimerManager::GetInstance()->Update();
 			g_mainGame.Update();
 			g_mainGame.Render();
 		}
@@ -68,8 +68,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	CoUninitialize();
 	g_mainGame.Release();
 	ImageManager::GetInstance()->Release();
-	//TimerManager::GetInstance()->Release();
-
+	TimerManager::GetInstance()->Release();
+	ShapeManager::GetInstance()->Release();
 	return message.wParam;
 }
 
