@@ -17,7 +17,7 @@ protected:
 public:
 	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle) override;
 
-	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed);
+	void Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
 	
 	void Release() override;
 	

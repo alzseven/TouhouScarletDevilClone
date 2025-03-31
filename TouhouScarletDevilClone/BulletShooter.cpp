@@ -39,7 +39,7 @@ BHBullet* BulletShooter::CreateBullet(ObjectPool<BHBullet>* bulletPool, FPOINT p
     //         TEXT("Image/Marisa_Bullet.bmp 생성 실패"), TEXT("경고"), MB_OK);
     // }
     BHBullet* bullet = bulletPool->Allocate();
-    bullet->Init(image, 16.f, {pos.x, pos.y}, radianAngle, 0 , 0 ,40.f);
+    bullet->Init(image, 16.f, {pos.x, pos.y}, radianAngle, 0 , 0 ,40.f, pos.y > WINSIZE_Y / 2);
     bullet->SetPool(bulletPool);
     return bullet;
 }

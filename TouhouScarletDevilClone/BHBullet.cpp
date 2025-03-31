@@ -10,21 +10,21 @@ void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAng
 }
 
 void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
-	float movementSpeed)
+	float movementSpeed, bool isPlayerBullet)
 {
 	Init(image, hit, position, radianAngle);
 	this->AngleRate = angleRate;
 	this->SpeedRate = speedRate;
 	this->movementSpeed = movementSpeed;
-	//TODO:
-	// if (angleRate < 0)
-	// {
-	// 	SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
-	// }
-	// else
-	// {
+	
+	if (isPlayerBullet)
+	{
+		SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
+	}
+	else
+	{
 		SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
-	// }
+	}
 
 }
 
