@@ -65,18 +65,21 @@ void BHEnemy::Render(HDC hdc)
 void BHEnemy::Update(float dt)
 {
     if (isAlive == false) return;
+    static bool isPatternValid = true;
+    static int cnt = 0;
     static float elapsed;
     elapsed += dt;
-    Move(radianAngle, 20.f, dt);
+    if (isPatternValid) Move(radianAngle, 20.f, dt);
     if (bulletManager)
     {
         bulletManager->Update(dt);
-        if (elapsed >= 0.5f)
+        if (elapsed >= 0.5f && isPatternValid)
         {
-            
             Shoot();
             elapsed -= 0.5f;
-            radianAngle += DEG_TO_RAD(5.f);
+            // radianAngle += DEG_TO_RAD(-10.f);
+            cnt++;
+            if (cnt >= 10) isPatternValid = false;
         }
     }
     // controller->Update();

@@ -5,15 +5,15 @@
 
 void BulletShooter::Init()
 {
-    bulletPool = new ObjectPool<BHBullet>();
-    bulletPool->Init(1000);
+    // bulletPool = new ObjectPool<BHBullet>();
+    // bulletPool->Init(1000);
 }
 
-void BulletShooter::AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, float radianAngle)
+void BulletShooter::AddBullet(ObjectPool<BHBullet>* bulletPool, FPOINT pos, float radianAngle)
 {
-    BHBullet* bullet = CreateBullet(pos, radianAngle);
+    BHBullet* bullet = CreateBullet(bulletPool, pos, radianAngle);
 
-    vecBullets->push_back(bullet);
+    // vecBullets->push_back(bullet);
     // int size = sizeof(bullets) / sizeof(*bullets);
     // for (int i=0; i < bullets.second; ++i)
     // {
@@ -23,14 +23,14 @@ void BulletShooter::AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, fl
 
 void BulletShooter::Release()
 {
-    if(bulletPool != nullptr)
-    {
-        bulletPool->Clear();
-        delete bulletPool;
-    }
+    // if(bulletPool != nullptr)
+    // {
+    //     bulletPool->Clear();
+    //     delete bulletPool;
+    // }
 }
 
-BHBullet* BulletShooter::CreateBullet(FPOINT pos, float radianAngle)
+BHBullet* BulletShooter::CreateBullet(ObjectPool<BHBullet>* bulletPool, FPOINT pos, float radianAngle)
 {
     Image* image = ImageManager::GetInstance()->AddImage("Marisa_Bullet",TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255));
     // if (FAILED(image->Init(TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255))))

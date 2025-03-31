@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "config.h"
+#include "ObjectPool.h"
 
 // class IBulletFactory;
 class BulletShooter;
@@ -8,7 +9,8 @@ class BHBullet;
 class BulletManager
 {
 private:
-    vector<BHBullet*> vecBullets;
+    ObjectPool<BHBullet>* bulletPool;
+    // vector<BHBullet*> vecBullets;
     // IBulletFactory* bulletFactory;
     BulletShooter* bulletShooter;
 public:

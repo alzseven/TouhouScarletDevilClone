@@ -1,35 +1,36 @@
 ﻿// ObjectPool.h
 #pragma once
 #include <stack>
+#include <unordered_set>
 
 #include "config.h"
 
 template<typename T>
 class ObjectPool {
     std::vector<T> pool;
-    stack<size_t> freeList;
+    stack<int> freeList;
     
 public:
     ObjectPool() = default;
     ~ObjectPool() = default;
 
-    void Init(size_t preAlloc = 1000);
+    void Init(int preAlloc = 1000);
     
     T* Allocate();
 
     void Release(T* obj);
 
     void Clear();
-    // auto GetActiveObjects() {
-    //     return pool | std::views::filter([](const T& o){ return o.isActive; });
-    // }
+
+
+    vector<T*> GetActiveObjects();
 };
 
 template <typename T>
-void ObjectPool<T>::Init(size_t preAlloc)
+void ObjectPool<T>::Init(int preAlloc)
 {
     pool.resize(preAlloc);
-    for(size_t i=0; i<preAlloc; ++i) {
+    for(int i=0; i<preAlloc; ++i) {
         // pool[i].isActive = false;
         freeList.push(i);
     }
@@ -46,7 +47,7 @@ T* ObjectPool<T>::Allocate()
             freeList.push(i);
     }
         
-    size_t index = freeList.top();
+    int index = freeList.top();
     freeList.pop();
     // pool[index].isActive = true;
     return &pool[index];
@@ -68,5 +69,29 @@ void ObjectPool<T>::Clear()
     {
         freeList.pop();
     }
+}
+
+template <typename T>
+vector<T*> ObjectPool<T>::GetActiveObjects()
+{
+    std::vector<T*> result;
+    unordered_set<int> freeSet;
     
+    // Create temporary copy to preserve original freeList
+    std::stack<int> tmpFree = freeList;
+    
+    // Convert stack to set for O(1) lookups
+    while (!tmpFree.empty()) {
+        freeSet.insert(tmpFree.top());
+        tmpFree.pop();
+    }
+    
+    // Check all pool indices
+    for (int i = 0; i < pool.size(); ++i) {
+        if (freeSet.find(i) == freeSet.end()) {
+            result.push_back(&pool[i]);
+        }
+    }
+    
+    return result;
 }

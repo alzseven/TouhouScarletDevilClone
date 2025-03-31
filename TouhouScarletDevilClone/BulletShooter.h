@@ -7,14 +7,16 @@ class BHBullet;
 class BulletShooter
 {
 private:
-    ObjectPool<BHBullet>* bulletPool;
+    // ObjectPool<BHBullet>* bulletPool;
 public:
     void Init();
-    void AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, float radianAngle);
+    void AddBullet(ObjectPool<BHBullet>* bulletPool, FPOINT pos, float radianAngle);
+    
+    // void AddBullet(std::vector<BHBullet*>* vecBullets, FPOINT pos, float radianAngle);
     void Release();
     BulletShooter() = default;
     virtual ~BulletShooter() = default;
 private:
-    virtual BHBullet* CreateBullet(FPOINT pos, float radianAngle);
+    virtual BHBullet* CreateBullet(ObjectPool<BHBullet>* bulletPool, FPOINT pos, float radianAngle);
 
 };
