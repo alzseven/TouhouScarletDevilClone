@@ -1,20 +1,23 @@
 ﻿#pragma once
 #include "config.h"
+#include "ObjectPool.h"
 
-class IBulletFactory;
+// class IBulletFactory;
+class BulletShooter;
 class BHBullet;
 
 class BulletManager
 {
 private:
-    vector<BHBullet*> vecBullets;
-    IBulletFactory* bulletFactory;
-    
+    ObjectPool<BHBullet>* bulletPool;
+    // vector<BHBullet*> vecBullets;
+    // IBulletFactory* bulletFactory;
+    BulletShooter* bulletShooter;
 public:
     void Init(int capacity = 1024);
     void Release();
-    void Update();
+    void Update(float dt);
     void Render(HDC hdc);
     void AddBullet(FPOINT pos, float angle);
-    void ChangeBulletFactory(IBulletFactory* newBulletFactory);
+    void ChangeBulletShooter(BulletShooter* newShooter);
 };

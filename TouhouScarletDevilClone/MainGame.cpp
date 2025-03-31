@@ -2,7 +2,6 @@
 #include "MainGame.h"
 #include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
-#include "D2DImage.h"
 
 void MainGame::Init()
 {
@@ -23,11 +22,6 @@ void MainGame::Init()
 
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
-	
-	D2DImage::InitD2D(g_hWnd);
-	
-	testImage = new D2DImage();
-	testImage->LoadFromFile(TEXT("Image/Marisa_Move_Vertical.bmp"));
 }
 
 void MainGame::Release()
@@ -56,32 +50,24 @@ void MainGame::Release()
 	ReleaseDC(g_hWnd, hdc);
 }
 
-void MainGame::Update()
+void MainGame::Update(float dt)
 {
-	gameInstance->Update();
+	gameInstance->Update(dt);
 	
 	InvalidateRect(g_hWnd, NULL, false);
 }
 
 void MainGame::Render()
 {
-	D2DImage::BeginDraw();
-	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
-    
-
 	HDC hBackBufferDC = backBuffer->GetMemDC();
-	
+
 	background->Render(hBackBufferDC);
 	backBuffer->Render(hBackBufferDC);
-	
-	if (gameInstance) gameInstance->Render(hBackBufferDC);
-	
-	
-	
-	backBuffer->Render(hdc);
 
-	testImage->Draw(WINSIZE_X / 2, WINSIZE_Y / 2);
-	D2DImage::EndDraw();
+	if (gameInstance) gameInstance->Render(hBackBufferDC);
+
+
+	backBuffer->Render(hdc);
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

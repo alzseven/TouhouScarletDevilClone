@@ -2,88 +2,81 @@
 
 #include "BHEnemy.h"
 #include "BHPlayer.h"
-#include "CollisionManager.h"
+#include "CircleCollisionManager.h"
 #include "Image.h"
-#include "D2DImage.h"
+#include "ImageManager.h"
+
 
 void TouhouScarletDevilCloneGame::Init()
 {
-    bgImage = new Image();
-    if (FAILED(bgImage->Init(TEXT("Image/backGround.bmp"), WINSIZE_X, WINSIZE_Y)))
-    {
-        MessageBox(g_hWnd,
-            TEXT("Failed to create : Image/backGround.bmp"), TEXT("Warning"), MB_OK);
-    }
-    
+    bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"), WINSIZE_X, WINSIZE_Y);
+    // bgImage = new Image();
+    // if (FAILED(bgImage->Init(TEXT("Image/backGround.bmp"), WINSIZE_X, WINSIZE_Y)))
+    // {
+    //     MessageBox(g_hWnd,
+    //                TEXT("Failed to create : Image/backGround.bmp"), TEXT("Warning"), MB_OK);
+    // }
+
     player = new BHPlayer();
-    Image* image = new Image();
-    if (FAILED(image->Init(TEXT("Image/Marisa_Move_Vertical.bmp"), 216, 72, 4, 1, true, RGB(255,0,255))))
-    {
-        MessageBox(g_hWnd,
-            TEXT("Failed to create : Image/Marisa_Move_Vertical.bmp"), TEXT("Warning"), MB_OK);
-    }
-    // SHAPE* shape = new SHAPE{ TEXT("name"), 27, 18, image };
-    player->Init(image, 54 , {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
-    Image* moveImage = new Image();
-    if (FAILED(moveImage->Init(TEXT("Image/Marisa_Move_Left.bmp"), 512, 72, 8, 1, true, RGB(255,0,255))))
-    {
-        MessageBox(g_hWnd,
-            TEXT("Failed to create : Image/Marisa_Move_Left.bmp"), TEXT("Warning"), MB_OK);
-    }
+    Image* image = ImageManager::GetInstance()->AddImage("Marisa_Move_Vertical",TEXT("Image/Marisa_Move_Vertical.bmp"), 108, 36, 4, 1, true, RGB(255,0,255));
+    // if (FAILED(image->Init(TEXT("Image/Marisa_Move_Vertical.bmp"), 108, 36, 4, 1, true, RGB(255,0,255))))
+    // {
+    //     MessageBox(g_hWnd,
+    //                TEXT("Failed to create : Image/Marisa_Move_Vertical.bmp"), TEXT("Warning"), MB_OK);
+    // }
+    player->Init(image, 18, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
+    Image* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 256, 36, 8, 1, true, RGB(255,0,255));
+    // if (FAILED(moveImage->Init(TEXT("Image/Marisa_Move_Left.bmp"), 256, 36, 8, 1, true, RGB(255,0,255))))
+    // {
+    //     MessageBox(g_hWnd,
+    //                TEXT("Failed to create : Image/Marisa_Move_Left.bmp"), TEXT("Warning"), MB_OK);
+    // }
     player->SetMoveImage(moveImage);
 
     enemy = new BHEnemy();
-    Image* image2 = new Image();
-    if (FAILED(image2->Init(TEXT("Image/rocket.bmp"), 52, 64, 1, 1, true, RGB(255,0,255))))
-    {
-        MessageBox(g_hWnd,
-            TEXT("Failed to create : Image/rocket.bmp"), TEXT("Warning"), MB_OK);
-    }
-    enemy->Init(image2, 52 , {WINSIZE_X / 2, 100}, 90.f);
-
-
+    Image* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"), 52, 64, 1, 1, true, RGB(255,0,255));
+    // if (FAILED(image2->Init(TEXT("Image/rocket.bmp"), 52, 64, 1, 1, true, RGB(255,0,255))))
+    // {
+    //     MessageBox(g_hWnd,
+    //         TEXT("Failed to create : Image/rocket.bmp"), TEXT("Warning"), MB_OK);
+    // }
+    enemy->Init(image2, 26 , {WINSIZE_X / 2, 100}, 90.f);
 }
 
 void TouhouScarletDevilCloneGame::Release()
 {
-    CollisionManager::GetInstance()->Release();
-    
-    // if (enemy)
+    ImageManager::GetInstance()->Release();
+    // if (bgImage)
     // {
-    //     enemy->Release();
-    //     delete enemy;
-    //     enemy = nullptr;
+    //     bgImage->Release();
+    //     delete bgImage;
+    //     bgImage = nullptr;
     // }
-    //
-    // if (player) {
-    //     player->Release();
-    //     delete player;
-    //     player = nullptr;
-    // }
-
-    if (bgImage)
+    if (enemy)
     {
-        bgImage->Release();
-        delete bgImage;
-        bgImage = nullptr;
+        enemy->Release();
+        delete enemy;
+        enemy = nullptr;
     }
-
-    
+    if (player)
+    {
+        player->Release();
+        delete player;
+        player = nullptr;
+    }
 }
 
-void TouhouScarletDevilCloneGame::Update()
+void TouhouScarletDevilCloneGame::Update(float dt)
 {
-    player->Update();
-    enemy->Update();
-    CollisionManager::GetInstance()->Update();
+    if (player) player->Update(dt);
+    if (enemy) enemy->Update(dt);
+    CircleCollisionManager::GetInstance()->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
-
-
-    bgImage->Render(hdc);
-    player->Render(hdc);
-    enemy->Render(hdc);
-
+    if (bgImage) bgImage->Render(hdc);
+    if (player) player->Render(hdc);
+    if (enemy) enemy->Render(hdc);
+    CircleCollisionManager::GetInstance()->Render(hdc);
 }

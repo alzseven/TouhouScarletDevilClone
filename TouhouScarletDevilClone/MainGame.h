@@ -3,20 +3,18 @@
 
 class TouhouScarletDevilCloneGame;
 class Image;
-
-class D2DImage;
-class MainGame : public GameObject
+class MainGame
 {
 private:
 	HDC hdc;
 	Image* backBuffer;
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
-	D2DImage* testImage;
+
 public:
 	void Init();
 	void Release();
-	void Update();
+	void Update(float dt);
 	void Render();
 
 	LRESULT MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);

@@ -1,8 +1,9 @@
 #include "BHPlayer.h"
 #include "config.h"
-#include "BulletManager.h"
+// #include "BulletManager.h"
 #include "CommonFunction.h"
-#include "IBulletFactory.h"
+// #include "IBulletFactory.h"
+#include "BulletManager.h"
 #include "Image.h"
 // #include "BHEnemy.h"
 // #include "BHBullet.h"
@@ -12,12 +13,12 @@ void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
     
-    //TODO : Separate with weapon system?
+    // //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
-    level1BulletFactory = new MarisaLevel1BulletFactory();
-    level2BulletFactory = new MarisaLevel2BulletFactory();
+    // level1BulletFactory = new MarisaLevel1BulletFactory();
+    // level2BulletFactory = new MarisaLevel2BulletFactory();
     bulletManager->Init();
-    bulletManager->ChangeBulletFactory(level1BulletFactory);
+    // bulletManager->ChangeBulletFactory(level1BulletFactory);
 
     timeElapsed = 0;
     shootDelay = 0.5f;
@@ -29,6 +30,7 @@ void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
     //
 
     moveDir = { 0,0 };
+    SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
 
 // void BHPlayer::Init(Image* image, FPOINT position, float angle)
@@ -53,25 +55,40 @@ void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
 void BHPlayer::Render(HDC hdc)
 {
     // RenderSub(hdc, Shape->Texture, Shape->Size, 1.f);
-    if (moveDir.x != 0)
+    if (abs(moveDir.x) > FLT_EPSILON)
     {
         if (moveImage)
         {
-            moveImage->FrameRender(hdc, position->x, position->y, 27, 36, frameIndex, moveDir.x < 0);
+            moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
     else
     {
         if (image) {
-            image->FrameRender(hdc, position->x, position->y, 27, 36, frameIndex);
+            image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
         }
     }
+
+    HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
+    // 기존 펜 받아서
+    HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
+    HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
+    
+    RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
+
+    SelectObject(hdc, hOldPen);
+    SelectObject(hdc, oldbrush);
+    // 삭제
+    DeleteObject(hPen);
 
     if (bulletManager)
     {
         bulletManager->Render(hdc);
     }
-    RenderEllipseAtCenter(hdc, position->x, position->y, hit*2, hit*2);
+
+    
+    
+    
     // if (subweaponBulletManager)
     // {
     //     subweaponBulletManager->Render(hdc);
@@ -80,28 +97,27 @@ void BHPlayer::Render(HDC hdc)
 
 
 
-void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift)
+void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift, float dt)
 {
-    if (moveDirection.x == 0 && moveDirection.y == 0) return;
+    if (abs(moveDirection.x) <= FLT_EPSILON && abs(moveDirection.y) <= FLT_EPSILON) return;
 
     float angle = atan2(moveDirection.x , moveDirection.y);
     
     //TODO: SetSpeed;
-    Move(angle,(isPressingShift ? 0.1f : 0.2f));
+    Move(angle,(isPressingShift ? 25.f : 50.f), dt);
 }
 
-void BHPlayer::Move(float angle, float speed)
+void BHPlayer::Move(float angle, float speed, float dt)
 {
-    position->x += sin(angle) * speed;
-    position->y += cos(angle) * speed;
+    position.x += sin(angle) * speed * dt;
+    position.y += cos(angle) * speed * dt;
 }
 
 
 //TOOD: get deltaTime from param
-void BHPlayer::Update()
+void BHPlayer::Update(float dt)
 {
-    timeElapsed += TEMP_DELTA_TIME;
-    //TODO: sqrt(,2) when (1,1)-like-directional movement
+    // timeElapsed += TEMP_DELTA_TIME;
 #pragma region WASD_INPUT
     moveDir = { 0,0 };
     // W
@@ -125,10 +141,9 @@ void BHPlayer::Update()
         moveDir.x=1;
     }
 #pragma endregion
-	//TODO: Case of shift press - attack2
     bool isPressingShift = KeyManager::GetInstance()->IsStayKeyDown(VK_SHIFT);
     
-    Move(moveDir, isPressingShift);
+    Move(moveDir, isPressingShift, dt);
     
     MoveBackToBorder();
 
@@ -136,37 +151,38 @@ void BHPlayer::Update()
 
     if (bulletManager)
     {
-        bulletManager->Update();
+        bulletManager->Update(dt);
         if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
         {
             Shoot();
             ShootSubWeapon(isPressingShift);
         }
-        if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
-        {
-            bulletManager->ChangeBulletFactory(level2BulletFactory);
-        }
+        // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
+        // {
+        //     bulletManager->ChangeBulletFactory(level2BulletFactory);
+        // }
     }
+
     // if (subweaponBulletManager)
     // {
     //     subweaponBulletManager->Update();
     // }
 }
 
-void BHPlayer::OnHit(ICircleCollideable* hitObject)
+void BHPlayer::OnHit(ICollideable* hitObject)
 {
-    
+    int a = 0;
 }
 
 void BHPlayer::Shoot()
 {
-    if (timeElapsed >= shootDelay)
-    {
-        //TODO: Separate shooting angle;
-        bulletManager->AddBullet(*position, DEG_TO_RAD(-90.f));
-        
-        timeElapsed = 0.f;
-    }
+    // if (timeElapsed >= shootDelay)
+    // {
+    //     //TODO: Separate shooting angle;
+    bulletManager->AddBullet(position, DEG_TO_RAD(-90.f));
+    //     
+    //     timeElapsed = 0.f;
+    // }
 }
 
 //TODO: 
@@ -181,10 +197,10 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
 
 void BHPlayer::MoveBackToBorder() {
     //TODO: Move back(amount of size / 2) when go out screen
-    if (position->x < 0) position->x = 0;
-    if (position->x > WINSIZE_X) position->x = WINSIZE_X;
-    if (position->y < 0) position->y = 0;
-    if (position->y > WINSIZE_Y) position->y = WINSIZE_Y;
+    if (position.x < 0) position.x = 0;
+    if (position.x > WINSIZE_X) position.x = WINSIZE_X;
+    if (position.y < 0) position.y = 0;
+    if (position.y > WINSIZE_Y) position.y = WINSIZE_Y;
 }
 
 // void BHPlayer::OnCollide(BHObject* objectCollided)
@@ -208,21 +224,25 @@ void BHPlayer::MoveBackToBorder() {
 
 void BHPlayer::Release()
 {
+    if (bulletManager)
+    {
+        bulletManager->Release();
+        delete bulletManager;
+    }
     
-    
-    if (image)
-    {
-        image->Release();
-        delete image;
-    }
-    if (moveImage)
-    {
-        moveImage->Release();
-        delete moveImage;
-    }
-    if (position)
-    {
-        delete position;
-        position = nullptr;
-    }
+    // if (image)
+    // {
+    //     image->Release();
+    //     delete image;
+    // }
+    // if (moveImage)
+    // {
+    //     moveImage->Release();
+    //     delete moveImage;
+    // }
+    // if (position)
+    // {
+    //     delete position;
+    //     position = nullptr;
+    // }
 }

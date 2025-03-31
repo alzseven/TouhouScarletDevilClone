@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "MainGame.h"
+#include "Timer.h"
 
 HINSTANCE g_hInstance;
 HWND g_hWnd;
@@ -42,7 +43,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	ShowWindow(g_hWnd, nCmdShow);
 
-	//TimerManager::GetInstance()->Init();
+	Timer timer;
+	timer.Init();
 	g_mainGame.Init();
 
 	MSG message;
@@ -59,14 +61,14 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-			//TimerManager::GetInstance()->Update();
-			g_mainGame.Update();
+			timer.Tick();
+			g_mainGame.Update(timer.GetDeltaTime());
 			g_mainGame.Render();
 		}
 	}
 
 	g_mainGame.Release();
-	//TimerManager::GetInstance()->Release();
+	timer.Release();
 
 	return message.wParam;
 }

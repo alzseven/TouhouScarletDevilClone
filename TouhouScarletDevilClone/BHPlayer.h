@@ -3,7 +3,8 @@
 #include "BHObject.h"
 
 class BulletManager;
-class IBulletFactory;
+// class BulletManager;
+// class IBulletFactory;
 class Image;
 class BHPlayer : public BHObject
 {
@@ -11,16 +12,16 @@ class BHPlayer : public BHObject
 	float timeElapsed;
 	float shootDelay;
 	BulletManager* bulletManager;
-	IBulletFactory* level1BulletFactory;
-	IBulletFactory* level2BulletFactory;
+	// IBulletFactory* level1BulletFactory;
+	// IBulletFactory* level2BulletFactory;
 
-	int tempLevel;
+	// int tempLevel;
 	Image* moveImage;
 	FPOINT moveDir;
 public:
 	// »ý¼ºÀÚ
 	BHPlayer() = default;
-	~BHPlayer() = default;
+	~BHPlayer() override = default;
 
 	inline void SetMoveImage(Image* moveImage) { this->moveImage = moveImage; }
 	 
@@ -28,9 +29,9 @@ public:
 	void Init(Image* image, float hit, FPOINT position, float radianAngle) override;
 	
 	//TODO:
-	virtual void Move(FPOINT moveDirection, bool isPressingShift);
+	virtual void Move(FPOINT moveDirection, bool isPressingShift, float dt);
 
-	void Move(float angle, float speed) override;
+	void Move(float angle, float speed, float dt); //override;
 	
 
 	// virtual void Update();
@@ -50,9 +51,9 @@ public:
 
 	// void OnCollide(BHObject* objectCollided);
 	
-	void Update() override;
+	void Update(float dt) override;
 
-	void OnHit(ICircleCollideable* hitObject) override;
+	void OnHit(ICollideable* hitObject) override;
 
 	void Shoot();
 
@@ -60,7 +61,8 @@ public:
 
 	void Release() override;
 	
-	inline float GetHit() override { return hit; }
+	// inline float GetHit() override { return hit; }
 	// inline FPOINT GetPos() override { return position; }
+	inline FPOINT* GetPos() override { return &position; }
 };
 

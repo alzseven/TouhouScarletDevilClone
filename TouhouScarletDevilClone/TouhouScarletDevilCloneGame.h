@@ -1,23 +1,21 @@
 ﻿#pragma once
-// #include "D2DImage.h"
 #include "GameObject.h"
 
-class Image;
-class BHPlayer;
 class BHEnemy;
+class BHPlayer;
+class Image;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
     BHPlayer* player;
     BHEnemy* enemy;
     Image* bgImage;
-
 public:
-    void Init();
-    void Release();
-    void Update();
-    void Render(HDC hdc);
+    void Init() override;
+    void Release() override;
+    void Update(float dt) override;
+    void Render(HDC hdc) override;
 
     TouhouScarletDevilCloneGame() = default;
-    ~TouhouScarletDevilCloneGame() = default;
+    ~TouhouScarletDevilCloneGame() override = default;
 };

@@ -1,34 +1,51 @@
 ﻿#include "BulletManager.h"
 #include "BHBullet.h"
-#include "IBulletFactory.h"
+
+#include "BulletShooter.h"
 
 // class BulletManager;
 void BulletManager::Init(int capacity)
 {
-    vecBullets.reserve(capacity);
+    // vecBullets.reserve(capacity);
+    bulletPool = new ObjectPool<BHBullet>();
+    bulletPool->Init(1000);
+
+    bulletShooter = new BulletShooter();
+    bulletShooter->Init();
+    
 }
 
 void BulletManager::Release()
 {
-    for (std::vector<BHBullet*>::iterator iter = vecBullets.begin(); iter != vecBullets.end(); ++iter)
+
+    bulletPool->Clear();
+    
+    // for (std::vector<BHBullet*>::iterator iter = vecBullets.begin(); iter != vecBullets.end(); ++iter)
+    // {
+    //     (*iter)->Release();
+    //     // delete (*iter);
+    // }
+    // vecBullets.clear();
+    if (bulletShooter)
     {
-        // (*iter)->Release();
-        delete (*iter);
+        bulletShooter->Release();
+        delete bulletShooter;
     }
-    vecBullets.clear();
 }
 
-void BulletManager::Update()
+void BulletManager::Update(float dt)
 {
-    for (std::vector<BHBullet*>::iterator iter = vecBullets.begin(); iter != vecBullets.end(); ++iter)
+    vector<BHBullet*> active = bulletPool->GetActiveObjects();
+    for (std::vector<BHBullet*>::iterator iter = active.begin() ; iter != active.end(); ++iter)
     {
-        (*iter)->Update();
+        (*iter)->Update(dt);
     }
 }
 
 void BulletManager::Render(HDC hdc)
 {
-    for (std::vector<BHBullet*>::iterator iter = vecBullets.begin(); iter != vecBullets.end(); ++iter)
+    vector<BHBullet*> active = bulletPool->GetActiveObjects();
+    for (std::vector<BHBullet*>::iterator iter = active.begin() ; iter != active.end(); ++iter)
     {
         (*iter)->Render(hdc);
     }
@@ -36,17 +53,17 @@ void BulletManager::Render(HDC hdc)
 
 void BulletManager::AddBullet(FPOINT pos, float angle)
 {
-    if (bulletFactory)
+    if (bulletShooter)
     {
-        bulletFactory->AddBullet(&vecBullets, pos, angle);
+        bulletShooter->AddBullet(bulletPool, pos, angle);
     }
 }
 
-void BulletManager::ChangeBulletFactory(IBulletFactory* newBulletFactory)
+void BulletManager::ChangeBulletShooter(BulletShooter* newShooter)
 {
-    if (bulletFactory)
+    if (bulletShooter)
     {
-        delete bulletFactory;
+        delete bulletShooter;
     }
-    bulletFactory = newBulletFactory;
+    bulletShooter = newShooter;
 }
