@@ -45,8 +45,10 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 
 	Timer timer;
 	timer.Init();
+	CoInitialize(NULL);
+	ImageManager::GetInstance()->Init();
 	g_mainGame.Init();
-
+	
 	MSG message;
 	while (true)
 	{
@@ -66,10 +68,11 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 			g_mainGame.Render();
 		}
 	}
-
+	CoUninitialize();
 	g_mainGame.Release();
 	timer.Release();
-
+	ImageManager::GetInstance()->Release();
+	ShapeManager::GetInstance()->Release();
 	return message.wParam;
 }
 

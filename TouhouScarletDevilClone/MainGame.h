@@ -2,15 +2,21 @@
 #include "GameObject.h"
 
 class TouhouScarletDevilCloneGame;
-class Image;
-class MainGame
+
+class Image
+class D2DImage;
+class EnemyFactory;
+class MainGame : public GameObject
 {
 private:
 	HDC hdc;
 	Image* backBuffer;
 	Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
-
+	EnemyFactory* enemyFactory;
+	int timer = 0;
+	int frame = 0;
+	float angle = 0;
 public:
 	void Init();
 	void Release();

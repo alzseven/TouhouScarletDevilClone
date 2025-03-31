@@ -1,13 +1,15 @@
 #include "ImageManager.h"
-#include "Image.h"
+#include "D2DImage.h"
 
 void ImageManager::Init()
 {
+
 }
 
 void ImageManager::Release()
 {
-	map<string, Image*>::iterator iter;
+	
+	map<string, D2DImage*>::iterator iter;
 	for (iter = mapImages.begin(); iter != mapImages.end(); iter++)
 	{
 		if (iter->second)
@@ -18,21 +20,19 @@ void ImageManager::Release()
 		}
 	}
 	mapImages.clear();
-
+	D2DImage::ReleaseLast();
 	ReleaseInstance();
 }
 
-Image* ImageManager::AddImage(string key,
-	const wchar_t* filePath, int width, int height, 
-	bool isTransparent, COLORREF transColor)
+D2DImage* ImageManager::AddImage(string key,
+	const wchar_t* filePath)
 {
-	Image* image = nullptr;
+	D2DImage* image = nullptr;
 	image = FindImage(key);
 	if (image)	return image;
 
-	image = new Image();
-	if (FAILED(image->Init(filePath, width, height,
-		isTransparent, transColor)))
+	image = new D2DImage();
+	if (FAILED(image->LoadFromFile(filePath)))
 	{
 		image->Release();
 		delete image;
@@ -44,19 +44,16 @@ Image* ImageManager::AddImage(string key,
 	return image;
 }
 
-Image* ImageManager::AddImage(string key, 
-	const wchar_t* filePath, int width, int height, 
-	int maxFrameX, int maxFrameY, 
-	bool isTransparent, COLORREF transColor)
+D2DImage* ImageManager::AddImage(string key,
+	const wchar_t* filePath, int maxFrameX, int maxFrameY)
 {
-	Image* image = nullptr;
+	D2DImage* image = nullptr;
 	image = FindImage(key);
 	if (image)	return image;
 
-	image = new Image();
-	if (FAILED(image->Init(filePath, width, height,
-		maxFrameX, maxFrameY,
-		isTransparent, transColor)))
+	image = new D2DImage();
+	if (FAILED(image->LoadFromFile(filePath,
+		maxFrameX, maxFrameY)))
 	{
 		image->Release();
 		delete image;
@@ -70,7 +67,7 @@ Image* ImageManager::AddImage(string key,
 
 void ImageManager::DeleteImage(string key)
 {
-	map<string, Image*>::iterator iter;
+	map<string, D2DImage*>::iterator iter;
 	iter = mapImages.find(key);
 
 	if (iter == mapImages.end()) return;
@@ -82,9 +79,9 @@ void ImageManager::DeleteImage(string key)
 	mapImages.erase(iter);
 }
 
-Image* ImageManager::FindImage(string key)
+D2DImage* ImageManager::FindImage(string key)
 {
-	map<string, Image*>::iterator iter;
+	map<string, D2DImage*>::iterator iter;
 	iter = mapImages.find(key);
 
 	if (iter == mapImages.end()) return nullptr;

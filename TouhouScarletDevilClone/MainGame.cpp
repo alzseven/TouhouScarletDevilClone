@@ -1,7 +1,9 @@
 #include "config.h"
 #include "MainGame.h"
-#include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
+#include "D2DImage.h"
+#include "EnemyFactory.h"
+#include "VEnemy.h"
 
 void MainGame::Init()
 {
@@ -22,6 +24,14 @@ void MainGame::Init()
 
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
+
+	D2DImage::InitD2D(g_hWnd);
+	ShapeManager::GetInstance()->Init();
+
+	enemyFactory = new EnemyFactory;
+	enemyFactory->Init(100);
+	VEnemy* vEnemy = enemyFactory->active();
+	vEnemy->Init({ 200,100 });
 }
 
 void MainGame::Release()
@@ -46,7 +56,12 @@ void MainGame::Release()
 		delete backBuffer;
 		backBuffer = nullptr;
 	}
-
+	if (enemyFactory)
+	{
+		enemyFactory->Release();
+		delete enemyFactory;
+		enemyFactory = nullptr;
+	}
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -55,19 +70,46 @@ void MainGame::Update(float dt)
 	gameInstance->Update(dt);
 	
 	InvalidateRect(g_hWnd, NULL, false);
+	timer++;
+	if (timer >= 5)
+	{
+		frame++;
+		angle++;
+		timer = 0;
+	}
+	enemyFactory->Update();
+	if (frame >= 4)frame = 0;
+	if (angle > 360) angle = 0;
 }
 
 void MainGame::Render()
 {
-	HDC hBackBufferDC = backBuffer->GetMemDC();
+	D2DImage::BeginDraw();
+	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
+    
 
-	background->Render(hBackBufferDC);
-	backBuffer->Render(hBackBufferDC);
+	// HDC hBackBufferDC = backBuffer->GetMemDC();
+	//
+	// background->Render(hBackBufferDC);
+	// backBuffer->Render(hBackBufferDC);
+	//
+	// if (gameInstance) gameInstance->Render(hBackBufferDC);
+	//
+	//
+	//
+	// backBuffer->Render(hdc);
+	/*for (int i = 0; i < 30; i++)
+	{
+		for (int j = 0; j < 30; j++)
+		{
+			testImage->Middle_RenderFrameScale(j * 18,i * 18,2,2, frame, angle, false, false, 1.0f);
+		}
+	}*/
+	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
+	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
 
-	if (gameInstance) gameInstance->Render(hBackBufferDC);
-
-
-	backBuffer->Render(hdc);
+	enemyFactory->Render();
+	D2DImage::EndDraw();
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

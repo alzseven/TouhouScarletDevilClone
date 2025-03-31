@@ -10,6 +10,7 @@ private:
     BHPlayer* player;
     BHEnemy* enemy;
     Image* bgImage;
+
 public:
     void Init() override;
     void Release() override;
