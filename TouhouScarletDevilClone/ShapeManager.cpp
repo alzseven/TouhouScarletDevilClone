@@ -10,7 +10,8 @@ void ShapeManager::Init()
 
     D2DImage* marisaImg = ImageManager::GetInstance()->AddImage("Marisa", TEXT("Image/Marisa_Move_Vertical.bmp"), 4, 1); 
     ShapeManager::GetInstance()->AddShapeCharacter("Marisa", marisaImg, 3.0f);
-    
+
+    ShapeManager::GetInstance()->AddShapeCircle("marisa_bullet", TEXT("Image/kunai.png"), 3.0f);
     ShapeManager::GetInstance()->AddShapeCircle("kunai", TEXT("Image/kunai.png"), 3.0f);
     ShapeManager::GetInstance()->AddShapeCircle("ball_green", TEXT("Image/ball_green.png"), 3.0f);
 }

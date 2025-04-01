@@ -14,7 +14,7 @@
 void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
     this->hitRadius = hitRadius;
-    this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("Marisa_Move_Vertical.bmp"),hitRadius);
+    this->shape =  ShapeManager::GetInstance()->FindShape("Marisa");
     this->position = pos;
     this->radianAngle = radianAngle;
     isAlive = true;

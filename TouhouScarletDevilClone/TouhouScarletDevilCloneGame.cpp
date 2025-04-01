@@ -22,7 +22,7 @@ void TouhouScarletDevilCloneGame::Init()
 
     enemy = new BHEnemy();
     // D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
-    enemy->Init("Enemy", 26 , {WINSIZE_X / 2, 100}, 90.f);
+    enemy->Init("enemy", 26 , {WINSIZE_X / 2, 100}, 90.f);
 
     enemyFactory = new EnemyFactory;
     enemyFactory->Init(100);
@@ -76,7 +76,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
-    if (bgImage) bgImage->Render(-WINSIZE_X / 2, -WINSIZE_Y / 2);
+    if (bgImage) bgImage->Render(-WINSIZE_X / 2,-WINSIZE_Y / 2);
 
     if (player) player->Render(hdc);
     

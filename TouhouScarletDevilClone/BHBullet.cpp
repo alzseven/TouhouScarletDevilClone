@@ -8,7 +8,8 @@
 void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
 	this->hitRadius = hitRadius;
-	this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("Image/Marisa_Bullet.bmp"),hitRadius);
+	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+	// this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("Image/Marisa_Bullet.bmp"),hitRadius);
 	this->position = pos;
 	this->radianAngle = radianAngle;
 	isAlive = true;

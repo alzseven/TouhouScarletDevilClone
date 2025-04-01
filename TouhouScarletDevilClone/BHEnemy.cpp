@@ -30,7 +30,8 @@
 void BHEnemy::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
     this->hitRadius = hitRadius;
-    this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("enemy1.png"),hitRadius);
+    this->shape =  ShapeManager::GetInstance()->FindShape(shapeKey);
+    // this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT("enemy1.png"),hitRadius);
     this->position = pos;
     this->radianAngle = radianAngle;
     isAlive = true;
@@ -56,10 +57,12 @@ void BHEnemy::Move(float angle, float speed, float dt)
 
 void BHEnemy::Render(HDC hdc)
 {
+    static int frameIndex = 0;
+    
     if (isAlive == false) return;
     if (shape && shape->GetImage())
     {
-        shape->GetImage()->Render(position.x, position.y);
+        shape->GetImage()->RenderFrame(position.x, position.y, frameIndex);
     }
     if (bulletManager)
     {
