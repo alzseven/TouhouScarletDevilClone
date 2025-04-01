@@ -113,16 +113,16 @@ void MainGame::Render()
 	// backBuffer->Render(hBackBufferDC);
 
 	if (gameInstance) gameInstance->Render(NULL);
+	enemyFactory->Render();
 	ui->Render(NULL);
 	//
 	// backBuffer->Render(hdc);
 	
 	//도형 출력 예제
-	D2DImage image;
+	/*D2DImage image;
 	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
 	image.DrawCircle({ 100,100 }, 20, 1, 2);
-	image.DrawRect({ 300,200 }, {400,300}, 2, 5);
-	enemyFactory->Render();
+	image.DrawRect({ 300,200 }, {400,300}, 2, 5);*/
 	D2DImage::EndDraw();
 }
 
