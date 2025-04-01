@@ -118,6 +118,9 @@
     <ClCompile Include="PathMaker.cpp">
       <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>2D Bullet Hell Framwork\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h">
@@ -231,11 +234,14 @@
     <ClInclude Include="ImageManager.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
     <ClInclude Include="UI.h">
       <Filter>2D Bullet Hell Framwork\UI</Filter>
     </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    <ClInclude Include="Camera.h">
+      <Filter>2D Bullet Hell Framwork\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -67,15 +67,15 @@ void TouhouScarletDevilCloneGame::Release()
 
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
-    if (player) player->Update(dt);
-    if (enemy) enemy->Update(dt);
+    //if (player) player->Update(dt);
+    //if (enemy) enemy->Update(dt);
     CircleCollisionManager::GetInstance()->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
-    if (bgImage) bgImage->Render(WINSIZE_X / 2, WINSIZE_Y / 2);
-    if (player) player->Render(hdc);
-    if (enemy) enemy->Render(hdc);
+    if (bgImage) bgImage->Render(hdc);
+    //if (player) player->Render(hdc);
+    //if (enemy) enemy->Render(hdc);
     CircleCollisionManager::GetInstance()->Render(hdc);
 }

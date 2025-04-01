@@ -130,11 +130,11 @@ void MainGame::Render()
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
 	
 	HDC hBackBufferDC = backBuffer->GetMemDC();
-	ui->Render(hBackBufferDC);
+	
 	backBuffer->Render(hBackBufferDC);
 
 	if (gameInstance) gameInstance->Render(hBackBufferDC);
-
+	ui->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 	

@@ -7,20 +7,7 @@
 UI::UI()
 {
 	pos = { 0.0f,0.0f };
-	BackGround_Image = ImageManager::GetInstance()->AddImage("front", TEXT("Image/front.bmp"), 32, 32, true, RGB(255, 0, 255));
-	BackGround = new Image();
-	BackGround->Init(WINSIZE_X, WINSIZE_Y);
-
-	int tileWidth = 32;
-	int tileHeight = 32;
-
-	int cols = WINSIZE_X / tileWidth + 1;
-	int rows = WINSIZE_Y / tileHeight + 1;
-
-	RECT EmptyRect = {
-		50, 60, 530, 620
-	};
-
+	BackGround_Image = ImageManager::GetInstance()->AddImage("BackGround", TEXT("Image/InGameBackGround.bmp"), 900, 680, true, RGB(0, 0, 0));
 	Stage = ImageManager::GetInstance()->AddImage("Stage", TEXT("Image/Stage.bmp"), 480, 560, true, RGB(255, 0, 255));
 	MaxScoreImage = ImageManager::GetInstance()->AddImage("MaxScoreImage", TEXT("Image/MaxScore.bmp"), 100, 30, true, RGB(0, 0, 0));
 	ScoreImage = ImageManager::GetInstance()->AddImage("Score", TEXT("Image/Score.bmp"), 50, 28, true, RGB(0, 0, 0));
@@ -31,7 +18,7 @@ UI::UI()
 	PowerMaxImage = ImageManager::GetInstance()->AddImage("PowerMax", TEXT("Image/PowerMax.bmp"), 60, 22, true, RGB(0, 0, 0));
 	GrazeImage = ImageManager::GetInstance()->AddImage("Graze", TEXT("Image/Graze.bmp"), 100, 30, true, RGB(0, 0, 0));
 	EnemyPhaseImage = ImageManager::GetInstance()->AddImage("EnemyPhase", TEXT("Image/EnemyPhase.bmp"), 50, 20, true, RGB(0, 0, 0));
-	BossHpBarImage = ImageManager::GetInstance()->AddImage("BossHpBar", TEXT("Image/BossHpBar.bmp"), 360, 8, 360, 1, true, RGB(0, 0, 0));
+	BossHpBarImage = ImageManager::GetInstance()->AddImage("BossHpBar", TEXT("Image/BossHpBar.bmp"), 350, 8, 350, 1, true, RGB(0, 0, 0));
 	circle = ImageManager::GetInstance()->AddImage("circle", TEXT("Image/circle.bmp"), 129, 129, true, RGB(0, 0, 0));
 	FPSImage = ImageManager::GetInstance()->AddImage("FPS", TEXT("Image/FPS.bmp"), 70, 25, true, RGB(32, 32, 32));
 
@@ -39,24 +26,6 @@ UI::UI()
 	timer = new Timer();
 	timer->Init();
 
-	// 배경 그리기
-	for (int y = 0; y < rows; y++) {
-		for (int x = 0; x < cols; x++)
-		{
-			int drawX = x * tileWidth;
-			int drawY = y * tileHeight;
-
-			// 빈 공간 생성
-			if (drawX >= EmptyRect.left && drawX < EmptyRect.right &&
-				drawY >= EmptyRect.top && drawY < EmptyRect.bottom)
-			{
-				continue;
-			}
-			BackGround_Image->Render(BackGround->GetMemDC(), drawX, drawY);
-		}
-
-	}
-	isBgReder = true;
 
 
 	ReLoadScore();
@@ -66,14 +35,14 @@ UI::UI()
 	Score = 0;
 
 	// 체력 초기화
-	PlayerHp = 0;
+	PlayerHp = 3;
 	// 폭탄 초기화
-	BombCount = 0;
+	BombCount = 3;
 
 	// hp 바 프레임 초기화
 	currPowerbarFrame = 0;
 	elapPowerbarFrame = 0;
-	currBossHpBarFrame = 400;
+	currBossHpBarFrame = 350;
 
 	// 나중에 지울거
 	isEnemyPhase = true;
@@ -125,7 +94,6 @@ void UI::Update(float dt)
 {
 	timer->Tick();
 	ReLoadStar();
-
 	// 파워바 프레임 업데이트
 	if (InputManager::isMoveDown()) {
 		currPowerbarFrame++;
@@ -140,8 +108,8 @@ void UI::Update(float dt)
 
 	if (InputManager::isMoveRight()) {
 		currBossHpBarFrame++;
-		if (currBossHpBarFrame >= 400)
-			currBossHpBarFrame = 399;
+		if (currBossHpBarFrame >= 350)
+			currBossHpBarFrame = 349;
 	}
 	else if (InputManager::isMoveLeft()) {
 		currBossHpBarFrame--;
@@ -158,6 +126,7 @@ void UI::Update(float dt)
 
 			if (remainTime <= 0) {
 				remainTime = 0;
+				isEnemyPhase = false;
 			}
 		}
 	}
@@ -169,18 +138,23 @@ void UI::Update(float dt)
 
 void UI::Render(HDC hdc)
 {
+	
+	//Stage->Render(hdc, StagePos.x, StagePos.y);
+	
+	//if (BackGround && isBgReder) {
+	//	BackGround->Render(hdc);
+	//}
 
-	if (BackGround && isBgReder) {
-		BackGround->Render(hdc);
-	}
+	BackGround_Image->Render(hdc);
 
-	Stage->Render(hdc, StagePos.x, StagePos.y);
+
 	MaxScoreImage->Render(hdc, MaxScorePos.x, MaxScorePos.y);
 	ScoreImage->Render(hdc, ScorePos.x, ScorePos.y);
 	PlayerHpBarImage->Render(hdc, PlayerHpPos.x, PlayerHpPos.y);
 	BombImage->Render(hdc, BombPos.x, BombPos.y);
 	PowerImage->Render(hdc, PowerPos.x, PowerPos.y);
 	GrazeImage->Render(hdc, GrazePos.x, GrazePos.y);
+
 
 	// 점수
 	RenderScoreAsImage(hdc, MaxScore, { MaxScorePos.x + 120, MaxScorePos.y });
@@ -197,15 +171,14 @@ void UI::Render(HDC hdc)
 	// 보스 등장시 그리기
 	if (isEnemyPhase) {
 		RenderEnemyPhase(hdc);
-		//isTimerActive();
 		RenderTimerAsImage(hdc, remainTime, EnemyPhasePos);
 	}
 
-	RenderFPSAsImage(hdc, timer->GetFPS(), FPSPos);
 
 	// 원 그리기
 	circle->Render(hdc, circlePos.x, circlePos.y);
 
+	RenderFPSAsImage(hdc, timer->GetFPS(), FPSPos);
 }
 
 // 점수 이미지 로드
@@ -482,7 +455,7 @@ void UI::RenderTimerAsImage(HDC hdc, int number, FPOINT Pos)
 		string key(1, timeStr[i]);
 		if (Image* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(Pos.x + i * digitWidth) + 425, static_cast<int>(Pos.y) - 8);
+			img->Render(hdc, static_cast<int>(Pos.x + i * digitWidth) + 425, static_cast<int>(Pos.y) - 5);
 		}
 	}
 }

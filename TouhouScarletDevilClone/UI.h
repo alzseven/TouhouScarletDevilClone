@@ -18,6 +18,7 @@ private:
 
 	Timer* timer;
 
+	vector<POINT> BackGroubdTile;
 	Image* BackGround_Image;
 	Image* BackGround;
 	bool isBgReder;
@@ -106,14 +107,14 @@ public:
 	void RenderTimerAsImage(HDC hdc, int number, FPOINT Pos);
 	void RenderFPSAsImage(HDC hdc, unsigned long fps, FPOINT Pos);
 
-
+	
 	inline void SetMaxScore(int score) { MaxScore = score; }
 	inline int GetMaxScore() { return MaxScore; }
 	inline void SetScore(int score) { Score = score; }
 	inline int GetScore() { return Score; }
-	inline void SetPlayerHp(int hp) { PlayerHp = hp; }
+	inline void SetPlayerHp(int hp) { PlayerHp = hp;}
 	inline int GetPlayerHp() { return PlayerHp; }
-	inline void SetBombCount(int bomb) { BombCount = bomb; }
+	inline void SetBombCount(int bomb) { BombCount = bomb;}
 	inline int GetBombCount() { return BombCount; }
 	inline void SetTimer(Timer* t) { timer = t; }
 
