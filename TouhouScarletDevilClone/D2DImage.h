@@ -24,8 +24,7 @@ public:
     static void Clear(D2D1::ColorF color);
     static ID2D1HwndRenderTarget* GetRenderTarget();
 
-    HRESULT LoadFromFile(const wchar_t* filePath);
-    HRESULT LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFrameY);
+    HRESULT LoadFromFile(const wchar_t* filePath, int maxFrameX = 1, int maxFrameY = 1);
 
     //x좌표, y좌표, 각도(도),좌우반전,상하반전,투명도(0.0~1.0)
     void Render(float x, float y, float angle = 0.0f,

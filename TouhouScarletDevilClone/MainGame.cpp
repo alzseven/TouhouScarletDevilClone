@@ -22,14 +22,13 @@ void MainGame::Init()
 	// 		TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
 	// }
 
-	D2DImage::InitD2D(g_hWnd);
-	ShapeManager::GetInstance()->Init();
+	
+	
 
 	enemyFactory = new EnemyFactory;
 	enemyFactory->Init(100);
 	VEnemy* vEnemy = enemyFactory->active();
-	vEnemy->Init({ 200,100 });
-
+	vEnemy->Init({ 300,100 });
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
 }
@@ -107,7 +106,7 @@ void MainGame::Render()
 	}*/
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
-
+	tmpImage->Render(200,200);
 	enemyFactory->Render();
 	D2DImage::EndDraw();
 }

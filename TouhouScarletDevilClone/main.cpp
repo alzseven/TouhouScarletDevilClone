@@ -3,6 +3,7 @@
 #include "config.h"
 #include "MainGame.h"
 #include "Timer.h"
+#include "D2DImage.h"
 
 HINSTANCE g_hInstance;
 HWND g_hWnd;
@@ -46,7 +47,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	Timer timer;
 	timer.Init();
 	CoInitialize(NULL);
+	D2DImage::InitD2D(g_hWnd);
 	ImageManager::GetInstance()->Init();
+	ShapeManager::GetInstance()->Init();
 	g_mainGame.Init();
 	
 	MSG message;
@@ -71,8 +74,9 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	CoUninitialize();
 	g_mainGame.Release();
 	timer.Release();
-	ImageManager::GetInstance()->Release();
 	ShapeManager::GetInstance()->Release();
+	ImageManager::GetInstance()->Release();
+	
 	return message.wParam;
 }
 

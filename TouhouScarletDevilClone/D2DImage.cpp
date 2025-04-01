@@ -36,12 +36,13 @@ void D2DImage::Clear(D2D1::ColorF color) {
     if (renderTarget) renderTarget->Clear(color);
 }
 
-HRESULT D2DImage::LoadFromFile(const wchar_t* filePath) {
+
+HRESULT D2DImage::LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFrameY) {
     IWICImagingFactory* wicFactory = nullptr;
     IWICBitmapDecoder* decoder = nullptr;
     IWICBitmapFrameDecode* frame = nullptr;
     IWICFormatConverter* converter = nullptr;
-    
+
     HRESULT hr = CoCreateInstance(CLSID_WICImagingFactory, NULL, CLSCTX_INPROC_SERVER,
         IID_PPV_ARGS(&wicFactory));
     if (FAILED(hr)) return hr;
@@ -66,12 +67,6 @@ HRESULT D2DImage::LoadFromFile(const wchar_t* filePath) {
     if (frame) frame->Release();
     if (decoder) decoder->Release();
     if (wicFactory) wicFactory->Release();
-
-    return hr;
-}
-
-HRESULT D2DImage::LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFrameY) {
-    HRESULT hr = LoadFromFile(filePath);
     if (FAILED(hr)) return hr;
     if (!bitmap) return E_FAIL;
     D2D1_SIZE_F size = bitmap->GetSize();

@@ -2,13 +2,7 @@
 #include "Singleton.h"
 #include "config.h"
 
-///*
-//	배열 : 인덱스 -> 데이터
-//	stl::vector : 인덱스 -> 데이터
-//	std::map : 키 -> 데이터
-//
-//	레드-블랙 트리 구현 : 삽입, 삭제, 검색 O(logN) 시간복잡도
-//*/
+
 
 class Shape;
 class D2DImage;
@@ -30,6 +24,7 @@ public:
 		float width = 0.f, float height = 0.f);
 
 	void DeleteShape(string key);
+	Shape* FindShapeAdd(string key);
 	Shape* FindShape(string key);
 };
 

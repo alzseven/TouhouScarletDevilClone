@@ -46,7 +46,7 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release()
 {
-    ImageManager::GetInstance()->Release();
+    
     // if (bgImage)
     // {
     //     bgImage->Release();
