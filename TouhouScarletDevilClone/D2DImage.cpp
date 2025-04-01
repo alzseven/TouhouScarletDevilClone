@@ -196,6 +196,23 @@ void D2DImage::Middle_RenderFrameScale(float x, float y, float scaleX, float sca
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
 }
 
+void D2DImage::RenderPercent(FPOINT pos, float spercent, float epercent, float alpha)
+{
+    if (!bitmap || !renderTarget) return;
+
+    D2D1_SIZE_F bmpSize = bitmap->GetSize();
+    float sp = bmpSize.width * (spercent / 100.0f);
+    float ep = bmpSize.width * (epercent / 100.0f);
+
+    D2D1_RECT_F srcRect = D2D1::RectF(sp, 0, ep, bmpSize.height);
+
+    D2D1_RECT_F destRect = D2D1::RectF(pos.x + sp, pos.y,
+        pos.x + ep, pos.y + bmpSize.height);
+
+    renderTarget->DrawBitmap(bitmap, destRect, alpha, D2D1_BITMAP_INTERPOLATION_MODE_LINEAR, &srcRect);
+    renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
+}
+
 void D2DImage::Render(float x, float y, float angle, bool flipX, bool flipY, float alpha)
 {
     D2D1_SIZE_F bmpSize = bitmap->GetSize();
@@ -280,4 +297,3 @@ void D2DImage::ReleaseLast()
         }
     }
 }
-
