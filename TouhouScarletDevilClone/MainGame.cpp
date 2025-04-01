@@ -95,7 +95,7 @@ void MainGame::Render()
 
 
 	if (gameInstance) gameInstance->Render(NULL);
-	enemyFactory->Render();
+	// enemyFactory->Render();
 	ui->Render(NULL);
 	//
 	// backBuffer->Render(hdc);
