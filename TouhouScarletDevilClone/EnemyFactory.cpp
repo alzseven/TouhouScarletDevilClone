@@ -4,11 +4,11 @@
 
 void EnemyFactory::Init(int size)
 {
-	missileFactory = new MissileFactory();
-	missileFactory->Init(1000);
+	// missileFactory = new MissileFactory();
+	// missileFactory->Init(1000);
 	for (int i = 0; i < size; i++)
 	{
-		VEnemy* m = new VEnemy(missileFactory);
+		VEnemy* m = new VEnemy();
 		freeList.push_back(m);
 	}
 	
@@ -16,7 +16,7 @@ void EnemyFactory::Init(int size)
 
 void EnemyFactory::Update(float dt)
 {
-	missileFactory->Update(dt);
+	// missileFactory->Update(dt);
 	for (auto iter = activeList.begin(); iter != activeList.end(); )
 	{
 		(*iter)->Update(dt);
@@ -34,7 +34,7 @@ void EnemyFactory::Update(float dt)
 
 void EnemyFactory::Render()
 {
-	missileFactory->Render();
+	// missileFactory->Render();
 	for (auto iter = activeList.begin(); iter != activeList.end(); iter++)
 	{
 		(*iter)->Render();
@@ -58,12 +58,12 @@ void EnemyFactory::Release()
 	activeList.clear();
 	freeList.clear();
 
-	if (missileFactory)
-	{
-		missileFactory->Release();
-		delete missileFactory;
-		missileFactory = nullptr;
-	}
+	// if (missileFactory)
+	// {
+	// 	missileFactory->Release();
+	// 	delete missileFactory;
+	// 	missileFactory = nullptr;
+	// }
 }
 
 VEnemy* EnemyFactory::active()

@@ -1,16 +1,19 @@
 #pragma once
+#include "BHBullet.h"
 #include "config.h"
+#include "ObjectPool.h"
 
 class Shape;
-class Missile;
-class MissileFactory;
+// class Missile;
+// class MissileFactory;
 class Pattern;
 class VEnemy
 {
 protected:
 	FPOINT pos = { -100,-100 };
 	Shape* shape = nullptr;
-	MissileFactory* m_factory = nullptr;
+	// MissileFactory* m_factory = nullptr;
+	ObjectPool<BHBullet>* bulletPool = nullptr;
 	float timer = 0;
 
 	vector<Pattern*> patterns;
@@ -24,7 +27,7 @@ protected:
 	float frameDelay = 0;
 	int idx = 0;
 public:
-	VEnemy(MissileFactory* missileFactory);
+	VEnemy();
 	virtual ~VEnemy() {};
 	virtual void Init(FPOINT pos);
 	virtual void Update(float dt);

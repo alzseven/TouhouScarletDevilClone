@@ -13,6 +13,7 @@ EnemyController::~EnemyController()
 
 void EnemyController::Init()
 {
+    // for test
     patterns[0] = new MoveStraightDirectionPattern();
     patterns[0]->SetTarget(target);
     patterns[0]->SetPatternStartTime(0.f);
@@ -46,19 +47,36 @@ void EnemyController::Init()
 void EnemyController::Update(float dt)
 {
     timeElapsed += dt;
-    if (actions.empty() == false)
-    {
-        if (timeElapsed >= actions.front()->GetPatternStartTime())
-        {
-            AddPatternToTarget(actions.front());
-            actions.pop();
-        }
-    }
+    // if (actions.empty() == false)
+    // {
+    //     if (timeElapsed >= actions.front()->GetPatternStartTime())
+    //     {
+    //         AddPatternToTarget(actions.front());
+    //         actions.pop();
+    //     }
+    // }
 
-    for (std::vector<IObjectActionPattern*>::iterator iter = enabledActions.begin(); iter != enabledActions.end(); ++iter)
-    {
-        (*iter)->Update(dt);
+    // Add new patterns
+    while (!actions.empty() && timeElapsed >= actions.front()->GetPatternStartTime()) {
+        enabledActions.push_back(std::move(actions.front()));
+        actions.pop();
     }
+    
+    // for (std::vector<IObjectActionPattern*>::iterator iter = enabledActions.begin(); iter != enabledActions.end(); ++iter)
+    // {
+    //     (*iter)->Update(dt);
+    // }
+    
+    // Update and remove expired
+    enabledActions.erase(
+        std::remove_if(enabledActions.begin(), enabledActions.end(),
+            [dt](const auto& pattern) {
+                pattern->Update(dt);
+                return pattern->IsExpired();
+            }),
+        enabledActions.end()
+    );
+    
 }
 
 void EnemyController::AddPatternToTarget(IObjectActionPattern* newPattern)
