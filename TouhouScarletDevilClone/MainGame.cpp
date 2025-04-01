@@ -55,11 +55,11 @@ void MainGame::Update(float dt)
 void MainGame::Render()
 {
 	HDC hBackBufferDC = backBuffer->GetMemDC();
-	ui->Render(hBackBufferDC);
+	
 	backBuffer->Render(hBackBufferDC);
 
 	if (gameInstance) gameInstance->Render(hBackBufferDC);
-
+	ui->Render(hBackBufferDC);
 
 	backBuffer->Render(hdc);
 }
