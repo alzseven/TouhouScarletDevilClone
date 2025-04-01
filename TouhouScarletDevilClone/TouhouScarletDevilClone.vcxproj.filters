@@ -27,6 +27,8 @@
     </Filter>
     <Filter Include="2D Bullet Hell Framwork\UI">
       <UniqueIdentifier>{6b22099b-a205-4088-a908-e4051479aa48}</UniqueIdentifier>
+    <Filter Include="2D Bullet Hell Framwork\JiunTest">
+      <UniqueIdentifier>{5694a3a3-0dce-40d8-bda9-1866a8a6bfb3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -54,13 +56,43 @@
     <ClCompile Include="BHObject.cpp">
       <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
     </ClCompile>
+    <ClCompile Include="BHPlayer.cpp">
+      <Filter>2D Bullet Hell Framwork\BHGameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageManager.cpp">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileFactory.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ShapeManager.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="VEnemy.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyFactory.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="Pattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="BHBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BHEnemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="BHPlayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="BulletManager.cpp">
@@ -77,6 +109,14 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>2D Bullet Hell Framwork\Core</Filter>
+    <ClCompile Include="EnemyController.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="IObjectActionPattern.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="PathMaker.cpp">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>2D Bullet Hell Framwork\UI</Filter>
@@ -113,17 +153,68 @@
     <ClInclude Include="ICircleCollideable.h">
       <Filter>2D Bullet Hell Framwork\Core</Filter>
     </ClInclude>
+    <ClInclude Include="ImageManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>2D Bullet Hell Framwork\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImage.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileFactory.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ShapeManager.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="VEnemy.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyFactory.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="Pattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHBullet.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHEnemy.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BHPlayer.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BulletShooter.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="CircleCollisionManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ICollideable.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IObjectActionPattern.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
     <ClInclude Include="ObjectPool.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>헤더 파일</Filter>
+    <ClInclude Include="PathMaker.h">
+      <Filter>2D Bullet Hell Framwork\JiunTest</Filter>
     </ClInclude>
     <ClInclude Include="BHBullet.h">
       <Filter>헤더 파일</Filter>

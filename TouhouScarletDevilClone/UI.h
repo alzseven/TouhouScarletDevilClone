@@ -9,7 +9,7 @@ enum class BossPhaseType
 	FinalBoss
 };
 
-class Image;
+class D2DImage;
 class Timer;
 class UI
 {
@@ -19,59 +19,59 @@ private:
 	Timer* timer;
 
 	vector<POINT> BackGroubdTile;
-	Image* BackGround_Image;
-	Image* BackGround;
+	D2DImage* BackGround_Image;
+	D2DImage* BackGround;
 	bool isBgReder;
 
 
 
 
 	FPOINT StagePos{ WINSIZE_X - 850, WINSIZE_Y - 620 };	// 스테이지 위치
-	Image* Stage;
+	D2DImage* Stage;
 
 	// 점수 이미지를 담을 맵
 	vector<string> numberImageKeys;
 
 	FPOINT MaxScorePos{ WINSIZE_X - 330, WINSIZE_Y - 600 };	// 최대 점수 위치
 	int MaxScore;
-	Image* MaxScoreImage;
+	D2DImage* MaxScoreImage;
 
 	FPOINT ScorePos{ WINSIZE_X - 281, WINSIZE_Y - 560 };	// 점수 위치
 	int Score;
-	Image* ScoreImage;
+	D2DImage* ScoreImage;
 
 	FPOINT PlayerHpPos{ WINSIZE_X - 330, WINSIZE_Y - 500 };	// 플레이어 체력 위치
 	int PlayerHp;
-	Image* PlayerHpBarImage;
+	D2DImage* PlayerHpBarImage;
 
-	Image* PlayerHpImage;
+	D2DImage* PlayerHpImage;
 
 	FPOINT BombPos{ WINSIZE_X - 330, WINSIZE_Y - 455 };	// 폭탄 위치
 	int BombCount;
-	Image* BombImage;
+	D2DImage* BombImage;
 
 	static const int MaxHpAndBomb = 8;
 
 	FPOINT PowerPos{ WINSIZE_X - 330, WINSIZE_Y - 380 };	// 파워 위치
 	int currPowerbarFrame;
 	int elapPowerbarFrame;
-	Image* PowerImage;
-	Image* PowerBarImage;
-	Image* PowerMaxImage;
-	Image* PowerBarBuffer = nullptr;
+	D2DImage* PowerImage;
+	D2DImage* PowerBarImage;
+	D2DImage* PowerMaxImage;
+	D2DImage* PowerBarBuffer = nullptr;
 	int prevPowerbarFrame = -1;
 
 	FPOINT GrazePos{ WINSIZE_X - 330, WINSIZE_Y - 330 };	// 그레이즈 위치
 	int Graze;
-	Image* GrazeImage;
+	D2DImage* GrazeImage;
 
 	// 보스 등장하면 나타나는 것들
 	bool isEnemyPhase;
 	int currBossHpBarFrame;
 	FPOINT EnemyPhasePos{ StagePos.x + 10, StagePos.y + 10 };	// 적 등장 위치
-	Image* EnemyPhaseImage;
-	Image* BossHpBarImage;
-	Image* BossHpBarBuffer = nullptr;
+	D2DImage* EnemyPhaseImage;
+	D2DImage* BossHpBarImage;
+	D2DImage* BossHpBarBuffer = nullptr;
 	int prevBossHpBarFrame = -1;
 
 	// 타이머 관련(보스 등장 시, isEnemyPhase가 true가 되면 카운트 시작)
@@ -80,11 +80,11 @@ private:
 
 	// 꾸미기
 	FPOINT circlePos{ WINSIZE_X - 250, WINSIZE_Y - 280 };
-	Image* circle;
+	D2DImage* circle;
 
 	// fps 표기
 	FPOINT FPSPos{ WINSIZE_X - 200, WINSIZE_Y - 100 };
-	Image* FPSImage;
+	D2DImage* FPSImage;
 	
 
 public:

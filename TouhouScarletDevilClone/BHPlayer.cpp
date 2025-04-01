@@ -4,21 +4,19 @@
 #include "CommonFunction.h"
 // #include "IBulletFactory.h"
 #include "BulletManager.h"
-#include "Image.h"
+#include "D2DImage.h"
+// #include "Image.h"
 // #include "BHEnemy.h"
 // #include "BHBullet.h"
 
 //TODO: Initialize delay in certain value from parameter
-void BHPlayer::Init(Image* image, float hit, FPOINT position, float radianAngle)
+void BHPlayer::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
 {
     BHObject::Init(image, hit, position, radianAngle);
     
     // //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
-    // level1BulletFactory = new MarisaLevel1BulletFactory();
-    // level2BulletFactory = new MarisaLevel2BulletFactory();
     bulletManager->Init();
-    // bulletManager->ChangeBulletFactory(level1BulletFactory);
 
     timeElapsed = 0;
     shootDelay = 0.5f;
@@ -59,13 +57,15 @@ void BHPlayer::Render(HDC hdc)
     {
         if (moveImage)
         {
-            moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
+            moveImage->RenderFrame(position.x, position.y,frameIndex);
+            // moveImage->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex, moveDir.x < 0);
         }
     }
     else
     {
         if (image) {
-            image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
+            image->RenderFrame(position.x, position.y,frameIndex);
+            // image->FrameRender(hdc, position.x, position.y, 27, 36, frameIndex);
         }
     }
 
@@ -154,7 +154,7 @@ void BHPlayer::Update(float dt)
         bulletManager->Update(dt);
         if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
         {
-            Shoot();
+            Shoot(DEG_TO_RAD(-90.f));
             ShootSubWeapon(isPressingShift);
         }
         // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
@@ -174,12 +174,12 @@ void BHPlayer::OnHit(ICollideable* hitObject)
     int a = 0;
 }
 
-void BHPlayer::Shoot()
+void BHPlayer::Shoot(float angle, int shootAmount)
 {
     // if (timeElapsed >= shootDelay)
     // {
     //     //TODO: Separate shooting angle;
-    bulletManager->AddBullet(position, DEG_TO_RAD(-90.f));
+    bulletManager->AddBullet(position, angle);
     //     
     //     timeElapsed = 0.f;
     // }

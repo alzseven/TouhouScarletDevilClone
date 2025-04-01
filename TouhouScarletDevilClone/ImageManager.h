@@ -1,37 +1,32 @@
-#pragma once
+ï»¿#pragma once
 #include "Singleton.h"
 #include "config.h"
 
 ///*
-//	¹è¿­ : ÀÎµ¦½º -> µ¥ÀÌÅÍ
-//	stl::vector : ÀÎµ¦½º -> µ¥ÀÌÅÍ
-//	std::map : Å° -> µ¥ÀÌÅÍ
+//	ë°°ì—´ : ì¸ë±ìŠ¤ -> ë°ì´í„°
+//	stl::vector : ì¸ë±ìŠ¤ -> ë°ì´í„°
+//	std::map : í‚¤ -> ë°ì´í„°
 //
-//	·¹µå-ºí·¢ Æ®¸® ±¸Çö : »ğÀÔ, »èÁ¦, °Ë»ö O(logN) ½Ã°£º¹Àâµµ
+//	ë ˆë“œ-ë¸”ë™ íŠ¸ë¦¬ êµ¬í˜„ : ì‚½ì…, ì‚­ì œ, ê²€ìƒ‰ O(logN) ì‹œê°„ë³µì¡ë„
 //*/
 
-class Image;
+class D2DImage;
 class ImageManager : public Singleton<ImageManager>
 {
 private:
-	map<string, Image*> mapImages;
+	map<string, D2DImage*> mapImages;
 
 public:
 	void Init();
 	void Release();
 
-	Image* AddImage(string key, const wchar_t* filePath,
-		int width, int height,
-		bool isTransparent = FALSE,
-		COLORREF transColor = FALSE);
+	D2DImage* AddImage(string key, const wchar_t* filePath);
 
-	Image* AddImage(string key, const wchar_t* filePath, 
-		int width, int height,
-		int maxFrameX, int maxFrameY,
-		bool isTransparent = FALSE, 
-		COLORREF transColor = FALSE);
+	D2DImage* AddImage(string key, const wchar_t* filePath,
+		int maxFrameX, int maxFrameY);
 
 	void DeleteImage(string key);
-	Image* FindImage(string key);
+	D2DImage* FindImageAdd(string key);
+	D2DImage* FindImage(string key);
 };
 
