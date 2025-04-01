@@ -1,15 +1,9 @@
 #include "BHPlayer.h"
 #include "config.h"
-// #include "BulletManager.h"
-#include "CommonFunction.h"
-// #include "IBulletFactory.h"
 #include "BulletManager.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "Shape.h"
-// #include "Image.h"
-// #include "BHEnemy.h"
-// #include "BHBullet.h"
 
 void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
@@ -18,7 +12,7 @@ void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
     this->position = pos;
     this->radianAngle = radianAngle;
     isAlive = true;
-    CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+    // CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 
     //TODO : Separate with weapon system?
     bulletManager = new BulletManager();
@@ -69,23 +63,14 @@ void BHPlayer::Render(HDC hdc)
         {
             //TODO: separate frameIndex
             shape->GetImage()->RenderFrame(position.x, position.y,frameIndex);
+            //Debug
+            // shape->GetImage()->DrawRect(
+            // {position.x, position.y,},
+            // { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
+            // 2, 1);
         }
-        // if (image) {
-        //     image->RenderFrame(position.x, position.y,frameIndex);
-        // }
     }
 
-    // HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
-    // // 기존 펜 받아서
-    // HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
-    // HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
-    //
-    // RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
-    //
-    // SelectObject(hdc, hOldPen);
-    // SelectObject(hdc, oldbrush);
-    // // 삭제
-    // DeleteObject(hPen);
 
     if (bulletManager)
     {
@@ -177,16 +162,6 @@ void BHPlayer::OnHit(ICollideable* hitObject)
 {
     int a = 0;
 }
-
-// void BHPlayer::Shoot(float angle, int shootAmount)
-// {
-//     // if (timeElapsed >= shootDelay)
-//     // {
-//     bulletManager->AddBullet(position, angle);
-//     //     
-//     //     timeElapsed = 0.f;
-//     // }
-// }
 
 void BHPlayer::Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {

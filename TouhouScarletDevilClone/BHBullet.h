@@ -16,6 +16,9 @@ protected:
 	float movementSpeed;
 	ObjectPool<BHBullet>* pool;
 public:
+	BHBullet() = default;
+	~BHBullet() = default;
+	
 	void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
 
 	void Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
@@ -33,7 +36,7 @@ public:
 	void Move(float angle, float speed, float dt) override;
 
 	void Reset();
-	// void Shoot(float angle, int shootAmount = 1) override {};
+
 	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override {};
 
 	bool IsOutofScreen();
