@@ -106,7 +106,6 @@ void MainGame::Render()
 	}*/
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
-	tmpImage->Render(200,200);
 	enemyFactory->Render();
 	D2DImage::EndDraw();
 }
