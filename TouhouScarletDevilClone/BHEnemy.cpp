@@ -7,7 +7,7 @@
 #include "BulletManager.h"
 #include "D2DImage.h"
 #include "EnemyController.h"
-#include "Image.h"
+// #include "Image.h"
 #include "IObjectActionPattern.h"
 // #include "IPatternInfo.h"
 

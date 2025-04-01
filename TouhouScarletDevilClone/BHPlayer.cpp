@@ -5,7 +5,7 @@
 // #include "IBulletFactory.h"
 #include "BulletManager.h"
 #include "D2DImage.h"
-#include "Image.h"
+// #include "Image.h"
 // #include "BHEnemy.h"
 // #include "BHBullet.h"
 

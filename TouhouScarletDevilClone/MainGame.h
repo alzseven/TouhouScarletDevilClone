@@ -4,15 +4,15 @@
 class TouhouScarletDevilCloneGame;
 class Image;
 class UI;
-class Image;
+// class Image;
 class D2DImage;
 class EnemyFactory;
 class MainGame : public GameObject
 {
 private:
 	HDC hdc;
-	Image* backBuffer;
-	Image* background;
+	// Image* backBuffer;
+	// Image* background;
 	TouhouScarletDevilCloneGame* gameInstance;
 	UI* ui;
 

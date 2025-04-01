@@ -1,7 +1,6 @@
 #include "BHBullet.h"
 
 #include "CommonFunction.h"
-#include "Image.h"
 #include "D2DImage.h"
 
 void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)

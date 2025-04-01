@@ -4,7 +4,6 @@
 #include "BHPlayer.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
-#include "Image.h"
 #include "ImageManager.h"
 
 
@@ -74,7 +73,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
-    if (bgImage) bgImage->Render(hdc);
+    if (bgImage) bgImage->Render(-WINSIZE_X / 2, -WINSIZE_Y / 2);
     //if (player) player->Render(hdc);
     //if (enemy) enemy->Render(hdc);
     CircleCollisionManager::GetInstance()->Render(hdc);

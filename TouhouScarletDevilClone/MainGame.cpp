@@ -10,28 +10,7 @@ void MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
 
-	backBuffer = new Image();
-	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
-	}
 	ui = new UI();
-	// backBuffer = new Image();
-	// if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
-	// {
-	// 	MessageBox(g_hWnd,
-	// 		TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
-	// }
-	// background = new Image();
-	// if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
-	// {
-	// 	MessageBox(g_hWnd,
-	// 		TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
-	// }
-
-	
-	
 
 	enemyFactory = new EnemyFactory;
 	enemyFactory->Init(100);
@@ -51,12 +30,12 @@ void MainGame::Release()
 		gameInstance = nullptr;
 	}
 
-	if (backBuffer)
-	{
-		backBuffer->Release();
-		delete backBuffer;
-		backBuffer = nullptr;
-	}
+	// if (backBuffer)
+	// {
+	// 	backBuffer->Release();
+	// 	delete backBuffer;
+	// 	backBuffer = nullptr;
+	// }
 
 	if (ui)
 	{
@@ -129,14 +108,14 @@ void MainGame::Render()
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
 	
-	HDC hBackBufferDC = backBuffer->GetMemDC();
-	
-	backBuffer->Render(hBackBufferDC);
+	// HDC hBackBufferDC = backBuffer->GetMemDC();
+	//
+	// backBuffer->Render(hBackBufferDC);
 
-	if (gameInstance) gameInstance->Render(hBackBufferDC);
-	ui->Render(hBackBufferDC);
-
-	backBuffer->Render(hdc);
+	if (gameInstance) gameInstance->Render(NULL);
+	ui->Render(NULL);
+	//
+	// backBuffer->Render(hdc);
 	
 	//도형 출력 예제
 	D2DImage image;

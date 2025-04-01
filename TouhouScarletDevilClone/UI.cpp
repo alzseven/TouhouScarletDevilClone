@@ -1,5 +1,6 @@
 #include "UI.h"
-#include "Image.h"
+
+#include "D2DImage.h"
 #include "ImageManager.h"
 #include "InputManager.h"
 #include "Timer.h"
@@ -7,20 +8,20 @@
 UI::UI()
 {
 	pos = { 0.0f,0.0f };
-	BackGround_Image = ImageManager::GetInstance()->AddImage("BackGround", TEXT("Image/InGameBackGround.bmp"), 900, 680, true, RGB(0, 0, 0));
-	Stage = ImageManager::GetInstance()->AddImage("Stage", TEXT("Image/Stage.bmp"), 480, 560, true, RGB(255, 0, 255));
-	MaxScoreImage = ImageManager::GetInstance()->AddImage("MaxScoreImage", TEXT("Image/MaxScore.bmp"), 100, 30, true, RGB(0, 0, 0));
-	ScoreImage = ImageManager::GetInstance()->AddImage("Score", TEXT("Image/Score.bmp"), 50, 28, true, RGB(0, 0, 0));
-	PlayerHpBarImage = ImageManager::GetInstance()->AddImage("PlayerHpBar", TEXT("Image/PlayerHpBar.bmp"), 100, 30, true, RGB(0, 0, 0));
-	BombImage = ImageManager::GetInstance()->AddImage("BombBar", TEXT("Image/BombBar.bmp"), 80, 30, true, RGB(0, 0, 0));
-	PowerImage = ImageManager::GetInstance()->AddImage("Power", TEXT("Image/Power.bmp"), 100, 30, true, RGB(0, 0, 0));
-	PowerBarImage = ImageManager::GetInstance()->AddImage("PowerBar", TEXT("Image/PowerBar.bmp"), 160, 30, 160, 1, true, RGB(0, 0, 0));
-	PowerMaxImage = ImageManager::GetInstance()->AddImage("PowerMax", TEXT("Image/PowerMax.bmp"), 60, 22, true, RGB(0, 0, 0));
-	GrazeImage = ImageManager::GetInstance()->AddImage("Graze", TEXT("Image/Graze.bmp"), 100, 30, true, RGB(0, 0, 0));
-	EnemyPhaseImage = ImageManager::GetInstance()->AddImage("EnemyPhase", TEXT("Image/EnemyPhase.bmp"), 50, 20, true, RGB(0, 0, 0));
-	BossHpBarImage = ImageManager::GetInstance()->AddImage("BossHpBar", TEXT("Image/BossHpBar.bmp"), 350, 8, 350, 1, true, RGB(0, 0, 0));
-	circle = ImageManager::GetInstance()->AddImage("circle", TEXT("Image/circle.bmp"), 129, 129, true, RGB(0, 0, 0));
-	FPSImage = ImageManager::GetInstance()->AddImage("FPS", TEXT("Image/FPS.bmp"), 70, 25, true, RGB(32, 32, 32));
+	BackGround_Image = ImageManager::GetInstance()->AddImage("BackGround", TEXT("Image/InGameBackGround.bmp"));
+	Stage = ImageManager::GetInstance()->AddImage("Stage", TEXT("Image/Stage.bmp"));
+	MaxScoreImage = ImageManager::GetInstance()->AddImage("MaxScoreImage", TEXT("Image/MaxScore.bmp"));
+	ScoreImage = ImageManager::GetInstance()->AddImage("Score", TEXT("Image/Score.bmp"));
+	PlayerHpBarImage = ImageManager::GetInstance()->AddImage("PlayerHpBar", TEXT("Image/PlayerHpBar.bmp"));
+	BombImage = ImageManager::GetInstance()->AddImage("BombBar", TEXT("Image/BombBar.bmp"));
+	PowerImage = ImageManager::GetInstance()->AddImage("Power", TEXT("Image/Power.bmp"));
+	PowerBarImage = ImageManager::GetInstance()->AddImage("PowerBar", TEXT("Image/PowerBar.bmp"));
+	PowerMaxImage = ImageManager::GetInstance()->AddImage("PowerMax", TEXT("Image/PowerMax.bmp"));
+	GrazeImage = ImageManager::GetInstance()->AddImage("Graze", TEXT("Image/Graze.bmp"));
+	EnemyPhaseImage = ImageManager::GetInstance()->AddImage("EnemyPhase", TEXT("Image/EnemyPhase.bmp"));
+	BossHpBarImage = ImageManager::GetInstance()->AddImage("BossHpBar", TEXT("Image/BossHpBar.bmp"));
+	circle = ImageManager::GetInstance()->AddImage("circle", TEXT("Image/circle.bmp"));
+	FPSImage = ImageManager::GetInstance()->AddImage("FPS", TEXT("Image/FPS.bmp"));
 
 	// 타이머
 	timer = new Timer();
@@ -31,7 +32,7 @@ UI::UI()
 	ReLoadScore();
 
 	// 점수 초기화
-	MaxScore = 0;
+	MaxScore = 32343;
 	Score = 0;
 
 	// 체력 초기화
@@ -50,41 +51,41 @@ UI::UI()
 
 UI::~UI()
 {
-	BackGround_Image = nullptr;
-	Stage = nullptr;
-	MaxScoreImage = nullptr;
-	ScoreImage = nullptr;
-	PlayerHpBarImage = nullptr;
-	PlayerHpImage = nullptr;
-	BombImage = nullptr;
-	PowerImage = nullptr;
-	PowerBarImage = nullptr;
-	PowerMaxImage = nullptr;
-	GrazeImage = nullptr;
-	EnemyPhaseImage = nullptr;
-	BossHpBarImage = nullptr;
-	circle = nullptr;
-	FPSImage = nullptr;
+	// BackGround_Image = nullptr;
+	// Stage = nullptr;
+	// MaxScoreImage = nullptr;
+	// ScoreImage = nullptr;
+	// PlayerHpBarImage = nullptr;
+	// PlayerHpImage = nullptr;
+	// BombImage = nullptr;
+	// PowerImage = nullptr;
+	// PowerBarImage = nullptr;
+	// PowerMaxImage = nullptr;
+	// GrazeImage = nullptr;
+	// EnemyPhaseImage = nullptr;
+	// BossHpBarImage = nullptr;
+	// circle = nullptr;
+	// FPSImage = nullptr;
 
-	if (BackGround) {
-		BackGround->Release();
-		delete BackGround;
-		BackGround = nullptr;
-	}
-
-	if (PowerBarBuffer)
-	{
-		PowerBarBuffer->Release();
-		delete PowerBarBuffer;
-		PowerBarBuffer = nullptr;
-	}
-
-	if (BossHpBarBuffer)
-	{
-		BossHpBarBuffer->Release();
-		delete BossHpBarBuffer;
-		BossHpBarBuffer = nullptr;
-	}
+	// if (BackGround) {
+	// 	BackGround->Release();
+	// 	delete BackGround;
+	// 	BackGround = nullptr;
+	// }
+	//
+	// if (PowerBarBuffer)
+	// {
+	// 	PowerBarBuffer->Release();
+	// 	delete PowerBarBuffer;
+	// 	PowerBarBuffer = nullptr;
+	// }
+	//
+	// if (BossHpBarBuffer)
+	// {
+	// 	BossHpBarBuffer->Release();
+	// 	delete BossHpBarBuffer;
+	// 	BossHpBarBuffer = nullptr;
+	// }
 
 	numberImageKeys.clear();
 
@@ -145,15 +146,15 @@ void UI::Render(HDC hdc)
 	//	BackGround->Render(hdc);
 	//}
 
-	BackGround_Image->Render(hdc);
+	BackGround_Image->Render(-WINSIZE_X/2, -WINSIZE_Y/2);
 
 
-	MaxScoreImage->Render(hdc, MaxScorePos.x, MaxScorePos.y);
-	ScoreImage->Render(hdc, ScorePos.x, ScorePos.y);
-	PlayerHpBarImage->Render(hdc, PlayerHpPos.x, PlayerHpPos.y);
-	BombImage->Render(hdc, BombPos.x, BombPos.y);
-	PowerImage->Render(hdc, PowerPos.x, PowerPos.y);
-	GrazeImage->Render(hdc, GrazePos.x, GrazePos.y);
+	MaxScoreImage->Render(MaxScorePos.x, MaxScorePos.y);
+	ScoreImage->Render(ScorePos.x, ScorePos.y);
+	PlayerHpBarImage->Render( PlayerHpPos.x, PlayerHpPos.y);
+	BombImage->Render(BombPos.x, BombPos.y);
+	PowerImage->Render( PowerPos.x, PowerPos.y);
+	GrazeImage->Render( GrazePos.x, GrazePos.y);
 
 
 	// 점수
@@ -176,7 +177,7 @@ void UI::Render(HDC hdc)
 
 
 	// 원 그리기
-	circle->Render(hdc, circlePos.x, circlePos.y);
+	circle->Render(circlePos.x, circlePos.y);
 
 	RenderFPSAsImage(hdc, timer->GetFPS(), FPSPos);
 }
@@ -199,13 +200,12 @@ void UI::ReLoadScore()
 		wchar_t fileName[64];
 		wsprintf(fileName, L"Image/Num%S.bmp", key.c_str());
 
-		if (!ImageManager::GetInstance()->FindImage(key))
+		if (!ImageManager::GetInstance()->FindImageAdd(key))
 			ImageManager::GetInstance()->AddImage(
 				key,
-				fileName,
-				20, 28,
-				true, RGB(37, 37, 37)
+				fileName
 			);
+		int a = 0;
 	}
 }
 
@@ -231,8 +231,7 @@ void UI::ReLoadStar()
 
 		ImageManager::GetInstance()->AddImage(
 			key,
-			path,
-			20, 28, true, RGB(0, 0, 0)
+			path
 		);
 	}
 
@@ -250,8 +249,7 @@ void UI::ReLoadStar()
 
 		ImageManager::GetInstance()->AddImage(
 			key,
-			path,
-			20, 28, true, RGB(0, 0, 0)
+			path
 		);
 	}
 }
@@ -275,9 +273,9 @@ void UI::RenderScoreAsImage(HDC hdc, int number, FPOINT startPos)
 		string key(1, digitChar);		// 문자를 키로 변환
 
 		// 이미지가 있으면 출력
-		if (Image* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(startPos.x + i * digitWidth), static_cast<int>(startPos.y));
+			img->Render( static_cast<int>(startPos.x + i * digitWidth), static_cast<int>(startPos.y));
 		}
 	}
 }
@@ -293,9 +291,9 @@ void UI::RenderHpAsImage(HDC hdc, int number, FPOINT Pos)
 
 		string key = (i < number) ? "Star" : "EmptyStar";
 
-		if (Image* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
+			img->Render(static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
 		}
 	}
 }
@@ -311,9 +309,9 @@ void UI::RenderBombAsImage(HDC hdc, int number, FPOINT Pos)
 
 		string key = (i < number) ? "Bomb" : "EmptyBomb";
 
-		if (Image* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
+			img->Render(static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
 		}
 	}
 
@@ -334,23 +332,23 @@ void UI::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 	{
 		string key(1, numberStr[i]);
 
-		if (Image* img = ImageManager::GetInstance()->FindImage(key)) {
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key)) {
 			if (number < 159)
-				img->Render(hdc, pos.x + 130 + i * digitWidth, pos.y);
+				img->Render(pos.x + 130 + i * digitWidth, pos.y);
 		}
 	}
 	if (currPowerbarFrame == 159)
-		PowerMaxImage->Render(hdc, pos.x + 130, pos.y);
+		PowerMaxImage->Render(pos.x + 130, pos.y);
 }
 
 // 파워바 이미지로 출력
 void UI::RenderPowerBarAsImage(HDC hdc, int number, FPOINT Pos)
 {
-	Image* img = ImageManager::GetInstance()->FindImage("PowerBar");
+	D2DImage* img = ImageManager::GetInstance()->FindImage("PowerBar");
 	if (!img) return;
 
-	int frameWidth = img->GetFrameWidth();
-	int frameHeight = img->GetFrameHeight();
+	int frameWidth = img->GetWidth();
+	int frameHeight = img->GetHeight();
 
 	// 프레임 수가 바뀌었을 때만 다시 그림
 	if (currPowerbarFrame != prevPowerbarFrame)
@@ -362,16 +360,17 @@ void UI::RenderPowerBarAsImage(HDC hdc, int number, FPOINT Pos)
 		}
 		if (currPowerbarFrame > 0)
 		{
-			PowerBarBuffer = new Image();
-			PowerBarBuffer->Init(frameWidth * currPowerbarFrame, frameHeight);
+			// PowerBarBuffer = new Image();
+			// PowerBarBuffer->Init(frameWidth * currPowerbarFrame, frameHeight);
 
 			for (int i = 0; i < currPowerbarFrame; ++i)
 			{
 				int frameX = i % img->GetMaxFrameX();
 				int frameY = i / img->GetMaxFrameX();
 
-				img->FrameRenderRaw(PowerBarBuffer->GetMemDC(),
-					i * frameWidth, 0, frameX, frameY);
+				img->Render(frameX, frameY);
+				// img->FrameRenderRaw(PowerBarBuffer->GetMemDC(),
+				// 	i * frameWidth, 0, frameX, frameY);
 			}
 		}
 		else
@@ -383,15 +382,15 @@ void UI::RenderPowerBarAsImage(HDC hdc, int number, FPOINT Pos)
 	// 최종 출력
 	if (PowerBarBuffer && currPowerbarFrame > 0)
 	{
-		PowerBarBuffer->Render(hdc, Pos.x + 120, Pos.y);
+		PowerBarBuffer->Render(Pos.x + 120, Pos.y);
 	}
 }
 
 // 보스 출현 하면 왼쪽 상단에 EnemyPhase 이미지 출력
 void UI::RenderEnemyPhase(HDC hdc)
 {
-	if (Image* img = ImageManager::GetInstance()->FindImage("EnemyPhase")) {
-		img->Render(hdc, EnemyPhasePos.x, EnemyPhasePos.y);
+	if (D2DImage* img = ImageManager::GetInstance()->FindImage("EnemyPhase")) {
+		img->Render(EnemyPhasePos.x, EnemyPhasePos.y);
 	}
 	RenderBossHpBar(hdc, currBossHpBarFrame, { EnemyPhasePos.x + 60, EnemyPhasePos.y + 5 });
 }
@@ -399,11 +398,11 @@ void UI::RenderEnemyPhase(HDC hdc)
 // 보스 체력바 이미지로 출력
 void UI::RenderBossHpBar(HDC hdc, int number, FPOINT Pos)
 {
-	Image* img = ImageManager::GetInstance()->FindImage("BossHpBar");
+	D2DImage* img = ImageManager::GetInstance()->FindImage("BossHpBar");
 	if (!img) return;
 
-	int frameWidth = img->GetFrameWidth();
-	int frameHeight = img->GetFrameHeight();
+	int frameWidth = img->GetWidth();
+	int frameHeight = img->GetHeight();
 
 	if (currBossHpBarFrame != prevBossHpBarFrame)
 	{
@@ -415,16 +414,17 @@ void UI::RenderBossHpBar(HDC hdc, int number, FPOINT Pos)
 
 		if (currBossHpBarFrame > 0)
 		{
-			BossHpBarBuffer = new Image();
-			BossHpBarBuffer->Init(frameWidth * currBossHpBarFrame, frameHeight);
+			// BossHpBarBuffer = new D2DImage();
+			// BossHpBarBuffer->Init(frameWidth * currBossHpBarFrame, frameHeight);
 
 			for (int i = 0; i < currBossHpBarFrame; ++i)
 			{
 				int frameX = i % img->GetMaxFrameX();
 				int frameY = i / img->GetMaxFrameX();
 
-				img->FrameRenderRaw(BossHpBarBuffer->GetMemDC(),
-					i * frameWidth, 0, frameX, frameY);
+				img->Render(frameX, frameY);
+				// img->FrameRenderRaw(BossHpBarBuffer->GetMemDC(),
+				// 	i * frameWidth, 0, frameX, frameY);
 			}
 		}
 		else
@@ -438,7 +438,7 @@ void UI::RenderBossHpBar(HDC hdc, int number, FPOINT Pos)
 	// 최종 출력
 	if (BossHpBarBuffer && currBossHpBarFrame > 0)
 	{
-		BossHpBarBuffer->Render(hdc, Pos.x, Pos.y);
+		BossHpBarBuffer->Render(Pos.x, Pos.y);
 	}
 }
 
@@ -453,9 +453,9 @@ void UI::RenderTimerAsImage(HDC hdc, int number, FPOINT Pos)
 	for (int i = 0; i < timeStr.length(); i++)
 	{
 		string key(1, timeStr[i]);
-		if (Image* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(Pos.x + i * digitWidth) + 425, static_cast<int>(Pos.y) - 5);
+			img->Render(static_cast<int>(Pos.x + i * digitWidth) + 425, static_cast<int>(Pos.y) - 5);
 		}
 	}
 }
@@ -465,13 +465,13 @@ void UI::RenderFPSAsImage(HDC hdc, unsigned long fps, FPOINT Pos)
 	const int digitWidth = 20;
 	string fpsStr = to_string(fps);
 
-	FPSImage->Render(hdc, static_cast<int>(Pos.x + 80), static_cast<int>(Pos.y));
+	FPSImage->Render(static_cast<int>(Pos.x + 80), static_cast<int>(Pos.y));
 	for (int i = 0; i < fpsStr.length(); ++i)
 	{
 		string key(1, fpsStr[i]);
-		if (Image* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render(hdc, static_cast<int>(Pos.x + i * digitWidth), static_cast<int>(Pos.y));
+			img->Render(static_cast<int>(Pos.x + i * digitWidth), static_cast<int>(Pos.y));
 		}
 	}
 }
