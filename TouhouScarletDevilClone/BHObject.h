@@ -2,44 +2,36 @@
 #include "config.h"
 #include "ICircleCollideable.h"
 
+class IObjectActionPattern;
 class Image;
+class D2DImage;
 class BHObject : public ICircleCollideable
 {
 protected:
 	bool isAlive;
-	
-	FPOINT* position;
+	FPOINT position;
 	float radianAngle;
 
-	//TODO: ICollideable
-	float hit;
+	D2DImage* image;
 
-	//TODO:
-	Image* image;
-	
-	//identifier for determine if something could be harmful to player
+
 public:
 	BHObject() = default;
-	virtual ~BHObject() = default;
+	~BHObject() override = default;
 
-	virtual void Init(Image* image, float hit, FPOINT position, float radianAngle);
-
+	virtual void Init(D2DImage* image, float hit, FPOINT position, float radianAngle);
 	virtual void Release() = 0;
-	
-	virtual void Update() = 0;
-
+	virtual void Update(float dt) = 0;
 	virtual void Render(HDC hdc);
 
-	virtual void Move(float angle, float speed);
-
+	void OnHit(ICollideable* hitObject) override = 0;
 	
-	// bool IsHit(BHObject* BHObject);
-	
-	//TODO: Quad-Tree Optimization how?
-	//bool IsHit(CTaskList * list);
+	inline FPOINT* GetPos() override { return &position; }
 
-	//TODO:
-	// inline void SetShape(int shape_id) { Shape = new SHAPE(); };
+	// inline void AddAction(IObjectActionPattern* actions) { this->actions.push_back(actions); }
+	// inline void SetPattern(IObjectActionPattern* newPatterns) { this->patterns = newPatterns; }
 
-	FPOINT* GetPos() override { return position; }
+	//Controlables
+	virtual void Move(float angle, float moveSpeed, float dt) = 0;
+	virtual void Shoot(float angle, int shootAmount = 1) = 0;
 };

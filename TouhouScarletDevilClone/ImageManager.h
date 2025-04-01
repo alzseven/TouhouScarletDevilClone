@@ -26,6 +26,7 @@ public:
 		int maxFrameX, int maxFrameY);
 
 	void DeleteImage(string key);
+	D2DImage* FindImageAdd(string key);
 	D2DImage* FindImage(string key);
 };
 

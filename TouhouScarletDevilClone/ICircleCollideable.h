@@ -1,15 +1,14 @@
 ﻿#pragma once
 #include "config.h"
+#include "ICollideable.h"
 
-class BHObject;
-
-class ICircleCollideable
+class ICircleCollideable : public ICollideable
 {
+protected:
+    float hitRadius;
 public:
     ICircleCollideable() = default;
-    virtual ~ICircleCollideable() = default;
+    ~ICircleCollideable() override = default;
     
-    virtual FPOINT* GetPos() = 0;
-    virtual float GetHit() = 0;
-    virtual void OnHit(ICircleCollideable* hitObject) = 0;
+    inline float GetHitRadius() const {return hitRadius;}
 };

@@ -1,6 +1,5 @@
 #include "config.h"
 #include "MainGame.h"
-#include "Image.h"
 #include "TouhouScarletDevilCloneGame.h"
 #include "D2DImage.h"
 #include "EnemyFactory.h"
@@ -10,29 +9,28 @@ void MainGame::Init()
 {
 	hdc = GetDC(g_hWnd);
 
-	backBuffer = new Image();
-	if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
-	}
-	background = new Image();
-	if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
-	{
-		MessageBox(g_hWnd,
-			TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
-	}
+	// backBuffer = new Image();
+	// if (FAILED(backBuffer->Init(WINSIZE_X, WINSIZE_Y)))
+	// {
+	// 	MessageBox(g_hWnd,
+	// 		TEXT("Failed to create : BackBuffer"), TEXT("Warning"), MB_OK);
+	// }
+	// background = new Image();
+	// if (FAILED(background->Init(TEXT("Image/_.bmp"), WINSIZE_X, WINSIZE_Y)))
+	// {
+	// 	MessageBox(g_hWnd,
+	// 		TEXT("Failed to create : Image/_.bmp"), TEXT("Warning"), MB_OK);
+	// }
 
-	gameInstance = new TouhouScarletDevilCloneGame();
-	gameInstance->Init();
 	
-	D2DImage::InitD2D(g_hWnd);
-	ShapeManager::GetInstance()->Init();
+	
 
 	enemyFactory = new EnemyFactory;
 	enemyFactory->Init(100);
 	VEnemy* vEnemy = enemyFactory->active();
-	vEnemy->Init({ 200,100 });
+	vEnemy->Init({ 300,100 });
+	gameInstance = new TouhouScarletDevilCloneGame();
+	gameInstance->Init();
 }
 
 void MainGame::Release()
@@ -44,19 +42,19 @@ void MainGame::Release()
 		gameInstance = nullptr;
 	}
 	
-	if (background)
-	{
-		background->Release();
-		delete background;
-		background = nullptr;
-	}
-
-	if (backBuffer)
-	{
-		backBuffer->Release();
-		delete backBuffer;
-		backBuffer = nullptr;
-	}
+	// if (background)
+	// {
+	// 	background->Release();
+	// 	delete background;
+	// 	background = nullptr;
+	// }
+	//
+	// if (backBuffer)
+	// {
+	// 	backBuffer->Release();
+	// 	delete backBuffer;
+	// 	backBuffer = nullptr;
+	// }
 	if (enemyFactory)
 	{
 		enemyFactory->Release();
@@ -66,9 +64,9 @@ void MainGame::Release()
 	ReleaseDC(g_hWnd, hdc);
 }
 
-void MainGame::Update()
+void MainGame::Update(float dt)
 {
-	gameInstance->Update();
+	gameInstance->Update(dt);
 	
 	InvalidateRect(g_hWnd, NULL, false);
 	timer++;
@@ -78,7 +76,7 @@ void MainGame::Update()
 		angle++;
 		timer = 0;
 	}
-	enemyFactory->Update();
+	enemyFactory->Update(dt);
 	if (frame >= 4)frame = 0;
 	if (angle > 360) angle = 0;
 }
@@ -108,7 +106,12 @@ void MainGame::Render()
 	}*/
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
-
+	
+	//도형 출력 예제
+	D2DImage image;
+	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
+	image.DrawCircle({ 100,100 }, 20, 1, 2);
+	image.DrawRect({ 300,200 }, {400,300}, 2, 5);
 	enemyFactory->Render();
 	D2DImage::EndDraw();
 }

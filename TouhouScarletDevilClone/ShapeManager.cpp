@@ -4,12 +4,15 @@
 
 void ShapeManager::Init()
 {
+    ShapeManager::GetInstance()->AddShapeCircle("Error", TEXT("Image/MissingNo.png"), 0.0f);
+
     D2DImage* image = nullptr;
     image = ImageManager::GetInstance()->AddImage("enemy", TEXT("Image/enemy1.png"), 4, 1);
     ShapeManager::GetInstance()->AddShapeCharacter("enemy", image, 3.0f);
-
+    
     ShapeManager::GetInstance()->AddShapeCircle("kunai", TEXT("Image/kunai.png"), 3.0f);
     ShapeManager::GetInstance()->AddShapeCircle("ball_green", TEXT("Image/ball_green.png"), 3.0f);
+
 }
 
 void ShapeManager::Release()
@@ -30,7 +33,7 @@ void ShapeManager::Release()
 Shape* ShapeManager::AddShapeCharacter(string key, D2DImage* image, float radius)
 {
     Shape* shape = nullptr;
-    shape = FindShape(key);
+    shape = FindShapeAdd(key);
     if (shape) return shape;
 
     shape = new ShapeCircle(image, radius);
@@ -41,7 +44,7 @@ Shape* ShapeManager::AddShapeCharacter(string key, D2DImage* image, float radius
 Shape* ShapeManager::AddShapeCircle(string key, const wchar_t* filePath, float radius)
 {
     Shape* shape = nullptr;
-    shape = FindShape(key);
+    shape = FindShapeAdd(key);
     if (shape) return shape;
 
     D2DImage* image = ImageManager::GetInstance()->AddImage(key, filePath);
@@ -53,7 +56,7 @@ Shape* ShapeManager::AddShapeCircle(string key, const wchar_t* filePath, float r
 Shape* ShapeManager::AddShapeRect(string key, const wchar_t* filePath, float scaleX, float scaleY, float width, float height)
 {
     Shape* shape = nullptr;
-    shape = FindShape(key);
+    shape = FindShapeAdd(key);
     if (shape) return shape;
 
     D2DImage* image = ImageManager::GetInstance()->AddImage(key, filePath);
@@ -75,12 +78,22 @@ void ShapeManager::DeleteShape(string key)
     mapShapes.erase(iter);
 }
 
-Shape* ShapeManager::FindShape(string key)
+Shape* ShapeManager::FindShapeAdd(string key)
 {
     map<string, Shape*>::iterator iter;
     iter = mapShapes.find(key);
 
     if (iter == mapShapes.end()) return nullptr;
+
+    return iter->second;
+}
+
+Shape* ShapeManager::FindShape(string key)
+{
+    map<string, Shape*>::iterator iter;
+    iter = mapShapes.find(key);
+
+    if (iter == mapShapes.end()) return mapShapes["Error"];
 
     return iter->second;
 }

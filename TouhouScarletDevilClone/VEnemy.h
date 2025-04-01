@@ -1,5 +1,6 @@
 #pragma once
 #include "config.h"
+#include "PathMaker.h"
 
 class Shape;
 class Missile;
@@ -9,10 +10,12 @@ class VEnemy
 {
 protected:
 	FPOINT pos = { -100,-100 };
+	FPOINT nPos = { 0,0 };
 	Shape* shape = nullptr;
 	MissileFactory* m_factory = nullptr;
 	float timer = 0;
 
+	PathMaker Course;
 	vector<Pattern> patterns;
 	int current_pattern = -1;
 	vector<pair<float, int>> patternMap;
@@ -27,7 +30,7 @@ public:
 	VEnemy(MissileFactory* missileFactory);
 	virtual ~VEnemy() {};
 	virtual void Init(FPOINT pos);
-	virtual void Update();
+	virtual void Update(float dt);
 	virtual void Render();
 	virtual void Release();
 	bool checkTimer(float& nextTime, float delay);
