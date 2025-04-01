@@ -106,6 +106,12 @@ void MainGame::Render()
 	}*/
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
+	
+	//도형 출력 예제
+	D2DImage image;
+	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
+	image.DrawCircle({ 100,100 }, 20, 1, 2);
+	image.DrawRect({ 300,200 }, {400,300}, 2, 5);
 	enemyFactory->Render();
 	D2DImage::EndDraw();
 }

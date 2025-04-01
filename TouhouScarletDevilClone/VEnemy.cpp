@@ -109,6 +109,7 @@ void VEnemy::Render()
 {
 	
 	shape->image->Middle_RenderFrame(pos.x, pos.y , idx);
+	shape->image->DrawCircle(pos, shape->getHitWidth(), 2, 1);
 	//m_factory->Render();
 }
 
