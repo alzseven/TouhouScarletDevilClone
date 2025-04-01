@@ -9,8 +9,9 @@
 
 void TouhouScarletDevilCloneGame::Init()
 {
+
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
-    
+
     player = new BHPlayer();
     // D2DImage* image = ImageManager::GetInstance()->AddImage("Marisa_Move_Vertical",TEXT("Image/Marisa_Move_Vertical.bmp"), 4,1);
     player->Init("Marisa", 18, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
@@ -18,6 +19,7 @@ void TouhouScarletDevilCloneGame::Init()
     player->SetMoveImage(moveImage);
 
     enemy = new BHEnemy();
+
     // D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
     enemy->Init("enemy", 26 , {WINSIZE_X / 2, 100}, DEG_TO_RAD(90.f));
 
@@ -27,14 +29,10 @@ void TouhouScarletDevilCloneGame::Init()
 
     BHEnemy* enemy2 = enemyFactory->Allocate();
     enemy2->Init("enemy", 26, {200, 100}, DEG_TO_RAD(90.f));
-    //
-    // VEnemy* vEnemy = enemyFactory->active();
-    // vEnemy->Init({ 200,100 });
 }
 
 void TouhouScarletDevilCloneGame::Release()
 {
-
 
     if (enemy)
     {

@@ -1,6 +1,7 @@
 #include "BHBullet.h"
 
 #include "CircleCollisionManager.h"
+#include "CommonFunction.h"
 #include "D2DImage.h"
 #include "Shape.h"
 

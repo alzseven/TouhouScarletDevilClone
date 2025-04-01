@@ -1,12 +1,16 @@
 #include "config.h"
 #include "MainGame.h"
 #include "TouhouScarletDevilCloneGame.h"
+#include "UI.h"
 #include "D2DImage.h"
 
 void MainGame::Init()
 {
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
+
+	ui = new UI();
+
 	
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
@@ -20,7 +24,20 @@ void MainGame::Release()
 		delete gameInstance;
 		gameInstance = nullptr;
 	}
-	
+
+	// if (backBuffer)
+	// {
+	// 	backBuffer->Release();
+	// 	delete backBuffer;
+	// 	backBuffer = nullptr;
+	// }
+
+	if (ui)
+	{
+		delete ui;
+		ui = nullptr;
+	}
+
 	// if (background)
 	// {
 	// 	background->Release();
@@ -41,7 +58,7 @@ void MainGame::Release()
 void MainGame::Update(float dt)
 {
 	gameInstance->Update(dt);
-	
+	ui->Update(dt);
 	InvalidateRect(g_hWnd, NULL, false);
 	
 }
@@ -71,7 +88,20 @@ void MainGame::Render()
 	}*/
 	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
 	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
+	
+	// HDC hBackBufferDC = backBuffer->GetMemDC();
+	//
+	// backBuffer->Render(hBackBufferDC);
 
+	ui->Render(NULL);
+	//
+	// backBuffer->Render(hdc);
+	
+	//도형 출력 예제
+	D2DImage image;
+	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
+	image.DrawCircle({ 100,100 }, 20, 1, 2);
+	image.DrawRect({ 300,200 }, {400,300}, 2, 5);
 
 	D2DImage::EndDraw();
 }

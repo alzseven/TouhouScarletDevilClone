@@ -2,16 +2,16 @@
 #include <windows.h>
 #include <d2d1.h>
 #include <wincodec.h>
+#include "config.h"
 #pragma comment(lib, "d2d1.lib")
 #pragma comment(lib, "windowscodecs.lib")
-
 class D2DImage {
 private:
     static ID2D1Factory* factory;
     static ID2D1HwndRenderTarget* renderTarget;
-
+    static ID2D1SolidColorBrush* brushes[5];
     ID2D1Bitmap* bitmap = nullptr;
-
+    
     int maxFrameX = 0;
     int maxFrameY = 0;
     int frameWidth = 0;
@@ -24,8 +24,7 @@ public:
     static void Clear(D2D1::ColorF color);
     static ID2D1HwndRenderTarget* GetRenderTarget();
 
-    HRESULT LoadFromFile(const wchar_t* filePath);
-    HRESULT LoadFromFile(const wchar_t* filePath, int maxFrameX, int maxFrameY);
+    HRESULT LoadFromFile(const wchar_t* filePath, int maxFrameX = 1, int maxFrameY = 1);
 
     //x좌표, y좌표, 각도(도),좌우반전,상하반전,투명도(0.0~1.0)
     void Render(float x, float y, float angle = 0.0f,
@@ -53,7 +52,13 @@ public:
         int frameIndex, float angle = 0.0f,
         bool flipX = false, bool flipY = false,
         float alpha = 1.0f);
-
+    void RenderPercent(FPOINT pos,float spercent, float epercent, float alpha);
+    void InitBrushes();
+    void ReleaseBrushes();
+    void DrawLine(FPOINT point1, FPOINT point2, int color, float lineThickness);
+    void DrawRect(FPOINT leftUp,FPOINT rightDown, int color, float lineThickness);
+    void DrawCircle(FPOINT center, float radius, int color, float lineThickness);
+    
     void Release();
     inline int GetMaxFrameX() { return maxFrameX; }
     inline int GetMaxFrameY() { return maxFrameY; }

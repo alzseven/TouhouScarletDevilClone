@@ -25,18 +25,24 @@
     <ClInclude Include="BHPlayer.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="BulletShooter.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
     <ClInclude Include="EnemyController.h" />
+    <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="InputManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="PathMaker.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="MissileFactory.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pattern.h" />
     <ClInclude Include="Shape.h" />
@@ -44,6 +50,8 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="VEnemy.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BHBullet.cpp" />
@@ -52,18 +60,27 @@
     <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="BulletShooter.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="PathMaker.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="MissileFactory.cpp" />
+    <ClCompile Include="Pattern.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="VEnemy.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
