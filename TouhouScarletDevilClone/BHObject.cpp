@@ -5,6 +5,11 @@
 #include "Shape.h"
 // #include "Image.h"
 
+BHObject::BHObject()
+{
+	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+}
+
 void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
 	this->hitRadius = hitRadius;
@@ -12,7 +17,7 @@ void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
 	this->position = pos;
 	this->radianAngle = radianAngle;
 	isAlive = true;
-	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+
 }
 
 // void BHObject::Init(D2DImage* image, float hitRadius,  FPOINT position, float radianAngle)

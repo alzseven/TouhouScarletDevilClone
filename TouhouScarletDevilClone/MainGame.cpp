@@ -2,8 +2,6 @@
 #include "MainGame.h"
 #include "TouhouScarletDevilCloneGame.h"
 #include "D2DImage.h"
-#include "EnemyFactory.h"
-#include "VEnemy.h"
 
 void MainGame::Init()
 {

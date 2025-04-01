@@ -4,10 +4,7 @@
 #include "BHPlayer.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
-#include "EnemyFactory.h"
-// #include "Image.h"
 #include "ImageManager.h"
-#include "VEnemy.h"
 
 
 void TouhouScarletDevilCloneGame::Init()
@@ -22,17 +19,22 @@ void TouhouScarletDevilCloneGame::Init()
 
     enemy = new BHEnemy();
     // D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
-    enemy->Init("enemy", 26 , {WINSIZE_X / 2, 100}, 90.f);
+    enemy->Init("enemy", 26 , {WINSIZE_X / 2, 100}, DEG_TO_RAD(90.f));
 
-    enemyFactory = new EnemyFactory;
+    // enemyFactory = new EnemyFactory;
+    enemyFactory = new ObjectPool<BHEnemy>();
     enemyFactory->Init(100);
-    VEnemy* vEnemy = enemyFactory->active();
-    vEnemy->Init({ 200,100 });
+
+    BHEnemy* enemy2 = enemyFactory->Allocate();
+    enemy2->Init("enemy", 26, {200, 100}, DEG_TO_RAD(90.f));
+    //
+    // VEnemy* vEnemy = enemyFactory->active();
+    // vEnemy->Init({ 200,100 });
 }
 
 void TouhouScarletDevilCloneGame::Release()
 {
-    ImageManager::GetInstance()->Release();
+
 
     if (enemy)
     {
@@ -49,7 +51,7 @@ void TouhouScarletDevilCloneGame::Release()
 
     if (enemyFactory)
     {
-        enemyFactory->Release();
+        enemyFactory->Clear();
         delete enemyFactory;
         enemyFactory = nullptr;
     }
@@ -67,11 +69,16 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         angle++;
         timer = 0;
     }
-    enemyFactory->Update(dt);
+    // enemyFactory->Update(dt);
+    for (auto i : enemyFactory->GetActive())
+    {
+        i->Update(dt);
+    }
+    
     if (frame >= 4)frame = 0;
     if (angle > 360) angle = 0;
     
-    CircleCollisionManager::GetInstance()->Update();
+    // CircleCollisionManager::GetInstance()->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
@@ -82,6 +89,9 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     
     if (enemy) enemy->Render(hdc);
 
-    enemyFactory->Render();
+    for (auto i : enemyFactory->GetActive())
+    {
+        i->Render(hdc);
+    }
     // CircleCollisionManager::GetInstance()->Render(hdc);
 }

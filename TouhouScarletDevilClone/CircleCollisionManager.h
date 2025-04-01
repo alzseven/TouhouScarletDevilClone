@@ -18,6 +18,7 @@ public:
     void Release();
     void Update();
     void AddCollisionObject(ICircleCollideable* collisionObject);
+    void RemoveCollisionObject(ICircleCollideable* collisionObject);
     bool ShouldCollide(CollisionLayer layerA, CollisionLayer layerB);
     void Render(HDC hdc);
 

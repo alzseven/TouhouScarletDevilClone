@@ -1,7 +1,8 @@
 ﻿#pragma once
 #include "GameObject.h"
+#include "ObjectPool.h"
 
-class EnemyFactory;
+// class EnemyFactory;
 class BHEnemy;
 class BHPlayer;
 class D2DImage;
@@ -11,7 +12,7 @@ private:
     BHPlayer* player;
     BHEnemy* enemy;
     D2DImage* bgImage;
-    EnemyFactory* enemyFactory;
+    ObjectPool<BHEnemy>* enemyFactory;
     int timer = 0;
     int frame = 0;
     float angle = 0;

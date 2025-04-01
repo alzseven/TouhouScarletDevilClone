@@ -102,6 +102,15 @@ void BHEnemy::Shoot(float angle, int shootAmount)
     }
 }
 
+void BHEnemy::Shoot(FPOINT init_pos,
+    float angle, float angleRate,
+    float shootSpeed, float shootSpeedRate)
+{
+    if (isAlive == false) return;
+    
+    bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
+}
+
 void BHEnemy::OnHit(ICollideable* hitObject)
 {
     GetDamaged();

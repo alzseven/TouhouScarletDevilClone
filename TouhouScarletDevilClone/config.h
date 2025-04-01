@@ -13,6 +13,9 @@
 #include <map>
 #include <queue>
 #include <list>
+#include <unordered_set>
+#include <algorithm>
+#include <deque>
 
 using namespace std;
 
@@ -20,11 +23,11 @@ using namespace std;
 #include "ImageManager.h"
 #include "ShapeManager.h"
 
-#define PI			3.1415926535
+#define PI			3.141592f
 #define WINSIZE_X	600
 #define WINSIZE_Y	800
-#define DEG_TO_RAD(degree) ((3.1415926535 / 180.0) * degree)
-#define RAD_TO_DEG(radian) ((180.0 / 3.1415926535) * radian)
+#define DEG_TO_RAD(degree) ((3.141592f / 180.f) * degree)
+#define RAD_TO_DEG(radian) ((180.f / 3.141592f) * radian)
 
 typedef struct tagFPOINT
 {

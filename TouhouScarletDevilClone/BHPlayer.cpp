@@ -158,7 +158,7 @@ void BHPlayer::Update(float dt)
         bulletManager->Update(dt);
         if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
         {
-            Shoot(DEG_TO_RAD(-90.f));
+            Shoot(position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
             ShootSubWeapon(isPressingShift);
         }
         // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
@@ -187,6 +187,12 @@ void BHPlayer::Shoot(float angle, int shootAmount)
     //     timeElapsed = 0.f;
     // }
 }
+
+void BHPlayer::Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
+{
+    bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
+}
+
 
 //TODO: 
 void BHPlayer::ShootSubWeapon(bool isAccumulating)

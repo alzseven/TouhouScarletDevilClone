@@ -5,27 +5,32 @@ class BHObject;
 class IObjectActionPattern
 {
 protected:
+    float patternStartTime;
+    float patternEndTime;
+    BHObject* target;
+    
     //Move params
     float moveSpeed;
     float moveSpeedRate;
-    float angle;
-    float angleRate;
+    float moveAngle;
+    float moveAngleRate;
 
     //Shoot params
     float shootDelay;
     int shootAmount;
     float shootAngle;
+    float shootAngleRate;
+    float shootSpeed;
+    float shootSpeedRate;
+    float multiShootDelay;
+    
     float shootTimer;
 
-    float patternStartTime;
-    float patternEndTime;
-    BHObject* target;
+
     float timeElpased;
 
 public:
     virtual void Update(float dt);
-    void Move();
-    void Shoot();
     inline void SetTarget(BHObject* target) { this->target = target; }
     inline void SetPatternEndTime(float newEndTime) { this->patternEndTime = newEndTime; }
     inline void SetPatternStartTime(float newEndTime) { this->patternStartTime = newEndTime; }
@@ -34,15 +39,22 @@ public:
     {
         this->moveSpeed = moveSpeed;
         this->moveSpeedRate = moveSpeedRate;
-        this->angle = angle;
-        this->angleRate = angleRate;
+        this->moveAngle = angle;
+        this->moveAngleRate = angleRate;
     }
 
-    inline void SetShootParams(float shootDelay, int shootAmount, float shootAngle)
+    inline void SetShootParams(float shootDelay,
+        int shootAmount, float multiShootDelay,
+        float shootAngle, float shootAngleRate,
+        float shootSpeed ,float shootSpeedRate)
     {
         this->shootDelay = shootDelay;
         this->shootAmount = shootAmount;
+        this->multiShootDelay = multiShootDelay;
         this->shootAngle = shootAngle;
+        this->shootAngleRate = shootAngleRate;
+        this->shootSpeed = shootSpeed;
+        this->shootSpeedRate = shootSpeedRate;
     }
 
     float GetPatternStartTime() const
@@ -54,6 +66,10 @@ public:
     {
         return patternEndTime;
     }
+
+    virtual bool IsExpired() const {
+        return timeElpased >= (patternEndTime - patternStartTime);
+    }
 };
 
 class MoveStraightDirectionPattern : public IObjectActionPattern
@@ -63,5 +79,21 @@ class MoveStraightDirectionPattern : public IObjectActionPattern
 
 class ShootStraightPattern : public IObjectActionPattern
 {
+    int currentShootCount;
+    
+    void Update(float dt) override;
+};
+
+class ShootSpreadPattern : public IObjectActionPattern
+{
+    int currentShootCount;
+    
+    void Update(float dt) override;
+};
+
+class ShootRoundPattern : public IObjectActionPattern
+{
+    int currentShootCount;
+    
     void Update(float dt) override;
 };

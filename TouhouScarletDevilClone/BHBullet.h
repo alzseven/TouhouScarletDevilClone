@@ -1,16 +1,18 @@
 #pragma once
 #include "BHObject.h"
 #include "config.h"
+// #include "IPoolable.h"
 #include "ObjectPool.h"
 
 class D2DImage;
-class BHBullet : public BHObject
+class BHBullet : public BHObject //, public IPoolable
 {
 protected:
+	float imageAngle = 0;
 	// angluar accel
-	float AngleRate;
+	float angleRate;
 	// accel
-	float SpeedRate;
+	float speedRate;
 	float movementSpeed;
 	ObjectPool<BHBullet>* pool;
 public:
@@ -36,5 +38,8 @@ public:
 	void Reset();
 	// inline FPOINT* GetPos() override { return &position; }
 	void Shoot(float angle, int shootAmount = 1) override {};
+	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override {};
+
+	bool IsOutofScreen();
 };
 

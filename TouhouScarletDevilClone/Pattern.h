@@ -6,7 +6,8 @@ public:
 	string shapeId;
 	int			fireCount = 0;
 	float		s_delay = 0;
-
+	//Shoot Shape, Shoot Amount?
+	
 	float		m_angle = 0;
 	float		m_angleRate = 0;
 	float		m_speed = 0;

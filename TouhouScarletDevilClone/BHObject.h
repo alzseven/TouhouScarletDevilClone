@@ -1,6 +1,7 @@
 #pragma once
 #include "config.h"
 #include "ICircleCollideable.h"
+#include "IObjectActionPattern.h"
 
 class IObjectActionPattern;
 class Image;
@@ -16,7 +17,7 @@ protected:
 	Shape* shape;
 
 public:
-	BHObject() = default;
+	BHObject();
 	~BHObject() override = default;
 
 	virtual void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle);
@@ -36,4 +37,7 @@ public:
 	//Controlables
 	virtual void Move(float angle, float moveSpeed, float dt) = 0;
 	virtual void Shoot(float angle, int shootAmount = 1) = 0;
+	inline bool IsValid() override { return isAlive; }
+	
+	virtual void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) = 0;
 };

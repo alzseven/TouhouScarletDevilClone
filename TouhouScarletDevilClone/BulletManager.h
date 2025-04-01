@@ -20,4 +20,5 @@ public:
     void Render(HDC hdc);
     void AddBullet(FPOINT pos, float angle);
     void ChangeBulletShooter(BulletShooter* newShooter);
+    void AddBullet(FPOINT pos, float angle, float angle_rate, float shoot_speed, float shoot_speed_rate);
 };
