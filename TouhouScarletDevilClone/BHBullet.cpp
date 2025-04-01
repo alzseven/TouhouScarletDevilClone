@@ -5,6 +5,11 @@
 #include "D2DImage.h"
 #include "Shape.h"
 
+// BHBullet::BHBullet()
+// {
+// 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+// }
+
 void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
 	this->hitRadius = hitRadius;
@@ -12,7 +17,7 @@ void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
 	this->position = pos;
 	this->radianAngle = radianAngle;
 	isAlive = true;
-	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+
 }
 
 void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet)
@@ -33,11 +38,8 @@ void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, boo
 
 void BHBullet::Release()
 {
-	// if (image)
-	// {
-	// 	image->Release();
-	// 	delete image;
-	// }
+	isAlive = false;
+	Reset();
 }
 
 void BHBullet::Render(HDC hdc)
@@ -46,7 +48,12 @@ void BHBullet::Render(HDC hdc)
 	if (shape)
 	{
 		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
-		//TODO: Debug
+
+		//Debug
+		// shape->GetImage()->DrawRect(
+		// {position.x, position.y,},
+		// { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
+		// 2, 1);
 	}
 }
 
@@ -91,7 +98,7 @@ void BHBullet::Move(float angle, float speed, float dt)
 
 void BHBullet::Reset()
 {
-	position = {WINSIZE_X * 2, WINSIZE_Y * 2};
+	position = {0,0};
 	radianAngle = 0;
 	angleRate = 0;
 	speedRate = 0;
@@ -105,13 +112,13 @@ bool BHBullet::IsOutofScreen()
 	const float width = shape->GetImage()->GetWidth();
 	const float height = shape->GetImage()->GetHeight();
 
-	const float right = position.x + width;
-	const float left = position.x - width;
-	const float top = position.y - height;
-	const float bottom = position.y + height;
+	const float right = position.x - width;
+	const float left = position.x + width;
+	const float top = position.y + height;
+	const float bottom = position.y - height;
 
-	if (right < 0 || left > WINSIZE_X
-		|| bottom < 0 || top > WINSIZE_Y)
+	if (right > GAME_RIGHT || left < GAME_LEFT
+		|| bottom > GAME_BOTTOM || top < GAME_TOP)
 		return true;
 
 	return false;

@@ -13,17 +13,14 @@ void TouhouScarletDevilCloneGame::Init()
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
 
     player = new BHPlayer();
-    // D2DImage* image = ImageManager::GetInstance()->AddImage("Marisa_Move_Vertical",TEXT("Image/Marisa_Move_Vertical.bmp"), 4,1);
-    player->Init("Marisa", 18, {WINSIZE_X / 2, WINSIZE_Y - 30}, 90.f);
+    player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
     D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
     player->SetMoveImage(moveImage);
 
     enemy = new BHEnemy();
+    
+    enemy->Init("enemy", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
 
-    // D2DImage* image2 = ImageManager::GetInstance()->AddImage("rocket",TEXT("Image/rocket.bmp"));
-    enemy->Init("enemy", 26 , {WINSIZE_X / 2, 100}, DEG_TO_RAD(90.f));
-
-    // enemyFactory = new EnemyFactory;
     enemyFactory = new ObjectPool<BHEnemy>();
     enemyFactory->Init(100);
 
@@ -67,7 +64,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         angle++;
         timer = 0;
     }
-    // enemyFactory->Update(dt);
+
     for (auto i : enemyFactory->GetActive())
     {
         i->Update(dt);
@@ -76,12 +73,12 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     if (frame >= 4)frame = 0;
     if (angle > 360) angle = 0;
     
-    // CircleCollisionManager::GetInstance()->Update();
+    CircleCollisionManager::GetInstance()->Update();
 }
 
 void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
-    if (bgImage) bgImage->Render(-WINSIZE_X / 2,-WINSIZE_Y / 2);
+    if (bgImage) bgImage->Render(-350,-560);
 
     if (player) player->Render(hdc);
     
@@ -91,5 +88,5 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     {
         i->Render(hdc);
     }
-    // CircleCollisionManager::GetInstance()->Render(hdc);
+    CircleCollisionManager::GetInstance()->Render(hdc);
 }

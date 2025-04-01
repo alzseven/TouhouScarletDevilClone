@@ -25,29 +25,6 @@ void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
 
-
-// void BHPlayer::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
-// {
-//     BHObject::Init(image, hit, position, radianAngle);
-//     
-//     //TODO : Separate with weapon system?
-//     bulletManager = new BulletManager();
-//     bulletManager->Init();
-//
-//     timeElapsed = 0;
-//     //TODO: Initialize delay in certain value from parameter
-//     shootDelay = 0.5f;
-//     
-//     // subweaponBulletManager = new BulletManager();
-//     // SubWeaponFactory = new MarisaSubWeaponBulletFactory();
-//     // subweaponBulletManager->Init();
-//     // subweaponBulletManager->ChangeBulletFactory(SubWeaponFactory);
-//     //
-//
-//     moveDir = { 0,0 };
-//     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
-// }
-
 void BHPlayer::Render(HDC hdc)
 {
     if (abs(moveDir.x) > FLT_EPSILON)
@@ -63,11 +40,12 @@ void BHPlayer::Render(HDC hdc)
         {
             //TODO: separate frameIndex
             shape->GetImage()->RenderFrame(position.x, position.y,frameIndex);
+            
             //Debug
-            // shape->GetImage()->DrawRect(
-            // {position.x, position.y,},
-            // { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
-            // 2, 1);
+            shape->GetImage()->DrawRect(
+                {position.x, position.y,},
+                {position.x + shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX(), position.y + shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY(),},
+                2, 1);
         }
     }
 
@@ -182,18 +160,18 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
 void BHPlayer::MoveBackToBorder() {
     if (shape == nullptr) return;
 
-    const float width = shape->GetImage()->GetWidth();
-    const float height = shape->GetImage()->GetHeight();
+    const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+    const float height = shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
 
     const float right = position.x + width / 2;
     const float left = position.x - width / 2;
     const float top = position.y - height / 2;
     const float bottom = position.y + height / 2;
 
-    if (right < 0) position.x = width / 2;
-    if (left > WINSIZE_X) position.x = WINSIZE_X - width / 2;
-    if (top < 0) position.y = height / 2;
-    if (bottom > WINSIZE_Y) position.y = WINSIZE_Y - height / 2;
+    if (left < GAME_LEFT) position.x = GAME_LEFT + width / 2;
+    if (right > GAME_RIGHT) position.x = GAME_RIGHT - width / 2;
+    if (top < GAME_TOP) position.y = GAME_TOP + height / 2;
+    if (bottom > GAME_BOTTOM) position.y = GAME_BOTTOM - height / 2;
 }
 
 void BHPlayer::Release()

@@ -3,7 +3,6 @@
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "Shape.h"
-// #include "Image.h"
 
 BHObject::BHObject()
 {
@@ -20,26 +19,17 @@ void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
 
 }
 
-// void BHObject::Init(D2DImage* image, float hitRadius,  FPOINT position, float radianAngle)
-// {
-// 	this->image = image;
-// 	this->position = position;
-// 	this->radianAngle = radianAngle;
-// 	this->hitRadius = hitRadius;
-// 	isAlive = true;
-// 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
-// }
-
 void BHObject::Render(HDC hdc)
 {
 	if (shape && shape->GetImage())
 	{
 		shape->GetImage()->Render(position.x, position.y);
+		//Debug
+		// shape->GetImage()->DrawRect(
+		// {position.x, position.y,},
+		// { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
+		// 2, 1);
 	}
-	// if (image)
-	// {
-	// 	image->Render(position.x, position.y);
-	// }
 }
 
 bool BHObject::IsOutofScreen()
@@ -49,13 +39,13 @@ bool BHObject::IsOutofScreen()
 	const float width = shape->GetImage()->GetWidth();
 	const float height = shape->GetImage()->GetHeight();
 
-	const float right = position.x + width / 2;
-	const float left = position.x - width / 2;
-	const float top = position.y - height / 2;
-	const float bottom = position.y + height / 2;
+	const float right = position.x - width / 2;
+	const float left = position.x + width / 2;
+	const float top = position.y + height / 2;
+	const float bottom = position.y - height / 2;
 
-	if (right < 0 || left > WINSIZE_X
-		|| bottom < 0 || top > WINSIZE_Y)
+	if (right > GAME_RIGHT || left < GAME_LEFT
+		|| bottom > GAME_BOTTOM || top < GAME_TOP)
 		return true;
 
 	return false;

@@ -26,6 +26,18 @@ using namespace std;
 #define PI			3.141592f
 #define WINSIZE_X	900
 #define WINSIZE_Y	680
+
+#define GAME_LEFT		50
+#define GAME_TOP		60
+#define GAME_RIGHT		530
+#define GAME_BOTTOM		620
+
+#define GAME_CENTER_X	290
+#define GAME_CENTER_Y	340
+
+#define GAME_WIDTH		480
+#define GAME_HEIGHT		560
+
 #define DEG_TO_RAD(degree) ((3.141592f / 180.f) * degree)
 #define RAD_TO_DEG(radian) ((180.f / 3.141592f) * radian)
 
