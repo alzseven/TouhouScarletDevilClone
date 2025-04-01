@@ -1,47 +1,43 @@
-﻿// ObjectPool.h
-#pragma once
-#include "config.h"
+﻿#pragma once
+#include <deque>  // vector 대신 deque 사용
+#include <vector>
 
 template<typename T>
 class ObjectPool {
-    std::vector<T> pool;
+    std::deque<T> pool;  // 재할당 시 포인터 무효화 방지
     std::vector<T*> active;
     std::vector<T*> free;
+    std::vector<T*> update;
 
 public:
     void Init(int preAlloc = 1000);
-
     T* Allocate();
-
     void Release(T* obj);
-
-    // void ReleaseMarked();
-    
+    void Update() { update = active; }  // 복사 방식으로 변경
     void Clear();
-
-    vector<T*> GetActive() { return active; }
+    
+    std::vector<T*>& GetActive() { return update; }  // 참조 반환으로 최적화
 };
 
 template <typename T>
-void ObjectPool<T>::Init(int preAlloc)
-{
+void ObjectPool<T>::Init(int preAlloc) {
     pool.resize(preAlloc);
     free.reserve(preAlloc);
-    for(int i=0; i<preAlloc; ++i) {
-        free.push_back(&pool[i]);
+    for(auto& obj : pool) {
+        free.push_back(&obj);
     }
 }
 
 template <typename T>
 T* ObjectPool<T>::Allocate() {
     if(free.empty()) {
-        size_t oldSize = pool.size();
-        pool.resize(oldSize * 2);
-        for(size_t i=oldSize; i<pool.size(); ++i) {
+        const size_t newSize = pool.size() * 2;
+        pool.resize(newSize);  // deque 사용으로 포인터 유지
+        for(size_t i = pool.size() - newSize/2; i < newSize; ++i) {
             free.push_back(&pool[i]);
         }
     }
-        
+    
     T* obj = free.back();
     free.pop_back();
     active.push_back(obj);
@@ -57,22 +53,6 @@ void ObjectPool<T>::Release(T* obj) {
         free.push_back(obj);
     }
 }
-//
-// template <typename T>
-// void ObjectPool<T>::ReleaseMarked()
-// {
-//     auto newEnd = std::remove_if(active.begin(), active.end(),
-//         //TODO:
-//         [](T* obj){ return obj->IsPendeingRelease(); });
-//     
-//     for(auto it = newEnd; it != active.end(); ++it) {
-//         (*it)->Reset();
-//         free.push(*it);
-//     }
-//     
-//     active.erase(newEnd, active.end());
-// }
-
 template <typename T>
 void ObjectPool<T>::Clear()
 {
