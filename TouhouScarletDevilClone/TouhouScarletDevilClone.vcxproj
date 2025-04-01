@@ -25,7 +25,6 @@
     <ClInclude Include="BHPlayer.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="BulletShooter.h" />
-    <ClInclude Include="Camera.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
@@ -56,7 +55,6 @@
     <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="BulletShooter.cpp" />
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EnemyController.cpp" />
