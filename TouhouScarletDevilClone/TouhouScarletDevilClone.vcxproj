@@ -36,6 +36,7 @@
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IStageWavePattern.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="PathMaker.h" />
@@ -61,6 +62,7 @@
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IStageWavePattern.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
