@@ -32,7 +32,7 @@ void BulletShooter::Release()
 
 BHBullet* BulletShooter::CreateBullet(ObjectPool<BHBullet>* bulletPool, FPOINT pos, float radianAngle)
 {
-    Image* image = ImageManager::GetInstance()->AddImage("Marisa_Bullet",TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255));
+    D2DImage* image = ImageManager::GetInstance()->AddImage("Marisa_Bullet",TEXT("Image/Marisa_Bullet.bmp"));
     // if (FAILED(image->Init(TEXT("Image/Marisa_Bullet.bmp"), 16, 32, 1, 1, true, RGB(255,0,255))))
     // {
     //     MessageBox(g_hWnd,

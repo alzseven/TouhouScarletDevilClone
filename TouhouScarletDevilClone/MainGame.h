@@ -4,7 +4,10 @@
 class TouhouScarletDevilCloneGame;
 class Image;
 class UI;
-class MainGame
+class Image;
+class D2DImage;
+class EnemyFactory;
+class MainGame : public GameObject
 {
 private:
 	HDC hdc;
@@ -13,6 +16,10 @@ private:
 	TouhouScarletDevilCloneGame* gameInstance;
 	UI* ui;
 
+	EnemyFactory* enemyFactory;
+	int timer = 0;
+	int frame = 0;
+	float angle = 0;
 public:
 	void Init();
 	void Release();
