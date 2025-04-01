@@ -30,6 +30,7 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="EffectPlayer.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="GameObject.h" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="EffectPlayer.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
