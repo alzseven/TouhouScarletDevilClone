@@ -93,14 +93,14 @@ void BHEnemy::Update(float dt)
     }
 }
 
-void BHEnemy::Shoot(float angle, int shootAmount)
-{
-    if (isAlive == false) return;
-    for (int i=1; i<= shootAmount; ++i)
-    {
-        bulletManager->AddBullet(position, angle + DEG_TO_RAD(360.f / shootAmount * i));
-    }
-}
+// void BHEnemy::Shoot(float angle, int shootAmount)
+// {
+//     if (isAlive == false) return;
+//     for (int i=1; i<= shootAmount; ++i)
+//     {
+//         bulletManager->AddBullet(position, angle + DEG_TO_RAD(360.f / shootAmount * i));
+//     }
+// }
 
 void BHEnemy::Shoot(FPOINT init_pos,
     float angle, float angleRate,

@@ -47,7 +47,7 @@ public:
 
 	void OnHit(ICollideable* hitObject) override;
 
-	void Shoot(float angle, int shootAmount = 1) override;
+	// void Shoot(float angle, int shootAmount = 1) override;
 	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
 
 	void ShootSubWeapon(bool isAccumulating);

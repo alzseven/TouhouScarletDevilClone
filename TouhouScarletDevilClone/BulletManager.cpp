@@ -51,13 +51,13 @@ void BulletManager::Render(HDC hdc)
     }
 }
 
-void BulletManager::AddBullet(FPOINT pos, float angle)
-{
-    if (bulletShooter)
-    {
-        bulletShooter->AddBullet(bulletPool, pos, angle);
-    }
-}
+// void BulletManager::AddBullet(FPOINT pos, float angle)
+// {
+//     if (bulletShooter)
+//     {
+//         bulletShooter->AddBullet(bulletPool, pos, angle);
+//     }
+// }
 
 
 void BulletManager::ChangeBulletShooter(BulletShooter* newShooter)

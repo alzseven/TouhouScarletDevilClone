@@ -178,15 +178,15 @@ void BHPlayer::OnHit(ICollideable* hitObject)
     int a = 0;
 }
 
-void BHPlayer::Shoot(float angle, int shootAmount)
-{
-    // if (timeElapsed >= shootDelay)
-    // {
-    bulletManager->AddBullet(position, angle);
-    //     
-    //     timeElapsed = 0.f;
-    // }
-}
+// void BHPlayer::Shoot(float angle, int shootAmount)
+// {
+//     // if (timeElapsed >= shootDelay)
+//     // {
+//     bulletManager->AddBullet(position, angle);
+//     //     
+//     //     timeElapsed = 0.f;
+//     // }
+// }
 
 void BHPlayer::Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {

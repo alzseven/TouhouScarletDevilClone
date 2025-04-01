@@ -44,20 +44,10 @@ void BHBullet::Render(HDC hdc)
 {
 	if (isAlive == false) return;
 	if (shape)
+	{
 		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
-
-	
-	// HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
-	// // 기존 펜 받아서
-	// HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
-	// HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
- //    
-	// RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
-	//
-	// SelectObject(hdc, hOldPen);
-	// SelectObject(hdc, oldbrush);
-	// // 삭제
-	// DeleteObject(hPen);
+		//TODO: Debug
+	}
 }
 
 void BHBullet::Update(float dt)
@@ -82,14 +72,13 @@ void BHBullet::Update(float dt)
 		Reset();
 		pool->Release(this);
 	}
-	// pool->ReleaseMarked();
 }
 
 void BHBullet::OnHit(ICollideable* hitObject)
 {
 	isAlive = false;
 	Reset();
-	// MarkForRelease();
+	pool->Release(this);
 }
 
 void BHBullet::Move(float angle, float speed, float dt)
