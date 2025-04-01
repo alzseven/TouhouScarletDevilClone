@@ -2,7 +2,8 @@
 
 #include "BHObject.h"
 #include "CommonFunction.h"
-// #include "Grid.h"
+#include "D2DImage.h"
+
 #include "ICircleCollideable.h"
 
 void CircleCollisionManager::Release()
@@ -23,15 +24,15 @@ void CircleCollisionManager::Update()
     {
         ICircleCollideable* objA = collisions[i];
         if (objA == nullptr || objA->IsValid() == false) continue;
-        
+
         for (size_t j = i + 1; j < collisions.size(); ++j)
         {
             ICircleCollideable* objB = collisions[j];
             if (objB == nullptr || objB->IsValid() == false) continue;
-            
+
             if (ShouldCollide(objA->GetLayer(), objB->GetLayer()) &&
                 IsCircleCollided(objA->GetPos(), objB->GetPos(),
-                    objA->GetHitRadius(), objB->GetHitRadius()))
+                                 objA->GetHitRadius(), objB->GetHitRadius()))
             {
                 objA->OnHit(objB);
                 objB->OnHit(objA);
@@ -66,21 +67,17 @@ bool CircleCollisionManager::ShouldCollide(CollisionLayer layerA, CollisionLayer
 
 void CircleCollisionManager::Render(HDC hdc)
 {
-    // for (size_t i = 0; i < collisions.size(); ++i)
-    // {
-    //     ICircleCollideable* objA = collisions[i];
-    //     
-    //     HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 0, 0));
-    //     // 기존 펜 받아서
-    //     HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
-    //     HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
-    //
-    //
-    //     RenderEllipseAtCenter(hdc, objA->GetPos()->x, objA->GetPos()->y, objA->GetHitRadius() * 2, objA->GetHitRadius() * 2);
-    //     // 다시 원래 펜으로
-    //     SelectObject(hdc, hOldPen);
-    //     SelectObject(hdc, oldbrush);
-    //     // 삭제
-    //     DeleteObject(hPen);
-    // }
+    for (size_t i = 0; i < collisions.size(); ++i)
+    {
+        ICircleCollideable* objA = collisions[i];
+
+        if (objA == nullptr || objA->IsValid() == false) continue;
+        
+        //Debug
+        D2DImage debugImage;
+        debugImage.DrawCircle(
+            {objA->GetPos()->x, objA->GetPos()->y},
+            objA->GetHitRadius(),
+            0, 1);
+    }
 }
