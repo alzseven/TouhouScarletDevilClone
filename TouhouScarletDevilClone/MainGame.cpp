@@ -71,23 +71,23 @@ void MainGame::Update(float dt)
 		timer = 0;
 		
 	}
-	enemyFactory->Update(dt);
+	//enemyFactory->Update(dt);
 	if (frame >= 4)frame = 0;
 	if (angle > 360) angle = 0;
-	//EffectPlayer::GetInstance()->Update(dt);
-	//if (eTimer >= enTimer)
-	//{
-	//	enTimer += 5.f;
-	//	eCount++;
-	//	if (eCount > eSpawn) eCount = 0;
-	//	EffectPlayer::GetInstance()->PlayEffect("Hit_blue", { 100.0f, 200.0f });
-	//	/*EffectPlayer::GetInstance()->PlayEffect("Hit_white", { 150.0f, 200.0f });
-	//	EffectPlayer::GetInstance()->PlayEffect("Hit_red", { 200.0f, 200.0f });
-	//	EffectPlayer::GetInstance()->PlayEffect("Hit_green", { 250.0f, 200.0f });
-	//	EffectPlayer::GetInstance()->PlayEffect("Kill", { 100, 250 });
-	//	EffectPlayer::GetInstance()->PlayEffect("MagicCircle", { 150, 250 });
-	//	EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 200, 250 });*/
-	//}
+	EffectPlayer::GetInstance()->Update(dt);
+	if (eTimer >= enTimer)
+	{
+		enTimer += 5.f;
+		eCount++;
+		if (eCount > eSpawn) eCount = 0;
+		EffectPlayer::GetInstance()->PlayEffect("Hit_blue", { 100.0f, 200.0f });
+		EffectPlayer::GetInstance()->PlayEffect("Hit_white", { 150.0f, 200.0f });
+		EffectPlayer::GetInstance()->PlayEffect("Hit_red", { 200.0f, 200.0f });
+		EffectPlayer::GetInstance()->PlayEffect("Hit_green", { 250.0f, 200.0f });
+		EffectPlayer::GetInstance()->PlayEffect("Kill", { 100, 250 });
+		EffectPlayer::GetInstance()->PlayEffect("MagicCircle", { 150, 250 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 200, 250 });
+	}
 
 }
 
@@ -134,7 +134,7 @@ void MainGame::Render()
 	image.DrawCircle({ 100,100 }, 20, 1, 2);
 	image.DrawRect({ 300,200 }, {400,300}, 2, 5);*/
 	
-	enemyFactory->Render();
+	//enemyFactory->Render();
 	EffectPlayer::GetInstance()->Render();
 	D2DImage::EndDraw();
 }
