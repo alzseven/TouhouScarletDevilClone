@@ -1,7 +1,8 @@
 ﻿#include "TouhouScarletDevilCloneGame.h"
-
+#include "UI.h"
 #include "BHEnemy.h"
 #include "BHPlayer.h"
+#include "BHItem.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "ImageManager.h"
@@ -11,6 +12,7 @@ void TouhouScarletDevilCloneGame::Init()
 {
 
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
+	ui = new UI();
 
     player = new BHPlayer();
     player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
@@ -26,6 +28,10 @@ void TouhouScarletDevilCloneGame::Init()
 
     BHEnemy* enemy2 = enemyFactory->Allocate();
     enemy2->Init("enemy", 26, {200, 100}, DEG_TO_RAD(90.f));
+
+    // 아이템
+	item = new BHItem();
+    item->Init("smallScore", 16.f, { WINSIZE_X / 2 - 200, WINSIZE_Y / 2 }, 90);
 }
 
 void TouhouScarletDevilCloneGame::Release()
@@ -50,13 +56,27 @@ void TouhouScarletDevilCloneGame::Release()
         delete enemyFactory;
         enemyFactory = nullptr;
     }
+
+    if (item)
+    {
+		item->Release();
+		delete item;
+		item = nullptr;
+    }
+
+    if (ui)
+    {
+		delete ui;
+		ui = nullptr;
+    }
 }
 
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
     if (player) player->Update(dt);
     if (enemy) enemy->Update(dt);
-
+	if (item) item->Update(dt);
+	if (ui) ui->Update(dt);
     timer++;
     if (timer >= 5)
     {
@@ -83,6 +103,8 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     if (player) player->Render(hdc);
     
     if (enemy) enemy->Render(hdc);
+
+	if (item) item->Render(hdc);
 
     for (auto i : enemyFactory->GetActive())
     {

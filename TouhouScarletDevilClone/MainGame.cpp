@@ -3,14 +3,15 @@
 #include "TouhouScarletDevilCloneGame.h"
 #include "UI.h"
 #include "D2DImage.h"
+#include "BHitem.h"
 
 void MainGame::Init()
 {
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
+	
 
 	ui = new UI();
-
 	
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
@@ -32,11 +33,7 @@ void MainGame::Release()
 	// 	backBuffer = nullptr;
 	// }
 
-	if (ui)
-	{
-		delete ui;
-		ui = nullptr;
-	}
+
 
 	// if (background)
 	// {
@@ -58,7 +55,6 @@ void MainGame::Release()
 void MainGame::Update(float dt)
 {
 	gameInstance->Update(dt);
-	ui->Update(dt);
 	InvalidateRect(g_hWnd, NULL, false);
 	
 }
@@ -92,7 +88,7 @@ void MainGame::Render()
 	// HDC hBackBufferDC = backBuffer->GetMemDC();
 	//
 	// backBuffer->Render(hBackBufferDC);
-
+	
 
 	if (gameInstance) gameInstance->Render(NULL);
 	// enemyFactory->Render();
