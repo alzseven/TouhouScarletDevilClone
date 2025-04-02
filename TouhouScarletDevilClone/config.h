@@ -20,6 +20,7 @@ using namespace std;
 #include "ImageManager.h"
 #include "ShapeManager.h"
 
+
 #define PI			3.1415926535
 #define WINSIZE_X	900
 #define WINSIZE_Y	680
@@ -31,7 +32,7 @@ typedef struct tagFPOINT
 	float x;
 	float y;
 } FPOINT;
-
+#include "EffectPlayer.h"
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 

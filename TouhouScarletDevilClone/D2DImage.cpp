@@ -278,7 +278,10 @@ void D2DImage::Release() {
         renderTarget->Release();
         renderTarget = nullptr;
     }
-    
+    if (bitmap) {
+        bitmap->Release();
+        bitmap = nullptr;
+    }
 
 }
 
