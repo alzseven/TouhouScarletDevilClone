@@ -29,6 +29,7 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="EffectPlayer.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
@@ -57,6 +58,7 @@
     <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="EffectPlayer.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />

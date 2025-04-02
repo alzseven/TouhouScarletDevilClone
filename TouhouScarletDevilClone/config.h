@@ -46,7 +46,7 @@ typedef struct tagFPOINT
 	float x;
 	float y;
 } FPOINT;
-
+#include "EffectPlayer.h"
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 

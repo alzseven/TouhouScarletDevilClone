@@ -8,6 +8,7 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
+    <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="EnemyFactory.cpp" />
@@ -27,6 +28,12 @@
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="VEnemy.cpp" />
+    <ClCompile Include="EffectPlayer.cpp">
+      <Filter>JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>JiunTest</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHBullet.h" />
@@ -38,7 +45,6 @@
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="D2DImage.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="EnemyFactory.h" />
     <ClInclude Include="GameObject.h" />
@@ -61,5 +67,16 @@
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="VEnemy.h" />
+    <ClInclude Include="EffectPlayer.h">
+      <Filter>JiunTest</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DImage.h">
+      <Filter>JiunTest</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="JiunTest">
+      <UniqueIdentifier>{417733e2-8419-46f0-8d0a-11a8a4a7ff1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
