@@ -9,33 +9,14 @@ void IObjectActionPattern::Update(float dt)
     
 }
 
-void IObjectActionPattern::Move()
-{
-}
-
-void IObjectActionPattern::Shoot()
-{
-}
-
 void MoveStraightDirectionPattern::Update(float dt)
 {
     //delay
     timeElpased += dt;
     if (timeElpased <= patternEndTime)
     {
-        target->Move(angle, moveSpeed, dt);
+        target->Move(moveAngle, moveSpeed, dt);
     }
-    // TODO: when endTime, then do what?
-    // TODO: Remove this pattern from enemy?
-    
-    
-    // if (timeElpased >= 1.f)
-    // {
-    //     
-    //     angle += angleRate * dt;
-    //     moveSpeed += moveSpeedRate * dt;
-    //     timeElpased = 0.f;
-    // }
 }
 
 void ShootStraightPattern::Update(float dt)
@@ -46,9 +27,85 @@ void ShootStraightPattern::Update(float dt)
     {
         if (shootTimer >= shootDelay)
         {
-            // static_cast<BHEnemy*>(target)
-            target->Shoot(shootAngle, shootAmount);
-            shootTimer -= shootDelay;
+            currentShootCount++;
+            
+            target->Shoot(*target->GetPos(),
+                shootAngle, shootAngleRate,
+                shootSpeed, shootSpeedRate);
+
+            if (currentShootCount >= shootAmount)
+            {
+                currentShootCount = 0;
+                shootTimer -= shootDelay;
+            }
+            else
+            {
+                shootTimer -= multiShootDelay;
+            }
+        }
+
+    }
+}
+
+void ShootSpreadPattern::Update(float dt)
+{
+    timeElpased += dt;
+    shootTimer += dt;
+    if (timeElpased <= patternEndTime)
+    {
+        if (shootTimer >= shootDelay)
+        {
+            currentShootCount++;
+
+            target->Shoot(*target->GetPos(),
+                shootAngle + DEG_TO_RAD(currentShootCount * -10.f), shootAngleRate,
+                shootSpeed, shootSpeedRate);
+
+            //TODO: to handle bullet speed by time,
+            //TODO: target->Shoot(some_kind_of_slowed_or_fasted_bullet?) - overloading
+
+            if (currentShootCount >= shootAmount)
+            {
+                currentShootCount = 0;
+                shootTimer -= shootDelay;
+            }
+            else
+            {
+                shootTimer -= multiShootDelay;
+            }
+        }
+    }
+}
+
+void ShootRoundPattern::Update(float dt)
+{
+    timeElpased += dt;
+    shootTimer += dt;
+    if (timeElpased <= patternEndTime)
+    {
+        if (shootTimer >= shootDelay)
+        {
+            currentShootCount++;
+
+            target->Shoot(*target->GetPos(),
+                shootAngle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), shootAngleRate,
+                shootSpeed, shootSpeedRate);
+
+            
+            // for (currentShootCount = 1; currentShootCount<= shootAmount; ++currentShootCount)
+            // {
+            //     target->Shoot(*target->GetPos(), angle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), angleRate, shootSpeed, shootSpeedRate);
+            // }
+            
+            if (currentShootCount >= shootAmount)
+            {
+                currentShootCount = 0;
+                shootTimer -= shootDelay;
+            }
+            else
+            {
+                shootTimer -= multiShootDelay;
+            }
         }
 
     }

@@ -1,97 +1,62 @@
-﻿// ObjectPool.h
-#pragma once
-#include <stack>
-#include <unordered_set>
-
-#include "config.h"
+﻿#pragma once
+#include <deque>  // vector 대신 deque 사용
+#include <vector>
 
 template<typename T>
 class ObjectPool {
-    std::vector<T> pool;
-    stack<int> freeList;
-    
+    std::deque<T> pool;
+    std::vector<T*> active;
+    std::vector<T*> free;
+    std::vector<T*> updatedActive;
+
 public:
-    ObjectPool() = default;
-    ~ObjectPool() = default;
-
     void Init(int preAlloc = 1000);
-    
     T* Allocate();
-
     void Release(T* obj);
-
+    void UpdateActive() { updatedActive = active; }
     void Clear();
-
-
-    vector<T*> GetActiveObjects();
+    
+    std::vector<T*>& GetActive() { return updatedActive; }
 };
 
 template <typename T>
-void ObjectPool<T>::Init(int preAlloc)
-{
+void ObjectPool<T>::Init(int preAlloc) {
     pool.resize(preAlloc);
-    for(int i=0; i<preAlloc; ++i) {
-        // pool[i].isActive = false;
-        freeList.push(i);
-    }
-}
-
-
-template <typename T>
-T* ObjectPool<T>::Allocate()
-{
-    if(freeList.empty()) {
-        size_t newSize = pool.size() * 2;
-        pool.resize(newSize);
-        for(size_t i=pool.size()/2; i<newSize; ++i)
-            freeList.push(i);
-    }
-        
-    int index = freeList.top();
-    freeList.pop();
-    // pool[index].isActive = true;
-    return &pool[index];
-}
-
-template <typename T>
-void ObjectPool<T>::Release(T* obj)
-{
-    // obj->Reset();
-    // obj->isActive = false;
-    freeList.push(obj - &pool[0]);
-}
-
-template <typename T>
-void ObjectPool<T>::Clear()
-{
-    pool.clear();
-    while(!freeList.empty())
-    {
-        freeList.pop();
+    free.reserve(preAlloc);
+    for(auto& obj : pool) {
+        free.push_back(&obj);
     }
 }
 
 template <typename T>
-vector<T*> ObjectPool<T>::GetActiveObjects()
-{
-    std::vector<T*> result;
-    unordered_set<int> freeSet;
-    
-    // Create temporary copy to preserve original freeList
-    std::stack<int> tmpFree = freeList;
-    
-    // Convert stack to set for O(1) lookups
-    while (!tmpFree.empty()) {
-        freeSet.insert(tmpFree.top());
-        tmpFree.pop();
-    }
-    
-    // Check all pool indices
-    for (int i = 0; i < pool.size(); ++i) {
-        if (freeSet.find(i) == freeSet.end()) {
-            result.push_back(&pool[i]);
+T* ObjectPool<T>::Allocate() {
+    if(free.empty()) {
+        const size_t newSize = pool.size() * 2;
+        pool.resize(newSize);  // deque 사용으로 포인터 유지
+        for(size_t i = pool.size() - newSize/2; i < newSize; ++i) {
+            free.push_back(&pool[i]);
         }
     }
     
-    return result;
+    T* obj = free.back();
+    free.pop_back();
+    active.push_back(obj);
+    return obj;
+}
+
+template <typename T>
+void ObjectPool<T>::Release(T* obj) {
+    auto it = std::find(active.begin(), active.end(), obj);
+    if(it != active.end()) {
+        std::iter_swap(it, active.end()-1);
+        active.pop_back();
+        free.push_back(obj);
+    }
+}
+template <typename T>
+void ObjectPool<T>::Clear()
+{
+    free.clear();
+    active.clear();
+    pool.clear();
 }

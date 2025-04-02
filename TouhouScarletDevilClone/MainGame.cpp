@@ -3,19 +3,14 @@
 #include "TouhouScarletDevilCloneGame.h"
 #include "UI.h"
 #include "D2DImage.h"
-#include "EnemyFactory.h"
-#include "VEnemy.h"
 
 void MainGame::Init()
 {
-	hdc = GetDC(g_hWnd);
+	D2DImage::InitD2D(g_hWnd);
+	ShapeManager::GetInstance()->Init();
 
 	ui = new UI();
 
-	enemyFactory = new EnemyFactory;
-	enemyFactory->Init(100);
-	VEnemy* vEnemy = enemyFactory->active();
-	vEnemy->Init({ 300,100 });
 	
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
@@ -57,12 +52,7 @@ void MainGame::Release()
 	// 	delete backBuffer;
 	// 	backBuffer = nullptr;
 	// }
-	if (enemyFactory)
-	{
-		enemyFactory->Release();
-		delete enemyFactory;
-		enemyFactory = nullptr;
-	}
+	
 	ReleaseDC(g_hWnd, hdc);
 }
 
@@ -72,6 +62,7 @@ void MainGame::Update(float dt)
 	gameInstance->Update(dt);
 	ui->Update(dt);
 	InvalidateRect(g_hWnd, NULL, false);
+
 	timer++;
 	if (timer >= 5)
 	{
@@ -97,7 +88,7 @@ void MainGame::Update(float dt)
 	//	EffectPlayer::GetInstance()->PlayEffect("MagicCircle", { 150, 250 });
 	//	EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 200, 250 });*/
 	//}
-	
+
 }
 
 void MainGame::Render()
@@ -111,7 +102,7 @@ void MainGame::Render()
 	// background->Render(hBackBufferDC);
 	// backBuffer->Render(hBackBufferDC);
 	//
-	// if (gameInstance) gameInstance->Render(hBackBufferDC);
+	if (gameInstance) gameInstance->Render(hdc);
 	//
 	//
 	//
@@ -130,12 +121,14 @@ void MainGame::Render()
 	//
 	// backBuffer->Render(hBackBufferDC);
 
+
 	if (gameInstance) gameInstance->Render(NULL);
+	// enemyFactory->Render();
 	ui->Render(NULL);
 	//
 	// backBuffer->Render(hdc);
 	
-	//µµÇü Ãâ·Â ¿¹Á¦
+	//ÂµÂµÃ‡Ã¼ ÃƒÃ¢Â·Ã‚ Â¿Â¹ÃÂ¦
 	/*D2DImage image;
 	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
 	image.DrawCircle({ 100,100 }, 20, 1, 2);

@@ -20,4 +20,5 @@ public:
 
     virtual FPOINT* GetPos() = 0;
     virtual void OnHit(ICollideable* hitObject) = 0;
+    virtual bool IsValid() = 0;
 };

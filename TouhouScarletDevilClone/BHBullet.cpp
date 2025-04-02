@@ -1,75 +1,90 @@
 #include "BHBullet.h"
 
+#include "CircleCollisionManager.h"
 #include "CommonFunction.h"
 #include "D2DImage.h"
+#include "Shape.h"
 
-void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle)
+// BHBullet::BHBullet()
+// {
+// 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+// }
+
+void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
-	BHObject::Init(image, hit, position, radianAngle);
+	this->hitRadius = hitRadius;
+	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+	this->position = pos;
+	this->radianAngle = radianAngle;
+	isAlive = true;
+
 }
 
-void BHBullet::Init(D2DImage* image, float hit, FPOINT position, float radianAngle, float angleRate, float speedRate,
-	float movementSpeed)
+void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet)
 {
-	Init(image, hit, position, radianAngle);
-	this->AngleRate = angleRate;
-	this->SpeedRate = speedRate;
+	this->angleRate = angleRate;
+	this->speedRate = speedRate;
 	this->movementSpeed = movementSpeed;
-	//TODO:
-	// if (angleRate < 0)
-	// {
-	// 	SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
-	// }
-	// else
-	// {
+	
+	if (isPlayerBullet)
+	{
+		SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
+	}
+	else
+	{
 		SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
-	// }
-
+	}
 }
 
 void BHBullet::Release()
 {
-	// if (image)
-	// {
-	// 	image->Release();
-	// 	delete image;
-	// }
+	isAlive = false;
+	Reset();
 }
 
 void BHBullet::Render(HDC hdc)
 {
 	if (isAlive == false) return;
-	BHObject::Render(hdc);
-	HPEN hPen = CreatePen(PS_SOLID, 1, RGB(255, 255, 0));
-	// 기존 펜 받아서
-	HPEN hOldPen = (HPEN)SelectObject(hdc, hPen);
-	HBRUSH oldbrush = (HBRUSH)SelectObject( hdc, GetStockObject( NULL_BRUSH ) );
-    
-	RenderRectAtCenter(hdc, position.x, position.y, 27, 36);    // 다시 원래 펜으로
+	if (shape)
+	{
+		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
 
-	SelectObject(hdc, hOldPen);
-	SelectObject(hdc, oldbrush);
-	// 삭제
-	DeleteObject(hPen);
+		// Debug
+		// const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+		// const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
+		// shape->GetImage()->DrawRect(
+		// 	{position.x - width / 2, position.y - height / 2},
+		// 	{position.x + width / 2 , position.y + height / 2},
+		// 	2, 1);
+	}
 }
 
 void BHBullet::Update(float dt)
 {
 	if (isAlive == false) return;
+
+	FPOINT prev = position;
 	Move(radianAngle, movementSpeed, dt);
 	
-	// add angularaccel to radAngle
-	radianAngle += AngleRate * dt;
+	imageAngle = atan2( prev.x - position.x, -prev.y + position.y);
+	imageAngle = RAD_TO_DEG(imageAngle);
+	
+	// add angular accel to radAngle
+	radianAngle += angleRate * dt;
 	
 	// add accel to movementSpeed;
-	movementSpeed += SpeedRate * dt;
+	movementSpeed += speedRate * dt;
 	
-	//TODO: Check if bullet go out of screen
+	if (IsOutofScreen())
+	{
+		isAlive = false;
+		Reset();
+		pool->Release(this);
+	}
 }
 
 void BHBullet::OnHit(ICollideable* hitObject)
 {
-	
 	isAlive = false;
 	Reset();
 	pool->Release(this);
@@ -85,10 +100,28 @@ void BHBullet::Move(float angle, float speed, float dt)
 
 void BHBullet::Reset()
 {
-	position = {WINSIZE_X * 2, WINSIZE_Y * 2};
+	position = {0,0};
 	radianAngle = 0;
-	AngleRate = 0;
-	SpeedRate = 0;
+	angleRate = 0;
+	speedRate = 0;
 	movementSpeed = 0;
 }
 
+bool BHBullet::IsOutofScreen()
+{
+	if (shape == nullptr) return false;
+
+	const float width = shape->GetImage()->GetWidth();
+	const float height = shape->GetImage()->GetHeight();
+
+	const float right = position.x - width;
+	const float left = position.x + width;
+	const float top = position.y + height;
+	const float bottom = position.y - height;
+
+	if (right > GAME_RIGHT || left < GAME_LEFT
+		|| bottom > GAME_BOTTOM || top < GAME_TOP)
+		return true;
+
+	return false;
+}

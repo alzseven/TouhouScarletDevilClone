@@ -22,8 +22,7 @@ public:
 
 	D2DImage* AddImage(string key, const wchar_t* filePath);
 
-	D2DImage* AddImage(string key, const wchar_t* filePath,
-		int maxFrameX, int maxFrameY);
+	D2DImage* AddImage(string key, const wchar_t* filePath, int maxFrameX, int maxFrameY);
 
 	void DeleteImage(string key);
 	D2DImage* FindImageAdd(string key);

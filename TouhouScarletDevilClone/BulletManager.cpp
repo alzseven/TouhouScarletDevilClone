@@ -35,7 +35,8 @@ void BulletManager::Release()
 
 void BulletManager::Update(float dt)
 {
-    vector<BHBullet*> active = bulletPool->GetActiveObjects();
+    bulletPool->UpdateActive();
+    vector<BHBullet*> active = bulletPool->GetActive();
     for (std::vector<BHBullet*>::iterator iter = active.begin() ; iter != active.end(); ++iter)
     {
         (*iter)->Update(dt);
@@ -44,20 +45,21 @@ void BulletManager::Update(float dt)
 
 void BulletManager::Render(HDC hdc)
 {
-    vector<BHBullet*> active = bulletPool->GetActiveObjects();
+    vector<BHBullet*> active = bulletPool->GetActive();
     for (std::vector<BHBullet*>::iterator iter = active.begin() ; iter != active.end(); ++iter)
     {
         (*iter)->Render(hdc);
     }
 }
 
-void BulletManager::AddBullet(FPOINT pos, float angle)
-{
-    if (bulletShooter)
-    {
-        bulletShooter->AddBullet(bulletPool, pos, angle);
-    }
-}
+// void BulletManager::AddBullet(FPOINT pos, float angle)
+// {
+//     if (bulletShooter)
+//     {
+//         bulletShooter->AddBullet(bulletPool, pos, angle);
+//     }
+// }
+
 
 void BulletManager::ChangeBulletShooter(BulletShooter* newShooter)
 {
@@ -66,4 +68,12 @@ void BulletManager::ChangeBulletShooter(BulletShooter* newShooter)
         delete bulletShooter;
     }
     bulletShooter = newShooter;
+}
+
+void BulletManager::AddBullet(FPOINT pos, float angle, float angle_rate, float shoot_speed, float shoot_speed_rate)
+{
+    if (bulletShooter)
+    {
+        bulletShooter->AddBullet(bulletPool, pos, angle,angle_rate, shoot_speed, shoot_speed_rate);
+    }
 }
