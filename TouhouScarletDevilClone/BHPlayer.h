@@ -12,7 +12,7 @@ class BHPlayer : public BHObject
 	int frameIndex;
 	float timeElapsed;
 	float shootDelay;
-	BulletManager* bulletManager;
+	// BulletManager* bulletManager;
 	// IBulletFactory* level1BulletFactory;
 	// IBulletFactory* level2BulletFactory;
 	
@@ -25,8 +25,9 @@ public:
 
 	inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 	 
-	void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
-
+	// void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
+	void Init(string shapeKey, FPOINT pos) override;
+	
 	//TODO:
 	virtual void Move(FPOINT moveDirection, bool isPressingShift, float dt);
 
@@ -42,7 +43,7 @@ public:
 
 	void OnHit(ICollideable* hitObject) override;
 	
-	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
+	void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
 
 	void ShootSubWeapon(bool isAccumulating);
 

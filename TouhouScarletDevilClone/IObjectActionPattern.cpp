@@ -29,7 +29,7 @@ void ShootStraightPattern::Update(float dt)
         {
             currentShootCount++;
             
-            target->Shoot(*target->GetPos(),
+            target->Shoot("ball_green", *target->GetPos(),
                 shootAngle, shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -57,7 +57,7 @@ void ShootSpreadPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot(*target->GetPos(),
+            target->Shoot("ball_green",*target->GetPos(),
                 shootAngle + DEG_TO_RAD(currentShootCount * -10.f), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -87,7 +87,7 @@ void ShootRoundPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot(*target->GetPos(),
+            target->Shoot("ball_green", *target->GetPos(),
                 shootAngle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 

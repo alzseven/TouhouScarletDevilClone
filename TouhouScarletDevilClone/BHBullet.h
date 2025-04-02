@@ -19,8 +19,10 @@ public:
 	BHBullet() = default;
 	~BHBullet() = default;
 	
-	void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
-
+	// void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
+	void Init(string shapeKey, FPOINT pos) override;
+	
+	void Launch(float angle, float angleRate, float movementSpeed, float moveSpeedRate);
 	void Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);
 	
 	void Release() override;
@@ -37,7 +39,7 @@ public:
 
 	void Reset();
 
-	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override {};
+	void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override {};
 
 	bool IsOutofScreen();
 };

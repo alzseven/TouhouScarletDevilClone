@@ -18,7 +18,9 @@ public:
 	BHObject();
 	~BHObject() override = default;
 
-	virtual void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle);
+	// virtual void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle);
+	virtual void Init(string shapeKey, FPOINT pos);
+	
 	virtual void Release() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Render(HDC hdc);
@@ -30,7 +32,7 @@ public:
 	
 	//Controlables
 	virtual void Move(float angle, float moveSpeed, float dt) = 0;
-	virtual void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) = 0;
+	virtual void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) = 0;
 
 	inline bool IsValid() override { return isAlive; }
 };

@@ -3,20 +3,12 @@
 #include "BulletManager.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
+#include "PoolManager.h"
 #include "Shape.h"
 
-void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
+void BHPlayer::Init(string shapeKey, FPOINT pos)
 {
-    this->hitRadius = hitRadius;
-    this->shape =  ShapeManager::GetInstance()->FindShape("Marisa");
-    this->position = pos;
-    this->radianAngle = radianAngle;
-    isAlive = true;
-    // CircleCollisionManager::GetInstance()->AddCollisionObject(this);
-
-    //TODO : Separate with weapon system?
-    bulletManager = new BulletManager();
-    bulletManager->Init();
+    BHObject::Init(shapeKey, pos);
 
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
@@ -24,6 +16,26 @@ void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
     moveDir = { 0,0 };
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
+
+// void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
+// {
+//     this->hitRadius = hitRadius;
+//     this->shape =  ShapeManager::GetInstance()->FindShape("Marisa");
+//     this->position = pos;
+//     this->radianAngle = radianAngle;
+//     isAlive = true;
+//     // CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+//
+//     // //TODO : Separate with weapon system?
+//     // bulletManager = new BulletManager();
+//     // bulletManager->Init();
+//
+//     timeElapsed = 0;
+//     //TODO: Initialize delay in certain value from parameter
+//     shootDelay = 0.5f;
+//     moveDir = { 0,0 };
+//     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
+// }
 
 void BHPlayer::Render(HDC hdc)
 {
@@ -52,10 +64,10 @@ void BHPlayer::Render(HDC hdc)
     }
 
 
-    if (bulletManager)
-    {
-        bulletManager->Render(hdc);
-    }
+    // if (bulletManager)
+    // {
+    //     bulletManager->Render(hdc);
+    // }
 
     // if (subweaponBulletManager)
     // {
@@ -118,19 +130,25 @@ void BHPlayer::Update(float dt)
 
     frameIndex = frameIndex + 1 >= 4 ? 0 : frameIndex + 1;
 
-    if (bulletManager)
+
+    if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
-        bulletManager->Update(dt);
-        if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
-        {
-            Shoot(position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
-            ShootSubWeapon(isPressingShift);
-        }
-        // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
-        // {
-        //     bulletManager->ChangeBulletFactory(level2BulletFactory);
-        // }
+        Shoot("kunai",position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
+        ShootSubWeapon(isPressingShift);
     }
+    // if (bulletManager)
+    // {
+    //     bulletManager->Update(dt);
+    //     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
+    //     {
+    //         Shoot(position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
+    //         ShootSubWeapon(isPressingShift);
+    //     }
+    //     // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
+    //     // {
+    //     //     bulletManager->ChangeBulletFactory(level2BulletFactory);
+    //     // }
+    // }
 
     // if (subweaponBulletManager)
     // {
@@ -143,9 +161,12 @@ void BHPlayer::OnHit(ICollideable* hitObject)
     int a = 0;
 }
 
-void BHPlayer::Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
+void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {
-    bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
+    // bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
+    BHBullet* bullet = PoolManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+    bullet->Init(bulletShapeKey, init_pos);
+    bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
 }
 
 
@@ -178,9 +199,9 @@ void BHPlayer::MoveBackToBorder() {
 
 void BHPlayer::Release()
 {
-    if (bulletManager)
-    {
-        bulletManager->Release();
-        delete bulletManager;
-    }
+    // if (bulletManager)
+    // {
+    //     bulletManager->Release();
+    //     delete bulletManager;
+    // }
 }
