@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "ObjectPool.h"
-#include "GameState.h"
 
 // class EnemyFactory;
 class BHEnemy;
@@ -9,10 +8,11 @@ class BHPlayer;
 class BHItem;
 class D2DImage;
 class UI;
+class GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
-    GameState gameState;
+    GameState* gameState;
     UI* ui;
     BHPlayer* player;
     BHEnemy* enemy;

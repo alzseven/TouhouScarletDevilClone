@@ -11,7 +11,6 @@ void MainGame::Init()
 	ShapeManager::GetInstance()->Init();
 	
 
-	ui = new UI();
 	
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
@@ -92,7 +91,6 @@ void MainGame::Render()
 
 	if (gameInstance) gameInstance->Render(NULL);
 	// enemyFactory->Render();
-	ui->Render(NULL);
 	//
 	// backBuffer->Render(hdc);
 	

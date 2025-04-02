@@ -6,13 +6,16 @@
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "ImageManager.h"
+#include "GameState.h"
 
 
 void TouhouScarletDevilCloneGame::Init()
 {
 
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
-	ui = new UI();
+	
+    gameState = new GameState();
+    ui = new UI(gameState);
 
     player = new BHPlayer();
     player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
@@ -105,6 +108,8 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     if (enemy) enemy->Render(hdc);
 
 	if (item) item->Render(hdc);
+
+	if (ui) ui->Render(hdc);
 
     for (auto i : enemyFactory->GetActive())
     {
