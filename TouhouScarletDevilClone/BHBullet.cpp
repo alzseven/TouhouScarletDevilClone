@@ -3,6 +3,7 @@
 #include "CircleCollisionManager.h"
 #include "CommonFunction.h"
 #include "D2DImage.h"
+#include "PoolManager.h"
 #include "Shape.h"
 
 // BHBullet::BHBullet()
@@ -17,7 +18,7 @@ void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAn
 	this->position = pos;
 	this->radianAngle = radianAngle;
 	isAlive = true;
-
+	pool = PoolManager::GetInstance()->GetEnemyBulletPool();
 }
 
 void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet)

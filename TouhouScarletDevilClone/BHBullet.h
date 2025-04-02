@@ -31,7 +31,7 @@ public:
 
 	void OnHit(ICollideable* hitObject) override;
 
-	inline void SetPool(ObjectPool<BHBullet>* pool) {this->pool = pool;}
+	// inline void SetPool(ObjectPool<BHBullet>* pool) {this->pool = pool;}
 
 	void Move(float angle, float speed, float dt) override;
 

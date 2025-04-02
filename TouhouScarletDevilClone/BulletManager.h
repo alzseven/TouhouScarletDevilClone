@@ -8,7 +8,7 @@ class BHBullet;
 class BulletManager
 {
 private:
-    ObjectPool<BHBullet>* bulletPool;
+    // ObjectPool<BHBullet>* bulletPool;
     BulletShooter* bulletShooter;
 public:
     void Init(int capacity = 1024);

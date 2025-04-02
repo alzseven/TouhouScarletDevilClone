@@ -5,6 +5,7 @@
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "ImageManager.h"
+#include "PoolManager.h"
 
 
 void TouhouScarletDevilCloneGame::Init()
@@ -72,6 +73,8 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     
     if (frame >= 4)frame = 0;
     if (angle > 360) angle = 0;
+
+    PoolManager::GetInstance()->Update(dt);
     
     CircleCollisionManager::GetInstance()->Update();
 }
@@ -88,5 +91,8 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     {
         i->Render(hdc);
     }
+
+    PoolManager::GetInstance()->Render();
+    
     CircleCollisionManager::GetInstance()->Render(hdc);
 }

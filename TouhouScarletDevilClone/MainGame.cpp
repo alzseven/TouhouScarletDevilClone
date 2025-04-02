@@ -3,9 +3,13 @@
 #include "TouhouScarletDevilCloneGame.h"
 #include "UI.h"
 #include "D2DImage.h"
+#include "PoolManager.h"
 
 void MainGame::Init()
 {
+	KeyManager::GetInstance()->Init();
+	PoolManager::GetInstance()->Init();
+	
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
 
@@ -18,6 +22,8 @@ void MainGame::Init()
 
 void MainGame::Release()
 {
+
+	
 	if (gameInstance)
 	{
 		gameInstance->Release();
@@ -51,6 +57,9 @@ void MainGame::Release()
 	// 	delete backBuffer;
 	// 	backBuffer = nullptr;
 	// }
+
+	KeyManager::GetInstance()->Release();
+	PoolManager::GetInstance()->Release();
 	
 	ReleaseDC(g_hWnd, hdc);
 }
