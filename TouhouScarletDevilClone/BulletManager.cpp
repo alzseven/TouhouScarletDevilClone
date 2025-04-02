@@ -35,7 +35,7 @@ void BulletManager::Release()
 
 void BulletManager::Update(float dt)
 {
-    bulletPool->Update();
+    bulletPool->UpdateActive();
     vector<BHBullet*> active = bulletPool->GetActive();
     for (std::vector<BHBullet*>::iterator iter = active.begin() ; iter != active.end(); ++iter)
     {

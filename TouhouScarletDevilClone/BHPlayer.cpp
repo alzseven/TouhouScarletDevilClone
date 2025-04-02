@@ -31,7 +31,7 @@ void BHPlayer::Render(HDC hdc)
     {
         if (moveImage)
         {
-            moveImage->RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
+            moveImage->Middle_RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
         }
     }
     else
@@ -39,12 +39,14 @@ void BHPlayer::Render(HDC hdc)
         if (shape && shape->GetImage())
         {
             //TODO: separate frameIndex
-            shape->GetImage()->RenderFrame(position.x, position.y,frameIndex);
+            shape->GetImage()->Middle_RenderFrame(position.x, position.y,frameIndex);
             
-            //Debug
+            // Debug
+            const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+            const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
             shape->GetImage()->DrawRect(
-                {position.x, position.y,},
-                {position.x + shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX(), position.y + shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY(),},
+                {position.x - width / 2, position.y - height / 2},
+                {position.x + width / 2 , position.y + height / 2},
                 2, 1);
         }
     }

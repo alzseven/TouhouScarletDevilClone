@@ -42,12 +42,15 @@ void BHEnemy::Render(HDC hdc)
     if (isAlive == false) return;
     if (shape && shape->GetImage())
     {
-        shape->GetImage()->RenderFrame(position.x, position.y, frameIndex);
-        //Debug
-        // shape->GetImage()->DrawRect(
-        // {position.x, position.y,},
-        // { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
-        // 2, 1);
+        shape->GetImage()->Middle_RenderFrame(position.x, position.y, frameIndex);
+
+        // Debug
+        const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+        const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
+        shape->GetImage()->DrawRect(
+            {position.x - width / 2, position.y - height / 2},
+            {position.x + width / 2 , position.y + height / 2},
+            2, 1);
     }
     if (bulletManager)
     {
