@@ -25,7 +25,8 @@ void TouhouScarletDevilCloneGame::Init()
     enemy = new BHEnemy();
     
     enemy->Init("enemy", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
-
+    enemy->SetItemList(items);
+    enemy->SetGameState(gameState);
     enemyFactory = new ObjectPool<BHEnemy>();
     enemyFactory->Init(100);
 
@@ -33,8 +34,8 @@ void TouhouScarletDevilCloneGame::Init()
     enemy2->Init("enemy", 26, {200, 100}, DEG_TO_RAD(90.f));
 
     // 아이템
-	item = new BHItem();
-    item->Init("smallScore", 16.f, { WINSIZE_X / 2 - 200, WINSIZE_Y / 2 }, 90);
+ //   item->Init("smallScore", 16.f, { WINSIZE_X / 2 - 200, WINSIZE_Y / 2 }, 90);
+	//item->InitGameState(gameState);
 }
 
 void TouhouScarletDevilCloneGame::Release()
@@ -60,12 +61,12 @@ void TouhouScarletDevilCloneGame::Release()
         enemyFactory = nullptr;
     }
 
-    if (item)
-    {
-		item->Release();
-		delete item;
-		item = nullptr;
-    }
+  //  if (item)
+  //  {
+		//item->Release();
+		//delete item;
+		//item = nullptr;
+  //  }
 
     if (ui)
     {
@@ -78,8 +79,30 @@ void TouhouScarletDevilCloneGame::Update(float dt)
 {
     if (player) player->Update(dt);
     if (enemy) enemy->Update(dt);
-	if (item) item->Update(dt);
+//	if (item) item->Update(dt);
 	if (ui) ui->Update(dt);
+    for (auto it = items.begin(); it != items.end(); )
+    {
+        BHItem* item = *it;
+
+        if (!item)
+        {
+            it = items.erase(it);
+            continue;
+        }
+
+        // Update 전에 유효성 체크
+        if (!item->IsValid() || item->IsOutofScreen())
+        {
+            delete item;
+            it = items.erase(it);
+        }
+        else
+        {
+            item->Update(dt);
+            ++it;
+        }
+    }
     timer++;
     if (timer >= 5)
     {
@@ -87,7 +110,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         angle++;
         timer = 0;
     }
-
+    
     for (auto i : enemyFactory->GetActive())
     {
         i->Update(dt);
@@ -107,7 +130,10 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     
     if (enemy) enemy->Render(hdc);
 
-	if (item) item->Render(hdc);
+	for (auto it : items)
+	{
+		it->Render(hdc);
+	}
 
 	if (ui) ui->Render(hdc);
 

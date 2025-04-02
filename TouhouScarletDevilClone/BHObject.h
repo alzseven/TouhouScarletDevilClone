@@ -22,7 +22,7 @@ public:
 	virtual void Release() = 0;
 	virtual void Update(float dt) = 0;
 	virtual void Render(HDC hdc);
-	bool IsOutofScreen();
+	virtual bool IsOutofScreen();
 
 	void OnHit(ICollideable* hitObject) override = 0;
 	

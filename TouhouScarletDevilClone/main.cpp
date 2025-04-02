@@ -15,6 +15,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpszCmdParam, int nCmdShow)
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
 	g_hInstance = hInstance;
 
 	WNDCLASSEX wndClass;

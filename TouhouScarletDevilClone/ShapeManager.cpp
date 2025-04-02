@@ -19,6 +19,7 @@ void ShapeManager::Init()
     ShapeManager::GetInstance()->AddShapeCircle("ball_green", TEXT("Image/ball_green.png"), 3.0f);
 
 	ShapeManager::GetInstance()->AddShapeCircle("smallScore", TEXT("Image/Item/smallScore.png"), 3.0f);
+	ShapeManager::GetInstance()->AddShapeCircle("smallPower", TEXT("Image/Item/smallPower.png"), 3.0f);
 }
 
 void ShapeManager::Release()

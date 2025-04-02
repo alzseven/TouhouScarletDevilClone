@@ -1,5 +1,6 @@
 #pragma once
 #include "BHObject.h"
+#include "BHItem.h"
 
 class EnemyController;
 class BulletManager;
@@ -17,6 +18,10 @@ private:
 
     BulletManager* bulletManager;
     EnemyController* ec;
+
+    // 아이템 관련 코드
+    vector<BHItem*>* items = nullptr;
+	GameState* gameState = nullptr;
 
 public:
     // 생성자
@@ -40,5 +45,9 @@ public:
     void Release() override;
 
     void GetDamaged();
+
+    // 아이템 관련 코드
+	inline void SetItemList(vector<BHItem*>& itemList) { items = &itemList; }
+	inline void SetGameState(GameState* state) { gameState = state; }
 };
 

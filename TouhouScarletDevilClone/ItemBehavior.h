@@ -1,12 +1,10 @@
 #pragma once
 
-class Item;
+class GameState;
 class ItemBehavior
 {
-	virtual ~ItemBehavior() {};
-
-	virtual void Update(Item* item, float dt) = 0;
-	virtual void Collect(Item* item) = 0;
-
+public:
+	virtual ~ItemBehavior() = default;
+	virtual void OnCollect(GameState* state) = 0;
 };
 

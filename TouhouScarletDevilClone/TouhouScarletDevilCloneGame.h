@@ -13,6 +13,7 @@ class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
     GameState* gameState;
+    vector<BHItem*> items;
     UI* ui;
     BHPlayer* player;
     BHEnemy* enemy;
@@ -22,6 +23,7 @@ private:
     int timer = 0;
     int frame = 0;
     float angle = 0;
+
 public:
     void Init() override;
     void Release() override;

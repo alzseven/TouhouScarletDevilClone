@@ -10,6 +10,6 @@ struct GameState
 	int CurrPowerBarFrame = 0;
 
 	int CurrBossHpBarFrame = 350;
-	bool IsEnemyPhase = false;
+	bool IsEnemyPhase = true;
 	int RemainTime = 60;
 };

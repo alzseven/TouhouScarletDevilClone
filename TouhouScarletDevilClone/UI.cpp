@@ -145,7 +145,6 @@ void UI::Render(HDC hdc)
 	PowerImage->Render(PowerPos.x, PowerPos.y);
 	GrazeImage->Render(GrazePos.x, GrazePos.y);
 
-
 	// Á¡¼ö
 	RenderScoreAsImage(hdc, MaxScore(gameState), { MaxScorePos.x + 120, MaxScorePos.y + 5 });
 	RenderScoreAsImage(hdc, Score(gameState), { ScorePos.x + 105, ScorePos.y + 5 });

@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="BHBullet.cpp" />
+    <ClCompile Include="BHEnemy.cpp" />
+    <ClCompile Include="BHObject.cpp" />
+    <ClCompile Include="BHPlayer.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="BulletShooter.cpp" />
+    <ClCompile Include="CircleCollisionManager.cpp" />
+    <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="GameStateManager.h" />
+    <ClCompile Include="IObjectActionPattern.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="KeyManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="PathMaker.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="ShapeManager.cpp" />
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="BHItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreItemBehavior.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpItemBehavior.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BHBullet.h" />
+    <ClInclude Include="BHEnemy.h" />
+    <ClInclude Include="BHObject.h" />
+    <ClInclude Include="BHPlayer.h" />
+    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="BulletShooter.h" />
+    <ClInclude Include="CircleCollisionManager.h" />
+    <ClInclude Include="CommonFunction.h" />
+    <ClInclude Include="config.h" />
+    <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="EnemyController.h" />
+    <ClInclude Include="GameState.h" />
+    <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ICircleCollideable.h" />
+    <ClInclude Include="ICollideable.h" />
+    <ClInclude Include="IObjectActionPattern.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="InputManager.h" />
+    <ClInclude Include="KeyManager.h" />
+    <ClInclude Include="MainGame.h" />
+    <ClInclude Include="PathMaker.h" />
+    <ClInclude Include="ObjectPool.h" />
+    <ClInclude Include="Pattern.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeManager.h" />
+    <ClInclude Include="Singleton.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="TouhouScarletDevilCloneGame.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="BHItem.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBehavior.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemType.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreItemBehavior.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpItemBehavior.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreItem.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+    <ClInclude Include="PowerUpItem.h">
+      <Filter>Item</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Item">
+      <UniqueIdentifier>{1833c5fe-7b87-4af9-b153-22005bbda20d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
