@@ -94,6 +94,8 @@ void MainGame::Update(float dt)
 		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_sky", { 250, 300 });
 		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_yellow", { 100, 350 });
 		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_white", { 150, 350 });
+		EffectPlayer::GetInstance()->PlayEffect("Kill_zako", { 100, 400 });
+		EffectPlayer::GetInstance()->PlayEffect("Boss_phase", { 200, 400 });
 		
 	}
 
