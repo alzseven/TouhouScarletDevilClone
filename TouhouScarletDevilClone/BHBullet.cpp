@@ -49,11 +49,13 @@ void BHBullet::Render(HDC hdc)
 	{
 		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
 
-		//Debug
+		// Debug
+		// const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+		// const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
 		// shape->GetImage()->DrawRect(
-		// {position.x, position.y,},
-		// { position.x + shape->GetImage()->GetWidth(), position.y + shape->GetImage()->GetHeight(),},
-		// 2, 1);
+		// 	{position.x - width / 2, position.y - height / 2},
+		// 	{position.x + width / 2 , position.y + height / 2},
+		// 	2, 1);
 	}
 }
 
