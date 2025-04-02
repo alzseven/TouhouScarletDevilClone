@@ -47,7 +47,7 @@ void BHBullet::Render(HDC hdc)
 	if (isAlive == false) return;
 	if (shape)
 	{
-		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
+		shape->GetImage()->Middle_RenderFrame(position.x, position.y,1, imageAngle);
 
 		// Debug
 		// const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();

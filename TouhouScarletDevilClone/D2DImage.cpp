@@ -100,7 +100,7 @@ void D2DImage::Middle_Render(float x, float y, float angle,
     transform = transform * D2D1::Matrix3x2F::Scale(flipX ? -1.0f : 1.0f, flipY ? -1.0f : 1.0f);
     transform = transform * D2D1::Matrix3x2F::Rotation(angle);
     transform = transform * D2D1::Matrix3x2F::Translation(x + bmpSize.width / 2.0f, y + bmpSize.height / 2.0f);
-
+    //transform = transform * D2D1::Matrix3x2F::Translation(x, y);
     renderTarget->SetTransform(transform);
     renderTarget->DrawBitmap(bitmap, D2D1::RectF(0, 0, bmpSize.width, bmpSize.height), alpha);
     renderTarget->SetTransform(D2D1::Matrix3x2F::Identity());
