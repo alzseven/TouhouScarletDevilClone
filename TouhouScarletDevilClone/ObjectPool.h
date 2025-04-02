@@ -4,19 +4,19 @@
 
 template<typename T>
 class ObjectPool {
-    std::deque<T> pool;  // 재할당 시 포인터 무효화 방지
+    std::deque<T> pool;
     std::vector<T*> active;
     std::vector<T*> free;
-    std::vector<T*> update;
+    std::vector<T*> updatedActive;
 
 public:
     void Init(int preAlloc = 1000);
     T* Allocate();
     void Release(T* obj);
-    void Update() { update = active; }  // 복사 방식으로 변경
+    void UpdateActive() { updatedActive = active; }
     void Clear();
     
-    std::vector<T*>& GetActive() { return update; }  // 참조 반환으로 최적화
+    std::vector<T*>& GetActive() { return updatedActive; }
 };
 
 template <typename T>
