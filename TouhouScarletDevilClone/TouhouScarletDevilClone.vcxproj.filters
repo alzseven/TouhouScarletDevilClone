@@ -5,8 +5,6 @@
     <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
@@ -36,8 +34,9 @@
     <ClCompile Include="ScoreItem.cpp">
       <Filter>Item</Filter>
     </ClCompile>
-    <ClCompile Include="PowerUpItem.cpp"> </ClCompile>
+    <ClCompile Include="PowerUpItem.cpp">
       <Filter>Item</Filter>
+    </ClCompile>
     <ClCompile Include="EffectPlayer.cpp">
       <Filter>JiunTest</Filter>
     </ClCompile>
@@ -47,14 +46,20 @@
     <ClCompile Include="SoundPlayer.cpp">
       <Filter>JiunTest</Filter>
     </ClCompile>
+    <ClCompile Include="BHBoss.cpp" />
+    <ClCompile Include="IObjectComplexPattern.cpp" />
+    <ClCompile Include="IPatternComponent.cpp" />
+    <ClCompile Include="IStageWavePattern.cpp" />
+    <ClCompile Include="IWaveObjectPlacer.cpp" />
+    <ClCompile Include="PatternBuilder.cpp" />
+    <ClCompile Include="BHObjectManager.cpp" />
+    <ClCompile Include="StageWaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHBullet.h" />
     <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
-    <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="BulletShooter.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
@@ -98,10 +103,19 @@
     <ClInclude Include="PowerUpItem.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="BHBoss.h" />
+    <ClInclude Include="IObjectComplexPattern.h" />
+    <ClInclude Include="IPatternComponent.h" />
+    <ClInclude Include="IStageWavePattern.h" />
+    <ClInclude Include="IWaveObjectPlacer.h" />
+    <ClInclude Include="PatternBuilder.h" />
+    <ClInclude Include="BHObjectManager.h" />
+    <ClInclude Include="StageWaveManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Item">
       <UniqueIdentifier>{1833c5fe-7b87-4af9-b153-22005bbda20d}</UniqueIdentifier>
+    </Filter>
     <ClInclude Include="EffectPlayer.h">
       <Filter>JiunTest</Filter>
     </ClInclude>
