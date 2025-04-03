@@ -49,6 +49,10 @@ void CircleCollisionManager::AddCollisionObject(ICircleCollideable* collisionObj
 void CircleCollisionManager::RemoveCollisionObject(ICircleCollideable* collisionObject)
 {
     // collisions.erase(std::remove(collisions.begin(), collisions.end(), collisionObject));
+    collisions.erase(
+        std::remove(collisions.begin(), collisions.end(), collisionObject),
+        collisions.end()
+    );
 }
 
 bool CircleCollisionManager::ShouldCollide(CollisionLayer layerA, CollisionLayer layerB)
