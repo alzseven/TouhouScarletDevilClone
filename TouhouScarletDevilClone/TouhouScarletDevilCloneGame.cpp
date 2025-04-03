@@ -82,10 +82,12 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
         it->Render(hdc);
     }
 
-    if (ui) ui->Render(hdc);
+    
 
 
     BHObjectManager::GetInstance()->Render();
     
     CircleCollisionManager::GetInstance()->Render(hdc);
+
+    if (ui) ui->Render(hdc);
 }
