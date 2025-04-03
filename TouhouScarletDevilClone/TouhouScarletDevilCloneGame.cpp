@@ -61,6 +61,17 @@ void TouhouScarletDevilCloneGame::Update(float dt)
             ++it;
         }
     }
+    timer++;
+    /*if (timer >= 5)
+    {
+        frame++;
+        angle++;
+        timer = 0;
+    }*/
+    if (timer > 1000)
+    {
+        //SoundPlayer::GetInstance()->SoundOff("stage3_boss");
+    }
     
     BHObjectManager::GetInstance()->Update(dt);
     

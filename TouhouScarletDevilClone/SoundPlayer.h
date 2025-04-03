@@ -8,8 +8,8 @@ private:
 	FMOD::System* fmodSystem = nullptr;
 	FMOD::Sound* bgm = nullptr;
     map<string, FMOD::Sound*> sounds;
-    map<string, FMOD::Channel*> channels;
-
+    multimap<string, FMOD::Channel*> channels;
+    int timer = 0;
 public:
     void Init();
     void Update();

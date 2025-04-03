@@ -24,7 +24,7 @@ class BHPlayer : public BHObject
 	FPOINT moveDir;
 	bool isPressingShift;
 public:
-	// »ý¼ºÀÚ
+	// Â»Ã½Â¼ÂºÃ€Ãš
 	BHPlayer() = default;
 	~BHPlayer() override = default;
 

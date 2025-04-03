@@ -79,6 +79,7 @@ void BHEnemy::Shoot(string bulletShapeKey, FPOINT init_pos,
 
     BHBullet* bullet = BHObjectManager::GetInstance()->GetEnemyBulletPool()->Allocate();
     bullet->Init(bulletShapeKey, init_pos);
+    
     bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
 }
 

@@ -4,7 +4,7 @@
 void SoundPlayer::Init()
 {
     FMOD::System_Create(&fmodSystem); // 시스템 생성
-    fmodSystem->init(64, FMOD_INIT_NORMAL, nullptr); // 초기화
+    fmodSystem->init(128, FMOD_INIT_NORMAL, nullptr); // 초기화
 
     //soundEffects
     {
@@ -20,6 +20,8 @@ void SoundPlayer::Init()
         LoadSound("powerup", "Sound/Effect/powerup.wav", false);
         LoadSound("select", "Sound/Effect/select.wav", false);
         LoadSound("timeout", "Sound/Effect/timeout.wav", false);
+        LoadSound("enemy_shoot", "Sound/Effect/enemy_shoot.wav", false);
+        LoadSound("boss_dead", "Sound/Effect/boss_dead.wav", false);
     }
     //bmg
     {
@@ -46,7 +48,25 @@ void SoundPlayer::Init()
 
 void SoundPlayer::Update()
 {
+    timer++;
     if (fmodSystem) fmodSystem->update();
+
+    
+    if (timer > 1000)
+    {
+        for (auto it = channels.begin(); it != channels.end(); ) {
+            bool isPlaying = false;
+            (*it).second->isPlaying(&isPlaying);
+            if (!isPlaying) {
+                (*it).second->stop();
+                it = channels.erase(it);
+            }
+            else {
+                ++it;
+            }
+        }
+        timer = 0;
+    }
 }
 
 void SoundPlayer::Release()
@@ -61,7 +81,7 @@ void SoundPlayer::Release()
 
 void SoundPlayer::LoadSound(const string& key, const char* filepath, bool loop)
 {
-    FMOD_MODE mode = FMOD_DEFAULT;
+    FMOD_MODE mode = FMOD_DEFAULT | FMOD_CREATESAMPLE;
     if (loop) mode |= FMOD_LOOP_NORMAL;
     else mode |= FMOD_LOOP_OFF;
 
@@ -79,7 +99,13 @@ void SoundPlayer::SoundOn(const string& key, float volume)
     fmodSystem->playSound(it->second, nullptr, false, &channel);
     if (channel) {
         channel->setVolume(volume);
-        channels[key] = channel;
+
+        // 사운드의 모드를 확인하여 루프 사운드인 경우에만 channels에 저장합니다.
+        FMOD_MODE mode;
+        it->second->getMode(&mode);
+        if (mode & FMOD_LOOP_NORMAL) { // 루프 설정된 사운드인 경우
+            channels.insert({ key, channel });
+        }
     }
 }
 

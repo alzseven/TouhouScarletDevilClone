@@ -77,6 +77,7 @@ void MainGame::Render()
 	if (gameInstance) gameInstance->Render(hdc);
 	
 	EffectPlayer::GetInstance()->Render();
+	SoundPlayer::GetInstance()->Update();
 	D2DImage::EndDraw();
 }
 

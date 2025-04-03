@@ -6,19 +6,29 @@
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
-    <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="EffectPlayer.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="GameStateManager.h" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="BHItem.cpp" />
+    <ClCompile Include="IStageWavePattern.cpp" />
+    <ClCompile Include="IWaveObjectPlacer.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="PathMaker.cpp" />
+    <ClCompile Include="PowerUpItem.cpp" />
+    <ClCompile Include="PowerUpItemBehavior.cpp" />
+    <ClCompile Include="ScoreItem.cpp" />
+    <ClCompile Include="ScoreItemBehavior.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="PoolManager.cpp" />
+    <ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
     <ClCompile Include="UI.cpp" />
@@ -63,6 +73,8 @@
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
+    <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="EffectPlayer.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameObject.h" />
@@ -71,64 +83,27 @@
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="BHItem.h" />
+    <ClInclude Include="ItemBehavior.h" />
+    <ClInclude Include="ItemType.h" />
+    <ClInclude Include="IStageWavePattern.h" />
+    <ClInclude Include="IWaveObjectPlacer.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="PathMaker.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pattern.h" />
+    <ClInclude Include="PowerUpItem.h" />
+    <ClInclude Include="PowerUpItemBehavior.h" />
+    <ClInclude Include="ScoreItem.h" />
+    <ClInclude Include="ScoreItemBehavior.h" />
     <ClInclude Include="Shape.h" />
-    <ClInclude Include="ShapeManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
     <ClInclude Include="UI.h" />
-    <ClInclude Include="BHItem.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBehavior.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemType.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreItemBehavior.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpItemBehavior.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreItem.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="PowerUpItem.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="BHBoss.h" />
-    <ClInclude Include="IObjectComplexPattern.h" />
-    <ClInclude Include="IPatternComponent.h" />
-    <ClInclude Include="IStageWavePattern.h" />
-    <ClInclude Include="IWaveObjectPlacer.h" />
-    <ClInclude Include="PatternBuilder.h" />
-    <ClInclude Include="BHObjectManager.h" />
-    <ClInclude Include="StageWaveManager.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Item">
-      <UniqueIdentifier>{1833c5fe-7b87-4af9-b153-22005bbda20d}</UniqueIdentifier>
-    </Filter>
-    <ClInclude Include="EffectPlayer.h">
-      <Filter>JiunTest</Filter>
-    </ClInclude>
-    <ClInclude Include="D2DImage.h">
-      <Filter>JiunTest</Filter>
-    </ClInclude>
-    <ClInclude Include="SoundPlayer.h">
-      <Filter>JiunTest</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="JiunTest">
-      <UniqueIdentifier>{417733e2-8419-46f0-8d0a-11a8a4a7ff1f}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="SoundPlayer.h" />
   </ItemGroup>
 </Project>

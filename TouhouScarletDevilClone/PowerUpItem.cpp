@@ -34,7 +34,7 @@ void PowerUpItem::Update(float dt)
 void PowerUpItem::Render(HDC hdc)
 {
     if (!isAlive || !shape || !shape->GetImage()) return;
-    shape->GetImage()->Render(position.x, position.y);
+    shape->GetImage()->Middle_RenderFrame(position.x, position.y,1);
 }
 
 void PowerUpItem::OnHit(ICollideable* hitObject)
