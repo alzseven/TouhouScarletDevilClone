@@ -26,7 +26,14 @@ void TouhouScarletDevilCloneGame::Init()
     stageWaveManager.Init();
 }
 
-void TouhouScarletDevilCloneGame::Release(){}
+void TouhouScarletDevilCloneGame::Release()
+{
+    if (ui)
+    {
+        delete ui;
+        ui = nullptr;
+    }
+}
 
 
 void TouhouScarletDevilCloneGame::Update(float dt)
@@ -35,6 +42,30 @@ void TouhouScarletDevilCloneGame::Update(float dt)
 
     stageWaveManager.Update(dt);
 
+    if (ui) ui->Update(dt);
+    for (auto it = items.begin(); it != items.end(); )
+    {
+        BHItem* item = *it;
+
+        if (!item)
+        {
+            it = items.erase(it);
+            continue;
+        }
+
+        // Update 전에 유효성 체크
+        if (!item->IsValid() || item->IsOutofScreen())
+        {
+            delete item;
+            it = items.erase(it);
+        }
+        else
+        {
+            item->Update(dt);
+            ++it;
+        }
+    }
+    
     BHObjectManager::GetInstance()->Update(dt);
     
     CircleCollisionManager::GetInstance()->Update();
@@ -46,6 +77,13 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 
     if (player) player->Render(hdc);
     
+    for (auto it : items)
+    {
+        it->Render(hdc);
+    }
+
+    if (ui) ui->Render(hdc);
+
 
     BHObjectManager::GetInstance()->Render();
     
