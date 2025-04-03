@@ -16,7 +16,6 @@ private:
     D2DImage* moveImage;
     FPOINT moveDir;
 
-    // BulletManager* bulletManager;
     EnemyController* ec;
 
     // 아이템 관련 코드
@@ -30,7 +29,6 @@ public:
 
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 
-    // void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
     void Init(string shapeKey, FPOINT pos) override;
     void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns);
     
@@ -46,7 +44,8 @@ public:
 
     void Release() override;
 
-    void GetDamaged();
+
+    virtual void GetDamaged(int damage);
 
     // 아이템 관련 코드
 	inline void SetItemList(vector<BHItem*>& itemList) { items = &itemList; }

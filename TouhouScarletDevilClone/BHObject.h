@@ -2,6 +2,7 @@
 #include "config.h"
 #include "ICircleCollideable.h"
 #include "IObjectActionPattern.h"
+#include "IPatternComponent.h"
 
 class IObjectActionPattern;
 class Image;
@@ -13,6 +14,8 @@ protected:
 	FPOINT position;
 	float radianAngle;
 	Shape* shape;
+
+	// std::vector<IPatternComponent*>* patterns;
 
 public:
 	BHObject();
@@ -35,4 +38,6 @@ public:
 	virtual void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) = 0;
 
 	inline bool IsValid() override { return isAlive; }
+
+	// void SetPatterns(std::vector<IPatternComponent*>* patternComponents) { patterns = patternComponents; }
 };

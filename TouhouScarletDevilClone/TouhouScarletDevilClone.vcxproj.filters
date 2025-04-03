@@ -5,8 +5,6 @@
     <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EffectPlayer.cpp" />
@@ -34,14 +32,44 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="BHItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreItemBehavior.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpItemBehavior.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="PowerUpItem.cpp">
+      <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectPlayer.cpp">
+      <Filter>JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DImage.cpp">
+      <Filter>JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundPlayer.cpp">
+      <Filter>JiunTest</Filter>
+    </ClCompile>
+    <ClCompile Include="BHBoss.cpp" />
+    <ClCompile Include="IObjectComplexPattern.cpp" />
+    <ClCompile Include="IPatternComponent.cpp" />
+    <ClCompile Include="IStageWavePattern.cpp" />
+    <ClCompile Include="IWaveObjectPlacer.cpp" />
+    <ClCompile Include="PatternBuilder.cpp" />
+    <ClCompile Include="BHObjectManager.cpp" />
+    <ClCompile Include="StageWaveManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHBullet.h" />
     <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
-    <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="BulletShooter.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />

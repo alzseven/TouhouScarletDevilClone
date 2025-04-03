@@ -29,7 +29,7 @@ void ShootStraightPattern::Update(float dt)
         {
             currentShootCount++;
             
-            target->Shoot("ball_green", *target->GetPos(),
+            target->Shoot(bulletShapeKey, *target->GetPos(),
                 shootAngle, shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -58,7 +58,7 @@ void ShootSpreadPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot("ball_green",*target->GetPos(),
+            target->Shoot(bulletShapeKey,*target->GetPos(),
                 shootAngle + DEG_TO_RAD(currentShootCount * -10.f), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -88,7 +88,7 @@ void ShootRoundPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot("ball_green", *target->GetPos(),
+            target->Shoot(bulletShapeKey, *target->GetPos(),
                 shootAngle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -111,3 +111,52 @@ void ShootRoundPattern::Update(float dt)
 
     }
 }
+
+void Stage1BossNormalPattern1::Update(float dt)
+{
+    timeElpased += dt;
+    shootTimer += dt;
+    if (timeElpased <= patternEndTime)
+    {
+        if (shootTimer >= shootDelay)
+        {
+            currentShootCount++;
+            
+            for (int i = 0; i < 16; ++i)
+            {
+                target->Shoot(
+                    bulletShapeKey,
+                    *target->GetPos(),
+                    shootAngle + DEG_TO_RAD(360.f / shootAmount * i),
+                    shootAngleRate,
+                    shootSpeed,
+                    shootSpeedRate);
+            }
+
+            for (int i = 0; i < 16; ++i)
+            {
+                target->Shoot(
+                    bulletShapeKey,
+                    *target->GetPos(),
+                    shootAngle + DEG_TO_RAD(360.f / shootAmount * i) + DEG_TO_RAD(15.f),
+                    shootAngleRate,
+                    shootSpeed,
+                    shootSpeedRate);
+            }
+            
+            if (currentShootCount >= shootAmount)
+            {
+                currentShootCount = 0;
+                shootTimer -= shootDelay;
+            }
+            else
+            {
+                shootTimer -= multiShootDelay;
+            }
+        }
+
+    }
+}
+
+// 여기에 IObjectActionPattern.h에서 선언한 클래스의 구현부를 제작하시오
+// Update 내부에서 실질적인 이동과 발사는 위에 선언된 함수들을 참고하시오

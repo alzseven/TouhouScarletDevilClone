@@ -2,32 +2,35 @@
 #include "config.h"
 #include "BHObject.h"
 
-class BulletManager;
-// class BulletManager;
-// class IBulletFactory;
 class Image;
 class D2DImage;
 class BHPlayer : public BHObject
 {
 	int frameIndex;
-	float timeElapsed;
-	float nextShootTime = 0;
-	float shootDelay;
-	int lv;
-	// BulletManager* bulletManager;
-	// IBulletFactory* level1BulletFactory;
-	// IBulletFactory* level2BulletFactory;
+
+	float mainWeaponTimer;
+	float subWeaponTimer;
 	
-	D2DImage* moveImage;
+	float timeElapsed;
+	float mainShootDelay;
+	float subShootDelay;
+
+	Shape* moveShape;
+	Shape* moveStartShape;
+	Shape* subShape;
+
+	bool isPreviousStateHorizontalMove;
+	
 	FPOINT moveDir;
+	bool isPressingShift;
 public:
-	// »ý¼ºÀÚ
+	// Â»Ã½Â¼ÂºÃ€Ãš
 	BHPlayer() = default;
 	~BHPlayer() override = default;
 
-	inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
+	// inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
+	// inline void SetMoveStartImage(D2DImage* moveStartImage) { this->moveStartImage = moveStartImage; }
 	 
-	// void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
 	void Init(string shapeKey, FPOINT pos) override;
 	
 	//TODO:
@@ -36,9 +39,6 @@ public:
 	void Move(float angle, float speed, float dt) override;
 	void Render(HDC hdc) override;
 	
-	//TODO: Quad-Tree Optimization how?
-	//bool IsHit(CTaskList * list);
-
 	void MoveBackToBorder();
 	
 	void Update(float dt) override;

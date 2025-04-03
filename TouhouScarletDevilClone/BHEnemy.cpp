@@ -1,11 +1,10 @@
 #include "BHEnemy.h"
 
 #include "BHBullet.h"
-#include "BulletManager.h"
 #include "D2DImage.h"
 #include "EnemyController.h"
 #include "CircleCollisionManager.h"
-#include "PoolManager.h"
+#include "BHObjectManager.h"
 #include "Shape.h"
 #include "ScoreItem.h"
 #include "GameStateManager.h"
@@ -40,26 +39,6 @@ void BHEnemy::Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern
 
 }
 
-// void BHEnemy::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
-// {
-//     this->hitRadius = hitRadius;
-//     this->shape =  ShapeManager::GetInstance()->FindShape(shapeKey);
-//     this->position = pos;
-//     this->radianAngle = radianAngle;
-//     isAlive = true;
-//     SetCollisionLayer(LAYER_ENEMY, LAYER_PLAYER_BULLET);
-//
-//     // bulletManager = new BulletManager();
-//     // bulletManager->Init();
-//
-//
-//     //TEST
-//     ec = new EnemyController();
-//     ec->SetTarget(this);
-//     ec->Init();
-// }
-
-
 void BHEnemy::Move(float angle, float speed, float dt)
 {
     if (isAlive == false) return;
@@ -84,21 +63,12 @@ void BHEnemy::Render(HDC hdc)
             {position.x + width / 2 , position.y + height / 2},
             2, 1);
     }
-    // if (bulletManager)
-    // {
-    //     bulletManager->Render(hdc);
-    // }
 }
 
 void BHEnemy::Update(float dt)
 {
     if (isAlive == false) return;
     ec->Update(dt);
-    
-    // if (bulletManager)
-    // {
-    //     bulletManager->Update(dt);
-    // }
 }
 
 void BHEnemy::Shoot(string bulletShapeKey, FPOINT init_pos,
@@ -106,34 +76,24 @@ void BHEnemy::Shoot(string bulletShapeKey, FPOINT init_pos,
     float shootSpeed, float shootSpeedRate)
 {
     if (isAlive == false) return;
-    
-    // bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
-    BHBullet* bullet = PoolManager::GetInstance()->GetEnemyBulletPool()->Allocate();
+
+    BHBullet* bullet = BHObjectManager::GetInstance()->GetEnemyBulletPool()->Allocate();
     bullet->Init(bulletShapeKey, init_pos);
     
     bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
-    // bullet->Init("kunai", 16.f, {init_pos.x, init_pos.y}, angle);
-    // bullet->Launch(angleRate , shootSpeedRate ,shootSpeed, init_pos.y > WINSIZE_Y / 2);
-
 }
 
 void BHEnemy::OnHit(ICollideable* hitObject)
 {
-    GetDamaged();
-
-    // TODO: Determine with other way...
-    // BHBullet* bHBullet = dynamic_cast<BHBullet*>(hitObject);
-    // if (bHBullet)
-    // {
-    //     GetDamaged();
-    // }
+    GetDamaged(1);
 }
 
 void BHEnemy::Release()
 {
+    if (ec) delete ec;
 }
 
-void BHEnemy::GetDamaged()
+void BHEnemy::GetDamaged(int damage)
 {
     //TODO: Do something(drop score/power ups...)
     isAlive = false;

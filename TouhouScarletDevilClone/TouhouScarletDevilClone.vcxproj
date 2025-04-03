@@ -19,12 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BHBoss.h" />
     <ClInclude Include="BHBullet.h" />
     <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
-    <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="BulletShooter.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
@@ -38,6 +37,8 @@
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IObjectComplexPattern.h" />
+    <ClInclude Include="IPatternComponent.h" />
     <ClInclude Include="BHItem.h" />
     <ClInclude Include="ItemBehavior.h" />
     <ClInclude Include="ItemType.h" />
@@ -48,13 +49,14 @@
     <ClInclude Include="PathMaker.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pattern.h" />
+    <ClInclude Include="PatternBuilder.h" />
+    <ClInclude Include="BHObjectManager.h" />
     <ClInclude Include="PowerUpItem.h" />
     <ClInclude Include="PowerUpItemBehavior.h" />
     <ClInclude Include="ScoreItem.h" />
     <ClInclude Include="ScoreItemBehavior.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="PoolManager.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
@@ -62,12 +64,11 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BHBoss.cpp" />
     <ClCompile Include="BHBullet.cpp" />
     <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EffectPlayer.cpp" />
@@ -76,6 +77,8 @@
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IObjectComplexPattern.cpp" />
+    <ClCompile Include="IPatternComponent.cpp" />
     <ClCompile Include="BHItem.cpp" />
     <ClCompile Include="IStageWavePattern.cpp" />
     <ClCompile Include="IWaveObjectPlacer.cpp" />
@@ -83,6 +86,8 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="PathMaker.cpp" />
+    <ClCompile Include="PatternBuilder.cpp" />
+    <ClCompile Include="BHObjectManager.cpp" />
     <ClCompile Include="PowerUpItem.cpp" />
     <ClCompile Include="PowerUpItemBehavior.cpp" />
     <ClCompile Include="ScoreItem.cpp" />
@@ -90,7 +95,6 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
-    <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />

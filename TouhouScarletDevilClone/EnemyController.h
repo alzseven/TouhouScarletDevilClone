@@ -9,12 +9,27 @@ class BHObject;
 class EnemyController
 {
 protected:
+    struct TimedPattern {
+        float startTime;
+        float duration;
+        IObjectActionPattern* pattern;
+        bool isActive;
+    };
+    
+    std::vector<TimedPattern> patternTimeline;  // 패턴 타임라인
+    std::vector<IObjectActionPattern*> activePatterns;  // 현재 활성 패턴
+
+    float currentTime;
+
+
+    
     BHObject* target;
     std::queue<IObjectActionPattern*> actions;
     float timeElapsed;
     // IObjectActionPattern* patterns[4];
 
     vector<IObjectActionPattern*> enabledActions;
+    
 public:
     EnemyController();
     ~EnemyController();
@@ -22,6 +37,10 @@ public:
     void Init();
     void Update(float dt);
     void AddPatternToTarget(IObjectActionPattern* newPatterns);
-    inline void SetActionPatterns(IObjectActionPattern* newPatterns) { actions.push(newPatterns); }
+    inline void SetActionPatterns(IObjectActionPattern* newPattern) { actions.push(newPattern); }
     inline void SetTarget(BHObject* newTarget) { target = newTarget; }
+
+    //Test
+    // void SetAction(string action, float duration);
+    // void SetAction(string action);
 };
