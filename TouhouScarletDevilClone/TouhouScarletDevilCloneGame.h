@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include "ObjectPool.h"
+#include "StageWaveManager.h"
 
 // class EnemyFactory;
 class BHEnemy;
@@ -23,6 +24,8 @@ private:
     int timer = 0;
     int frame = 0;
     float angle = 0;
+
+    StageWaveManager* stageWaveManager;
 
 public:
     void Init() override;

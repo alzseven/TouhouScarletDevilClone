@@ -9,14 +9,26 @@ BHObject::BHObject()
 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 }
 
-void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
-{
-	this->hitRadius = hitRadius;
-	this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT(" "),hitRadius);
-	this->position = pos;
-	this->radianAngle = radianAngle;
-	isAlive = true;
+// void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
+// {
+// 	this->hitRadius = hitRadius;
+// 	this->shape = ShapeManager::GetInstance()->AddShapeCircle(shapeKey,TEXT(" "),hitRadius);
+// 	this->position = pos;
+// 	this->radianAngle = radianAngle;
+// 	isAlive = true;
+//
+// }
 
+void BHObject::Init(string shapeKey, FPOINT pos)
+{
+	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+	if (shape)
+	{
+		//TODO:
+		this->hitRadius = shape->GetHitWidth() / 2;
+	}
+	this->position = pos;
+	isAlive = true;
 }
 
 void BHObject::Render(HDC hdc)

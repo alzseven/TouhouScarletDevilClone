@@ -4,9 +4,13 @@
 #include "UI.h"
 #include "D2DImage.h"
 #include "BHitem.h"
+#include "PoolManager.h"
 
 void MainGame::Init()
 {
+	KeyManager::GetInstance()->Init();
+	PoolManager::GetInstance()->Init();
+	
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
 	
@@ -21,6 +25,8 @@ void MainGame::Init()
 
 void MainGame::Release()
 {
+
+	
 	if (gameInstance)
 	{
 		gameInstance->Release();
@@ -50,6 +56,9 @@ void MainGame::Release()
 	// 	delete backBuffer;
 	// 	backBuffer = nullptr;
 	// }
+
+	KeyManager::GetInstance()->Release();
+	PoolManager::GetInstance()->Release();
 	
 	ReleaseDC(g_hWnd, hdc);
 }
@@ -134,7 +143,7 @@ void MainGame::Render()
 	//
 	// backBuffer->Render(hdc);
 	
-	//µµÇü Ãâ·Â ¿¹Á¦
+	//µµ?ü ?â·? ¿¹?¦
 	/*D2DImage image;
 	image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
 	image.DrawCircle({ 100,100 }, 20, 1, 2);

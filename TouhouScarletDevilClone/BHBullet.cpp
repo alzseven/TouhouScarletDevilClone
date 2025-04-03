@@ -3,6 +3,7 @@
 #include "CircleCollisionManager.h"
 #include "CommonFunction.h"
 #include "D2DImage.h"
+#include "PoolManager.h"
 #include "Shape.h"
 
 // BHBullet::BHBullet()
@@ -10,14 +11,46 @@
 // 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 // }
 
-void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
-{
-	this->hitRadius = hitRadius;
-	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
-	this->position = pos;
-	this->radianAngle = radianAngle;
-	isAlive = true;
+// void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
+// {
+// 	this->hitRadius = hitRadius;
+// 	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+// 	this->position = pos;
+// 	this->radianAngle = radianAngle;
+// 	isAlive = true;
+// 	pool = PoolManager::GetInstance()->GetEnemyBulletPool();
+// }
 
+void BHBullet::Init(string shapeKey, FPOINT pos)
+{
+	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+	if (shape)
+	{
+		//TODO:
+		this->hitRadius = shape->GetHitWidth() / 2;
+	}
+	this->position = pos;
+
+	isAlive = true;
+	pool = PoolManager::GetInstance()->GetEnemyBulletPool();
+	
+	//TODO: on create
+	if (pos.y > GAME_HEIGHT / 2)
+	{
+		SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);		
+	}
+	else
+	{
+		SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
+	}
+}
+
+void BHBullet::Launch(float angle, float angleRate, float movementSpeed, float moveSpeedRate)
+{
+	this->radianAngle = angle;
+	this->angleRate = angleRate;
+	this->movementSpeed = movementSpeed;
+	this->speedRate = moveSpeedRate;
 }
 
 void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet)

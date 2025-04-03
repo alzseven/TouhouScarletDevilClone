@@ -16,7 +16,7 @@ private:
     D2DImage* moveImage;
     FPOINT moveDir;
 
-    BulletManager* bulletManager;
+    // BulletManager* bulletManager;
     EnemyController* ec;
 
     // 아이템 관련 코드
@@ -30,15 +30,17 @@ public:
 
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 
-    void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
-
+    // void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
+    void Init(string shapeKey, FPOINT pos) override;
+    void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns);
+    
     void Move(float angle, float speed, float dt) override;
     
     void Render(HDC hdc) override;
 
     void Update(float dt) override;
     
-    void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
+    void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
 
     void OnHit(ICollideable* hitObject) override;
 

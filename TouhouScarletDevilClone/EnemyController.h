@@ -12,7 +12,7 @@ protected:
     BHObject* target;
     std::queue<IObjectActionPattern*> actions;
     float timeElapsed;
-    IObjectActionPattern* patterns[4];
+    // IObjectActionPattern* patterns[4];
 
     vector<IObjectActionPattern*> enabledActions;
 public:

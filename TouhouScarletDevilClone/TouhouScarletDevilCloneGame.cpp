@@ -8,6 +8,8 @@
 #include "ImageManager.h"
 #include "GameState.h"
 #include "Shape.h"
+#include "PoolManager.h"
+
 
 void TouhouScarletDevilCloneGame::Init()
 {
@@ -18,12 +20,11 @@ void TouhouScarletDevilCloneGame::Init()
     ui = new UI(gameState);
 
     player = new BHPlayer();
-    player->Init("marisa_idle", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
-    //D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
-    //player->SetMoveImage(moveImage);
-    Shape* tshape = ShapeManager::GetInstance()->FindShape("marisa_left");
-    D2DImage* timage = tshape->GetImage();
-    player->SetMoveImage(timage);
+
+    player->Init("Marisa", {GAME_CENTER_X, GAME_CENTER_Y});
+    D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
+    player->SetMoveImage(moveImage);
+	
     enemy = new BHEnemy();
     
 	enemy->Init("marisa_idle", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
@@ -39,17 +40,32 @@ void TouhouScarletDevilCloneGame::Init()
     // 아이템
  //   item->Init("smallScore", 16.f, { WINSIZE_X / 2 - 200, WINSIZE_Y / 2 }, 90);
 	//item->InitGameState(gameState);
+
+
+    // enemy = new BHEnemy();
+    //
+    // enemy->Init("enemy",{GAME_CENTER_X, 100});
+    //
+    // enemyFactory = new ObjectPool<BHEnemy>();
+    // enemyFactory->Init(100);
+    
+    // BHEnemy* enemy2 = enemyFactory->Allocate();
+    // enemy2->Init("enemy", {200, 100});
+
+    stageWaveManager = new StageWaveManager();
+    stageWaveManager->Init();
+
 }
 
 void TouhouScarletDevilCloneGame::Release()
 {
 
-    if (enemy)
-    {
-        enemy->Release();
-        delete enemy;
-        enemy = nullptr;
-    }
+    // if (enemy)
+    // {
+    //     enemy->Release();
+    //     delete enemy;
+    //     enemy = nullptr;
+    // }
     if (player)
     {
         player->Release();
@@ -76,6 +92,13 @@ void TouhouScarletDevilCloneGame::Release()
 		delete ui;
 		ui = nullptr;
     }
+
+    // if (enemyFactory)
+    // {
+    //     enemyFactory->Clear();
+    //     delete enemyFactory;
+    //     enemyFactory = nullptr;
+    // }
 }
 
 void TouhouScarletDevilCloneGame::Update(float dt)
@@ -113,14 +136,20 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         angle++;
         timer = 0;
     }
+
     
     for (auto i : enemyFactory->GetActive())
     {
         i->Update(dt);
     }
+
     
     if (frame >= 4)frame = 0;
     if (angle > 360) angle = 0;
+
+    stageWaveManager->Update(dt);
+    
+    PoolManager::GetInstance()->Update(dt);
     
     CircleCollisionManager::GetInstance()->Update();
 }
@@ -131,7 +160,7 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 
     if (player) player->Render(hdc);
     
-    if (enemy) enemy->Render(hdc);
+    // if (enemy) enemy->Render(hdc);
 
 	for (auto it : items)
 	{
@@ -144,5 +173,8 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     {
         i->Render(hdc);
     }
+
+    PoolManager::GetInstance()->Render();
+    
     CircleCollisionManager::GetInstance()->Render(hdc);
 }
