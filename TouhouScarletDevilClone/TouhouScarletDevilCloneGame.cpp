@@ -21,8 +21,8 @@ void TouhouScarletDevilCloneGame::Init()
 
     player = new BHPlayer();
 
-    player->Init("Marisa", {GAME_CENTER_X, GAME_CENTER_Y});
-    D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
+    player->Init("marisa_idle", {GAME_CENTER_X, GAME_CENTER_Y});
+    D2DImage* moveImage = ImageManager::GetInstance()->AddImage("marisa_left", TEXT("Image/Character/Marisa/marisa_left.png"), 4, 1);
     player->SetMoveImage(moveImage);
 	
     enemy = new BHEnemy();
@@ -130,13 +130,16 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         }
     }
     timer++;
-    if (timer >= 5)
+    /*if (timer >= 5)
     {
         frame++;
         angle++;
         timer = 0;
+    }*/
+    if (timer > 1000)
+    {
+        //SoundPlayer::GetInstance()->SoundOff("stage3_boss");
     }
-
     
     for (auto i : enemyFactory->GetActive())
     {

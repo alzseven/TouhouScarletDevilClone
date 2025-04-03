@@ -151,6 +151,7 @@ void MainGame::Render()
 	
 	//enemyFactory->Render();
 	EffectPlayer::GetInstance()->Render();
+	SoundPlayer::GetInstance()->Update();
 	D2DImage::EndDraw();
 }
 

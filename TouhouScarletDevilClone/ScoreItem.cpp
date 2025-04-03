@@ -34,7 +34,7 @@ void ScoreItem::Update(float dt)
 void ScoreItem::Render(HDC hdc)
 {
 	if (!isAlive || !shape || !shape->GetImage()) return;
-	shape->GetImage()->Render(position.x, position.y);
+	shape->GetImage()->Middle_RenderFrame(position.x, position.y,1);
 }
 
 void ScoreItem::OnHit(ICollideable* hitObject)

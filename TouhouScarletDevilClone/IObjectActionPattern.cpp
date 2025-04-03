@@ -53,6 +53,7 @@ void ShootSpreadPattern::Update(float dt)
     shootTimer += dt;
     if (timeElpased <= patternEndTime)
     {
+        if(currentShootCount == 1)SoundPlayer::GetInstance()->SoundOn("enemy_shoot");
         if (shootTimer >= shootDelay)
         {
             currentShootCount++;

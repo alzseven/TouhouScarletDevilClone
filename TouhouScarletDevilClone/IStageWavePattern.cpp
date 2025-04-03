@@ -73,7 +73,7 @@ std::vector<IObjectActionPattern*> State1Wave1Pattern::GetObjectActionPatterns(B
     patterns[2] = new ShootSpreadPattern();
     patterns[2]->SetTarget(target);
     patterns[2]->SetPatternStartTime(6.f);
-    patterns[2]->SetPatternEndTime(999.f);
+    patterns[2]->SetPatternEndTime(12.f);
     patterns[2]->SetShootParams(1.f, 10, 0.f, DEG_TO_RAD(135.f), DEG_TO_RAD(-5.f), 90.f, 0.f);
 
     patterns[3] = new MoveStraightDirectionPattern();

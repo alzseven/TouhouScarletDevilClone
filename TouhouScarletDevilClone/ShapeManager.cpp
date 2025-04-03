@@ -19,8 +19,8 @@ void ShapeManager::Init()
     ShapeManager::GetInstance()->AddShapeCircle("ball_green", TEXT("Image/ball_green.png"), 5.0f);
 
 
-	ShapeManager::GetInstance()->AddShapeCircle("smallScore", TEXT("Image/Item/smallScore.png"), 3.0f);
-	ShapeManager::GetInstance()->AddShapeCircle("smallPower", TEXT("Image/Item/smallPower.png"), 3.0f);
+	ShapeManager::GetInstance()->AddShapeCircle("smallScore", TEXT("Image/Item/smallScore.png"), 7.0f);
+	ShapeManager::GetInstance()->AddShapeCircle("smallPower", TEXT("Image/Item/smallPower.png"), 7.0f);
 
     //NormalBullet
     {
@@ -192,8 +192,8 @@ void ShapeManager::Init()
     }
     //cirno
     {
-        ShapeManager::GetInstance()->AddShapeCircle("cirno_idle", TEXT("Image/Character/Cirno/cirno_idle.png"), 5.0f);
-        ShapeManager::GetInstance()->AddShapeCircle("cirno_left", TEXT("Image/Character/Cirno/cirno_left.png"), 5.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("cirno_idle", TEXT("Image/Character/Cirno/cirno_idle.png"),20.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("cirno_left", TEXT("Image/Character/Cirno/cirno_left.png"), 20.0f);
     }
     //sakuya
     {

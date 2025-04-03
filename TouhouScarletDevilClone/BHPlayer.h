@@ -11,6 +11,7 @@ class BHPlayer : public BHObject
 {
 	int frameIndex;
 	float timeElapsed;
+	float nextShootTime = 0;
 	float shootDelay;
 	// BulletManager* bulletManager;
 	// IBulletFactory* level1BulletFactory;

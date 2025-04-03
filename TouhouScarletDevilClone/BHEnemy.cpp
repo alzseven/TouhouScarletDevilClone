@@ -110,6 +110,7 @@ void BHEnemy::Shoot(string bulletShapeKey, FPOINT init_pos,
     // bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
     BHBullet* bullet = PoolManager::GetInstance()->GetEnemyBulletPool()->Allocate();
     bullet->Init(bulletShapeKey, init_pos);
+    
     bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
     // bullet->Init("kunai", 16.f, {init_pos.x, init_pos.y}, angle);
     // bullet->Launch(angleRate , shootSpeedRate ,shootSpeed, init_pos.y > WINSIZE_Y / 2);

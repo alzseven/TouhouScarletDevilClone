@@ -12,7 +12,8 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
-    shootDelay = 0.5f;
+    shootDelay = 0.1f;
+    nextShootTime = 0;
     moveDir = { 0,0 };
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
@@ -98,26 +99,26 @@ void BHPlayer::Move(float angle, float speed, float dt)
 //TOOD: get deltaTime from param
 void BHPlayer::Update(float dt)
 {
-    // timeElapsed += TEMP_DELTA_TIME;
+    timeElapsed += dt;
 #pragma region WASD_INPUT
     moveDir = { 0,0 };
-    // W
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x57))
+    // W up
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_UP))
     {
         moveDir.y=-1;
     }
-    // A
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x41))
+    // A left
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_LEFT))
     {
         moveDir.x=-1;
     }
-    // S
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x53))
+    // S down
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_DOWN))
     {
         moveDir.y=1;
     }
-    // D
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x44))
+    // D right
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_RIGHT))
     {
         moveDir.x=1;
     }
@@ -133,8 +134,14 @@ void BHPlayer::Update(float dt)
 
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
-        Shoot("kunai",position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
-        ShootSubWeapon(isPressingShift);
+        if (timeElapsed >= shootDelay)
+        {
+            timeElapsed = 0;
+            SoundPlayer::GetInstance()->SoundOn("player_shoot");
+            Shoot("kunai", position, DEG_TO_RAD(-90.f), DEG_TO_RAD(0.f), 100.f, 0.f);
+            ShootSubWeapon(isPressingShift);
+        }
+        
     }
     // if (bulletManager)
     // {

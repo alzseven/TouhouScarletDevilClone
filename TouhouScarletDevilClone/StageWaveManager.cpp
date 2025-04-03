@@ -12,7 +12,7 @@ void StageWaveManager::Init()
     stageWavePatterns = new std::queue<IStageWavePattern*>();
     
     State1Wave1Pattern* stage1_1 = new State1Wave1Pattern(); 
-    stage1_1->Init(0.f, 99.f, "enemy", 10, 1.f, 0.15f);
+    stage1_1->Init(0.f, 20.f, "cirno_idle", 10, 1.f, 0.15f);
     stageWavePatterns->push(stage1_1);
     //...
 
