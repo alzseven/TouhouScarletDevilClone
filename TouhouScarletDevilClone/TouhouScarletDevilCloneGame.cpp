@@ -19,10 +19,6 @@ void TouhouScarletDevilCloneGame::Init()
 
     player = BHObjectManager::GetInstance()->GetPlayer();
     player->Init("marisa_idle", {GAME_CENTER_X, GAME_CENTER_Y});
-    // D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
-    // player->SetMoveImage(moveImage);
-    // D2DImage* moveStartImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
-    // player->SetMoveStartImage(moveStartImage);
     stageWaveManager.Init();
 }
 
