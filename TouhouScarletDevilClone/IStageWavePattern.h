@@ -73,4 +73,6 @@ class Stage1Boss : public IStageWavePattern
     
 };
 
+
+
 // 여기에 웨이브 클래스 IStageWavePattern 상속해서 만드시오

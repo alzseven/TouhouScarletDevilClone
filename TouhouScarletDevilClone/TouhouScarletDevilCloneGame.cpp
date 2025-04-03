@@ -10,7 +10,6 @@
 #include "GameState.h"
 #include "Shape.h"
 
-
 void TouhouScarletDevilCloneGame::Init()
 {
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
@@ -35,7 +34,6 @@ void TouhouScarletDevilCloneGame::Release()
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
     if (player) player->Update(dt);
-
     stageWaveManager.Update(dt);
 
     if (ui) ui->Update(dt);
@@ -83,7 +81,6 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     if (bgImage) bgImage->Render(-350,-560);
 
     if (player) player->Render(hdc);
-    
     for (auto it : items)
     {
         it->Render(hdc);

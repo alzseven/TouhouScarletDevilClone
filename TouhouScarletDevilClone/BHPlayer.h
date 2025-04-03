@@ -12,8 +12,14 @@ class BHPlayer : public BHObject
 	float subWeaponTimer;
 	
 	float timeElapsed;
-	float mainShootDelay;
-	float subShootDelay;
+	float mainShootDelay[9];
+	float subShootDelay[9];
+	int mainShootCount[9];
+	int subShootCount[9];
+	float moveSpeed;
+	float slowSpeed;
+
+	int lv;
 
 	Shape* moveShape;
 	Shape* moveStartShape;

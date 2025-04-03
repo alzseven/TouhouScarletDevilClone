@@ -17,9 +17,8 @@ private:
     UI* ui;
     BHPlayer* player;
     D2DImage* bgImage;
-
+    int timer;
     StageWaveManager stageWaveManager;
-
 public:
     void Init() override;
     void Release() override;

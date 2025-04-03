@@ -15,8 +15,52 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
     
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
-    mainShootDelay = 0.6f;
-    subShootDelay = 1.2f;
+
+    moveSpeed = 130.f;
+    slowSpeed = 60.f;
+    lv = 8;
+    //µô·¹ÀÌ
+    mainShootDelay[0] = 0.2f;
+    mainShootDelay[1] = 0.2;
+    mainShootDelay[2] = 0.2;
+    mainShootDelay[3] = 0.15;
+    mainShootDelay[4] = 0.15;
+    mainShootDelay[5] = 0.15;
+    mainShootDelay[6] = 0.15;
+    mainShootDelay[7] = 0.15;
+    mainShootDelay[8] = 0.15;
+
+    subShootDelay[0] = 0.0f;
+    subShootDelay[1] = 0.8f;
+    subShootDelay[2] = 0.6f;
+    subShootDelay[3] = 0.6;
+    subShootDelay[4] = 0.5;
+    subShootDelay[5] = 0.5;
+    subShootDelay[6] = 0.3;
+    subShootDelay[7] = 0.3;
+    subShootDelay[8] = 0.3;
+
+    //°¹¼ö
+    mainShootCount[0] = 1;
+    mainShootCount[1] = 1;
+    mainShootCount[2] = 1;
+    mainShootCount[3] = 1;
+    mainShootCount[4] = 1;
+    mainShootCount[5] = 2;
+    mainShootCount[6] = 2;
+    mainShootCount[7] = 2;
+    mainShootCount[8] = 3;
+
+    subShootCount[0] = 0;
+    subShootCount[1] = 1;
+    subShootCount[2] = 1;
+    subShootCount[3] = 1;
+    subShootCount[4] = 1;
+    subShootCount[5] = 1;
+    subShootCount[6] = 1;
+    subShootCount[7] = 2;
+    subShootCount[8] = 2;
+
     moveDir = { 0,0 };
     isPreviousStateHorizontalMove = false;
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
@@ -92,7 +136,9 @@ void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift, float dt)
     float angle = atan2(moveDirection.x , moveDirection.y);
     
     //TODO: SetSpeed;
-    Move(angle,(isPressingShift ? 25.f : 50.f), dt);
+    float currentSpeed = isPressingShift ? slowSpeed : moveSpeed;
+    position.x += sin(angle) * currentSpeed * dt;
+    position.y += cos(angle) * currentSpeed * dt;
 }
 
 void BHPlayer::Move(float angle, float speed, float dt)
@@ -141,7 +187,10 @@ void BHPlayer::Update(float dt)
     
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
-        Shoot("Jewel_blue",{position.x , position.y - 10},DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),600.f,0.f);
+        
+        Shoot("Jewel_blue", { position.x , position.y - 10 }, DEG_TO_RAD(-90), DEG_TO_RAD(0.f), 600.f, 0.f);
+        
+        
         ShootSubWeapon(isPressingShift);
     }
 }
@@ -153,11 +202,21 @@ void BHPlayer::OnHit(ICollideable* hitObject)
 
 void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {
-    if (mainWeaponTimer >= mainShootDelay)
+    if (mainWeaponTimer >= mainShootDelay[lv])
     {
-        BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet->Init(bulletShapeKey, init_pos);
-        bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
+        
+        float shootAngle = 0;
+        for (int i = 0; i < mainShootCount[lv]; i++)
+        {
+            BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+            bullet->Init(bulletShapeKey, init_pos);
+            if (mainShootCount[lv] % 2 == 0) shootAngle = -90 + (i - mainShootCount[lv] / 2 + 0.5f) * 3.0f;
+            else shootAngle = -90 + (i - mainShootCount[lv] / 2) * 3.0f;
+            bullet->Launch(DEG_TO_RAD(shootAngle), angleRate, shootSpeed, shootSpeedRate);
+        }
+        
+        
+        
         mainWeaponTimer = 0.f;
     }
 }
@@ -166,16 +225,22 @@ void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float 
 //TODO: 
 void BHPlayer::ShootSubWeapon(bool isAccumulating)
 {
-    if (subWeaponTimer >= subShootDelay)
+    if (subWeaponTimer >= subShootDelay[lv])
     {
-        BHBullet* bullet1 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet1->Init("EllipseBullet_green",{isAccumulating ? position.x - 10 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
-        bullet1->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 300.f, 0.f);
-
-        BHBullet* bullet2 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet2->Init("EllipseBullet_green",{isAccumulating ? position.x + 10 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
-        bullet2->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 300.f, 0.f);
-        subWeaponTimer = 0.f;
+        float shootAngle = 0;
+        for (int i = 0; i < subShootCount[lv]; i++)
+        {
+            if (subShootCount[lv] % 2 == 0) shootAngle = -90 + (i - subShootCount[lv] / 2 + 0.5f) * 3.0f;
+            else shootAngle = -90 + (i - subShootCount[lv] / 2) * 3.0f;
+            BHBullet* bullet1 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+            bullet1->Init("EllipseBullet_green", { isAccumulating ? position.x - 10 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
+            bullet1->Launch(DEG_TO_RAD(shootAngle), DEG_TO_RAD(0.f), 500.f, 0.f);
+            BHBullet* bullet2 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+            bullet2->Init("EllipseBullet_green", { isAccumulating ? position.x + 10 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
+            bullet2->Launch(DEG_TO_RAD(shootAngle), DEG_TO_RAD(0.f), 500.f, 0.f);
+            subWeaponTimer = 0.f;
+        }
+        
     }
 }
 
