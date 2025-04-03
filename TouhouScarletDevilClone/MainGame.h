@@ -21,6 +21,7 @@ private:
 	float enTimer = 0;
 	int eCount = 0;
 	int eSpawn = 0;
+	int scene = 0;
 public:
 	void Init();
 	void Release();

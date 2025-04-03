@@ -15,6 +15,8 @@ void MainGame::Init()
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
 	eSpawn = 100;
+	SoundPlayer::GetInstance()->SoundOn("stage3_boss");
+	//SoundPlayer::GetInstance()->SoundOn("background");
 }
 
 void MainGame::Release()
