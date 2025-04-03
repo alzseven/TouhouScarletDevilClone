@@ -14,15 +14,22 @@ class BHPlayer : public BHObject
 	float timeElapsed;
 	float mainShootDelay;
 	float subShootDelay;
+
+	Shape* moveShape;
+	Shape* moveStartShape;
+	// D2DImage* moveImage;
+	// D2DImage* moveStartImage;
+
+	bool isPreviousStateHorizontalMove;
 	
-	D2DImage* moveImage;
 	FPOINT moveDir;
 public:
 	// »ý¼ºÀÚ
 	BHPlayer() = default;
 	~BHPlayer() override = default;
 
-	inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
+	// inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
+	// inline void SetMoveStartImage(D2DImage* moveStartImage) { this->moveStartImage = moveStartImage; }
 	 
 	void Init(string shapeKey, FPOINT pos) override;
 	

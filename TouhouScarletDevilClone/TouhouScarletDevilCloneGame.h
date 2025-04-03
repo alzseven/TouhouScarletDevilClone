@@ -1,5 +1,6 @@
 ﻿#pragma once
 #include "GameObject.h"
+#include "GameState.h"
 #include "ObjectPool.h"
 #include "StageWaveManager.h"
 
@@ -8,11 +9,10 @@ class BHPlayer;
 class BHItem;
 class D2DImage;
 class UI;
-struct GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
-    GameState* gameState;
+    GameState gameState;
     vector<BHItem*> items;
     UI* ui;
     BHPlayer* player;

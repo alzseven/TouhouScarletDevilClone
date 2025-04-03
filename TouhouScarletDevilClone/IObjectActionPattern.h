@@ -110,3 +110,5 @@ class Stage1BossNormalPattern1 : public IObjectActionPattern
     
     void Update(float dt) override;
 };
+
+// 여기에 IObjectActionPattern을 상속받는 클래스를 선언하시오.

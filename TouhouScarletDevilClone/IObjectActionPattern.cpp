@@ -156,3 +156,6 @@ void Stage1BossNormalPattern1::Update(float dt)
 
     }
 }
+
+// 여기에 IObjectActionPattern.h에서 선언한 클래스의 구현부를 제작하시오
+// Update 내부에서 실질적인 이동과 발사는 위에 선언된 함수들을 참고하시오

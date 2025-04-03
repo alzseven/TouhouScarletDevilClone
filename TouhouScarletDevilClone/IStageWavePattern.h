@@ -72,3 +72,5 @@ class Stage1Boss : public IStageWavePattern
     void Init(float startTime, float endTime, string enemyShapeKey, int spawnAmount, float spawnDelay, float multiSpawnDelay) override;
     
 };
+
+// 여기에 웨이브 클래스 IStageWavePattern 상속해서 만드시오

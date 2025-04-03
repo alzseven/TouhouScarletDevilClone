@@ -6,9 +6,11 @@ void StageWaveManager::Init()
 {
     Stage1Wave1Pattern* stage1_1 = new Stage1Wave1Pattern(); 
     stage1_1->Init(0.f, 99.f, "enemy", 1, 1.f, 0.15f);
-    stageWavePatterns.push(stage1_1);
-    //...
 
+    // 여기에 IStageWavePattern에서 생성한 웨이브 객체 생성해서 넣고 Init 하시오
+
+    stageWavePatterns.push(stage1_1);
+   
     currentStageWave = stageWavePatterns.front();
     stageWavePatterns.pop();
 

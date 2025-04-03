@@ -9,11 +9,16 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 {
     BHObject::Init(shapeKey, pos);
 
+    moveShape = ShapeManager::GetInstance()->FindShape("marisa_left");
+    moveStartShape = ShapeManager::GetInstance()->FindShape("marisa_goleft");
+    
+    
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
-    mainShootDelay = 0.75f;
-    subShootDelay = 1.5f;
+    mainShootDelay = 0.6f;
+    subShootDelay = 1.2f;
     moveDir = { 0,0 };
+    isPreviousStateHorizontalMove = false;
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
 
@@ -21,25 +26,39 @@ void BHPlayer::Render(HDC hdc)
 {
     if (abs(moveDir.x) > FLT_EPSILON)
     {
-        if (moveImage)
+        if (isPreviousStateHorizontalMove)
         {
-            moveImage->Middle_RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
+            if (moveShape)
+            {
+                moveShape->GetImage()->Middle_RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
+            }
         }
+        else
+        {
+            isPreviousStateHorizontalMove = true;
+            // frameIndex = 0;
+            if (moveStartShape)
+            {
+                moveStartShape->GetImage()->Middle_RenderFrame(position.x, position.y,frameIndex,0, moveDir.x > 0);
+            }
+        }
+
     }
     else
     {
+        isPreviousStateHorizontalMove = false;
         if (shape && shape->GetImage())
         {
             //TODO: separate frameIndex
-            shape->GetImage()->Middle_RenderFrame(position.x, position.y,frameIndex);
+            shape->GetImage()->Middle_RenderFrame(position.x, position.y, frameIndex);
             
-            // Debug
-            const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
-            const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
-            shape->GetImage()->DrawRect(
-                {position.x - width / 2, position.y - height / 2},
-                {position.x + width / 2 , position.y + height / 2},
-                2, 1);
+            // // Debug
+            // const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+            // const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
+            // shape->GetImage()->DrawRect(
+            //     {position.x - width / 2, position.y - height / 2},
+            //     {position.x + width / 2 , position.y + height / 2},
+            //     2, 1);
         }
     }
 
@@ -60,8 +79,11 @@ void BHPlayer::Render(HDC hdc)
 
 void BHPlayer::Move(FPOINT moveDirection, bool isPressingShift, float dt)
 {
-    if (abs(moveDirection.x) <= FLT_EPSILON && abs(moveDirection.y) <= FLT_EPSILON) return;
-
+    if (abs(moveDirection.x) <= FLT_EPSILON && abs(moveDirection.y) <= FLT_EPSILON)
+    {
+        // isPreviousStateHorizontalMove = false;
+        return;
+    }
     float angle = atan2(moveDirection.x , moveDirection.y);
     
     //TODO: SetSpeed;
@@ -111,36 +133,17 @@ void BHPlayer::Update(float dt)
     MoveBackToBorder();
 
     frameIndex = frameIndex + 1 >= 4 ? 0 : frameIndex + 1;
-
-
+    
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
-        Shoot("Jewel_blue",position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),300.f,0.f);
+        Shoot("Jewel_blue",{position.x , position.y - 10},DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),600.f,0.f);
         ShootSubWeapon(isPressingShift);
     }
-    // if (bulletManager)
-    // {
-    //     bulletManager->Update(dt);
-    //     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
-    //     {
-    //         Shoot(position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
-    //         ShootSubWeapon(isPressingShift);
-    //     }
-    //     // if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
-    //     // {
-    //     //     bulletManager->ChangeBulletFactory(level2BulletFactory);
-    //     // }
-    // }
-
-    // if (subweaponBulletManager)
-    // {
-    //     subweaponBulletManager->Update();
-    // }
 }
 
 void BHPlayer::OnHit(ICollideable* hitObject)
 {
-    int a = 0;
+    
 }
 
 void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
@@ -161,12 +164,12 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
     if (subWeaponTimer >= subShootDelay)
     {
         BHBullet* bullet1 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet1->Init("EllipseBullet_green",{isAccumulating ? position.x - 5 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
-        bullet1->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 150.f, 0.f);
+        bullet1->Init("EllipseBullet_green",{isAccumulating ? position.x - 10 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
+        bullet1->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 300.f, 0.f);
 
         BHBullet* bullet2 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet2->Init("EllipseBullet_green",{isAccumulating ? position.x + 5 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
-        bullet2->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 150.f, 0.f);
+        bullet2->Init("EllipseBullet_green",{isAccumulating ? position.x + 10 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
+        bullet2->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 300.f, 0.f);
         subWeaponTimer = 0.f;
     }
 }
