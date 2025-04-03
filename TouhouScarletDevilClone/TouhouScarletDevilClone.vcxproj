@@ -19,12 +19,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BHBoss.h" />
     <ClInclude Include="BHBullet.h" />
     <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
-    <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="BulletShooter.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
@@ -36,6 +35,8 @@
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IObjectComplexPattern.h" />
+    <ClInclude Include="IPatternComponent.h" />
     <ClInclude Include="IStageWavePattern.h" />
     <ClInclude Include="IWaveObjectPlacer.h" />
     <ClInclude Include="KeyManager.h" />
@@ -43,7 +44,8 @@
     <ClInclude Include="PathMaker.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pattern.h" />
-    <ClInclude Include="PoolManager.h" />
+    <ClInclude Include="PatternBuilder.h" />
+    <ClInclude Include="BHObjectManager.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeManager.h" />
     <ClInclude Include="Singleton.h" />
@@ -53,25 +55,27 @@
     <ClInclude Include="UI.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BHBoss.cpp" />
     <ClCompile Include="BHBullet.cpp" />
     <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
     <ClCompile Include="BHPlayer.cpp" />
-    <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="IObjectComplexPattern.cpp" />
+    <ClCompile Include="IPatternComponent.cpp" />
     <ClCompile Include="IStageWavePattern.cpp" />
     <ClCompile Include="IWaveObjectPlacer.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="PathMaker.cpp" />
-    <ClCompile Include="PoolManager.cpp" />
+    <ClCompile Include="PatternBuilder.cpp" />
+    <ClCompile Include="BHObjectManager.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
 	<ClCompile Include="StageWaveManager.cpp" />

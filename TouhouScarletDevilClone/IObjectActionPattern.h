@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include "config.h"
 
 class BHObject;
 
@@ -16,6 +17,7 @@ protected:
     float moveAngleRate;
 
     //Shoot params
+    string bulletShapeKey;
     float shootDelay;
     int shootAmount;
     float shootAngle;
@@ -30,6 +32,7 @@ protected:
     float timeElpased;
 
 public:
+    virtual void Init(){};
     virtual void Update(float dt);
     inline void SetTarget(BHObject* target) { this->target = target; }
     inline void SetPatternEndTime(float newEndTime) { this->patternEndTime = newEndTime; }
@@ -43,11 +46,14 @@ public:
         this->moveAngleRate = angleRate;
     }
 
-    inline void SetShootParams(float shootDelay,
+    inline void SetShootParams(
+        string bulletShapeKey,
+        float shootDelay,
         int shootAmount, float multiShootDelay,
         float shootAngle, float shootAngleRate,
         float shootSpeed ,float shootSpeedRate)
     {
+        this->bulletShapeKey = bulletShapeKey;
         this->shootDelay = shootDelay;
         this->shootAmount = shootAmount;
         this->multiShootDelay = multiShootDelay;
@@ -92,6 +98,13 @@ class ShootSpreadPattern : public IObjectActionPattern
 };
 
 class ShootRoundPattern : public IObjectActionPattern
+{
+    int currentShootCount;
+    
+    void Update(float dt) override;
+};
+
+class Stage1BossNormalPattern1 : public IObjectActionPattern
 {
     int currentShootCount;
     

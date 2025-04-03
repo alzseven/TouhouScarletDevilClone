@@ -2,19 +2,18 @@
 #include "config.h"
 #include "BHObject.h"
 
-class BulletManager;
-// class BulletManager;
-// class IBulletFactory;
 class Image;
 class D2DImage;
 class BHPlayer : public BHObject
 {
 	int frameIndex;
+
+	float mainWeaponTimer;
+	float subWeaponTimer;
+	
 	float timeElapsed;
-	float shootDelay;
-	// BulletManager* bulletManager;
-	// IBulletFactory* level1BulletFactory;
-	// IBulletFactory* level2BulletFactory;
+	float mainShootDelay;
+	float subShootDelay;
 	
 	D2DImage* moveImage;
 	FPOINT moveDir;
@@ -25,7 +24,6 @@ public:
 
 	inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 	 
-	// void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
 	void Init(string shapeKey, FPOINT pos) override;
 	
 	//TODO:
@@ -34,9 +32,6 @@ public:
 	void Move(float angle, float speed, float dt) override;
 	void Render(HDC hdc) override;
 	
-	//TODO: Quad-Tree Optimization how?
-	//bool IsHit(CTaskList * list);
-
 	void MoveBackToBorder();
 	
 	void Update(float dt) override;

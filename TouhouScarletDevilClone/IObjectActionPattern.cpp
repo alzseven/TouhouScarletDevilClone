@@ -29,7 +29,7 @@ void ShootStraightPattern::Update(float dt)
         {
             currentShootCount++;
             
-            target->Shoot("ball_green", *target->GetPos(),
+            target->Shoot(bulletShapeKey, *target->GetPos(),
                 shootAngle, shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -57,7 +57,7 @@ void ShootSpreadPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot("ball_green",*target->GetPos(),
+            target->Shoot(bulletShapeKey,*target->GetPos(),
                 shootAngle + DEG_TO_RAD(currentShootCount * -10.f), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -87,7 +87,7 @@ void ShootRoundPattern::Update(float dt)
         {
             currentShootCount++;
 
-            target->Shoot("ball_green", *target->GetPos(),
+            target->Shoot(bulletShapeKey, *target->GetPos(),
                 shootAngle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), shootAngleRate,
                 shootSpeed, shootSpeedRate);
 
@@ -96,6 +96,52 @@ void ShootRoundPattern::Update(float dt)
             // {
             //     target->Shoot(*target->GetPos(), angle + DEG_TO_RAD(360.f / shootAmount * currentShootCount), angleRate, shootSpeed, shootSpeedRate);
             // }
+            
+            if (currentShootCount >= shootAmount)
+            {
+                currentShootCount = 0;
+                shootTimer -= shootDelay;
+            }
+            else
+            {
+                shootTimer -= multiShootDelay;
+            }
+        }
+
+    }
+}
+
+void Stage1BossNormalPattern1::Update(float dt)
+{
+    timeElpased += dt;
+    shootTimer += dt;
+    if (timeElpased <= patternEndTime)
+    {
+        if (shootTimer >= shootDelay)
+        {
+            currentShootCount++;
+            
+            for (int i = 0; i < 16; ++i)
+            {
+                target->Shoot(
+                    bulletShapeKey,
+                    *target->GetPos(),
+                    shootAngle + DEG_TO_RAD(360.f / shootAmount * i),
+                    shootAngleRate,
+                    shootSpeed,
+                    shootSpeedRate);
+            }
+
+            for (int i = 0; i < 16; ++i)
+            {
+                target->Shoot(
+                    bulletShapeKey,
+                    *target->GetPos(),
+                    shootAngle + DEG_TO_RAD(360.f / shootAmount * i) + DEG_TO_RAD(15.f),
+                    shootAngleRate,
+                    shootSpeed,
+                    shootSpeedRate);
+            }
             
             if (currentShootCount >= shootAmount)
             {

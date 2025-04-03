@@ -15,9 +15,7 @@ private:
     D2DImage* moveImage;
     FPOINT moveDir;
 
-    // BulletManager* bulletManager;
     EnemyController* ec;
-
     
 public:
     // »ý¼ºÀÚ
@@ -26,7 +24,6 @@ public:
 
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 
-    // void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override;
     void Init(string shapeKey, FPOINT pos) override;
     void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns);
     
@@ -42,6 +39,6 @@ public:
 
     void Release() override;
 
-    void GetDamaged();
+    virtual void GetDamaged(int damage);
 };
 

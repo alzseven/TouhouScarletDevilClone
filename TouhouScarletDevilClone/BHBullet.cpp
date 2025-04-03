@@ -3,23 +3,8 @@
 #include "CircleCollisionManager.h"
 #include "CommonFunction.h"
 #include "D2DImage.h"
-#include "PoolManager.h"
+#include "BHObjectManager.h"
 #include "Shape.h"
-
-// BHBullet::BHBullet()
-// {
-// 	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
-// }
-
-// void BHBullet::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
-// {
-// 	this->hitRadius = hitRadius;
-// 	this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
-// 	this->position = pos;
-// 	this->radianAngle = radianAngle;
-// 	isAlive = true;
-// 	pool = PoolManager::GetInstance()->GetEnemyBulletPool();
-// }
 
 void BHBullet::Init(string shapeKey, FPOINT pos)
 {
@@ -32,7 +17,7 @@ void BHBullet::Init(string shapeKey, FPOINT pos)
 	this->position = pos;
 
 	isAlive = true;
-	pool = PoolManager::GetInstance()->GetEnemyBulletPool();
+	pool = BHObjectManager::GetInstance()->GetEnemyBulletPool();
 	
 	//TODO: on create
 	if (pos.y > GAME_HEIGHT / 2)
@@ -82,6 +67,7 @@ void BHBullet::Render(HDC hdc)
 	{
 		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
 
+#pragma region DEBUG_SHAPE
 		// Debug
 		// const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
 		// const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
@@ -89,6 +75,7 @@ void BHBullet::Render(HDC hdc)
 		// 	{position.x - width / 2, position.y - height / 2},
 		// 	{position.x + width / 2 , position.y + height / 2},
 		// 	2, 1);
+#pragma endregion
 	}
 }
 
@@ -144,8 +131,8 @@ bool BHBullet::IsOutofScreen()
 {
 	if (shape == nullptr) return false;
 
-	const float width = shape->GetImage()->GetWidth();
-	const float height = shape->GetImage()->GetHeight();
+	const float width = shape->GetImage()->GetWidth() * 2;
+	const float height = shape->GetImage()->GetHeight() * 2;
 
 	const float right = position.x - width;
 	const float left = position.x + width;

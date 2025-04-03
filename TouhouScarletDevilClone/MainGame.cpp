@@ -3,12 +3,12 @@
 #include "TouhouScarletDevilCloneGame.h"
 #include "UI.h"
 #include "D2DImage.h"
-#include "PoolManager.h"
+#include "BHObjectManager.h"
 
 void MainGame::Init()
 {
 	KeyManager::GetInstance()->Init();
-	PoolManager::GetInstance()->Init();
+	BHObjectManager::GetInstance()->Init();
 	
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
@@ -59,7 +59,7 @@ void MainGame::Release()
 	// }
 
 	KeyManager::GetInstance()->Release();
-	PoolManager::GetInstance()->Release();
+	BHObjectManager::GetInstance()->Release();
 	
 	ReleaseDC(g_hWnd, hdc);
 }

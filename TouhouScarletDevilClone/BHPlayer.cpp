@@ -1,9 +1,8 @@
 #include "BHPlayer.h"
 #include "config.h"
-#include "BulletManager.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
-#include "PoolManager.h"
+#include "BHObjectManager.h"
 #include "Shape.h"
 
 void BHPlayer::Init(string shapeKey, FPOINT pos)
@@ -12,30 +11,11 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
-    shootDelay = 0.5f;
+    mainShootDelay = 0.5f;
+    subShootDelay = 0.75;
     moveDir = { 0,0 };
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
-
-// void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
-// {
-//     this->hitRadius = hitRadius;
-//     this->shape =  ShapeManager::GetInstance()->FindShape("Marisa");
-//     this->position = pos;
-//     this->radianAngle = radianAngle;
-//     isAlive = true;
-//     // CircleCollisionManager::GetInstance()->AddCollisionObject(this);
-//
-//     // //TODO : Separate with weapon system?
-//     // bulletManager = new BulletManager();
-//     // bulletManager->Init();
-//
-//     timeElapsed = 0;
-//     //TODO: Initialize delay in certain value from parameter
-//     shootDelay = 0.5f;
-//     moveDir = { 0,0 };
-//     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
-// }
 
 void BHPlayer::Render(HDC hdc)
 {
@@ -98,7 +78,9 @@ void BHPlayer::Move(float angle, float speed, float dt)
 //TOOD: get deltaTime from param
 void BHPlayer::Update(float dt)
 {
-    // timeElapsed += TEMP_DELTA_TIME;
+    mainWeaponTimer += dt;
+    subWeaponTimer += dt;
+    // timeElapsed += dt;
 #pragma region WASD_INPUT
     moveDir = { 0,0 };
     // W
@@ -163,20 +145,25 @@ void BHPlayer::OnHit(ICollideable* hitObject)
 
 void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {
-    // bulletManager->AddBullet(init_pos, angle, angleRate, shootSpeed, shootSpeedRate);
-    BHBullet* bullet = PoolManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-    bullet->Init(bulletShapeKey, init_pos);
-    bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
+    if (mainWeaponTimer >= mainShootDelay)
+    {
+        BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+        bullet->Init(bulletShapeKey, init_pos);
+        bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
+        mainWeaponTimer -= mainShootDelay;
+    }
 }
 
 
 //TODO: 
 void BHPlayer::ShootSubWeapon(bool isAccumulating)
 {
-    // subweaponBulletManager->AddBullet((isAccumulating ? FPOINT{position.x + 15, position.y - 15} : FPOINT{position.x + 45, position.y + 15}), DEG_TO_RAD(-90.f));
-        
-    // timeElapsed = 0.f;
-
+    if (subWeaponTimer >= subShootDelay)
+    {
+        BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+        bullet->Init("sub",{position.x,isAccumulating ? position.y - 15 : position.y });
+        subWeaponTimer -= subShootDelay;
+    }
 }
 
 

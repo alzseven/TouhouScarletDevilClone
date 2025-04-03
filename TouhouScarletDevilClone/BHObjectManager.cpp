@@ -1,15 +1,16 @@
-﻿#include "PoolManager.h"
+﻿#include "BHObjectManager.h"
 
-void PoolManager::Init()
+void BHObjectManager::Init()
 {
     enemyBulletPool.Init(2000);
     playerBulletPool.Init(1000);
     enemyPool.Init(50);
 }
 
-void PoolManager::Update(float dt)
+void BHObjectManager::Update(float dt)
 {
-    //TODO:
+    player.Update(dt);
+    
     for (std::vector<BHEnemy*>::iterator iter = enemyPool.GetActive().begin(); iter != enemyPool.GetActive().end(); ++iter)
     {
         (*iter)->Update(dt);
@@ -30,7 +31,7 @@ void PoolManager::Update(float dt)
     enemyBulletPool.UpdateActive();
 }
 
-void PoolManager::Release()
+void BHObjectManager::Release()
 {
     enemyPool.Clear();
     enemyBulletPool.Clear();
@@ -39,9 +40,10 @@ void PoolManager::Release()
     ReleaseInstance();
 }
 
-void PoolManager::Render()
+void BHObjectManager::Render()
 {
-    //TODO:
+    player.Render(NULL);
+    
     for (std::vector<BHEnemy*>::iterator iter = enemyPool.GetActive().begin(); iter != enemyPool.GetActive().end(); ++iter)
     {
         (*iter)->Render(NULL);
@@ -57,3 +59,8 @@ void PoolManager::Render()
         (*iter)->Render(NULL);
     }
 }
+
+// void PoolManager::PauseAll()
+// {
+//     
+// }

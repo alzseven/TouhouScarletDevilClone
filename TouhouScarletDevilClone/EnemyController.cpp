@@ -2,6 +2,7 @@
 
 #include "BHObject.h"
 #include "IObjectActionPattern.h"
+#include "PatternBuilder.h"
 
 EnemyController::EnemyController()
 {
@@ -59,9 +60,43 @@ void EnemyController::Init()
 
 
     // actions.push(patterns[3]);
+
+    
+    // target->SetPatterns(
+    //     &PatternBuilder()
+    //     .AddMovement(200.f, 45.f)
+    //     .AddAttack("kunai", 8)
+    //     .Build());
 }
 
+// 기존 코드 대체 부분
 void EnemyController::Update(float dt)
+// {
+//     currentTime += dt;
+//     
+//     // 활성 패턴 관리
+//     activePatterns.erase(
+//         std::remove_if(activePatterns.begin(), activePatterns.end(),
+//             [](auto* p) { return p->IsExpired(); }),
+//         activePatterns.end()
+//     );
+//     
+//     // 새 패턴 활성화
+//     for (auto& entry : patternTimeline) {
+//         if (!entry.isActive && 
+//             currentTime >= entry.startTime &&
+//             currentTime <= (entry.startTime + entry.duration)) {
+//             activePatterns.push_back(entry.pattern.get());
+//             entry.isActive = true;
+//             }
+//     }
+//     
+//     // 모든 활성 패턴 업데이트
+//     for (auto* pattern : activePatterns) {
+//         pattern->Update(dt);
+//     }
+// }
+
 {
     timeElapsed += dt;
     // if (actions.empty() == false)
@@ -102,3 +137,5 @@ void EnemyController::AddPatternToTarget(IObjectActionPattern* newPattern)
     // target->AddAction(newPattern);
     // target->AddPa
 }
+
+// void EnemyController::

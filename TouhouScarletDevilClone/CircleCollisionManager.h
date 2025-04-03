@@ -1,6 +1,4 @@
 ﻿#pragma once
-#include <vector>
-
 #include "config.h"
 #include "Singleton.h"
 
@@ -18,7 +16,6 @@ public:
     void Release();
     void Update();
     void AddCollisionObject(ICircleCollideable* collisionObject);
-    void RemoveCollisionObject(ICircleCollideable* collisionObject);
     bool ShouldCollide(CollisionLayer layerA, CollisionLayer layerB);
     void Render(HDC hdc);
 
