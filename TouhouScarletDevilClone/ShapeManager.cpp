@@ -176,6 +176,44 @@ void ShapeManager::Init()
         ShapeManager::GetInstance()->AddShapeCircle("BigFadeBullet_yellow", TEXT("Image/Bullet/BigFadeBullet/BigFadeBullet_yellow.png"), 11.0f);
 
     }
+    //marisa
+    {
+        image = ImageManager::GetInstance()->AddImage("marisa_goleft", TEXT("Image/Character/Marisa/marisa_goleft.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("marisa_goleft", image, 10.0f);
+        image = ImageManager::GetInstance()->AddImage("marisa_idle", TEXT("Image/Character/Marisa/marisa_idle.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("marisa_idle", image, 10.0f);
+        image = ImageManager::GetInstance()->AddImage("marisa_left", TEXT("Image/Character/Marisa/marisa_left.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("marisa_left", image, 10.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("marisa_sub", TEXT("Image/Character/Marisa/marisa_sub.png"), 5.0f);
+    }
+    //cirno
+    {
+        ShapeManager::GetInstance()->AddShapeCircle("cirno_idle", TEXT("Image/Character/Cirno/cirno_idle.png"), 5.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("cirno_left", TEXT("Image/Character/Cirno/cirno_left.png"), 5.0f);
+    }
+    //sakuya
+    {
+        image = ImageManager::GetInstance()->AddImage("sakuya_idle", TEXT("Image/Character/Sakuya/sakuya_idle.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("sakuya_idle", image, 10.0f);
+        image = ImageManager::GetInstance()->AddImage("sakuya_rightmove", TEXT("Image/Character/Sakuya/sakuya_rightmove.png"), 3, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("sakuya_rightmove", image, 10.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("sakuya_right", TEXT("Image/Character/Sakuya/sakuya_right.png"), 10.0f);
+    }
+    //enemy(normal)
+    {
+        image = ImageManager::GetInstance()->AddImage("fairy_white", TEXT("Image/Character/Enemy/fairy_white.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("fairy_white", image, 10.0f);
+
+        image = ImageManager::GetInstance()->AddImage("zako_pink", TEXT("Image/Character/Enemy/zako_pink.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("zako_pink", image, 10.0f);
+
+        image = ImageManager::GetInstance()->AddImage("zako_blue", TEXT("Image/Character/Enemy/zako_blue.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("zako_blue", image, 10.0f);
+
+        image = ImageManager::GetInstance()->AddImage("zako_red", TEXT("Image/Character/Enemy/zako_red.png"), 4, 1);
+        ShapeManager::GetInstance()->AddShapeCharacter("zako_red", image, 10.0f);
+    }
+    //
 }
 
 void ShapeManager::Release()
