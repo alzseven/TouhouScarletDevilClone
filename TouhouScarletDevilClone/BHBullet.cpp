@@ -65,7 +65,7 @@ void BHBullet::Render(HDC hdc)
 	if (isAlive == false) return;
 	if (shape)
 	{
-		shape->GetImage()->Middle_Render(position.x, position.y, imageAngle);
+		shape->GetImage()->Middle_RenderFrame(position.x, position.y,1, imageAngle);
 
 #pragma region DEBUG_SHAPE
 		// Debug

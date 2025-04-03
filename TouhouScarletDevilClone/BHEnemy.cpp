@@ -6,6 +6,10 @@
 #include "CircleCollisionManager.h"
 #include "BHObjectManager.h"
 #include "Shape.h"
+#include "ScoreItem.h"
+#include "GameStateManager.h"
+#include "PowerUpItem.h"
+
 
 
 void BHEnemy::Init(string shapeKey, FPOINT pos)
@@ -92,4 +96,24 @@ void BHEnemy::GetDamaged(int damage)
 {
     //TODO: Do something(drop score/power ups...)
     isAlive = false;
+
+    // 아이템 생성
+	if (items && gameState)
+	{
+        if (rand() % 2 == 0) // 50% 확률
+        {
+            ScoreItem* item = new ScoreItem();
+            item->Init("smallScore",this->position);
+            item->InitGameState(gameState);
+            items->push_back(item);
+        }
+        else
+        {
+            PowerUpItem* item = new PowerUpItem();
+            item->Init("smallPower", this->position);
+            item->InitGameState(gameState);
+            items->push_back(item);
+        }
+
+	}
 }

@@ -1,16 +1,22 @@
 ﻿#include "TouhouScarletDevilCloneGame.h"
-
+#include "UI.h"
 #include "BHEnemy.h"
 #include "BHPlayer.h"
+#include "BHItem.h"
 #include "CircleCollisionManager.h"
 #include "D2DImage.h"
 #include "ImageManager.h"
 #include "BHObjectManager.h"
+#include "GameState.h"
+#include "Shape.h"
 
 
 void TouhouScarletDevilCloneGame::Init()
 {
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
+	
+    gameState = new GameState();
+    ui = new UI(gameState);
 
     player = BHObjectManager::GetInstance()->GetPlayer();
     player->Init("Marisa", {GAME_CENTER_X, GAME_CENTER_Y});
@@ -22,12 +28,13 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release(){}
 
+
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
     if (player) player->Update(dt);
 
     stageWaveManager.Update(dt);
-    
+
     BHObjectManager::GetInstance()->Update(dt);
     
     CircleCollisionManager::GetInstance()->Update();

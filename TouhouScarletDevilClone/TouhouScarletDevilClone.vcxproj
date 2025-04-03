@@ -28,7 +28,9 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="EffectPlayer.h" />
     <ClInclude Include="EnemyController.h" />
+    <ClInclude Include="GameState.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
@@ -37,6 +39,9 @@
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="IObjectComplexPattern.h" />
     <ClInclude Include="IPatternComponent.h" />
+    <ClInclude Include="BHItem.h" />
+    <ClInclude Include="ItemBehavior.h" />
+    <ClInclude Include="ItemType.h" />
     <ClInclude Include="IStageWavePattern.h" />
     <ClInclude Include="IWaveObjectPlacer.h" />
     <ClInclude Include="KeyManager.h" />
@@ -46,9 +51,15 @@
     <ClInclude Include="Pattern.h" />
     <ClInclude Include="PatternBuilder.h" />
     <ClInclude Include="BHObjectManager.h" />
+    <ClInclude Include="PowerUpItem.h" />
+    <ClInclude Include="PowerUpItemBehavior.h" />
+    <ClInclude Include="ScoreItem.h" />
+    <ClInclude Include="ScoreItemBehavior.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeManager.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SoundPlayer.h" />
+    <ClInclude Include="PoolManager.h" />
 	<ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
@@ -62,12 +73,15 @@
     <ClCompile Include="BHPlayer.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="EffectPlayer.cpp" />
     <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="GameStateManager.h" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="IObjectComplexPattern.cpp" />
     <ClCompile Include="IPatternComponent.cpp" />
+    <ClCompile Include="BHItem.cpp" />
     <ClCompile Include="IStageWavePattern.cpp" />
     <ClCompile Include="IWaveObjectPlacer.cpp" />
     <ClCompile Include="KeyManager.cpp" />
@@ -76,8 +90,14 @@
     <ClCompile Include="PathMaker.cpp" />
     <ClCompile Include="PatternBuilder.cpp" />
     <ClCompile Include="BHObjectManager.cpp" />
+    <ClCompile Include="PowerUpItem.cpp" />
+    <ClCompile Include="PowerUpItemBehavior.cpp" />
+    <ClCompile Include="ScoreItem.cpp" />
+    <ClCompile Include="ScoreItemBehavior.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
+    <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="PoolManager.cpp" />
 	<ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
@@ -169,10 +189,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>fmod_vc.lib;fmodL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Program Files %28x86%29\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -5,20 +5,26 @@
 
 class BHEnemy;
 class BHPlayer;
+class BHItem;
 class D2DImage;
+class UI;
+struct GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
+    GameState* gameState;
+    vector<BHItem*> items;
+    UI* ui;
     BHPlayer* player;
     D2DImage* bgImage;
 
     StageWaveManager stageWaveManager;
+
 public:
     void Init() override;
     void Release() override;
     void Update(float dt) override;
     void Render(HDC hdc);
-
     TouhouScarletDevilCloneGame() = default;
     ~TouhouScarletDevilCloneGame() override = default;
 };

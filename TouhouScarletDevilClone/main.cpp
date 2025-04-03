@@ -15,6 +15,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	LPSTR lpszCmdParam, int nCmdShow)
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
 	g_hInstance = hInstance;
 
 	WNDCLASSEX wndClass;
@@ -50,6 +51,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	D2DImage::InitD2D(g_hWnd);
 	ImageManager::GetInstance()->Init();
 	ShapeManager::GetInstance()->Init();
+	EffectPlayer::GetInstance()->Init(500);
+	SoundPlayer::GetInstance()->Init();
 	g_mainGame.Init();
 	
 	MSG message;
@@ -74,6 +77,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	CoUninitialize();
 	g_mainGame.Release();
 	timer.Release();
+	SoundPlayer::GetInstance()->Release();
+	EffectPlayer::GetInstance()->Release();
 	ShapeManager::GetInstance()->Release();
 	ImageManager::GetInstance()->Release();
 	

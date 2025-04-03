@@ -4,10 +4,16 @@
 #include "ImageManager.h"
 #include "InputManager.h"
 #include "Timer.h"
+#include "GameState.h"
+#include "GameStateManager.h"
 
-UI::UI()
+UI::UI(GameState* state)
 {
+
 	pos = { 0.0f,0.0f };
+	gameState = state;
+
+
 	BackGround_Image = ImageManager::GetInstance()->AddImage("BackGround", TEXT("Image/Png/InGameBackGround.png"));
 	//Stage = ImageManager::GetInstance()->AddImage("Stage", TEXT("Image/Png/Stage.bmp"));
 	MaxScoreImage = ImageManager::GetInstance()->AddImage("MaxScoreImage", TEXT("Image/Png/MaxScore.png"));
@@ -30,23 +36,6 @@ UI::UI()
 
 
 	ReLoadScore();
-
-	// 점수 초기화
-	MaxScore = 32343;
-	Score = 0;
-
-	// 체력 초기화
-	PlayerHp = 3;
-	// 폭탄 초기화
-	BombCount = 3;
-
-	// hp 바 프레임 초기화
-	currPowerbarFrame = 0;
-	elapPowerbarFrame = 0;
-	currBossHpBarFrame = 350;
-
-	// 나중에 지울거
-	isEnemyPhase = true;
 }
 
 UI::~UI()
@@ -97,37 +86,37 @@ void UI::Update(float dt)
 	ReLoadStar();
 	// 파워바 프레임 업데이트
 	if (InputManager::isMoveDown()) {
-		currPowerbarFrame++;
-		if (currPowerbarFrame >= 160)
-			currPowerbarFrame = 159;
+		CurrPowerBarFrame(gameState)++;
+		if (CurrPowerBarFrame(gameState) >= 160)
+			CurrPowerBarFrame(gameState) = 159;
 	}
 	else if (InputManager::isMoveUp()) {
-		currPowerbarFrame--;
-		if (currPowerbarFrame < 0)
-			currPowerbarFrame = 0;
+		CurrPowerBarFrame(gameState)--;
+		if (CurrPowerBarFrame(gameState) < 0)
+			CurrPowerBarFrame(gameState) = 0;
 	}
 
 	if (InputManager::isMoveRight()) {
-		currBossHpBarFrame++;
-		if (currBossHpBarFrame >= 350)
-			currBossHpBarFrame = 349;
+		CurrBossHpBarFrame(gameState)++;
+		if (CurrBossHpBarFrame(gameState) >= 350)
+			CurrBossHpBarFrame(gameState) = 349;
 	}
 	else if (InputManager::isMoveLeft()) {
-		currBossHpBarFrame--;
-		if (currBossHpBarFrame < 0)
-			isEnemyPhase = false;
+		CurrBossHpBarFrame(gameState)--;
+		if (CurrBossHpBarFrame(gameState) < 0)
+			IsEnemyPhase(gameState) = false;
 	}
 
-	if (isEnemyPhase) {
+	if (IsEnemyPhase(gameState)) {
 		elapsedTime += dt;
 		if (elapsedTime >= 1.0f)
 		{
-			remainTime--;
+			RemainTime(gameState)--;
 			elapsedTime = 0.0f;
 
-			if (remainTime <= 0) {
-				remainTime = 0;
-				isEnemyPhase = false;
+			if (RemainTime(gameState) <= 0) {
+				RemainTime(gameState) = 0;
+				IsEnemyPhase(gameState) = false;
 			}
 		}
 	}
@@ -139,41 +128,40 @@ void UI::Update(float dt)
 
 void UI::Render(HDC hdc)
 {
-	
+
 	//Stage->Render(hdc, StagePos.x, StagePos.y);
-	
+
 	//if (BackGround && isBgReder) {
 	//	BackGround->Render(hdc);
 	//}
 
-	BackGround_Image->Render(-WINSIZE_X/2, -WINSIZE_Y/2);
+	BackGround_Image->Render(-WINSIZE_X / 2, -WINSIZE_Y / 2);
 
 
 	MaxScoreImage->Render(MaxScorePos.x, MaxScorePos.y);
 	ScoreImage->Render(ScorePos.x, ScorePos.y);
-	PlayerHpBarImage->Render( PlayerHpPos.x, PlayerHpPos.y);
+	PlayerHpBarImage->Render(PlayerHpPos.x, PlayerHpPos.y);
 	BombImage->Render(BombPos.x, BombPos.y);
-	PowerImage->Render( PowerPos.x, PowerPos.y);
-	GrazeImage->Render( GrazePos.x, GrazePos.y);
-
+	PowerImage->Render(PowerPos.x, PowerPos.y);
+	GrazeImage->Render(GrazePos.x, GrazePos.y);
 
 	// 점수
-	RenderScoreAsImage(hdc, MaxScore, { MaxScorePos.x + 120, MaxScorePos.y + 5});
-	RenderScoreAsImage(hdc, Score, { ScorePos.x + 105, ScorePos.y + 5});
+	RenderScoreAsImage(hdc, MaxScore(gameState), { MaxScorePos.x + 120, MaxScorePos.y + 5 });
+	RenderScoreAsImage(hdc, Score(gameState), { ScorePos.x + 105, ScorePos.y + 5 });
 
 	// 체력 및 폭탄
-	RenderHpAsImage(hdc, PlayerHp, { PlayerHpPos.x + 120, PlayerHpPos.y });
-	RenderBombAsImage(hdc, BombCount, { BombPos.x + 120, BombPos.y });
+	RenderHpAsImage(hdc, PlayerHp(gameState), { PlayerHpPos.x + 120, PlayerHpPos.y });
+	RenderBombAsImage(hdc, BombCount(gameState), { BombPos.x + 120, BombPos.y });
 
 	// 파워바
-	//RenderPowerBarAsImage(hdc, currPowerbarFrame, PowerPos);
-	PowerBarImage->RenderPercent({ PowerPos.x + 120, PowerPos.y + 5}, 0, currPowerbarFrame, 1.0f);
+	//RenderPowerBarAsImage(hdc, CurrPowerBarFrame, PowerPos);
+	PowerBarImage->RenderPercent({ PowerPos.x + 120, PowerPos.y + 5 }, 0, CurrPowerBarFrame(gameState), 1.0f);
 	UpdatePowerBarMax(hdc, PowerPos);
 
 	// 보스 등장시 그리기
-	if (isEnemyPhase) {
+	if (IsEnemyPhase(gameState)) {
 		RenderEnemyPhase(hdc);
-		RenderTimerAsImage(hdc, remainTime, EnemyPhasePos);
+		RenderTimerAsImage(hdc, RemainTime(gameState), EnemyPhasePos);
 	}
 
 
@@ -189,8 +177,6 @@ void UI::ReLoadScore()
 	// Map에 넣을 점수 key값
 	const char* numberNames[10] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 
-	MaxScore = 1234;
-	Score = 12;
 
 	// 숫자 이미지 로드
 	for (int i = 0; i < 10; ++i)
@@ -214,14 +200,11 @@ void UI::ReLoadStar()
 {
 	string key;
 	const wchar_t* path = TEXT("Image/Png/HpPoint.png");
-
-	PlayerHp = 3;
-	BombCount = 3;
-
+	
 	// HP 그리기
 	for (int i = 0; i < MaxHpAndBomb; i++)
 	{
-		if (i < PlayerHp) {
+		if (i < PlayerHp(gameState)) {
 			key = "Star";
 			path = TEXT("Image/Png/HpPoint.png");
 		}
@@ -239,7 +222,7 @@ void UI::ReLoadStar()
 	// 폭탄 그리기
 	for (int i = 0; i < MaxHpAndBomb; i++)
 	{
-		if (i < BombCount) {
+		if (i < BombCount(gameState)) {
 			key = "Bomb";
 			path = TEXT("Image/Png/GrazePoint.png");
 		}
@@ -276,7 +259,7 @@ void UI::RenderScoreAsImage(HDC hdc, int number, FPOINT startPos)
 		// 이미지가 있으면 출력
 		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
 		{
-			img->Render( static_cast<int>(startPos.x + i * digitWidth), static_cast<int>(startPos.y));
+			img->Render(static_cast<int>(startPos.x + i * digitWidth), static_cast<int>(startPos.y));
 		}
 	}
 }
@@ -322,7 +305,7 @@ void UI::RenderBombAsImage(HDC hdc, int number, FPOINT Pos)
 // 파워 숫자 및 MAX 표기
 void UI::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 {
-	int number = currPowerbarFrame;
+	int number = CurrPowerBarFrame(gameState);
 
 	const int digitWidth = 20;
 
@@ -338,7 +321,7 @@ void UI::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 				img->Render(pos.x + 130 + i * digitWidth, pos.y + 5);
 		}
 	}
-	if (currPowerbarFrame == 159)
+	if (CurrPowerBarFrame(gameState) == 159)
 		PowerMaxImage->Render(pos.x + 120, pos.y + 5);
 }
 
@@ -352,19 +335,19 @@ void UI::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 //	int frameHeight = img->GetHeight();
 //
 //	// 프레임 수가 바뀌었을 때만 다시 그림
-//	if (currPowerbarFrame != prevPowerbarFrame)
+//	if (CurrPowerBarFrame != prevPowerbarFrame)
 //	{
 //		if (PowerBarBuffer)
 //		{
 //			PowerBarBuffer->Release();
 //			delete PowerBarBuffer;
 //		}
-//		if (currPowerbarFrame > 0)
+//		if (CurrPowerBarFrame > 0)
 //		{
 //			// PowerBarBuffer = new Image();
-//			// PowerBarBuffer->Init(frameWidth * currPowerbarFrame, frameHeight);
+//			// PowerBarBuffer->Init(frameWidth * CurrPowerBarFrame, frameHeight);
 //
-//			for (int i = 0; i < currPowerbarFrame; ++i)
+//			for (int i = 0; i < CurrPowerBarFrame; ++i)
 //			{
 //				int frameX = i % img->GetMaxFrameX();
 //				int frameY = i / img->GetMaxFrameX();
@@ -378,10 +361,10 @@ void UI::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 //		{
 //			PowerBarBuffer = nullptr;
 //		}
-//		prevPowerbarFrame = currPowerbarFrame;
+//		prevPowerbarFrame = CurrPowerBarFrame;
 //	}
 //	// 최종 출력
-//	if (PowerBarBuffer && currPowerbarFrame > 0)
+//	if (PowerBarBuffer && CurrPowerBarFrame > 0)
 //	{
 //		PowerBarBuffer->Render(Pos.x + 120, Pos.y);
 //	}
@@ -393,7 +376,7 @@ void UI::RenderEnemyPhase(HDC hdc)
 	if (D2DImage* img = ImageManager::GetInstance()->FindImage("EnemyPhase")) {
 		img->Render(EnemyPhasePos.x, EnemyPhasePos.y);
 	}
-	BossHpBarImage->RenderPercent({ EnemyPhasePos.x + 80, EnemyPhasePos.y + 12}, 0, currBossHpBarFrame, 1.0f);
+	BossHpBarImage->RenderPercent({ EnemyPhasePos.x + 80, EnemyPhasePos.y + 12}, 0, CurrBossHpBarFrame(gameState), 1.0f);
 	//RenderBossHpBar(hdc, currBossHpBarFrame, { EnemyPhasePos.x + 60, EnemyPhasePos.y + 5 });
 }
 

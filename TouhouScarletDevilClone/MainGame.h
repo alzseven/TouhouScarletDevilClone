@@ -5,6 +5,7 @@ class TouhouScarletDevilCloneGame;
 
 class UI;
 class D2DImage;
+class BHItem;
 class MainGame : public GameObject
 {
 private:
@@ -12,11 +13,16 @@ private:
 	
 	TouhouScarletDevilCloneGame* gameInstance;
 	UI* ui;
-
+	BHItem* item;
 	int timer = 0;
 	int frame = 0;
 	float angle = 0;
 
+	float eTimer = 0;
+	float enTimer = 0;
+	int eCount = 0;
+	int eSpawn = 0;
+	int scene = 0;
 public:
 	void Init();
 	void Release();
