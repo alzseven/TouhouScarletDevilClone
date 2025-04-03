@@ -6,7 +6,7 @@
 
 BHObject::BHObject()
 {
-	 CircleCollisionManager::GetInstance()->AddCollisionObject(this);
+	CircleCollisionManager::GetInstance()->AddCollisionObject(this);
 }
 
 void BHObject::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)

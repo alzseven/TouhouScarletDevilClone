@@ -7,7 +7,7 @@
 #include "D2DImage.h"
 #include "ImageManager.h"
 #include "GameState.h"
-
+#include "Shape.h"
 
 void TouhouScarletDevilCloneGame::Init()
 {
@@ -18,15 +18,18 @@ void TouhouScarletDevilCloneGame::Init()
     ui = new UI(gameState);
 
     player = new BHPlayer();
-    player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
-    D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
-    player->SetMoveImage(moveImage);
-
+    player->Init("marisa_idle", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
+    //D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
+    //player->SetMoveImage(moveImage);
+    Shape* tshape = ShapeManager::GetInstance()->FindShape("marisa_left");
+    D2DImage* timage = tshape->GetImage();
+    player->SetMoveImage(timage);
     enemy = new BHEnemy();
     
-    enemy->Init("enemy", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
+	enemy->Init("marisa_idle", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
     enemy->SetItemList(items);
     enemy->SetGameState(gameState);
+
     enemyFactory = new ObjectPool<BHEnemy>();
     enemyFactory->Init(100);
 

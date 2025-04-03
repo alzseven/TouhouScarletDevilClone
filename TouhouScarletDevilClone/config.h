@@ -2,7 +2,8 @@
 
 #pragma once
 #pragma comment(lib, "Winmm.lib")
-
+#include <fmod.hpp>
+#include <fmod_errors.h>
 #include <Windows.h>
 #include <string>
 #include <iostream>
@@ -22,6 +23,7 @@ using namespace std;
 #include "KeyManager.h"
 #include "ImageManager.h"
 #include "ShapeManager.h"
+#include "SoundPlayer.h"
 
 #define PI			3.141592f
 #define WINSIZE_X	900
@@ -46,7 +48,7 @@ typedef struct tagFPOINT
 	float x;
 	float y;
 } FPOINT;
-
+#include "EffectPlayer.h"
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 

@@ -2,7 +2,7 @@
 #include "BHBullet.h"
 // #include "Image.h"
 #include "ImageManager.h"
-
+#include "Shape.h"
 void BulletShooter::Init()
 {
 
@@ -16,8 +16,10 @@ BHBullet* BulletShooter::CreateBullet(ObjectPool<BHBullet>* object_pool, FPOINT 
     float shoot_speed, float shoot_speed_rate)
 {
     BHBullet* bullet = object_pool->Allocate();
-    bullet->Init("kunai", 16.f, {pos.x, pos.y}, angle);
+    Shape* sh = ShapeManager::GetInstance()->FindShape("NormalBullet_red");
+    bullet->Init("NormalBullet_red", sh->GetHitHeight()/2.f, {pos.x, pos.y}, angle);
     bullet->Launch(angle_rate , shoot_speed_rate ,shoot_speed, pos.y > WINSIZE_Y / 2);
+    EffectPlayer::GetInstance()->PlayEffect("NormalShoot_red", pos);
     bullet->SetPool(object_pool);
     return bullet;
 }
