@@ -17,7 +17,7 @@ private:
     UI* ui;
     BHPlayer* player;
     D2DImage* bgImage;
-
+    float timer;
     StageWaveManager stageWaveManager;
 
 public:
