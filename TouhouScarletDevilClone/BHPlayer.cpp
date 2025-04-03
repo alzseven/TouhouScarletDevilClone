@@ -8,7 +8,7 @@
 void BHPlayer::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
 {
     this->hitRadius = hitRadius;
-    this->shape =  ShapeManager::GetInstance()->FindShape("Marisa");
+    this->shape =  ShapeManager::GetInstance()->FindShape(shapeKey);
     this->position = pos;
     this->radianAngle = radianAngle;
     isAlive = true;

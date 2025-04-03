@@ -109,9 +109,21 @@ void EffectPlayer::Init(int size)
 		EffectTask task;
 		task.Init(image[0], 0, 0.2f);
 		task.setFade(0.5f, 0.05f);
-		task.setZoom(0.5f, 1.f);
+		task.setZoom(1.5f, 2.0f);
 		effect->pushEffectTask(task);
 		AddEffect("Kill", effect);
+	}
+	//Kill_zako
+	{
+		Effect* effect = new Effect;
+		image[0] = ImageManager::GetInstance()->AddImage("Kill_zako", TEXT("Image/Hit/Kill_zako.png"));
+		EffectTask task;
+		task.Init(image[0], 0, 0.2f);
+		task.setFade(0.8f, 0.1f);
+		task.setZoom(1.5f, 2.5f);
+		task.setSpin(40.f);
+		effect->pushEffectTask(task);
+		AddEffect("Kill_zako", effect);
 	}
 	//MagicCircle
 	{
@@ -125,21 +137,132 @@ void EffectPlayer::Init(int size)
 		effect->pushEffectTask(task);
 		AddEffect("MagicCircle", effect);
 	}
-	//NormalShoot_green
+	//NormalShoot
+	{
+		// NormalShoot_black
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_black", TEXT("Image/Effect/NormalShoot/NormalShoot_black.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_black", effect);
+		}
+
+		// NormalShoot_blue
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_blue", TEXT("Image/Effect/NormalShoot/NormalShoot_blue.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_blue", effect);
+		}
+
+		// NormalShoot_green
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_green", TEXT("Image/Effect/NormalShoot/NormalShoot_green.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_green", effect);
+		}
+
+		// NormalShoot_purple
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_purple", TEXT("Image/Effect/NormalShoot/NormalShoot_purple.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_purple", effect);
+		}
+
+		// NormalShoot_red
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_red", TEXT("Image/Effect/NormalShoot/NormalShoot_red.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_red", effect);
+		}
+
+		// NormalShoot_sky
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_sky", TEXT("Image/Effect/NormalShoot/NormalShoot_sky.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_sky", effect);
+		}
+
+		// NormalShoot_yellow
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_yellow", TEXT("Image/Effect/NormalShoot/NormalShoot_yellow.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_yellow", effect);
+		}
+
+		// NormalShoot_white
+		{
+			Effect* effect = new Effect;
+			image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_white", TEXT("Image/Effect/NormalShoot/NormalShoot_white.png"));
+
+			EffectTask task;
+			task.Init(image[0], 0, 0.25f);
+			task.setFade(0.4f, 0.8f);
+			task.setZoom(1.8f, 1.3f);
+			effect->pushEffectTask(task);
+
+			AddEffect("NormalShoot_white", effect);
+		}
+
+
+	}
+	//Boss_phase
 	{
 		Effect* effect = new Effect;
-		image[0] = ImageManager::GetInstance()->AddImage("NormalShoot_green", TEXT("Image/Effect/NormalShoot/NormalShoot_green.png"));
+		image[0] = ImageManager::GetInstance()->AddImage("Boss_phase", TEXT("Image/Hit/Kill.png"));
 		EffectTask task;
-		task.Init(image[0], 0, 0.2f);
-		task.setFade(0.8f, 1.0f);
-		task.setZoom(1.5f, 1.0f);
+		task.Init(image[0], 0, 1.3f);
+		task.setFade(0.8f, 0.1f);
+		task.setZoom(5.f, 15.f);
 		effect->pushEffectTask(task);
-		EffectTask task1;
-		task1.Init(image[0], 0.2, 0.3f);
-		task1.setFade(1.f, 0.5f);
-		task1.setZoom(1.5f, 1.0f);
-		effect->pushEffectTask(task1);
-		AddEffect("NormalShoot_green", effect);
+		AddEffect("Boss_phase", effect);
 	}
 }
 

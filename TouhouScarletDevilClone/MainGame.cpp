@@ -15,6 +15,8 @@ void MainGame::Init()
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
 	eSpawn = 100;
+	SoundPlayer::GetInstance()->SoundOn("stage3_boss");
+	//SoundPlayer::GetInstance()->SoundOn("background");
 }
 
 void MainGame::Release()
@@ -77,7 +79,7 @@ void MainGame::Update(float dt)
 	EffectPlayer::GetInstance()->Update(dt);
 	if (eTimer >= enTimer)
 	{
-		enTimer += 5.f;
+		enTimer += 2.f;
 		eCount++;
 		if (eCount > eSpawn) eCount = 0;
 		EffectPlayer::GetInstance()->PlayEffect("Hit_blue", { 100.0f, 200.0f });
@@ -86,7 +88,17 @@ void MainGame::Update(float dt)
 		EffectPlayer::GetInstance()->PlayEffect("Hit_green", { 250.0f, 200.0f });
 		EffectPlayer::GetInstance()->PlayEffect("Kill", { 100, 250 });
 		EffectPlayer::GetInstance()->PlayEffect("MagicCircle", { 150, 250 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 200, 250 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_black", { 200, 250 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_blue", { 250, 250 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 100, 300 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_purple", { 150, 300 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_red", { 200, 300 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_sky", { 250, 300 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_yellow", { 100, 350 });
+		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_white", { 150, 350 });
+		EffectPlayer::GetInstance()->PlayEffect("Kill_zako", { 100, 400 });
+		EffectPlayer::GetInstance()->PlayEffect("Boss_phase", { 200, 400 });
+		
 	}
 
 }
