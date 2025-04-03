@@ -1,7 +1,10 @@
 ﻿#pragma once
 #include <queue>
 #include <vector>
+#include "config.h"
 
+struct GameState;
+class BHItem;
 class IStageWavePattern;
 
 class StageWaveManager
@@ -10,10 +13,10 @@ class StageWaveManager
     IStageWavePattern* currentStageWave;
     float stageCurrentTime;
     GameState* gameState;
-    std::vector<BHItem*>* items;
+    vector<BHItem*>* items;
 public:
     void Init();
-    void SetIteminfos(GameState* gameState, std::vector<BHItem*>* items);
+    void SetIteminfos(GameState* gameState,vector<BHItem*>* items);
     void SetStageWavePatterns(std::queue<IStageWavePattern*> stageWavePatterns) { this->stageWavePatterns = stageWavePatterns; }
     void Release();
     void Update(float dt);

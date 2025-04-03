@@ -39,6 +39,12 @@ void StageWaveManager::Init()
     stageCurrentTime = 0.f;
 }
 
+void StageWaveManager::SetIteminfos(GameState* gameState, vector<BHItem*>* items)
+{
+    this->gameState = gameState;
+    this->items = items;
+}
+
 void StageWaveManager::Release()
 {
     delete currentStageWave;
