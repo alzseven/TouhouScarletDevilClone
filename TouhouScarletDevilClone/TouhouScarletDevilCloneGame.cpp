@@ -1,5 +1,5 @@
 ﻿#include "TouhouScarletDevilCloneGame.h"
-#include "UI.h"
+#include "InGame.h"
 #include "BHEnemy.h"
 #include "BHPlayer.h"
 #include "BHItem.h"
@@ -15,7 +15,7 @@ void TouhouScarletDevilCloneGame::Init()
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
 	
     gameState = new GameState();
-    ui = new UI(gameState);
+    inGame = new InGame(gameState);
 
     player = new BHPlayer();
     player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
@@ -68,10 +68,10 @@ void TouhouScarletDevilCloneGame::Release()
 		//item = nullptr;
   //  }
 
-    if (ui)
+    if (inGame)
     {
-		delete ui;
-		ui = nullptr;
+		delete inGame;
+		inGame = nullptr;
     }
 }
 
@@ -80,7 +80,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     if (player) player->Update(dt);
     if (enemy) enemy->Update(dt);
 //	if (item) item->Update(dt);
-	if (ui) ui->Update(dt);
+	if (inGame) inGame->Update(dt);
     for (auto it = items.begin(); it != items.end(); )
     {
         BHItem* item = *it;
@@ -135,7 +135,7 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 		it->Render(hdc);
 	}
 
-	if (ui) ui->Render(hdc);
+	if (inGame) inGame->Render(hdc);
 
     for (auto i : enemyFactory->GetActive())
     {

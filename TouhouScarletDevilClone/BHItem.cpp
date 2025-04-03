@@ -28,7 +28,7 @@
 //
 //void BHItem::Update(float dt)
 //{
-//	Move(dt);
+//	MoveNSEW(dt);
 //}
 //
 //void BHItem::Render(HDC hdc)
@@ -51,7 +51,7 @@
 //	}
 //}
 //
-//void BHItem::Move(float dt)
+//void BHItem::MoveNSEW(float dt)
 //{
 //	if (isGoingUpItem)
 //	{
@@ -71,7 +71,7 @@
 //		isItemGet = false;
 //}
 //
-//void BHItem::Move(float angle, float speed, float dt)
+//void BHItem::MoveNSEW(float angle, float speed, float dt)
 //{
 //}
 //

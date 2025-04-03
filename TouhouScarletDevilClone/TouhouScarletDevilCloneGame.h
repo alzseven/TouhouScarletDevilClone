@@ -7,14 +7,14 @@ class BHEnemy;
 class BHPlayer;
 class BHItem;
 class D2DImage;
-class UI;
+class InGame;
 class GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
     GameState* gameState;
     vector<BHItem*> items;
-    UI* ui;
+    InGame* inGame;
     BHPlayer* player;
     BHEnemy* enemy;
     BHItem* item;

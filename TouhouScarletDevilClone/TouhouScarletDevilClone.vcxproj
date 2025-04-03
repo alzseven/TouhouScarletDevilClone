@@ -29,11 +29,14 @@
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="EnemyController.h" />
+    <ClInclude Include="Finish.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
+    <ClInclude Include="Intro.h" />
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
@@ -42,6 +45,7 @@
     <ClInclude Include="ItemType.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="PathMaker.h" />
     <ClInclude Include="ObjectPool.h" />
     <ClInclude Include="Pattern.h" />
@@ -49,12 +53,13 @@
     <ClInclude Include="PowerUpItemBehavior.h" />
     <ClInclude Include="ScoreItem.h" />
     <ClInclude Include="ScoreItemBehavior.h" />
+    <ClInclude Include="selectCharacter.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
-    <ClInclude Include="UI.h" />
+    <ClInclude Include="InGame.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BHBullet.cpp" />
@@ -65,8 +70,12 @@
     <ClCompile Include="BulletShooter.cpp" />
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="Finish.cpp" />
+    <ClCompile Include="GameScene.h" />
     <ClCompile Include="GameStateManager.h" />
+    <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -74,16 +83,18 @@
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PathMaker.cpp" />
     <ClCompile Include="PowerUpItem.cpp" />
     <ClCompile Include="PowerUpItemBehavior.cpp" />
     <ClCompile Include="ScoreItem.cpp" />
     <ClCompile Include="ScoreItemBehavior.cpp" />
+    <ClCompile Include="selectCharacter.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
-    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="InGame.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
