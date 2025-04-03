@@ -21,6 +21,7 @@ void SoundPlayer::Init()
         LoadSound("select", "Sound/Effect/select.wav", false);
         LoadSound("timeout", "Sound/Effect/timeout.wav", false);
         LoadSound("enemy_shoot", "Sound/Effect/enemy_shoot.wav", false);
+        LoadSound("boss_dead", "Sound/Effect/boss_dead.wav", false);
     }
     //bmg
     {
