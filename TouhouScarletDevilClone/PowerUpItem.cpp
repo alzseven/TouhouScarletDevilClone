@@ -6,10 +6,13 @@
 #include "GameStateManager.h"
 #include "CircleCollisionManager.h"
 
-void PowerUpItem::Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle)
+void PowerUpItem::Init(string shapeKey, FPOINT pos)
 {
-    this->hitRadius = hitRadius;
+    
     this->shape = ShapeManager::GetInstance()->FindShape(shapeKey);
+    if (shape) {
+        this->hitRadius = shape->GetHitWidth() / 2;
+    }
     this->position = pos;
     this->radianAngle = radianAngle;
     this->isAlive = true;
@@ -74,6 +77,6 @@ void PowerUpItem::Release()
 {
 }
 
-void PowerUpItem::Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
+void PowerUpItem::Shoot(string shapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate)
 {
 }

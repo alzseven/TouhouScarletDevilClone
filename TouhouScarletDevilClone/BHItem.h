@@ -2,7 +2,7 @@
 #include "BHObject.h"
 
 class D2DImage;
-class GameState;
+struct GameState;
 class ItemBehavior;
 class BHItem : public BHObject
 {
@@ -25,13 +25,13 @@ public:
 	void InitGameState(GameState* state) { gameState = state; }
 	void SetBehavior(ItemBehavior* itembehavior) { itemBehavior = itembehavior; }
 
-	void Init(string shapeKey, float hitRadius, FPOINT pos, float radianAngle) override = 0;
+	void Init(string shapeKey, FPOINT pos) override = 0;
 	void Update(float dt) override = 0;
 	void Render(HDC hdc) override = 0;
 	void OnHit(ICollideable* hitObject) override = 0;
 	virtual void Move(float dt) = 0;
 	void Move(float angle, float speed, float dt) override = 0;
-	void Shoot(FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override = 0;
+	void Shoot(string shapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override = 0;
 	void Release() override = 0;
 	
 	bool IsOutofScreen() override { return false; }

@@ -9,7 +9,7 @@ class BHPlayer;
 class BHItem;
 class D2DImage;
 class UI;
-class GameState;
+struct GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:

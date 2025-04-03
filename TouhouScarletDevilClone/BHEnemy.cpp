@@ -143,14 +143,14 @@ void BHEnemy::GetDamaged()
         if (rand() % 2 == 0) // 50% È®·ü
         {
             ScoreItem* item = new ScoreItem();
-            item->Init("smallScore", 16.f, this->position, 90);
+            item->Init("smallScore",this->position);
             item->InitGameState(gameState);
             items->push_back(item);
         }
         else
         {
             PowerUpItem* item = new PowerUpItem();
-            item->Init("smallPower", 16.f, this->position, 90);
+            item->Init("smallPower", this->position);
             item->InitGameState(gameState);
             items->push_back(item);
         }

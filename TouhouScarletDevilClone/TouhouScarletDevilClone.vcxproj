@@ -57,9 +57,6 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundPlayer.h" />
     <ClInclude Include="PoolManager.h" />
-    <ClInclude Include="Shape.h" />
-    <ClInclude Include="ShapeManager.h" />
-    <ClInclude Include="Singleton.h" />
 	<ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
@@ -95,8 +92,6 @@
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
     <ClCompile Include="PoolManager.cpp" />
-    <ClCompile Include="Shape.cpp" />
-    <ClCompile Include="ShapeManager.cpp" />
 	<ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />

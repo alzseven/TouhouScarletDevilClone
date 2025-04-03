@@ -27,7 +27,7 @@ void TouhouScarletDevilCloneGame::Init()
 	
     enemy = new BHEnemy();
     
-	enemy->Init("marisa_idle", 26 , {GAME_CENTER_X, 100}, DEG_TO_RAD(90.f));
+	enemy->Init("marisa_idle",{GAME_CENTER_X, 100});
     enemy->SetItemList(items);
     enemy->SetGameState(gameState);
 
@@ -35,7 +35,7 @@ void TouhouScarletDevilCloneGame::Init()
     enemyFactory->Init(100);
 
     BHEnemy* enemy2 = enemyFactory->Allocate();
-    enemy2->Init("enemy", 26, {200, 100}, DEG_TO_RAD(90.f));
+    enemy2->Init("enemy", {200, 100});
 
     // 아이템
  //   item->Init("smallScore", 16.f, { WINSIZE_X / 2 - 200, WINSIZE_Y / 2 }, 90);

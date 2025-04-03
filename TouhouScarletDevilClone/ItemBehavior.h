@@ -1,6 +1,6 @@
 #pragma once
 
-class GameState;
+struct GameState;
 class ItemBehavior
 {
 public:

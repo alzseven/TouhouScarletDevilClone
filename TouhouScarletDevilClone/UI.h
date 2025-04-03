@@ -11,7 +11,7 @@ enum class BossPhaseType
 
 class D2DImage;
 class Timer;
-class GameState;
+struct GameState;
 class UI
 {
 private:
