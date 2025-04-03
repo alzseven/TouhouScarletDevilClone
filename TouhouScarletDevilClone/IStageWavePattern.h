@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "config.h"
 
+struct GameState;
+class BHItem;
 class BHObject;
 class IObjectActionPattern;
 class BHEnemy;
@@ -30,6 +32,9 @@ protected:
 
     std::vector<BHObject*> spawnedObjects;
 
+    GameState* gameState;
+    vector<BHItem*>* items;
+    
     virtual std::vector<FPOINT> GetSpawnPoints(int spawnAmount) = 0;
     virtual std::vector<IObjectActionPattern*> GetObjectActionPatterns(BHObject* target) = 0;
 public:
@@ -40,6 +45,8 @@ public:
     virtual void Init(float startTime, float endTime, string enemyShapeKey, int spawnAmount, float spawnDelay, float multiSpawnDelay);    
 
     virtual bool IsWaveDone(float currentTime);
+
+    void SetItemInfos(GameState* gameState,vector<BHItem*>* items);
 };
 
 class Stage1Wave1Pattern : public IStageWavePattern

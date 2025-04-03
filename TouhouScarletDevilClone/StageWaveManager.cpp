@@ -5,22 +5,24 @@
 void StageWaveManager::Init()
 {
     Stage1Wave1Pattern* stage1_1 = new Stage1Wave1Pattern(); 
-    // stage1_1->Init(0.f, 99.f, "enemy", 1, 1.f, 0.15f);
-
-    // stageWavePatterns = new std::queue<IStageWavePattern*>();
-    
-    // Stage1Wave1Pattern* stage1_1 = new Stage1Wave1Pattern(); 
+    stage1_1->SetItemInfos(gameState, items);
     stage1_1->Init(0.f, 20.f, "cirno_idle", 10, 1.f, 0.15f);
     stageWavePatterns.push(stage1_1);
 
     // 여기에 IStageWavePattern에서 생성한 웨이브 객체 생성해서 넣고 Init 하시오
 
-    stageWavePatterns.push(stage1_1);
+    // stageWavePatterns.push(stage1_1);
    
     currentStageWave = stageWavePatterns.front();
     stageWavePatterns.pop();
 
     stageCurrentTime = 0.f;
+}
+
+void StageWaveManager::SetIteminfos(GameState* gameState, vector<BHItem*>* items)
+{
+    this->gameState = gameState;
+    this->items = items;
 }
 
 void StageWaveManager::Release()
