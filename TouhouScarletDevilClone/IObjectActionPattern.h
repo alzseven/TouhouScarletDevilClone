@@ -80,34 +80,35 @@ public:
 
 class MoveStraightDirectionPattern : public IObjectActionPattern
 {
+public:
     void Update(float dt) override;
 };
 
 class ShootStraightPattern : public IObjectActionPattern
 {
     int currentShootCount;
-    
+public:
     void Update(float dt) override;
 };
 
 class ShootSpreadPattern : public IObjectActionPattern
 {
     int currentShootCount;
-    
+public:
     void Update(float dt) override;
 };
 
 class ShootRoundPattern : public IObjectActionPattern
 {
     int currentShootCount;
-    
+public:
     void Update(float dt) override;
 };
 
 class Stage1BossNormalPattern1 : public IObjectActionPattern
 {
     int currentShootCount;
-    
+public:
     void Update(float dt) override;
 };
 

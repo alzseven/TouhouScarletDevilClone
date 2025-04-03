@@ -32,6 +32,7 @@
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GameStateUI.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
     <ClInclude Include="IObjectActionPattern.h" />
@@ -57,8 +58,14 @@
     <ClInclude Include="ScoreItemBehavior.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="ShapeManager.h" />
+    <ClInclude Include="ShootSpiralPattern.h" />
+    <ClInclude Include="ShootTimeVaryingSpeedPattern.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="SoundPlayer.h" />
+    <ClInclude Include="Stage1Boss.h" />
+    <ClInclude Include="Stage1Wave2Pattern.h" />
+    <ClInclude Include="Stage1Wave1Pattern.h" />
+    <ClInclude Include="Stage1Wave3Pattern.h" />
     <ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
@@ -74,7 +81,9 @@
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EffectPlayer.cpp" />
     <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GameStateManager.h" />
+    <ClCompile Include="GameStateUI.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
@@ -95,7 +104,13 @@
     <ClCompile Include="ScoreItemBehavior.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
+    <ClCompile Include="ShootSpiralPattern.cpp" />
+    <ClCompile Include="ShootTimeVaryingSpeedPattern.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="Stage1Boss.cpp" />
+    <ClCompile Include="Stage1Wave2Pattern.cpp" />
+    <ClCompile Include="Stage1Wave1Pattern.cpp" />
+    <ClCompile Include="Stage1Wave3Pattern.cpp" />
     <ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />

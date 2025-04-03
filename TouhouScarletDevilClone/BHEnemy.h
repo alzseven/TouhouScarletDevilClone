@@ -30,14 +30,15 @@ public:
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 
     void Init(string shapeKey, FPOINT pos) override;
-    void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns);
+    virtual void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns);
     
     void Move(float angle, float speed, float dt) override;
     
     void Render(HDC hdc) override;
 
     void Update(float dt) override;
-    
+    void MoveBackToBorder();
+
     void Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override;
 
     void OnHit(ICollideable* hitObject) override;

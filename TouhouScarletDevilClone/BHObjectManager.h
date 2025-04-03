@@ -13,6 +13,7 @@ class BHObjectManager : public Singleton<BHObjectManager>
     ObjectPool<BHBullet> playerBulletPool;
     ObjectPool<BHBullet> enemyBulletPool;
     ObjectPool<BHEnemy> enemyPool;
+    ObjectPool<BHBoss> bossPool;
 public:
     void Init();
     void Update(float dt);
@@ -22,5 +23,6 @@ public:
     ObjectPool<BHBullet>* GetPlayerBulletPool() { return &playerBulletPool; }
     ObjectPool<BHBullet>* GetEnemyBulletPool() { return &enemyBulletPool; }
     ObjectPool<BHEnemy>* GetEnemyPool() { return &enemyPool; }
-    
+    ObjectPool<BHBoss>* GetBossPool() { return &bossPool; }
+    void ClearEnemyBullets();
 };
