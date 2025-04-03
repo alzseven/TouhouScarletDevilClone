@@ -17,12 +17,12 @@ class BHPlayer : public BHObject
 
 	Shape* moveShape;
 	Shape* moveStartShape;
-	// D2DImage* moveImage;
-	// D2DImage* moveStartImage;
+	Shape* subShape;
 
 	bool isPreviousStateHorizontalMove;
 	
 	FPOINT moveDir;
+	bool isPressingShift;
 public:
 	// »ý¼ºÀÚ
 	BHPlayer() = default;

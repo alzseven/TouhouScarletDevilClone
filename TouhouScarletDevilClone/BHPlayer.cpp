@@ -11,7 +11,7 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
     moveShape = ShapeManager::GetInstance()->FindShape("marisa_left");
     moveStartShape = ShapeManager::GetInstance()->FindShape("marisa_goleft");
-    
+    subShape = ShapeManager::GetInstance()->FindShape("marisa_sub");
     
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
@@ -62,7 +62,12 @@ void BHPlayer::Render(HDC hdc)
         }
     }
 
-
+    if (subShape)
+    {
+        subShape->GetImage()->Middle_RenderFrame((isPressingShift ? position.x - 10 : position.x - 30), (isPressingShift ? position.y - 15 : position.y), 1);
+        subShape->GetImage()->Middle_RenderFrame((isPressingShift ? position.x + 10 : position.x + 30),(isPressingShift ? position.y - 15 : position.y), 1);
+    }
+    
     // if (bulletManager)
     // {
     //     bulletManager->Render(hdc);
@@ -126,7 +131,7 @@ void BHPlayer::Update(float dt)
         moveDir.x=1;
     }
 #pragma endregion
-    bool isPressingShift = KeyManager::GetInstance()->IsStayKeyDown(VK_SHIFT);
+    isPressingShift = KeyManager::GetInstance()->IsStayKeyDown(VK_SHIFT);
     
     Move(moveDir, isPressingShift, dt);
     
