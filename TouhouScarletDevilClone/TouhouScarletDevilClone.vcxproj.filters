@@ -36,7 +36,7 @@
     <ClCompile Include="ScoreItem.cpp">
       <Filter>Item</Filter>
     </ClCompile>
-    <ClCompile Include="PowerUpItem.cpp">
+    <ClCompile Include="PowerUpItem.cpp"> </ClCompile>
       <Filter>Item</Filter>
     <ClCompile Include="EffectPlayer.cpp">
       <Filter>JiunTest</Filter>
