@@ -11,8 +11,8 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
     timeElapsed = 0;
     //TODO: Initialize delay in certain value from parameter
-    mainShootDelay = 0.5f;
-    subShootDelay = 0.75;
+    mainShootDelay = 0.75f;
+    subShootDelay = 1.5f;
     moveDir = { 0,0 };
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
 }
@@ -81,25 +81,25 @@ void BHPlayer::Update(float dt)
     mainWeaponTimer += dt;
     subWeaponTimer += dt;
     // timeElapsed += dt;
-#pragma region WASD_INPUT
+#pragma region ARROW_INPUT
     moveDir = { 0,0 };
-    // W
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x57))
+    // UP
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_UP))
     {
         moveDir.y=-1;
     }
-    // A
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x41))
+    // LEFT
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_LEFT))
     {
         moveDir.x=-1;
     }
-    // S
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x53))
+    // DOWN
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_DOWN))
     {
         moveDir.y=1;
     }
-    // D
-    if (KeyManager::GetInstance()->IsStayKeyDown(0x44))
+    // RIGHT
+    if (KeyManager::GetInstance()->IsStayKeyDown(VK_RIGHT))
     {
         moveDir.x=1;
     }
@@ -115,7 +115,7 @@ void BHPlayer::Update(float dt)
 
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
-        Shoot("kunai",position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),50.f,0.f);
+        Shoot("Jewel_blue",position,DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f),300.f,0.f);
         ShootSubWeapon(isPressingShift);
     }
     // if (bulletManager)
@@ -150,7 +150,7 @@ void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float 
         BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
         bullet->Init(bulletShapeKey, init_pos);
         bullet->Launch(angle, angleRate, shootSpeed, shootSpeedRate);
-        mainWeaponTimer -= mainShootDelay;
+        mainWeaponTimer = 0.f;
     }
 }
 
@@ -160,9 +160,14 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
 {
     if (subWeaponTimer >= subShootDelay)
     {
-        BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-        bullet->Init("sub",{position.x,isAccumulating ? position.y - 15 : position.y });
-        subWeaponTimer -= subShootDelay;
+        BHBullet* bullet1 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+        bullet1->Init("EllipseBullet_green",{isAccumulating ? position.x - 5 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
+        bullet1->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 150.f, 0.f);
+
+        BHBullet* bullet2 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
+        bullet2->Init("EllipseBullet_green",{isAccumulating ? position.x + 5 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
+        bullet2->Launch(DEG_TO_RAD(-90.f),DEG_TO_RAD(0.f), 150.f, 0.f);
+        subWeaponTimer = 0.f;
     }
 }
 
