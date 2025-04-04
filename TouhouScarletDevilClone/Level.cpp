@@ -48,7 +48,7 @@ void Level::Update(float dt)
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_ESCAPE))
 	{
 		if (currentScene)
-			*currentScene = mainMenu;
+			*currentScene = mainMenu; 
 	}
 }
 
@@ -95,11 +95,12 @@ void Level::selectLevel(float dt)
 		MoveNSEW(characterUpperBodyPos, { 600, 160 }, 500.0f, dt);
 		MoveNSEW(characterLowerBodyPos, { 600, 416 }, 500.0f,dt);
 
-		bool allDone =
+		/*bool allDone =
 			IsPositionReached(easyPos, { 50, 550 }, dt) &&
 			IsPositionReached(normalPos, { -300, 260 }, dt) &&
 			IsPositionReached(hardPos, { -300, 360 }, dt) &&
-			IsPositionReached(lunaticPos, { -300, 460 }, dt);
+			IsPositionReached(lunaticPos, { -300, 460 }, dt);*/
+		bool allDone = IsPositionReached(easyPos, { 50, 550 }, dt);
 
 		if (allDone){
 			if (KeyManager::GetInstance()->IsStayKeyDown(VK_RETURN))

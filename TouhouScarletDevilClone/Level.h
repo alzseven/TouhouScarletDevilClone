@@ -41,7 +41,7 @@ private:
 
 	int bgFrame = 1;
 	float bgTimer = 0.0f;
-	float bgFrameDelay = 2.0f;
+	float bgFrameDelay = 0.05f;
 	const int bgTotalFrames = 45;
 
 public:

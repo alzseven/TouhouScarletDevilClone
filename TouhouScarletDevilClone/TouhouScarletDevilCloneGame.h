@@ -20,6 +20,11 @@ private:
     D2DImage* bgImage;
     float timer;
     StageWaveManager stageWaveManager;
+
+    int timer = 0;
+    int frame = 0;
+    float angle = 0;
+	bool finishFlag = false;   
 public:
     void Init() override;
     void Release() override;
@@ -27,4 +32,6 @@ public:
     void Render(HDC hdc);
     TouhouScarletDevilCloneGame() = default;
     ~TouhouScarletDevilCloneGame() override = default;
+
+    inline bool FinishFlag() { return finishFlag; }
 };

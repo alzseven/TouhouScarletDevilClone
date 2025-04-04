@@ -36,6 +36,9 @@ private:
 	int eCount = 0;
 	int eSpawn = 0;
 
+	bool isFinish = false; // If finish game, set [true] and go to main or something
+
+
 public:
 	void Init();
 	void Release();
