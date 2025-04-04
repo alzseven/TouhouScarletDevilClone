@@ -189,6 +189,8 @@ void ShapeManager::Init()
         image = ImageManager::GetInstance()->AddImage("marisa_left", TEXT("Image/Character/Marisa/marisa_left.png"), 4, 1);
         ShapeManager::GetInstance()->AddShapeCharacter("marisa_left", image, 10.0f);
         ShapeManager::GetInstance()->AddShapeCircle("marisa_sub", TEXT("Image/Character/Marisa/marisa_sub.png"), 5.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("marisa_mainbullet", TEXT("Image/Character/Marisa/marisa_mainbullet.png"), 7.0f);
+        ShapeManager::GetInstance()->AddShapeCircle("marisa_subbullet", TEXT("Image/Character/Marisa/marisa_subbullet.png"), 7.0f);
     }
     //cirno
     {

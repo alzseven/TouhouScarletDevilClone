@@ -56,5 +56,8 @@ public:
 	void ShootSubWeapon(bool isAccumulating);
 
 	void Release() override;
+
+	inline int GetLV() { return lv; }
+	void setLV(int power);
 };
 

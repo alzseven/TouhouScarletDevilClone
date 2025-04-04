@@ -18,7 +18,7 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
     moveSpeed = 130.f;
     slowSpeed = 60.f;
-    lv = 8;
+    lv = 5;
     //µô·¹ÀÌ
     mainShootDelay[0] = 0.2f;
     mainShootDelay[1] = 0.2;
@@ -188,7 +188,7 @@ void BHPlayer::Update(float dt)
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
         
-        Shoot("Jewel_blue", { position.x , position.y - 10 }, DEG_TO_RAD(-90), DEG_TO_RAD(0.f), 600.f, 0.f);
+        Shoot("marisa_mainbullet", { position.x , position.y - 10 }, DEG_TO_RAD(-90), DEG_TO_RAD(0.f), 600.f, 0.f);
         
         
         ShootSubWeapon(isPressingShift);
@@ -233,10 +233,10 @@ void BHPlayer::ShootSubWeapon(bool isAccumulating)
             if (subShootCount[lv] % 2 == 0) shootAngle = -90 + (i - subShootCount[lv] / 2 + 0.5f) * 3.0f;
             else shootAngle = -90 + (i - subShootCount[lv] / 2) * 3.0f;
             BHBullet* bullet1 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-            bullet1->Init("EllipseBullet_green", { isAccumulating ? position.x - 10 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
+            bullet1->Init("marisa_subbullet", { isAccumulating ? position.x - 10 : position.x - 30,isAccumulating ? position.y - 15 : position.y });
             bullet1->Launch(DEG_TO_RAD(shootAngle), DEG_TO_RAD(0.f), 500.f, 0.f);
             BHBullet* bullet2 = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
-            bullet2->Init("EllipseBullet_green", { isAccumulating ? position.x + 10 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
+            bullet2->Init("marisa_subbullet", { isAccumulating ? position.x + 10 : position.x + 30,isAccumulating ? position.y - 15 : position.y });
             bullet2->Launch(DEG_TO_RAD(shootAngle), DEG_TO_RAD(0.f), 500.f, 0.f);
             subWeaponTimer = 0.f;
         }
@@ -269,4 +269,17 @@ void BHPlayer::Release()
     //     bulletManager->Release();
     //     delete bulletManager;
     // }
+}
+
+void BHPlayer::setLV(int power)
+{
+    if (power == 128) lv = 8;
+    else if (power >= 96) lv = 7;
+    else if (power >= 80) lv = 6;
+    else if (power >= 64) lv = 5;
+    else if (power >= 48) lv = 4;
+    else if (power >= 32) lv = 3;
+    else if (power >= 16) lv = 2;
+    else if (power >= 8) lv = 1;
+    else lv = 0;
 }
