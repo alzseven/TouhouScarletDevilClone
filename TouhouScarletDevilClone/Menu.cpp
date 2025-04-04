@@ -114,7 +114,7 @@ void Menu::MoveNSEW(FPOINT& pos, const FPOINT& target, float speed, float dt)
 	float dy = target.y - pos.y;
 	float distance = sqrtf(dx * dx + dy * dy);
 
-	if (distance < 1.0f) {
+	if (distance < 3.0f) {
 		pos = target;
 		return;
 	}

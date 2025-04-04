@@ -104,11 +104,12 @@ void TouhouScarletDevilCloneGame::Update(float dt)
         }
     }
     timer++;
-    if (timer >= 5)
+    if (timer >= 500)
     {
         frame++;
         angle++;
         timer = 0;
+		finishFlag = true;
     }
     
     for (auto i : enemyFactory->GetActive())

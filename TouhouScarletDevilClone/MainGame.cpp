@@ -93,6 +93,11 @@ void MainGame::Update(float dt)
 		break;
 	case InStage:
 		gameInstance->Update(dt);
+		// go to ending or main something
+		if (gameInstance->FinishFlag())
+		{
+			currentScene = IntroUi;
+		}
 		break;
 	case Finish:
 		break;
