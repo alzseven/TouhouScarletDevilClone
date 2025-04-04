@@ -30,6 +30,7 @@ private:
 	int frame = 0;
 	float angle = 0;
 
+	bool isFinish = false; // If finish game, set [true] and go to main or something
 
 public:
 	void Init();
