@@ -46,8 +46,10 @@ void PowerUpItem::OnHit(ICollideable* hitObject)
         isItemGet = true;
         isAlive = false;
 
-        BHObjectManager::GetInstance()->GetItemPool()->Release(this);
-        // CircleCollisionManager::GetInstance()->RemoveCollisionObject(this);
+        BHObjectManager::GetInstance()->GetItems()->erase(
+    std::remove(BHObjectManager::GetInstance()->GetItems()->begin(),
+                BHObjectManager::GetInstance()->GetItems()->end(), this),
+    BHObjectManager::GetInstance()->GetItems()->end());
 
         if (gameState && itemBehavior)
             itemBehavior->OnCollect(gameState);

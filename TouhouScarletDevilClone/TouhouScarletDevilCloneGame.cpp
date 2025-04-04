@@ -27,8 +27,6 @@ void TouhouScarletDevilCloneGame::Init()
 
     player = BHObjectManager::GetInstance()->GetPlayer();
     player->Init("marisa_idle", {GAME_CENTER_X, GAME_CENTER_Y});
-
-    stageWaveManager.SetIteminfos(&gameState, &items);
     stageWaveManager.Init();
 
 }
@@ -77,13 +75,7 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     if (bgImage) bgImage->Render(-350,-560);
 
     if (player) player->Render(hdc);
-
-
-	for (auto it : items)
-	{
-		it->Render(hdc);
-	}
- 
+    
     BHObjectManager::GetInstance()->Render();
     
     CircleCollisionManager::GetInstance()->Render(hdc);

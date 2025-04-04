@@ -108,7 +108,7 @@ void Stage1Boss::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> patterns = GetObjectActionPatterns(boss);
             
             boss->Init(enemyShapeKey, spawnPoints[0], patterns);
-            boss->SetItemList(BHObjectManager::GetInstance()->GetItemPool()->GetActive());
+            boss->SetItemList(*BHObjectManager::GetInstance()->GetItems());
             boss->SetGameState(GameStateManager::GetInstance()->GetGameState());
             
             // 보스 체력 설정 (일반 적보다 높게)

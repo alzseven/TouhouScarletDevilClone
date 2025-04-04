@@ -28,8 +28,8 @@ void CircleCollisionManager::Update()
     collisions.insert(collisions.end(), pbp.begin(),pbp.end());
     auto bosp = BHObjectManager::GetInstance()->GetBossPool()->GetActive();
     collisions.insert(collisions.end(), bosp.begin(),bosp.end());
-    auto ip = BHObjectManager::GetInstance()->GetItemPool()->GetActive();
-    collisions.insert(collisions.end(), ip.begin(),ip.end());
+    auto ip = BHObjectManager::GetInstance()->GetItems();
+    collisions.insert(collisions.end(), ip->begin(),ip->end());
     
     if (collisions.size() < 2) return;
     for (size_t i = 0; i < collisions.size(); ++i)

@@ -1,4 +1,5 @@
 ﻿#include "BHObjectManager.h"
+#include "ScoreItem.h"
 
 void BHObjectManager::Init()
 {
@@ -6,7 +7,7 @@ void BHObjectManager::Init()
     playerBulletPool.Init(1000);
     enemyPool.Init(50);
     bossPool.Init(5);
-    itemPool.Init(50);
+    items = new vector<BHItem*>(50);
 }
 
 void BHObjectManager::Update(float dt)
@@ -31,15 +32,18 @@ void BHObjectManager::Update(float dt)
     {
         (*iter)->Update(dt);
     }
-    for (std::vector<BHItem*>::iterator iter = itemPool.GetActive().begin(); iter != itemPool.GetActive().end(); ++iter)
+    for (auto iter = items->begin(); iter != items->end(); ++iter)
     {
-        (*iter)->Update(dt);
+        if (*iter && (*iter)->IsValid())
+        {
+            (*iter)->Update(dt);
+        }
+
     }
     enemyPool.UpdateActive();
     playerBulletPool.UpdateActive();
     enemyBulletPool.UpdateActive();
     bossPool.UpdateActive();
-    itemPool.UpdateActive();
 }
 
 void BHObjectManager::Release()
@@ -48,7 +52,7 @@ void BHObjectManager::Release()
     enemyBulletPool.Clear();
     playerBulletPool.Clear();
     bossPool.Clear();
-    itemPool.Clear();
+    items->clear();
     ReleaseInstance();
 }
 
@@ -75,9 +79,12 @@ void BHObjectManager::Render()
     {
         (*iter)->Render(NULL);
     }
-    for (std::vector<BHItem*>::iterator iter = itemPool.GetActive().begin(); iter != itemPool.GetActive().end(); ++iter)
+    for (auto iter = items->begin(); iter != items->end(); ++iter)
     {
-        (*iter)->Render(NULL);
+        if (*iter && (*iter)->IsValid())
+        {
+            (*iter)->Render(NULL);
+        }
     }
 }
 

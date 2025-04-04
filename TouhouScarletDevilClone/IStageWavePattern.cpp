@@ -27,12 +27,6 @@ bool IStageWavePattern::IsWaveDone(float currentTime)
     return currentTime >= patternEndTime;// || isSpawnedAllDead;
 }
 
-void IStageWavePattern::SetItemInfos(GameState* gameState, vector<BHItem*>* items)
-{
-    this->gameState = gameState;
-    this->items = items;
-}
-
 //--- 
 
 // 1_boss

@@ -67,32 +67,29 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
     subShootCount[7] = 2;
     subShootCount[8] = 2;
 
-    spellCardShape = ShapeManager::GetInstance()->FindShape("NormalBullet_blue"); // ì„ì‹œë¡œ ì‚¬ìš©
+    spellCardShape = ShapeManager::GetInstance()->FindShape("NormalBullet_blue"); // ????ë¡? ?¬ì??
     
     timeElapsed = 0;
-    // ë”œë ˆì´ ê°’ì„ íŒŒë¼ë¯¸í„°ë¡œë¶€í„° ì´ˆê¸°í™”
-    mainShootDelay = 0.6f;
-    subShootDelay = 1.2f;
-
+    
     moveDir = { 0,0 };
     isPreviousStateHorizontalMove = false;
     SetCollisionLayer(LAYER_PLAYER, LAYER_ENEMY_BULLET | LAYER_ITEM);
     
-    // í”Œë ˆì´ì–´ ìƒíƒœ ì´ˆê¸°í™”
+    // ?????´ì?? ???? ì´?ê¸°í??
     isInvincible = false;
     invincibleTimer = 0.0f;
     invincibleDuration = 2.0f;
     lives = 3;
     
-    // ìŠ¤í ì¹´ë“œ(ë´„) ì´ˆê¸°í™”
+    // ?¤í??ì¹´ë??(ë´?) ì´?ê¸°í??
     isSpellCardActive = false;
     spellCardTimer = 0.0f;
-    spellCardDuration = 5.0f; // 5ì´ˆ ì§€ì†
-    spellCardCooldown = 30.0f; // 30ì´ˆ ì¿¨ë‹¤ìš´
+    spellCardDuration = 5.0f; // 5ì´? ì§???
+    spellCardCooldown = 30.0f; // 30ì´? ì¿¨ë?¤ì??
     spellCardCooldownTimer = 0.0f;
-    spellCardCount = 3; // ì´ˆê¸° ìŠ¤í ì¹´ë“œ 3ê°œ
+    spellCardCount = 3; // ì´?ê¸? ?¤í??ì¹´ë?? 3ê°?
     
-    // ê²Œì„ ìƒíƒœ ì´ˆê¸°í™”
+    // ê²??? ???? ì´?ê¸°í??
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
     if (gameState) {
         gameState->PlayerHp = lives;
@@ -104,7 +101,7 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
 
 void BHPlayer::Render(HDC hdc)
 {
-    // ë¬´ì  ìƒíƒœì¼ ë•Œ ê¹œë¹¡ì´ëŠ” íš¨ê³¼
+    // ë¬´ì?? ?????? ?? ê¹?ë¹¡ì?´ë?? ?¨ê³¼
     if (isInvincible && (int)(invincibleTimer * 10) % 2 == 0 && !isSpellCardActive) {
         return;
     }
@@ -134,7 +131,7 @@ void BHPlayer::Render(HDC hdc)
         isPreviousStateHorizontalMove = false;
         if (shape && shape->GetImage())
         {
-            // í”„ë ˆì„ ì¸ë±ìŠ¤ ë¶„ë¦¬
+            // ?????? ?¸ë?±ì?? ë¶?ë¦?
             shape->GetImage()->Middle_RenderFrame(position.x, position.y, frameIndex);
         }
     }
@@ -145,7 +142,7 @@ void BHPlayer::Render(HDC hdc)
         subShape->GetImage()->Middle_RenderFrame((isPressingShift ? position.x + 10 : position.x + 30),(isPressingShift ? position.y - 15 : position.y), 1);
     }
     
-    // ìŠ¤í ì¹´ë“œ í™œì„±í™” ìƒíƒœì¼ ë•Œ ì¶”ê°€ ë Œë”ë§
+    // ?¤í??ì¹´ë?? ???±í?? ?????? ?? ì¶?ê°? ????ë§?
     if (isSpellCardActive) {
         RenderSpellCard(hdc);
     }
@@ -177,7 +174,7 @@ void BHPlayer::Update(float dt)
     subWeaponTimer += dt;
     timeElapsed += dt;
 
-    // ë¬´ì  ìƒíƒœ ì—…ë°ì´íŠ¸
+    // ë¬´ì?? ???? ???°ì?´í??
     if (isInvincible) {
         invincibleTimer += dt;
         if (invincibleTimer >= invincibleDuration) {
@@ -186,7 +183,7 @@ void BHPlayer::Update(float dt)
         }
     }
     
-    // ìŠ¤í ì¹´ë“œ ì¿¨ë‹¤ìš´ ì—…ë°ì´íŠ¸
+    // ?¤í??ì¹´ë?? ì¿¨ë?¤ì?? ???°ì?´í??
     if (spellCardCooldownTimer > 0) {
         spellCardCooldownTimer -= dt;
         if (spellCardCooldownTimer < 0) {
@@ -194,12 +191,12 @@ void BHPlayer::Update(float dt)
         }
     }
     
-    // ìŠ¤í ì¹´ë“œ í™œì„±í™” ìƒíƒœ ì—…ë°ì´íŠ¸
+    // ?¤í??ì¹´ë?? ???±í?? ???? ???°ì?´í??
     if (isSpellCardActive) {
         UpdateSpellCard(dt);
     }
     
-    // ê²Œì„ ìƒíƒœ ì—…ë°ì´íŠ¸
+    // ê²??? ???? ???°ì?´í??
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
     if (gameState) {
         gameState->PlayerHp = lives;
@@ -241,7 +238,7 @@ void BHPlayer::Update(float dt)
         timeElapsed = 0;
     }
     
-    // Zí‚¤ë¡œ ì¼ë°˜ ê³µê²©
+    // Z?¤ë? ?¼ë? ê³µê²©
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {
         
@@ -251,7 +248,7 @@ void BHPlayer::Update(float dt)
         ShootSubWeapon(isPressingShift);
     }
     
-    // Xí‚¤ë¡œ ìŠ¤í ì¹´ë“œ(ë´„) ì‚¬ìš©
+    // X?¤ë? ?¤í??ì¹´ë??(ë´?) ?¬ì??
     if (KeyManager::GetInstance()->IsOnceKeyDown(0x58) && !isSpellCardActive && spellCardCooldownTimer <= 0 && spellCardCount > 0)
     {
         ActivateSpellCard();
@@ -260,44 +257,44 @@ void BHPlayer::Update(float dt)
 
 void BHPlayer::OnHit(ICollideable* hitObject)
 {
-    // ë¬´ì  ìƒíƒœì¼ ë•ŒëŠ” ì¶©ëŒ ë¬´ì‹œ
+    // ë¬´ì?? ?????? ???? ì¶©ë?? ë¬´ì??
     if (isInvincible || isSpellCardActive) {
         return;
     }
     
-    // ì¶©ëŒí•œ ê°ì²´ì˜ ë ˆì´ì–´ í™•ì¸
+    // ì¶©ë???? ê°?ì²´ì?? ???´ì?? ????
     CollisionLayer hitLayer = hitObject->GetLayer();
     
     if (hitLayer & LAYER_ENEMY_BULLET) {
-        // ì  ì´ì•Œê³¼ ì¶©ëŒí–ˆì„ ë•Œ
+        // ?? ì´???ê³? ì¶©ë?????? ??
         lives--;
         
-        // í”¼ê²© íš¨ê³¼ìŒ ì¬ìƒ
+        // ?¼ê²© ?¨ê³¼?? ?¬ì??
         // SoundPlayer::GetInstance()->SoundOn("player_hit");
         
-        // í”¼ê²© ì´í™íŠ¸ ì¬ìƒ
+        // ?¼ê²© ?´í???? ?¬ì??
         // EffectPlayer::GetInstance()->PlayEffect("hit_effect", position);
         
-        // ë¬´ì  ìƒíƒœë¡œ ì „í™˜
+        // ë¬´ì?? ????ë¡? ????
         isInvincible = true;
         invincibleTimer = 0.0f;
         
-        // ê²Œì„ ì˜¤ë²„ ì²´í¬
+        // ê²??? ?¤ë? ì²´í??
         if (lives <= 0) {
-            // ê²Œì„ ì˜¤ë²„ ì²˜ë¦¬
+            // ê²??? ?¤ë? ì²?ë¦?
             GameState* gameState = GameStateManager::GetInstance()->GetGameState();
             if (gameState) {
                 gameState->isGameOver = true;
                 gameState->PlayerHp = 0;
                 
-                // ê²Œì„ ì˜¤ë²„ íš¨ê³¼ìŒ ì¬ìƒ
+                // ê²??? ?¤ë? ?¨ê³¼?? ?¬ì??
                 // SoundPlayer::GetInstance()->SoundOn("game_over");
             }
         }
     }
     else if (hitLayer & LAYER_ITEM) {
-        // ì•„ì´í…œê³¼ ì¶©ëŒí–ˆì„ ë•ŒëŠ” ì•„ì´í…œì˜ OnHitì—ì„œ ì²˜ë¦¬
-        // ì—¬ê¸°ì„œëŠ” ì¶”ê°€ ì‘ì—… í•„ìš” ì—†ìŒ
+        // ???´í??ê³? ì¶©ë?????? ???? ???´í???? OnHit???? ì²?ë¦?
+        // ?¬ê¸°???? ì¶?ê°? ???? ???? ????
     }
 }
 
@@ -316,7 +313,7 @@ void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float 
         }
         mainWeaponTimer = 0.f;
         
-        // ë°œì‚¬ íš¨ê³¼ìŒ ì¬ìƒ
+        // ë°??? ?¨ê³¼?? ?¬ì??
         // SoundPlayer::GetInstance()->SoundOn("player_shoot");
     }
 }
@@ -360,7 +357,7 @@ void BHPlayer::MoveBackToBorder() {
     if (bottom > GAME_BOTTOM) position.y = GAME_BOTTOM - height / 2;
 }
 
-// ìŠ¤í ì¹´ë“œ(ë´„) í™œì„±í™”
+// ?¤í??ì¹´ë??(ë´?) ???±í??
 void BHPlayer::ActivateSpellCard()
 {
     if (spellCardCount <= 0) return;
@@ -369,83 +366,83 @@ void BHPlayer::ActivateSpellCard()
     spellCardTimer = 0.0f;
     spellCardCount--;
     
-    // ìŠ¤í ì¹´ë“œ ì‚¬ìš© íš¨ê³¼ìŒ ì¬ìƒ
+    // ?¤í??ì¹´ë?? ?¬ì?? ?¨ê³¼?? ?¬ì??
     // SoundPlayer::GetInstance()->SoundOn("spell_card_declare");
     
-    // ìŠ¤í ì¹´ë“œ ì´í™íŠ¸ ì¬ìƒ
+    // ?¤í??ì¹´ë?? ?´í???? ?¬ì??
     // EffectPlayer::GetInstance()->PlayEffect("spell_card_effect", position);
     
-    // í™”ë©´ì˜ ëª¨ë“  ì  íƒ„ë§‰ ì œê±°
+    // ??ë©´ì?? ëª¨ë?? ?? ??ë§? ??ê±?
     ClearEnemyBullets();
     
-    // ë¬´ì  ìƒíƒœë¡œ ì „í™˜
+    // ë¬´ì?? ????ë¡? ????
     isInvincible = true;
     invincibleTimer = 0.0f;
     
-    // ê²Œì„ ìƒíƒœ ì—…ë°ì´íŠ¸
+    // ê²??? ???? ???°ì?´í??
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
     if (gameState) {
         gameState->SpellCardCount = spellCardCount;
     }
 }
 
-// ìŠ¤í ì¹´ë“œ ìƒíƒœ ì—…ë°ì´íŠ¸
+// ?¤í??ì¹´ë?? ???? ???°ì?´í??
 void BHPlayer::UpdateSpellCard(float dt)
 {
     spellCardTimer += dt;
     
-    // ì£¼ë³€ ì ì—ê²Œ ë°ë¯¸ì§€
+    // ì£¼ë? ????ê²? ?°ë?¸ì?
     DamageNearbyEnemies(dt);
     
-    // ì§€ì† ì‹œê°„ì´ ëë‚˜ë©´ ë¹„í™œì„±í™”
+    // ì§??? ??ê°??? ????ë©? ë¹????±í??
     if (spellCardTimer >= spellCardDuration) {
         isSpellCardActive = false;
         isInvincible = false;
         invincibleTimer = 0.0f;
         
-        // ì¿¨ë‹¤ìš´ ì‹œì‘
+        // ì¿¨ë?¤ì?? ????
         spellCardCooldownTimer = spellCardCooldown;
     }
 }
 
-// ìŠ¤í ì¹´ë“œ ë Œë”ë§
+// ?¤í??ì¹´ë?? ????ë§?
 void BHPlayer::RenderSpellCard(HDC hdc)
 {
-    // ìŠ¤í ì¹´ë“œ ì´í™íŠ¸ ë Œë”ë§ (ì›í˜• íŒŒë™ íš¨ê³¼)
+    // ?¤í??ì¹´ë?? ?´í???? ????ë§? (???? ???? ?¨ê³¼)
     if (spellCardShape && spellCardShape->GetImage()) {
-        float scale = 1.0f + spellCardTimer * 5.0f; // ì‹œê°„ì— ë”°ë¼ í™•ì¥
-        float alpha = 1.0f - (spellCardTimer / spellCardDuration); // ì‹œê°„ì— ë”°ë¼ íˆ¬ëª…í•´ì§
+        float scale = 1.0f + spellCardTimer * 5.0f; // ??ê°??? ?°ë?? ????
+        float alpha = 1.0f - (spellCardTimer / spellCardDuration); // ??ê°??? ?°ë?? ?¬ë??´ì?
         
-        // ì›í˜• ì´í™íŠ¸ ë Œë”ë§
+        // ???? ?´í???? ????ë§?
         spellCardShape->GetImage()->Middle_Render(position.x, position.y, scale, scale, alpha);
     }
 }
 
-// ì  íƒ„ë§‰ ì œê±°
+// ?? ??ë§? ??ê±?
 void BHPlayer::ClearEnemyBullets()
 {
-    // í™”ë©´ì˜ ëª¨ë“  ì  íƒ„ë§‰ ì œê±°
+    // ??ë©´ì?? ëª¨ë?? ?? ??ë§? ??ê±?
     BHObjectManager::GetInstance()->ClearEnemyBullets();
     
-    // íƒ„ë§‰ ì œê±° íš¨ê³¼ìŒ ì¬ìƒ
+    // ??ë§? ??ê±? ?¨ê³¼?? ?¬ì??
     // SoundPlayer::GetInstance()->SoundOn("bullet_clear");
     
-    // íƒ„ë§‰ ì œê±° ì´í™íŠ¸ ì¬ìƒ
+    // ??ë§? ??ê±? ?´í???? ?¬ì??
     // EffectPlayer::GetInstance()->PlayEffect("bullet_clear_effect", position);
 }
 
-// ì£¼ë³€ ì ì—ê²Œ ë°ë¯¸ì§€
+// ì£¼ë? ????ê²? ?°ë?¸ì?
 void BHPlayer::DamageNearbyEnemies(float dt)
 {
-    // í™”ë©´ì˜ ëª¨ë“  ì ì—ê²Œ ë°ë¯¸ì§€
+    // ??ë©´ì?? ëª¨ë?? ????ê²? ?°ë?¸ì?
     vector<BHEnemy*>& enemies = BHObjectManager::GetInstance()->GetEnemyPool()->GetActive();
     for (auto enemy : enemies) {
         if (enemy && enemy->IsValid()) {
-            // ë³´ìŠ¤ëŠ” ì´ˆë‹¹ 10 ë°ë¯¸ì§€, ì¼ë°˜ ì ì€ ì´ˆë‹¹ 20 ë°ë¯¸ì§€
+            // ë³´ì?¤ë?? ì´??? 10 ?°ë?¸ì?, ?¼ë? ???? ì´??? 20 ?°ë?¸ì?
             int damage = dynamic_cast<BHBoss*>(enemy) ? 10 * dt : 20 * dt;
             enemy->GetDamaged(damage);
             
-            // ë°ë¯¸ì§€ ì´í™íŠ¸ ì¬ìƒ (ê°„í—ì ìœ¼ë¡œ)
+            // ?°ë?¸ì? ?´í???? ?¬ì?? (ê°??????¼ë?)
             if ((int)(spellCardTimer * 5) % 2 == 0) {
                 // EffectPlayer::GetInstance()->PlayEffect("damage_effect", *enemy->GetPos());
             }
