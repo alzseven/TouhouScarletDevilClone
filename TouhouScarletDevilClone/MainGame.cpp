@@ -1,19 +1,20 @@
 #include "config.h"
 #include "MainGame.h"
 #include "TouhouScarletDevilCloneGame.h"
-#include "UI.h"
+#include "InGame.h"
 #include "D2DImage.h"
 #include "BHitem.h"
+#include "Intro.h"
+#include "Menu.h"
+#include "Level.h"
 
 void MainGame::Init()
 {
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
 	
-
-	
-	gameInstance = new TouhouScarletDevilCloneGame();
-	gameInstance->Init();
+	currentScene = IntroUi;
+	prevScene = Finish;
 }
 
 void MainGame::Release()
@@ -23,6 +24,27 @@ void MainGame::Release()
 		gameInstance->Release();
 		delete gameInstance;
 		gameInstance = nullptr;
+	}
+
+	if (intro)
+	{
+		intro->Release();
+		delete intro;
+		intro = nullptr;
+	}
+
+	if (menu)
+	{
+		menu->Release();
+		delete menu;
+		menu = nullptr;
+	}
+
+	if (level)
+	{
+		level->Release();
+		delete level;
+		level = nullptr;
 	}
 
 	// if (backBuffer)
@@ -53,7 +75,30 @@ void MainGame::Release()
 
 void MainGame::Update(float dt)
 {
-	gameInstance->Update(dt);
+	if (prevScene != currentScene)
+	{
+		ChangeScene(currentScene);
+		prevScene = currentScene;
+	}
+	switch (currentScene)
+	{
+	case IntroUi:
+		if(intro) intro->Update(dt);
+		break;
+	case mainMenu:
+		if (menu) menu->Update(dt);
+		break;
+	case DifficultyLevel:
+		if (level)level->Update(dt);
+		break;
+	case InStage:
+		gameInstance->Update(dt);
+		break;
+	case Finish:
+		break;
+	default:
+		break;
+	}
 	InvalidateRect(g_hWnd, NULL, false);
 	
 }
@@ -64,12 +109,32 @@ void MainGame::Render()
 	D2DImage::Clear(D2D1::ColorF(D2D1::ColorF::Black));
     
 
+	switch (currentScene)
+	{
+	case IntroUi:
+		if (intro) intro->Render(NULL);
+		break;
+	case mainMenu:
+		if (menu) menu->Render(NULL);
+		break;
+	case DifficultyLevel:
+		if (level) level->Render(NULL);
+		break;
+	case InStage:
+		if (gameInstance) gameInstance->Render(NULL);
+		break;
+	case Finish:
+		break;
+	default:
+		break;
+	}
+
 	// HDC hBackBufferDC = backBuffer->GetMemDC();
 	//
 	// background->Render(hBackBufferDC);
 	// backBuffer->Render(hBackBufferDC);
 	//
-	if (gameInstance) gameInstance->Render(hdc);
+	//if (gameInstance) gameInstance->Render(hdc);
 	//
 	//
 	//
@@ -89,7 +154,7 @@ void MainGame::Render()
 	// backBuffer->Render(hBackBufferDC);
 	
 
-	if (gameInstance) gameInstance->Render(NULL);
+
 	// enemyFactory->Render();
 	//
 	// backBuffer->Render(hdc);
@@ -100,6 +165,61 @@ void MainGame::Render()
 	// image.DrawCircle({ 100,100 }, 20, 1, 2);
 	// image.DrawRect({ 300,200 }, {400,300}, 2, 5);
 	D2DImage::EndDraw();
+}
+
+void MainGame::ChangeScene(GameScene nextScene)
+{
+	switch (prevScene) {
+	case IntroUi:
+		if (intro) {
+			intro->Release();
+			delete intro;
+			intro = nullptr;
+		}
+		break;
+	case mainMenu:
+		if (menu) {
+			menu->Release();
+			delete menu;
+			menu = nullptr;
+		}
+		break;
+	case DifficultyLevel:
+		if (level) {
+			level->Release();
+			delete level;
+			level = nullptr;
+		}
+		break;
+	case InStage:
+		if (gameInstance) {
+			gameInstance->Release();
+			delete gameInstance;
+			gameInstance = nullptr;
+		}
+		break;
+	case Finish:
+		break;
+	}
+
+	switch (nextScene) {
+	case IntroUi:
+		intro = new Intro(&currentScene);
+		intro->Init();
+		break;
+	case mainMenu:
+		menu = new Menu(&currentScene);
+		menu->Init();
+		break;
+	case DifficultyLevel:
+		level = new Level(&currentScene);
+		level->Init();
+		break;
+	case InStage:
+		gameInstance = new TouhouScarletDevilCloneGame();
+		gameInstance->Init();
+		break;
+	}
 }
 
 LRESULT MainGame::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam)

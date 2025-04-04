@@ -22,7 +22,6 @@
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
-    <ClCompile Include="UI.cpp" />
     <ClCompile Include="BHItem.cpp">
       <Filter>Item</Filter>
     </ClCompile>
@@ -37,6 +36,27 @@
     </ClCompile>
     <ClCompile Include="PowerUpItem.cpp">
       <Filter>Item</Filter>
+    </ClCompile>
+    <ClCompile Include="InGame.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Intro.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.h">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="selectCharacter.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Finish.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Level.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -68,7 +88,6 @@
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
-    <ClInclude Include="UI.h" />
     <ClInclude Include="BHItem.h">
       <Filter>Item</Filter>
     </ClInclude>
@@ -90,10 +109,31 @@
     <ClInclude Include="PowerUpItem.h">
       <Filter>Item</Filter>
     </ClInclude>
+    <ClInclude Include="InGame.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Intro.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="selectCharacter.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Finish.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Item">
       <UniqueIdentifier>{1833c5fe-7b87-4af9-b153-22005bbda20d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{667599b6-0d9d-43ff-a8a1-0e6b2df27c16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
