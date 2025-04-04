@@ -2,9 +2,9 @@
 
 struct GameState
 {
-	int Score = 0;
+	int Score = 1234;
 	int MaxScore = 0;
-	int PlayerHp = 3;
+	int PlayerHp = 5;
 	int BombCount = 3;
 	int SpellCardCount = 3; // 스펠카드(봄) 개수
 
@@ -22,4 +22,5 @@ struct GameState
 	bool isGameOver = false;
 	bool isGameClear = false;
 	bool isPaused = false;
+	bool isFinish = false;
 };

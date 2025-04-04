@@ -25,6 +25,7 @@ using namespace std;
 #include "ShapeManager.h"
 #include "SoundPlayer.h"
 
+
 #define PI			3.141592f
 #define WINSIZE_X	900
 #define WINSIZE_Y	680
@@ -67,3 +68,4 @@ struct CollisionMatrixEntry {
 };
 
 
+#include "GameStateManager.h"

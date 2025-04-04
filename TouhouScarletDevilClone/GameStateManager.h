@@ -1,7 +1,6 @@
 #pragma once
 #include "GameState.h"
 #include "Singleton.h"
-
 // 게임 상태 접근 헬퍼 함수들
 inline int& Score(GameState* state) { return state->Score; }
 inline int& MaxScore(GameState* state) { return state->MaxScore; }
@@ -22,14 +21,11 @@ inline float& PowerMultiplier(GameState* state) { return state->PowerMultiplier;
 
 class GameStateManager : public Singleton<GameStateManager>
 {
-private:
+public:
     GameState gameState;
     bool isInitialized;
     
 public:
-    GameStateManager() : isInitialized(false) {}
-    ~GameStateManager() = default;
-    
     void Init();
     void Reset();
     void Update(float dt);

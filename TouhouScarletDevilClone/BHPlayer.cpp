@@ -7,7 +7,6 @@
 #include "SoundPlayer.h"
 #include "EffectPlayer.h"
 #include "GameState.h"
-#include "GameStateManager.h"
 #include "ShapeManager.h"
 #include "BHEnemy.h"
 
@@ -79,19 +78,20 @@ void BHPlayer::Init(string shapeKey, FPOINT pos)
     isInvincible = false;
     invincibleTimer = 0.0f;
     invincibleDuration = 2.0f;
-    lives = 3;
+    lives = 5;
     
     // ?¤í??ì¹´ë??(ë´?) ì´?ê¸°í??
     isSpellCardActive = false;
     spellCardTimer = 0.0f;
     spellCardDuration = 5.0f; // 5ì´? ì§???
-    spellCardCooldown = 30.0f; // 30ì´? ì¿¨ë?¤ì??
+    spellCardCooldown = 6.0f; // 30ì´? ì¿¨ë?¤ì??
     spellCardCooldownTimer = 0.0f;
     spellCardCount = 3; // ì´?ê¸? ?¤í??ì¹´ë?? 3ê°?
     
     // ê²??? ???? ì´?ê¸°í??
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
     if (gameState) {
+
         gameState->PlayerHp = lives;
         gameState->CurrPowerBarFrame = 0;
         gameState->PowerMultiplier = 1.0f;
@@ -170,6 +170,7 @@ void BHPlayer::Move(float angle, float speed, float dt)
 
 void BHPlayer::Update(float dt)
 {
+    setLV(GameStateManager::GetInstance()->GetGameState()->CurrPowerBarFrame);
     mainWeaponTimer += dt;
     subWeaponTimer += dt;
     timeElapsed += dt;
@@ -270,7 +271,7 @@ void BHPlayer::OnHit(ICollideable* hitObject)
         lives--;
         
         // ?¼ê²© ?¨ê³¼?? ?¬ì??
-        // SoundPlayer::GetInstance()->SoundOn("player_hit");
+         SoundPlayer::GetInstance()->SoundOn("player_dead");
         
         // ?¼ê²© ?´í???? ?¬ì??
         // EffectPlayer::GetInstance()->PlayEffect("hit_effect", position);
@@ -288,7 +289,8 @@ void BHPlayer::OnHit(ICollideable* hitObject)
                 gameState->PlayerHp = 0;
                 
                 // ê²??? ?¤ë? ?¨ê³¼?? ?¬ì??
-                // SoundPlayer::GetInstance()->SoundOn("game_over");
+                SoundPlayer::GetInstance()->SoundOn("player_dead");
+                EffectPlayer::GetInstance()->PlayEffect("Boss_phase", position);
             }
         }
     }
@@ -303,6 +305,7 @@ void BHPlayer::Shoot(string bulletShapeKey, FPOINT init_pos, float angle, float 
     if (mainWeaponTimer >= mainShootDelay[lv])
     {
         float shootAngle = 0;
+        SoundPlayer::GetInstance()->SoundOn("player_shoot");
         for (int i = 0; i < mainShootCount[lv]; i++)
         {
             BHBullet* bullet = BHObjectManager::GetInstance()->GetPlayerBulletPool()->Allocate();
@@ -365,7 +368,7 @@ void BHPlayer::ActivateSpellCard()
     isSpellCardActive = true;
     spellCardTimer = 0.0f;
     spellCardCount--;
-    
+    EffectPlayer::GetInstance()->PlayEffect("marisa_bomb", position);
     // ?¤í??ì¹´ë?? ?¬ì?? ?¨ê³¼?? ?¬ì??
     // SoundPlayer::GetInstance()->SoundOn("spell_card_declare");
     
@@ -462,7 +465,7 @@ void BHPlayer::Release()
 
 void BHPlayer::setLV(int power)
 {
-    if (power == 128) lv = 8;
+    if (power >= 128) lv = 8;
     else if (power >= 96) lv = 7;
     else if (power >= 80) lv = 6;
     else if (power >= 64) lv = 5;

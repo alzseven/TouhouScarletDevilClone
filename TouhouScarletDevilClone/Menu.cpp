@@ -65,6 +65,7 @@ void Menu::Update(float dt)
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_DOWN) ||
 		KeyManager::GetInstance()->IsOnceKeyDown(VK_UP))
 	{
+		SoundPlayer::GetInstance()->SoundOn("select");
 		if (currentSelect == MenuSelect::Start)
 			currentSelect = MenuSelect::Quit;
 		else
@@ -72,6 +73,7 @@ void Menu::Update(float dt)
 	}
 
 	if ((currentSelect == MenuSelect::Start) && KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN)) {
+		SoundPlayer::GetInstance()->SoundOn("click");
 		*currentScene = DifficultyLevel;
 	}
 

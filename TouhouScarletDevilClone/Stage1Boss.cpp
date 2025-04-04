@@ -1,7 +1,6 @@
 ﻿#include "Stage1Boss.h"
 #include "BHEnemy.h"
 #include "BHObjectManager.h"
-#include "GameStateManager.h"
 #include "IObjectComplexPattern.h"
 #include "SoundPlayer.h"
 
@@ -106,7 +105,9 @@ void Stage1Boss::Update(float deltaTime)
             // 보스 생성
             boss = BHObjectManager::GetInstance()->GetBossPool()->Allocate();
             const std::vector<IObjectActionPattern*> patterns = GetObjectActionPatterns(boss);
-            
+            SoundPlayer::GetInstance()->SoundOff("stage1_normal");
+            SoundPlayer::GetInstance()->SoundOn("stage1_boss");
+            GameStateManager::GetInstance()->GetGameState()->IsEnemyPhase = true;
             boss->Init(enemyShapeKey, spawnPoints[0], patterns);
             boss->SetItemList(*BHObjectManager::GetInstance()->GetItems());
             boss->SetGameState(GameStateManager::GetInstance()->GetGameState());

@@ -4,15 +4,15 @@
 void GameStateManager::Init()
 {
     // 게임 상태 초기화
-    gameState.Score = 0;
+    gameState.Score = 1000;
     gameState.MaxScore = 0;
-    gameState.PlayerHp = 3;
+    gameState.PlayerHp = 5;
     gameState.BombCount = 3;
     gameState.CurrPowerBarFrame = 0;
     gameState.MaxPowerBarFrame = 100;
     gameState.PowerMultiplier = 1.0f;
     gameState.CurrBossHpBarFrame = 350;
-    gameState.IsEnemyPhase = true;
+    gameState.IsEnemyPhase = false;
     gameState.RemainTime = 60;
     
     // 게임 상태 플래그 초기화
@@ -26,8 +26,8 @@ void GameStateManager::Init()
 void GameStateManager::Reset()
 {
     // 게임 상태 리셋
-    gameState.Score = 0;
-    gameState.PlayerHp = 3;
+    gameState.Score = 1000;
+    gameState.PlayerHp = 5;
     gameState.BombCount = 3;
     gameState.CurrPowerBarFrame = 0;
     gameState.PowerMultiplier = 1.0f;
@@ -46,9 +46,9 @@ void GameStateManager::Reset()
 
 void GameStateManager::Update(float dt)
 {
-    if (!isInitialized) {
+   /* if (!isInitialized) {
         Init();
-    }
+    }*/
     
     // 게임이 진행 중일 때만 업데이트
     if (IsGameRunning()) {

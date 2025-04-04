@@ -9,19 +9,19 @@ class BHPlayer;
 class BHItem;
 class D2DImage;
 class InGame;
-struct GameState;
 class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
-    GameState gameState;
     InGame* inGame;
     BHPlayer* player;
     D2DImage* bgImage;
-    StageWaveManager stageWaveManager;
+    StageWaveManager* stageWaveManager;
     
     int frame = 0;
     float angle = 0;
 	bool finishFlag = false;   
+    
+    int timer=0;
 public:
     void Init() override;
     void Release() override;
