@@ -19,7 +19,6 @@ private:
     D2DImage* bgImage;
     float timer;
     StageWaveManager stageWaveManager;
-
 public:
     void Init() override;
     void Release() override;

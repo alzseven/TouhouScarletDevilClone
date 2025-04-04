@@ -10,9 +10,8 @@ void StageWaveManager::Init()
     stageWavePatterns.push(stage1_1);
 
     // 여기에 IStageWavePattern에서 생성한 웨이브 객체 생성해서 넣고 Init 하시오
+    stageWavePatterns.push(stage1_1);
 
-    // stageWavePatterns.push(stage1_1);
-   
     currentStageWave = stageWavePatterns.front();
     stageWavePatterns.pop();
 
@@ -49,4 +48,4 @@ void StageWaveManager::Update(float dt)
     }
 }
 
-void StageWaveManager::Render(){}
+void StageWaveManager::Render() {}

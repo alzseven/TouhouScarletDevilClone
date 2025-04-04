@@ -27,7 +27,6 @@
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
-    <ClCompile Include="PoolManager.cpp" />
     <ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
@@ -64,6 +63,19 @@
     <ClCompile Include="PatternBuilder.cpp" />
     <ClCompile Include="BHObjectManager.cpp" />
     <ClCompile Include="StageWaveManager.cpp" />
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>jiun</Filter>
+    </ClCompile>
+    <ClCompile Include="Missile.cpp">
+      <Filter>jiun</Filter>
+    </ClCompile>
+    <ClCompile Include="MissileManager.cpp" />
+    <ClCompile Include="Enemy.cpp">
+      <Filter>jiun</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyManager.cpp">
+      <Filter>jiun</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BHBullet.h" />
@@ -99,11 +111,33 @@
     <ClInclude Include="ScoreItemBehavior.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Singleton.h" />
-    <ClInclude Include="PoolManager.h" />
     <ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="SoundPlayer.h" />
+    <ClInclude Include="BHBoss.h" />
+    <ClInclude Include="IObjectComplexPattern.h" />
+    <ClInclude Include="IPatternComponent.h" />
+    <ClInclude Include="PatternBuilder.h" />
+    <ClInclude Include="BHObjectManager.h" />
+    <ClInclude Include="SceneManager.h">
+      <Filter>jiun</Filter>
+    </ClInclude>
+    <ClInclude Include="Missile.h">
+      <Filter>jiun</Filter>
+    </ClInclude>
+    <ClInclude Include="MissileManager.h" />
+    <ClInclude Include="Enemy.h">
+      <Filter>jiun</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyManager.h">
+      <Filter>jiun</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="jiun">
+      <UniqueIdentifier>{fa683973-166e-410c-89c9-5b420a593d7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

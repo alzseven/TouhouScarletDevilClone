@@ -264,6 +264,18 @@ void EffectPlayer::Init(int size)
 		effect->pushEffectTask(task);
 		AddEffect("Boss_phase", effect);
 	}
+	//marisa_bomb
+	{
+		Effect* effect = new Effect;
+		image[0] = ImageManager::GetInstance()->AddImage("marisa_bomb", TEXT("Image/Character/Marisa/marisa_bomb.png"));
+		EffectTask task;
+		task.Init(image[0], 0, 5.f, { 0,-((float)image[0]->GetHeight()*10.f/2.0f) });
+		task.setFade(0.8, 0.8);
+		task.setZoom(10.f, 10.f);
+		effect->pushEffectTask(task);
+		AddEffect("marisa_bomb", effect);
+	}
+
 }
 
 
