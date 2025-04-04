@@ -10,7 +10,7 @@ protected:
     float patternEndTime;
     BHObject* target;
     
-    //Move params
+    //MoveNSEW params
     float moveSpeed;
     float moveSpeedRate;
     float moveAngle;

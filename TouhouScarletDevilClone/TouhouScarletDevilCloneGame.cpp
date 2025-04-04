@@ -1,5 +1,5 @@
 ﻿#include "TouhouScarletDevilCloneGame.h"
-#include "UI.h"
+#include "InGame.h"
 #include "BHEnemy.h"
 #include "BHPlayer.h"
 #include "BHItem.h"
@@ -13,6 +13,17 @@
 void TouhouScarletDevilCloneGame::Init()
 {
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
+
+    //gameState = new GameState();
+    inGame = new InGame(gameState);
+
+    //player = new BHPlayer();
+    //player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
+    //D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
+    //player->SetMoveImage(moveImage);
+
+    enemy = new BHEnemy();
+
     
     ui = new UI(&gameState);
 
@@ -26,10 +37,45 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release()
 {
+
     if (ui)
     {
         delete ui;
         ui = nullptr;
+
+
+    if (enemy)
+    {
+        enemy->Release();
+        delete enemy;
+        enemy = nullptr;
+    }
+    if (player)
+    {
+        player->Release();
+        delete player;
+        player = nullptr;
+    }
+
+    if (enemyFactory)
+    {
+        enemyFactory->Clear();
+        delete enemyFactory;
+        enemyFactory = nullptr;
+    }
+
+  //  if (item)
+  //  {
+		//item->Release();
+		//delete item;
+		//item = nullptr;
+  //  }
+
+    if (inGame)
+    {
+		delete inGame;
+		inGame = nullptr;
+
     }
 }
 
@@ -37,9 +83,15 @@ void TouhouScarletDevilCloneGame::Release()
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
     if (player) player->Update(dt);
+
     stageWaveManager.Update(dt);
 
     if (ui) ui->Update(dt);
+
+    if (enemy) enemy->Update(dt);
+//	if (item) item->Update(dt);
+	if (inGame) inGame->Update(dt);
+
     for (auto it = items.begin(); it != items.end(); )
     {
         BHItem* item = *it;
@@ -84,13 +136,15 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
     if (bgImage) bgImage->Render(-350,-560);
 
     if (player) player->Render(hdc);
-    for (auto it : items)
-    {
-        it->Render(hdc);
-    }
 
-    
+    if (enemy) enemy->Render(hdc);
 
+	for (auto it : items)
+	{
+		it->Render(hdc);
+	}
+
+	if (inGame) inGame->Render(hdc);
 
     BHObjectManager::GetInstance()->Render();
     
