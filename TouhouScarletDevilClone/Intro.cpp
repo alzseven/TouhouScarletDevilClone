@@ -11,6 +11,7 @@ Intro::~Intro()
 
 void Intro::Init()
 {
+	SoundPlayer::GetInstance()->SoundOn("title");
 	IntroImage = ImageManager::GetInstance()->AddImage("Intro", TEXT("./Image/Intro/UI_loading.jpg"));
 }
 
@@ -22,6 +23,7 @@ void Intro::Update(float dt)
 {
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
 	{
+		
 		if (currentScene)
 			*currentScene = mainMenu;
 	}

@@ -4,6 +4,7 @@
 
 void PowerUpItemBehavior::OnCollect(GameState* state)
 {
+	SoundPlayer::GetInstance()->SoundOn("item");
 	// 파워 값 증가
 	state->CurrPowerBarFrame += PowerUpValue;
     

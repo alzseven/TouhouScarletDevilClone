@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="BHBoss.cpp" />
     <ClCompile Include="BHBullet.cpp" />
     <ClCompile Include="BHEnemy.cpp" />
     <ClCompile Include="BHObject.cpp" />
@@ -8,177 +9,104 @@
     <ClCompile Include="CircleCollisionManager.cpp" />
     <ClCompile Include="D2DImage.cpp" />
     <ClCompile Include="EffectPlayer.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyManager.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="EnemyController.cpp" />
+    <ClCompile Include="Finish.cpp" />
+    <ClCompile Include="GameScene.h" />
+    <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="GameStateManager.h" />
+    <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="BHItem.cpp" />
+    <ClCompile Include="IObjectComplexPattern.cpp" />
     <ClCompile Include="IStageWavePattern.cpp" />
-    <ClCompile Include="IWaveObjectPlacer.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Missile.cpp" />
+    <ClCompile Include="MissileManager.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="PathMaker.cpp" />
+    <ClCompile Include="BHObjectManager.cpp" />
     <ClCompile Include="PowerUpItem.cpp" />
     <ClCompile Include="PowerUpItemBehavior.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="ScoreItem.cpp" />
     <ClCompile Include="ScoreItemBehavior.cpp" />
+    <ClCompile Include="selectCharacter.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="ShapeManager.cpp" />
+    <ClCompile Include="ShootSpiralPattern.cpp" />
+    <ClCompile Include="ShootTimeVaryingSpeedPattern.cpp" />
     <ClCompile Include="SoundPlayer.cpp" />
+    <ClCompile Include="Stage1Boss.cpp" />
+    <ClCompile Include="Stage1Wave2Pattern.cpp" />
+    <ClCompile Include="Stage1Wave1Pattern.cpp" />
+    <ClCompile Include="Stage1Wave3Pattern.cpp" />
     <ClCompile Include="StageWaveManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TouhouScarletDevilCloneGame.cpp" />
-    <ClCompile Include="BHItem.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreItemBehavior.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUpItemBehavior.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreItem.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="PowerUpItem.cpp">
-      <Filter>Item</Filter>
-    </ClCompile>
-    <ClCompile Include="EffectPlayer.cpp">
-      <Filter>JiunTest</Filter>
-    </ClCompile>
-    <ClCompile Include="D2DImage.cpp">
-      <Filter>JiunTest</Filter>
-    </ClCompile>
-    <ClCompile Include="SoundPlayer.cpp">
-      <Filter>JiunTest</Filter>
-    </ClCompile>
-    <ClCompile Include="BHBoss.cpp" />
-    <ClCompile Include="IObjectComplexPattern.cpp" />
-    <ClCompile Include="IPatternComponent.cpp" />
-    <ClCompile Include="IStageWavePattern.cpp" />
-    <ClCompile Include="IWaveObjectPlacer.cpp" />
-    <ClCompile Include="PatternBuilder.cpp" />
-    <ClCompile Include="BHObjectManager.cpp" />
-    <ClCompile Include="StageWaveManager.cpp" />
-    <ClCompile Include="SceneManager.cpp">
-      <Filter>jiun</Filter>
-    </ClCompile>
-    <ClCompile Include="Missile.cpp">
-      <Filter>jiun</Filter>
-    </ClCompile>
-    <ClCompile Include="MissileManager.cpp" />
-    <ClCompile Include="Enemy.cpp">
-      <Filter>jiun</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>jiun</Filter>
-    <ClCompile Include="InGame.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Intro.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameScene.h">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="selectCharacter.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Finish.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Level.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
+    <ClCompile Include="InGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BHBoss.h" />
     <ClInclude Include="BHBullet.h" />
     <ClInclude Include="BHEnemy.h" />
     <ClInclude Include="BHObject.h" />
     <ClInclude Include="BHPlayer.h" />
     <ClInclude Include="CircleCollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
-    <ClInclude Include="config.h" />
     <ClInclude Include="D2DImage.h" />
     <ClInclude Include="EffectPlayer.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyManager.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="EnemyController.h" />
+    <ClInclude Include="Finish.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
+    <ClInclude Include="Intro.h" />
     <ClInclude Include="IObjectActionPattern.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="IObjectComplexPattern.h" />
+    <ClInclude Include="BHItem.h" />
     <ClInclude Include="ItemBehavior.h" />
     <ClInclude Include="ItemType.h" />
     <ClInclude Include="IStageWavePattern.h" />
-    <ClInclude Include="IWaveObjectPlacer.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Missile.h" />
+    <ClInclude Include="MissileManager.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="PathMaker.h" />
     <ClInclude Include="ObjectPool.h" />
-    <ClInclude Include="Pattern.h" />
+    <ClInclude Include="BHObjectManager.h" />
     <ClInclude Include="PowerUpItem.h" />
     <ClInclude Include="PowerUpItemBehavior.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="ScoreItem.h" />
     <ClInclude Include="ScoreItemBehavior.h" />
+    <ClInclude Include="selectCharacter.h" />
     <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeManager.h" />
+    <ClInclude Include="ShootSpiralPattern.h" />
+    <ClInclude Include="ShootTimeVaryingSpeedPattern.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="SoundPlayer.h" />
+    <ClInclude Include="Stage1Boss.h" />
+    <ClInclude Include="Stage1Wave2Pattern.h" />
+    <ClInclude Include="Stage1Wave1Pattern.h" />
+    <ClInclude Include="Stage1Wave3Pattern.h" />
     <ClInclude Include="StageWaveManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TouhouScarletDevilCloneGame.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="SoundPlayer.h" />
-    <ClInclude Include="BHBoss.h" />
-    <ClInclude Include="IObjectComplexPattern.h" />
-    <ClInclude Include="IPatternComponent.h" />
-    <ClInclude Include="PatternBuilder.h" />
-    <ClInclude Include="BHObjectManager.h" />
-    <ClInclude Include="SceneManager.h">
-      <Filter>jiun</Filter>
-    <ClInclude Include="BHItem.h">
-      <Filter>Item</Filter>
-    </ClInclude>
-    <ClInclude Include="Missile.h">
-      <Filter>jiun</Filter>
-    </ClInclude>
-    <ClInclude Include="MissileManager.h" />
-    <ClInclude Include="Enemy.h">
-      <Filter>jiun</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>jiun</Filter>
-    </ClInclude>
-    <ClInclude Include="InGame.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Intro.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="selectCharacter.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Menu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Finish.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Level.h">
-      <Filter>UI</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="jiun">
-      <UniqueIdentifier>{fa683973-166e-410c-89c9-5b420a593d7c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{667599b6-0d9d-43ff-a8a1-0e6b2df27c16}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="InGame.h" />
+    <ClInclude Include="config.h" />
   </ItemGroup>
 </Project>

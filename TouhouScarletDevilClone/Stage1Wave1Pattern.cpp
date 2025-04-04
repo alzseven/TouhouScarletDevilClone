@@ -2,7 +2,6 @@
 
 #include "BHEnemy.h"
 #include "BHObjectManager.h"
-#include "GameStateManager.h"
 #include "IObjectComplexPattern.h"
 
 std::vector<FPOINT> Stage1Wave1Pattern::GetSpawnPoints(int spawnAmount)

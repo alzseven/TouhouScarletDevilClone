@@ -58,12 +58,12 @@ void BHEnemy::Render(HDC hdc)
         shape->GetImage()->Middle_RenderFrame(position.x, position.y, frameIndex);
 
         // Debug
-        const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
-        const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
-        shape->GetImage()->DrawRect(
-            {position.x - width / 2, position.y - height / 2},
-            {position.x + width / 2 , position.y + height / 2},
-            2, 1);
+        //const float width = shape->GetImage()->GetWidth() / shape->GetImage()->GetMaxFrameX();
+        //const float height= shape->GetImage()->GetHeight() / shape->GetImage()->GetMaxFrameY();
+        //shape->GetImage()->DrawRect(
+        //    {position.x - width / 2, position.y - height / 2},
+        //    {position.x + width / 2 , position.y + height / 2},
+        //    2, 1);
     }
 }
 
@@ -103,6 +103,8 @@ void BHEnemy::Shoot(string bulletShapeKey, FPOINT init_pos,
 
 void BHEnemy::OnHit(ICollideable* hitObject)
 {
+    EffectPlayer::GetInstance()->PlayEffect("Hit_white", position);
+    SoundPlayer::GetInstance()->SoundOn("hit");
     GetDamaged(1);
 }
 
@@ -115,7 +117,7 @@ void BHEnemy::GetDamaged(int damage)
 {
     //TODO: Do something(drop score/power ups...)
     isAlive = false;
-
+    GameStateManager::GetInstance()->GetGameState()->Score += 1000;
     // ������ ����
 	if (items && gameState)
 	{

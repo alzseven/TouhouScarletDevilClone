@@ -40,14 +40,14 @@ void EffectPlayer::Init(int size)
 		image[1] = ImageManager::GetInstance()->AddImage("Hit_white_2", TEXT("Image/Hit/Hit_white_2.png"));
 		image[2] = ImageManager::GetInstance()->AddImage("Hit_white_3", TEXT("Image/Hit/Hit_white_3.png"));
 		image[3] = ImageManager::GetInstance()->AddImage("Hit_white_4", TEXT("Image/Hit/Hit_white_4.png"));
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			EffectTask task;
 			float tangle = rand() % 360;
 			float tspeed = rand() % 5 + 5;
 			float tstart = ((float)(rand() % 100)) / 100;
 			int imageIdx = rand() % 4;
-			task.setOffset({ (float)(rand() % 10),(float)(rand() % 10) });
+			task.setOffset({ (float)(rand() % 10),20+(float)(rand() % 10) });
 			task.Init(image[imageIdx], tstart, tstart + 0.8f);
 			task.setFade(0.3f, 0.05f);
 			task.setZoom(4.f, 2.f);
@@ -274,6 +274,16 @@ void EffectPlayer::Init(int size)
 		task.setZoom(10.f, 10.f);
 		effect->pushEffectTask(task);
 		AddEffect("marisa_bomb", effect);
+	}
+	//ending
+	{
+		Effect* effect = new Effect;
+		image[0] = ImageManager::GetInstance()->AddImage("result", TEXT("Image/Intro/result.jpg"));
+		EffectTask task;
+		task.Init(image[0], 0, 3);
+		task.setZoom(1.4f, 1.4f);
+		effect->pushEffectTask(task);
+		AddEffect("result", effect);
 	}
 
 }

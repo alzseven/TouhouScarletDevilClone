@@ -269,13 +269,11 @@ void InGame::RenderHpAsImage(HDC hdc, int number, FPOINT Pos)
 {
 	// 가로 폭, 8자리 설정
 	const int StarWidth = 20;
-	const int MaxStar = 8;
+	const int MaxStar = GameStateManager::GetInstance()->gameState.PlayerHp;
 
 	for (int i = 0; i < MaxStar; i++) {
 
-		string key = (i < number) ? "Star" : "EmptyStar";
-
-		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage("Star"))
 		{
 			img->Render(static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
 		}
@@ -288,12 +286,10 @@ void InGame::RenderBombAsImage(HDC hdc, int number, FPOINT Pos)
 {
 	// 가로 폭, 8자리 설정
 	const int StarWidth = 20;
+	const int Maxbomb = GameStateManager::GetInstance()->gameState.SpellCardCount;
+	for (int i = 0; i < Maxbomb; i++) {
 
-	for (int i = 0; i < MaxHpAndBomb; i++) {
-
-		string key = (i < number) ? "Bomb" : "EmptyBomb";
-
-		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key))
+		if (D2DImage* img = ImageManager::GetInstance()->FindImage("Bomb"))
 		{
 			img->Render(static_cast<int>(Pos.x + i * StarWidth), static_cast<int>(Pos.y));
 		}

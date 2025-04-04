@@ -35,7 +35,7 @@ private:
 	float enTimer = 0;
 	int eCount = 0;
 	int eSpawn = 0;
-
+	D2DImage* result_image;
 	bool isFinish = false; // If finish game, set [true] and go to main or something
 
 

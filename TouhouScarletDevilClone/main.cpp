@@ -53,6 +53,8 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	ShapeManager::GetInstance()->Init();
 	EffectPlayer::GetInstance()->Init(500);
 	SoundPlayer::GetInstance()->Init();
+	GameStateManager::GetInstance()->Init();
+
 	g_mainGame.Init();
 	
 	MSG message;
@@ -77,6 +79,7 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	CoUninitialize();
 	g_mainGame.Release();
 	timer.Release();
+	GameStateManager::GetInstance()->ReleaseInstance();
 	SoundPlayer::GetInstance()->Release();
 	EffectPlayer::GetInstance()->Release();
 	ShapeManager::GetInstance()->Release();

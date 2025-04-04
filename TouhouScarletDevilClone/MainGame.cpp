@@ -21,10 +21,11 @@ void MainGame::Init()
 	gameInstance = new TouhouScarletDevilCloneGame();
 	gameInstance->Init();
 	eSpawn = 100;
-	SoundPlayer::GetInstance()->SoundOn("stage3_boss");
+	
 	//SoundPlayer::GetInstance()->SoundOn("background");
 	currentScene = IntroUi;
 	prevScene = Finish;
+	result_image = ImageManager::GetInstance()->FindImage("result");
 }
 
 void MainGame::Release()
@@ -112,8 +113,10 @@ void MainGame::Update(float dt)
 	case InStage:
 		gameInstance->Update(dt);
 		// go to ending or main something
-		if (gameInstance->FinishFlag())
+		if (GameStateManager::GetInstance()->GetGameState()->isFinish)
 		{
+			SoundPlayer::GetInstance()->SoundOff("stage1_boss");
+			SoundPlayer::GetInstance()->SoundOn("title");
 			currentScene = IntroUi;
 		}
 		break;
@@ -126,7 +129,7 @@ void MainGame::Update(float dt)
 	InvalidateRect(g_hWnd, NULL, false);
 
 	EffectPlayer::GetInstance()->Update(dt);
-	if (eTimer >= enTimer)
+	/*if (eTimer >= enTimer)
 	{
 		enTimer += 2.f;
 		eCount++;
@@ -148,7 +151,7 @@ void MainGame::Update(float dt)
 		EffectPlayer::GetInstance()->PlayEffect("Kill_zako", { 100, 400 });
 		EffectPlayer::GetInstance()->PlayEffect("Boss_phase", { 200, 400 });
 		EffectPlayer::GetInstance()->PlayEffect("marisa_bomb", { 100, 400 });
-	}
+	}*/
 
 }
 
@@ -159,7 +162,7 @@ void MainGame::Render()
 
 	//if (gameInstance) gameInstance->Render(hdc);
 	
-	EffectPlayer::GetInstance()->Render();
+	
 	SoundPlayer::GetInstance()->Update();
 
 
@@ -175,7 +178,24 @@ void MainGame::Render()
 		if (level) level->Render(NULL);
 		break;
 	case InStage:
-		if (gameInstance) gameInstance->Render(NULL);
+		if (gameInstance)
+		{
+			gameInstance->Render(NULL);
+			if (GameStateManager::GetInstance()->GetGameState()->isGameClear)
+			{
+				timer++;
+				if (timer > 300)
+				{
+					result_image->Middle_RenderFrameScale(WINSIZE_X / 2, WINSIZE_Y / 2, 1.4f, 1.4f, 1);
+				}
+				if (timer > 1000)
+				{
+					GameStateManager::GetInstance()->GetGameState()->isFinish = true;
+				}
+			}
+			
+		}
+
 		break;
 	case Finish:
 		break;
@@ -259,10 +279,12 @@ void MainGame::ChangeScene(GameScene nextScene)
 
 	switch (nextScene) {
 	case IntroUi:
+		
 		intro = new Intro(&currentScene);
 		intro->Init();
 		break;
 	case mainMenu:
+		
 		menu = new Menu(&currentScene);
 		menu->Init();
 		break;
@@ -271,6 +293,8 @@ void MainGame::ChangeScene(GameScene nextScene)
 		level->Init();
 		break;
 	case InStage:
+		
+		
 		gameInstance = new TouhouScarletDevilCloneGame();
 		gameInstance->Init();
 		break;

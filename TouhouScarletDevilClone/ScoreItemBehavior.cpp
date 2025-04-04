@@ -4,6 +4,7 @@
 
 void ScoreItemBehavior::OnCollect(GameState* state)
 {
+	SoundPlayer::GetInstance()->SoundOn("item");
 	// 점수 추가
 	state->Score += ScoreValue;
     

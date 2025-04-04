@@ -5,7 +5,6 @@
 #include "SoundPlayer.h"
 #include "EffectPlayer.h"
 #include "GameState.h"
-#include "GameStateManager.h"
 #include "BHObjectManager.h"
 
 void BHBoss::Init(string shapeKey, FPOINT pos)
@@ -13,11 +12,17 @@ void BHBoss::Init(string shapeKey, FPOINT pos)
     BHEnemy::Init(shapeKey, pos);
     
     // 보스 초기화
-    health = 801;
+    health = 1000;
     phase = 0;
     phaseTimer = 0.0f;
     isPhaseChanging = false;
-    
+
+    GameState* gameState = GameStateManager::GetInstance()->GetGameState();
+    if (gameState) {
+
+        gameState->BossHp = health;
+        gameState->BossMaxHp = health;
+    }
     // 컨트롤러 초기화
     ec = new EnemyController();
     ec->SetTarget(this);
@@ -25,12 +30,7 @@ void BHBoss::Init(string shapeKey, FPOINT pos)
     // 초기 패턴 설정
     SetupNormalPattern();
     
-    // 게임 상태 업데이트
-    GameState* gameState = GameStateManager::GetInstance()->GetGameState();
-    if (gameState) {
-        gameState->BossHp = health;
-        gameState->BossMaxHp = 1000;
-    }
+   
 }
 
 void BHBoss::Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns)
@@ -85,10 +85,11 @@ void BHBoss::Update(float dt)
 
 void BHBoss::GetDamaged(int damage)
 {
+    
     // 페이즈 전환 중에는 데미지를 받지 않음
     // if (isPhaseChanging) return;
     
-    health -= damage * 10;
+    health -= damage * 3;
     
     // 게임 상태 업데이트
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
@@ -99,13 +100,13 @@ void BHBoss::GetDamaged(int damage)
     if (health <= 0) {
         // 보스 처치 처리
         isAlive = false;
+        gameState->isGameClear = true;
+         //보스 처치 효과음 재생
+         SoundPlayer::GetInstance()->SoundOn("boss_dead");
         
-        // 보스 처치 효과음 재생
-        // SoundPlayer::GetInstance()->SoundOn("boss_defeat");
-        
-        // 보스 처치 이펙트 재생
-        // EffectPlayer::GetInstance()->PlayEffect("boss_defeat_effect", position);
-        
+         //보스 처치 이펙트 재생
+         EffectPlayer::GetInstance()->PlayEffect("Boss_phase", position);
+         
         // 아이템 드롭
         for (int i = 0; i < 10; i++) {
             float angle = DEG_TO_RAD(i * 36);

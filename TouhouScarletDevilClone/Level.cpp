@@ -47,6 +47,7 @@ void Level::Update(float dt)
 
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_ESCAPE))
 	{
+		SoundPlayer::GetInstance()->SoundOn("cancel");
 		if (currentScene)
 			*currentScene = mainMenu; 
 	}
@@ -72,11 +73,13 @@ void Level::selectLevel(float dt)
 	int index = GetLevelIndex(levelState);
 
 	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_DOWN)) {
+		SoundPlayer::GetInstance()->SoundOn("select");
 		index = (index + 1) % levelCount;
 		levelState = GetLevelStateFromIndex(index);
 		choicePos.y = levelPosY[index];
 	}
 	else if (KeyManager::GetInstance()->IsOnceKeyDown(VK_UP)) {
+		SoundPlayer::GetInstance()->SoundOn("select");
 		index = (index - 1 + levelCount) % levelCount;
 		levelState = GetLevelStateFromIndex(index);
 		choicePos.y = levelPosY[index];
@@ -84,6 +87,8 @@ void Level::selectLevel(float dt)
 
 	if ((levelState == LevelState::easy) && KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
 	{
+		
+		SoundPlayer::GetInstance()->SoundOn("click");
 		isSelected = true;
 	}
 
@@ -105,6 +110,9 @@ void Level::selectLevel(float dt)
 		if (allDone){
 			if (KeyManager::GetInstance()->IsStayKeyDown(VK_RETURN))
 			{
+				SoundPlayer::GetInstance()->SoundOn("select");
+				SoundPlayer::GetInstance()->SoundOff("title");
+				SoundPlayer::GetInstance()->SoundOn("stage1_normal");
 				if (currentScene)
 					*currentScene = InStage;
 			}
@@ -144,7 +152,7 @@ void Level::MoveNSEW(FPOINT& pos, const FPOINT& target, float speed, float dt)
 	float dy = target.y - pos.y;
 	float distance = sqrtf(dx * dx + dy * dy);
 
-	if (distance < 1.0f) {
+	if (distance < 3.0f) {
 		pos = target;
 		return;
 	}
