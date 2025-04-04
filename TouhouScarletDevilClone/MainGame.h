@@ -2,6 +2,7 @@
 #include "GameObject.h"
 #include "GameScene.h"
 
+class BHItem;
 class TouhouScarletDevilCloneGame;
 
 

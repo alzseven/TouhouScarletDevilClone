@@ -9,23 +9,21 @@
 #include "BHObjectManager.h"
 #include "GameState.h"
 #include "Shape.h"
+// #include "UI.h"
 
 void TouhouScarletDevilCloneGame::Init()
 {
     bgImage = ImageManager::GetInstance()->AddImage("bgImage", TEXT("Image/backGround.bmp"));
 
     //gameState = new GameState();
-    inGame = new InGame(gameState);
+    inGame = new InGame(&gameState);
 
     //player = new BHPlayer();
     //player->Init("Marisa", 18, {GAME_CENTER_X, GAME_CENTER_Y}, 90.f);
     //D2DImage* moveImage = ImageManager::GetInstance()->AddImage("Marisa_Move_Left", TEXT("Image/Marisa_Move_Left.bmp"), 8, 1);
     //player->SetMoveImage(moveImage);
 
-    enemy = new BHEnemy();
-
-    
-    ui = new UI(&gameState);
+    // enemy = new BHEnemy();
 
     player = BHObjectManager::GetInstance()->GetPlayer();
     player->Init("marisa_idle", {GAME_CENTER_X, GAME_CENTER_Y});
@@ -37,31 +35,11 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release()
 {
-
-    if (ui)
-    {
-        delete ui;
-        ui = nullptr;
-
-
-    if (enemy)
-    {
-        enemy->Release();
-        delete enemy;
-        enemy = nullptr;
-    }
     if (player)
     {
         player->Release();
         delete player;
         player = nullptr;
-    }
-
-    if (enemyFactory)
-    {
-        enemyFactory->Clear();
-        delete enemyFactory;
-        enemyFactory = nullptr;
     }
 
   //  if (item)
@@ -85,10 +63,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     if (player) player->Update(dt);
 
     stageWaveManager.Update(dt);
-
-    if (ui) ui->Update(dt);
-
-    if (enemy) enemy->Update(dt);
+    
 //	if (item) item->Update(dt);
 	if (inGame) inGame->Update(dt);
 
@@ -137,18 +112,15 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 
     if (player) player->Render(hdc);
 
-    if (enemy) enemy->Render(hdc);
 
 	for (auto it : items)
 	{
 		it->Render(hdc);
 	}
-
-	if (inGame) inGame->Render(hdc);
-
+    
     BHObjectManager::GetInstance()->Render();
     
     CircleCollisionManager::GetInstance()->Render(hdc);
 
-    if (ui) ui->Render(hdc);
+    if (inGame) inGame->Render(hdc);
 }

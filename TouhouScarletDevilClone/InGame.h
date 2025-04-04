@@ -12,7 +12,7 @@ enum class BossPhaseType
 class D2DImage;
 class Timer;
 struct GameState;
-class UI
+// class UI;
 class InGame
 {
 private:
