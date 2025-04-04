@@ -85,27 +85,27 @@ void InGame::Update(float dt)
 	timer->Tick();
 	ReLoadStar();
 	// 파워바 프레임 업데이트
-	if (InputManager::isMoveDown()) {
-		CurrPowerBarFrame(gameState)++;
+	// if (InputManager::isMoveDown()) {
+	// 	CurrPowerBarFrame(gameState)++;
 		if (CurrPowerBarFrame(gameState) >= 160)
 			CurrPowerBarFrame(gameState) = 159;
-	}
-	else if (InputManager::isMoveUp()) {
-		CurrPowerBarFrame(gameState)--;
+	// }
+	// else if (InputManager::isMoveUp()) {
+	// 	CurrPowerBarFrame(gameState)--;
 		if (CurrPowerBarFrame(gameState) < 0)
 			CurrPowerBarFrame(gameState) = 0;
-	}
-
-	if (InputManager::isMoveRight()) {
-		CurrBossHpBarFrame(gameState)++;
+	// }
+	//
+	// if (InputManager::isMoveRight()) {
+	// 	CurrBossHpBarFrame(gameState)++;
 		if (CurrBossHpBarFrame(gameState) >= 350)
 			CurrBossHpBarFrame(gameState) = 349;
-	}
-	else if (InputManager::isMoveLeft()) {
-		CurrBossHpBarFrame(gameState)--;
+	// }
+	// else if (InputManager::isMoveLeft()) {
+	// 	CurrBossHpBarFrame(gameState)--;
 		if (CurrBossHpBarFrame(gameState) < 0)
 			IsEnemyPhase(gameState) = false;
-	}
+	// }
 
 	if (IsEnemyPhase(gameState)) {
 		elapsedTime += dt;

@@ -21,7 +21,7 @@ void PowerUpItem::Init(string shapeKey, FPOINT pos)
     isItemGet = false;
     speedY = -400.0f;
     gravity = 400.0f;
-    itemBehavior = new PowerUpItemBehavior(1);
+    itemBehavior = new PowerUpItemBehavior(10);
     SetCollisionLayer(LAYER_ITEM, LAYER_PLAYER);
 }
 

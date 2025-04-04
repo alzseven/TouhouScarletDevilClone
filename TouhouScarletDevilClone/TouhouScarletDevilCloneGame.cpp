@@ -35,12 +35,12 @@ void TouhouScarletDevilCloneGame::Init()
 
 void TouhouScarletDevilCloneGame::Release()
 {
-    if (player)
-    {
-        player->Release();
-        delete player;
-        player = nullptr;
-    }
+    // if (player)
+    // {
+    //     player->Release();
+    //     delete player;
+    //     player = nullptr;
+    // }
 
   //  if (item)
   //  {
@@ -89,7 +89,6 @@ void TouhouScarletDevilCloneGame::Update(float dt)
             ++it;
         }
     }
-    timer++;
     
     BHObjectManager::GetInstance()->Update(dt);
     

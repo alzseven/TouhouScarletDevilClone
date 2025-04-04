@@ -20,7 +20,7 @@ void Intro::Release()
 
 void Intro::Update(float dt)
 {
-	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_SPACE))
+	if (KeyManager::GetInstance()->IsOnceKeyDown(VK_RETURN))
 	{
 		if (currentScene)
 			*currentScene = mainMenu;

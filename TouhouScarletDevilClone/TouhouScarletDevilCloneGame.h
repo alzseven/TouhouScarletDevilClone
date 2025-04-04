@@ -18,10 +18,8 @@ private:
     InGame* inGame;
     BHPlayer* player;
     D2DImage* bgImage;
-    float timer;
     StageWaveManager stageWaveManager;
-
-    int timer = 0;
+    
     int frame = 0;
     float angle = 0;
 	bool finishFlag = false;   
