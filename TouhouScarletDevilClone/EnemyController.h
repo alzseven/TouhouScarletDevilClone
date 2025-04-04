@@ -9,20 +9,6 @@ class BHObject;
 class EnemyController
 {
 protected:
-    struct TimedPattern {
-        float startTime;
-        float duration;
-        IObjectActionPattern* pattern;
-        bool isActive;
-    };
-    
-    std::vector<TimedPattern> patternTimeline;  // 패턴 타임라인
-    std::vector<IObjectActionPattern*> activePatterns;  // 현재 활성 패턴
-
-    float currentTime;
-
-
-    
     BHObject* target;
     std::queue<IObjectActionPattern*> actions;
     float timeElapsed;

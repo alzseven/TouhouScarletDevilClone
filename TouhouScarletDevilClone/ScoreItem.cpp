@@ -1,4 +1,6 @@
 #include "ScoreItem.h"
+
+#include "BHObjectManager.h"
 #include "ShapeManager.h"
 #include "Shape.h"
 #include "D2DImage.h"
@@ -44,7 +46,8 @@ void ScoreItem::OnHit(ICollideable* hitObject)
 		isItemGet = true;
 		isAlive = false;
 
-		CircleCollisionManager::GetInstance()->RemoveCollisionObject(this);
+		BHObjectManager::GetInstance()->GetItemPool()->Release(this);
+		// CircleCollisionManager::GetInstance()->RemoveCollisionObject(this);
 
 		if (gameState)
 			itemBehavior->OnCollect(gameState);

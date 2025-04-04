@@ -19,6 +19,7 @@ public:
 	~BHBullet() override = default;
 	
 	void Init(string shapeKey, FPOINT pos) override;
+	void Init(string shapeKey, FPOINT pos, bool isPlayerBullet);
 	
 	void Launch(float angle, float angleRate, float movementSpeed, float moveSpeedRate);
 	void Launch(float angleRate, float speedRate, float movementSpeed, bool isPlayerBullet);

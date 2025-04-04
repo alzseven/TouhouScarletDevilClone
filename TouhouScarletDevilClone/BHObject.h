@@ -2,7 +2,6 @@
 #include "config.h"
 #include "ICircleCollideable.h"
 #include "IObjectActionPattern.h"
-#include "IPatternComponent.h"
 
 class IObjectActionPattern;
 class Image;

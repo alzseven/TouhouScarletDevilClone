@@ -66,29 +66,6 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     
 //	if (item) item->Update(dt);
 	if (inGame) inGame->Update(dt);
-
-    for (auto it = items.begin(); it != items.end(); )
-    {
-        BHItem* item = *it;
-
-        if (!item)
-        {
-            it = items.erase(it);
-            continue;
-        }
-
-        // Update 전에 유효성 체크
-        if (!item->IsValid() || item->IsOutofScreen())
-        {
-            delete item;
-            it = items.erase(it);
-        }
-        else
-        {
-            item->Update(dt);
-            ++it;
-        }
-    }
     
     BHObjectManager::GetInstance()->Update(dt);
     
@@ -106,7 +83,7 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 	{
 		it->Render(hdc);
 	}
-    
+ 
     BHObjectManager::GetInstance()->Render();
     
     CircleCollisionManager::GetInstance()->Render(hdc);
