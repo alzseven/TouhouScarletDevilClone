@@ -1,6 +1,7 @@
 ﻿#include "Stage1Boss.h"
 #include "BHEnemy.h"
 #include "BHObjectManager.h"
+#include "GameStateManager.h"
 #include "IObjectComplexPattern.h"
 #include "SoundPlayer.h"
 
@@ -107,8 +108,8 @@ void Stage1Boss::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> patterns = GetObjectActionPatterns(boss);
             
             boss->Init(enemyShapeKey, spawnPoints[0], patterns);
-            boss->SetItemList(*items);
-            boss->SetGameState(gameState);
+            boss->SetItemList(BHObjectManager::GetInstance()->GetItemPool()->GetActive());
+            boss->SetGameState(GameStateManager::GetInstance()->GetGameState());
             
             // 보스 체력 설정 (일반 적보다 높게)
             // 여기서는 GetDamaged 메서드가 호출될 때마다 체력이 1씩 감소하므로

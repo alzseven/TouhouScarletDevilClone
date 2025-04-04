@@ -32,8 +32,8 @@ protected:
 
     std::vector<BHObject*> spawnedObjects;
 
-    GameState* gameState;
-    vector<BHItem*>* items;
+    // GameState* gameState;
+    // vector<BHItem*>* items;
     
     virtual std::vector<FPOINT> GetSpawnPoints(int spawnAmount) = 0;
     virtual std::vector<IObjectActionPattern*> GetObjectActionPatterns(BHObject* target) = 0;
@@ -46,7 +46,7 @@ public:
 
     virtual bool IsWaveDone(float currentTime);
 
-    void SetItemInfos(GameState* gameState,vector<BHItem*>* items) { this->gameState = gameState; this->items = items; }
+    // void SetItemInfos(GameState* gameState,vector<BHItem*>* items) { this->gameState = gameState; this->items = items; }
 };
 
 

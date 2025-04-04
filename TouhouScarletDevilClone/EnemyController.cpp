@@ -2,7 +2,6 @@
 
 #include "BHObject.h"
 #include "IObjectActionPattern.h"
-#include "PatternBuilder.h"
 
 EnemyController::EnemyController()
 {

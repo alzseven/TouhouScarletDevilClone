@@ -1,6 +1,7 @@
 ﻿#include "Stage1Wave3Pattern.h"
 #include "BHEnemy.h"
 #include "BHObjectManager.h"
+#include "GameStateManager.h"
 #include "IObjectComplexPattern.h"
 #include "ShootSpiralPattern.h"
 #include "ShootTimeVaryingSpeedPattern.h"
@@ -116,8 +117,8 @@ void Stage1Wave3Pattern::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> p = GetObjectActionPatterns(spawnedEnemy);
             spawnedEnemy->Init(enemyShapeKey,
                 spawnPoints[currentSpawnCount], p);
-            spawnedEnemy->SetItemList(*items);
-            spawnedEnemy->SetGameState(gameState);
+            spawnedEnemy->SetItemList(BHObjectManager::GetInstance()->GetItemPool()->GetActive());
+            spawnedEnemy->SetGameState(GameStateManager::GetInstance()->GetGameState());
             spawnedObjects.push_back(spawnedEnemy);
             
             timeElpased -= multiSpawnDelay;

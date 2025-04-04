@@ -13,14 +13,14 @@ void ScoreItemBehavior::OnCollect(GameState* state)
 	}
     
 	// 점수 아이템 획득 효과음 재생
-	SoundPlayer::GetInstance()->SoundOn("score_up");
+	// SoundPlayer::GetInstance()->SoundOn("score_up");
     
 	// 특정 점수 구간에 도달하면 추가 보상 (예: 추가 생명)
 	if (state->Score >= 100000 && state->Score % 100000 < ScoreValue) {
 		// 추가 생명 부여
-		state->PlayerHp++;
+		// state->PlayerHp++;
         
 		// 추가 생명 획득 효과음 재생
-		SoundPlayer::GetInstance()->SoundOn("extra_life");
+		// SoundPlayer::GetInstance()->SoundOn("extra_life");
 	}
 }

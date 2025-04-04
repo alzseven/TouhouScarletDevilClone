@@ -1,6 +1,7 @@
 ﻿#include "Stage1Wave2Pattern.h"
 #include "BHEnemy.h"
 #include "BHObjectManager.h"
+#include "GameStateManager.h"
 #include "IObjectComplexPattern.h"
 
 std::vector<FPOINT> Stage1Wave2Pattern::GetSpawnPoints(int spawnAmount)
@@ -90,8 +91,8 @@ void Stage1Wave2Pattern::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> p = GetObjectActionPatterns(spawnedEnemy);
             spawnedEnemy->Init(enemyShapeKey,
                 spawnPoints[currentSpawnCount], p);
-            spawnedEnemy->SetItemList(*items);
-            spawnedEnemy->SetGameState(gameState);
+            spawnedEnemy->SetItemList(BHObjectManager::GetInstance()->GetItemPool()->GetActive());
+            spawnedEnemy->SetGameState(GameStateManager::GetInstance()->GetGameState());
             spawnedObjects.push_back(spawnedEnemy);
             
             timeElpased -= multiSpawnDelay;

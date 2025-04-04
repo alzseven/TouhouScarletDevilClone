@@ -13,7 +13,7 @@ class TouhouScarletDevilCloneGame : public GameObject
 {
 private:
     GameState gameState;
-    vector<BHItem*> items;
+    // vector<BHItem*> items;
     UI* ui;
     BHPlayer* player;
     D2DImage* bgImage;

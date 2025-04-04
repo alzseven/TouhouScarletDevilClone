@@ -41,7 +41,7 @@ void GameStateManager::Reset()
     gameState.isPaused = false;
     
     // 게임 리셋 효과음 재생
-    SoundPlayer::GetInstance()->SoundOn("game_reset");
+    // SoundPlayer::GetInstance()->SoundOn("game_reset");
 }
 
 void GameStateManager::Update(float dt)

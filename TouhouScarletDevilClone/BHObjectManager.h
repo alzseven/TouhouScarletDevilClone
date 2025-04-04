@@ -14,6 +14,7 @@ class BHObjectManager : public Singleton<BHObjectManager>
     ObjectPool<BHBullet> enemyBulletPool;
     ObjectPool<BHEnemy> enemyPool;
     ObjectPool<BHBoss> bossPool;
+    ObjectPool<BHItem> itemPool;
 public:
     void Init();
     void Update(float dt);
@@ -24,5 +25,6 @@ public:
     ObjectPool<BHBullet>* GetEnemyBulletPool() { return &enemyBulletPool; }
     ObjectPool<BHEnemy>* GetEnemyPool() { return &enemyPool; }
     ObjectPool<BHBoss>* GetBossPool() { return &bossPool; }
+    ObjectPool<BHItem>* GetItemPool() { return &itemPool; }
     void ClearEnemyBullets();
 };

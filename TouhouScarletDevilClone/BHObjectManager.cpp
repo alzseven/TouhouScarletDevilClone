@@ -6,6 +6,7 @@ void BHObjectManager::Init()
     playerBulletPool.Init(1000);
     enemyPool.Init(50);
     bossPool.Init(5);
+    itemPool.Init(50);
 }
 
 void BHObjectManager::Update(float dt)
@@ -30,11 +31,15 @@ void BHObjectManager::Update(float dt)
     {
         (*iter)->Update(dt);
     }
-    
+    for (std::vector<BHItem*>::iterator iter = itemPool.GetActive().begin(); iter != itemPool.GetActive().end(); ++iter)
+    {
+        (*iter)->Update(dt);
+    }
     enemyPool.UpdateActive();
     playerBulletPool.UpdateActive();
     enemyBulletPool.UpdateActive();
     bossPool.UpdateActive();
+    itemPool.UpdateActive();
 }
 
 void BHObjectManager::Release()
@@ -43,6 +48,7 @@ void BHObjectManager::Release()
     enemyBulletPool.Clear();
     playerBulletPool.Clear();
     bossPool.Clear();
+    itemPool.Clear();
     ReleaseInstance();
 }
 
@@ -66,6 +72,10 @@ void BHObjectManager::Render()
     }
 
     for (std::vector<BHBoss*>::iterator iter = bossPool.GetActive().begin(); iter != bossPool.GetActive().end(); ++iter)
+    {
+        (*iter)->Render(NULL);
+    }
+    for (std::vector<BHItem*>::iterator iter = itemPool.GetActive().begin(); iter != itemPool.GetActive().end(); ++iter)
     {
         (*iter)->Render(NULL);
     }

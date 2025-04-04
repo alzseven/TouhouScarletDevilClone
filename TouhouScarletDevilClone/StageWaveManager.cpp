@@ -11,25 +11,25 @@ void StageWaveManager::Init()
 {
     // 첫 번째 웨이브 패턴 설정
     Stage1Wave1Pattern* stage1_1 = new Stage1Wave1Pattern(); 
-    stage1_1->SetItemInfos(gameState, items);
+    // stage1_1->SetItemInfos(gameState, items);
     stage1_1->Init(0.f, 10.f, "zako_pink", 10, 1.f, 0.15f);
     stageWavePatterns.push(stage1_1);
 
     // 두 번째 웨이브 패턴 설정
     Stage1Wave2Pattern* stage1_2 = new Stage1Wave2Pattern();
-    stage1_2->SetItemInfos(gameState, items);
+    // stage1_2->SetItemInfos(gameState, items);
     stage1_2->Init(11.f, 15.f, "fairy_white", 8, 1.2f, 0.2f);
     stageWavePatterns.push(stage1_2);
     
     // 세 번째 웨이브 패턴 설정
     Stage1Wave3Pattern* stage1_3 = new Stage1Wave3Pattern();
-    stage1_3->SetItemInfos(gameState, items);
+    // stage1_3->SetItemInfos(gameState, items);
     stage1_3->Init(17.f, 25.f, "zako_red", 6, 1.5f, 0.3f);
     stageWavePatterns.push(stage1_3);
     
     // 보스 웨이브 패턴 설정
     Stage1Boss* stage1_boss = new Stage1Boss();
-    stage1_boss->SetItemInfos(gameState, items);
+    // stage1_boss->SetItemInfos(gameState, items);
     stage1_boss->Init(30.f, 999.f, "sakuya_idle", 1, 2.0f, 0.0f);
     stageWavePatterns.push(stage1_boss);
    
@@ -39,11 +39,11 @@ void StageWaveManager::Init()
     stageCurrentTime = 0.f;
 }
 
-void StageWaveManager::SetIteminfos(GameState* gameState, vector<BHItem*>* items)
-{
-    this->gameState = gameState;
-    this->items = items;
-}
+// void StageWaveManager::SetIteminfos(GameState* gameState, vector<BHItem*>* items)
+// {
+//     this->gameState = gameState;
+//     this->items = items;
+// }
 
 void StageWaveManager::Release()
 {
