@@ -13,7 +13,7 @@ void BHBoss::Init(string shapeKey, FPOINT pos)
     BHEnemy::Init(shapeKey, pos);
     
     // 보스 초기화
-    health = 810;
+    health = 801;
     phase = 0;
     phaseTimer = 0.0f;
     isPhaseChanging = false;
@@ -88,7 +88,7 @@ void BHBoss::GetDamaged(int damage)
     // 페이즈 전환 중에는 데미지를 받지 않음
     // if (isPhaseChanging) return;
     
-    health -= damage;
+    health -= damage * 10;
     
     // 게임 상태 업데이트
     GameState* gameState = GameStateManager::GetInstance()->GetGameState();
@@ -285,7 +285,7 @@ void BHBoss::SetupSpellCard2()
         for (int j = 0; j < 4; j++) {
             ShootSpreadPattern* knifeSpread = new ShootSpreadPattern();
             knifeSpread->SetPatternStartTime(1.f + i * 2.0f);
-            knifeSpread->SetPatternEndTime(10.5f + i * 20.0f);
+            knifeSpread->SetPatternEndTime(1.5f + i * 2.0f);
             knifeSpread->SetTarget(this);
             knifeSpread->SetShootParams(
                 "kunai",
@@ -298,7 +298,7 @@ void BHBoss::SetupSpellCard2()
         // 원형 발사 패턴
         ShootRoundPattern* roundPattern = new ShootRoundPattern();
         roundPattern->SetPatternStartTime(2.0f + i * 2.0f);
-        roundPattern->SetPatternEndTime(20.5f + i * 20.0f);
+        roundPattern->SetPatternEndTime(2.5f + i * 2.0f);
         roundPattern->SetTarget(this);
         roundPattern->SetShootParams(
             "NormalBullet_red",
@@ -310,7 +310,7 @@ void BHBoss::SetupSpellCard2()
         // 랜덤 이동
         IObjectActionPattern* randomMove = new MoveStraightDirectionPattern();
         randomMove->SetPatternStartTime(2.5f + i * 2.0f);
-        randomMove->SetPatternEndTime(30.0f + i * 20.0f);
+        randomMove->SetPatternEndTime(3.0f + i * 2.0f);
         randomMove->SetTarget(this);
         randomMove->Launch(
             80.f, 0.f,

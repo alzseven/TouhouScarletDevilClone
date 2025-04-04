@@ -12,25 +12,25 @@ void StageWaveManager::Init()
     // 첫 번째 웨이브 패턴 설정
     Stage1Wave1Pattern* stage1_1 = new Stage1Wave1Pattern(); 
     stage1_1->SetItemInfos(gameState, items);
-    stage1_1->Init(0.f, 10.f, "cirno_idle", 10, 1.f, 0.15f);
+    stage1_1->Init(0.f, 10.f, "zako_pink", 10, 1.f, 0.15f);
     stageWavePatterns.push(stage1_1);
 
     // 두 번째 웨이브 패턴 설정
     Stage1Wave2Pattern* stage1_2 = new Stage1Wave2Pattern();
     stage1_2->SetItemInfos(gameState, items);
-    stage1_2->Init(11.f, 15.f, "cirno_idle", 8, 1.2f, 0.2f);
+    stage1_2->Init(11.f, 15.f, "fairy_white", 8, 1.2f, 0.2f);
     stageWavePatterns.push(stage1_2);
     
     // 세 번째 웨이브 패턴 설정
     Stage1Wave3Pattern* stage1_3 = new Stage1Wave3Pattern();
     stage1_3->SetItemInfos(gameState, items);
-    stage1_3->Init(17.f, 25.f, "cirno_idle", 6, 1.5f, 0.3f);
+    stage1_3->Init(17.f, 25.f, "zako_red", 6, 1.5f, 0.3f);
     stageWavePatterns.push(stage1_3);
     
     // 보스 웨이브 패턴 설정
     Stage1Boss* stage1_boss = new Stage1Boss();
     stage1_boss->SetItemInfos(gameState, items);
-    stage1_boss->Init(30.f, 60.f, "sakuya_idle", 1, 2.0f, 0.0f);
+    stage1_boss->Init(30.f, 999.f, "sakuya_idle", 1, 2.0f, 0.0f);
     stageWavePatterns.push(stage1_boss);
    
     currentStageWave = stageWavePatterns.front();
@@ -65,7 +65,7 @@ void StageWaveManager::Update(float dt)
                 gameState->Score += 10000;
                 
                 // 스테이지 클리어 효과음 재생
-                SoundPlayer::GetInstance()->SoundOn("stage_clear");
+                // SoundPlayer::GetInstance()->SoundOn("stage_clear");
                 
                 // 게임 상태를 스테이지 클리어로 변경
                 gameState->isGameClear = true;
@@ -81,7 +81,7 @@ void StageWaveManager::Update(float dt)
             stageWavePatterns.pop();
             
             // 웨이브 전환 효과음 재생
-            SoundPlayer::GetInstance()->SoundOn("wave_change");
+            // SoundPlayer::GetInstance()->SoundOn("wave_change");
         }
     }
 }

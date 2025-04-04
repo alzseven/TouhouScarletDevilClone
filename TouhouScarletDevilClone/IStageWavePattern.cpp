@@ -16,15 +16,15 @@ void IStageWavePattern::Init(float startTime, float endTime, string enemyShapeKe
 
 bool IStageWavePattern::IsWaveDone(float currentTime)
 {
-    bool isSpawnedAllDead = true;
-    for (std::vector<BHObject*>::iterator iter = spawnedObjects.begin(); iter != spawnedObjects.end(); ++iter)
-    {
-        if ((*iter)->IsValid())
-        {
-            isSpawnedAllDead = false;
-        }
-    }
-    return currentTime >= patternEndTime || isSpawnedAllDead;
+    // bool isSpawnedAllDead = true;
+    // for (std::vector<BHObject*>::iterator iter = spawnedObjects.begin(); iter != spawnedObjects.end(); ++iter)
+    // {
+    //     if ((*iter)->IsValid())
+    //     {
+    //         isSpawnedAllDead = false;
+    //     }
+    // }
+    return currentTime >= patternEndTime;// || isSpawnedAllDead;
 }
 
 //--- 
