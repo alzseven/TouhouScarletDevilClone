@@ -79,7 +79,7 @@ void BHPlayer::Render(HDC hdc)
         }
         else
         {
-            isPreviousStateHorizontalMove = true;
+            if (frameIndex == 3) isPreviousStateHorizontalMove = true;
             // frameIndex = 0;
             if (moveStartShape)
             {
@@ -153,7 +153,7 @@ void BHPlayer::Update(float dt)
 {
     mainWeaponTimer += dt;
     subWeaponTimer += dt;
-    // timeElapsed += dt;
+    timeElapsed += dt;
 #pragma region ARROW_INPUT
     moveDir = { 0,0 };
     // UP
@@ -183,7 +183,11 @@ void BHPlayer::Update(float dt)
     
     MoveBackToBorder();
 
-    frameIndex = frameIndex + 1 >= 4 ? 0 : frameIndex + 1;
+    if (timeElapsed >= 0.5f)
+    {
+        frameIndex = frameIndex + 1 >= 4 ? 0 : frameIndex + 1;
+        timeElapsed = 0;
+    }
     
     if (KeyManager::GetInstance()->IsStayKeyDown(0x5A))
     {

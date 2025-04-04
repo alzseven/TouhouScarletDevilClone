@@ -18,7 +18,10 @@ void TouhouScarletDevilCloneGame::Init()
 
     player = BHObjectManager::GetInstance()->GetPlayer();
     player->Init("marisa_idle", {GAME_CENTER_X, GAME_CENTER_Y});
+
+    stageWaveManager.SetIteminfos(&gameState, &items);
     stageWaveManager.Init();
+
 }
 
 void TouhouScarletDevilCloneGame::Release()

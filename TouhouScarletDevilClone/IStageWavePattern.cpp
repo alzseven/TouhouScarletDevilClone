@@ -27,6 +27,12 @@ bool IStageWavePattern::IsWaveDone(float currentTime)
     return currentTime >= patternEndTime || isSpawnedAllDead;
 }
 
+void IStageWavePattern::SetItemInfos(GameState* gameState, vector<BHItem*>* items)
+{
+    this->gameState = gameState;
+    this->items = items;
+}
+
 //--- 
 
 std::vector<FPOINT> Stage1Wave1Pattern::GetSpawnPoints(int spawnAmount)
@@ -161,7 +167,8 @@ void Stage1Wave1Pattern::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> p = GetObjectActionPatterns(spawnedEnemy);
             spawnedEnemy->Init(enemyShapeKey,
                 spawnPoints[currentSpawnCount], p);
-
+            spawnedEnemy->SetItemList(*items);
+            spawnedEnemy->SetGameState(gameState);
             spawnedObjects.push_back(spawnedEnemy);
             
             timeElpased -= multiSpawnDelay;
