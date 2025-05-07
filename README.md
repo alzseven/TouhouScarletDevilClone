@@ -47,12 +47,13 @@
 
 ## 설치 및 실행 방법
 
-1. 저장소를 클론합니다:
-    ```
-    git clone https://github.com/alzseven/TouhouScarletDevilClone.git
-    ```
-2. Visual Studio에서 프로젝트를 엽니다.
-3. 프로젝트를 빌드하고 실행합니다.
+프로젝트를 빌드하고 실행하기 위해서는 Microsoft Visual Studio와 FMod Studio API 가 필요합니다. 다음 메뉴얼은 FMod Studio API가 C:\Program Files (x86) 에 설치되어있음을 전제로 합니다.
+
+1. 이 저장소를 로컬 환경으로 클론합니다.
+2. Visual Studio 2019 (또는 그 이상 버전)에서 클론한 저장소의 .sln 파일을 엽니다.
+3. Visual Studio에서 솔루션 구성을 'Release' 또는 'Debug'로 설정하고 솔루션을 빌드합니다.
+4. 빌드가 성공하면, 실행파일이 있는 디렉토리에 C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\core\lib 내의 실행환경에 맞는 디렉토리 내의 fmod.dll을 복사해서 불여넣습니다.
+5. 이후 생성된 실행 파일(.exe)을 실행하여 게임을 플레이할 수 있습니다.
 
 ## 조작 방법
 
