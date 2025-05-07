@@ -15,21 +15,21 @@
 ## 게임 구조
 ### 1. 로비
 - 게임 시작 및 나가기
-![LobbyImage]()
+![LobbyImage](https://raw.githubusercontent.com/alzseven/TouhouScarletDevilClone/refs/heads/master/TouhouScarletDevilClone/thsdclone_screenshot00.png)
 
 ### 2. 난이도 및 캐릭터 선택 
 - 플레이 가능한 캐릭터 선택 
-![SelectionImage]()
+![SelectionImage](https://raw.githubusercontent.com/alzseven/TouhouScarletDevilClone/refs/heads/master/TouhouScarletDevilClone/thsdclone_screenshot01.png)
 
 ### 3. 게임 플레이 
 - 탄막 슈팅 핵심 게임플레이 
 - 스테이지 진행 및 보스전 
 - 점수 시스템
-![IngameImage]()
+![IngameImage](https://raw.githubusercontent.com/alzseven/TouhouScarletDevilClone/refs/heads/master/TouhouScarletDevilClone/thsdclone_screenshot02.png)
 
 ### 4. 엔딩
 - 보스 격파 후 엔딩 이미지 표시
-![EndingImage]()
+![EndingImage](https://raw.githubusercontent.com/alzseven/TouhouScarletDevilClone/refs/heads/master/TouhouScarletDevilClone/thsdclone_screenshot03.png)
 
 ## 게임 컨텐츠 
 
