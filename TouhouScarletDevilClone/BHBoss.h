@@ -13,8 +13,9 @@ class BHBoss : public BHEnemy
     float phaseTimer;  // 페이즈 전환 타이머
     bool isPhaseChanging; // 페이즈 전환 중인지 여부
 
-    EnemyController* ec;
 public:
+    ~BHBoss() override = default;
+    
     void Init(string shapeKey, FPOINT pos) override;
     void Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns) override;
     

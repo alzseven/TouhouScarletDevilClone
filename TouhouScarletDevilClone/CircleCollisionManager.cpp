@@ -7,11 +7,6 @@
 
 void CircleCollisionManager::Release()
 {
-    for (std::vector<ICircleCollideable*>::iterator iter = collisions.begin(); iter != collisions.end(); ++iter)
-    {
-        dynamic_cast<BHObject*>(*iter)->Release();
-        delete *iter;
-    }
     collisions.clear();
     ReleaseInstance();
 }
@@ -29,7 +24,7 @@ void CircleCollisionManager::Update()
     auto bosp = BHObjectManager::GetInstance()->GetBossPool()->GetActive();
     collisions.insert(collisions.end(), bosp.begin(),bosp.end());
     auto ip = BHObjectManager::GetInstance()->GetItems();
-    collisions.insert(collisions.end(), ip->begin(),ip->end());
+    collisions.insert(collisions.end(), ip.begin(),ip.end());
     
     if (collisions.size() < 2) return;
     for (size_t i = 0; i < collisions.size(); ++i)
@@ -48,6 +43,9 @@ void CircleCollisionManager::Update()
             {
                 objA->OnHit(objB);
                 objB->OnHit(objA);
+
+                if (!objA->IsValid())
+                    break;
             }
         }
     }

@@ -14,17 +14,19 @@ class BHObjectManager : public Singleton<BHObjectManager>
     ObjectPool<BHBullet> enemyBulletPool;
     ObjectPool<BHEnemy> enemyPool;
     ObjectPool<BHBoss> bossPool;
-    vector<BHItem*>* items;
+    vector<BHItem*> items;
 public:
     void Init();
     void Update(float dt);
     void Release();
     void Render();
+    void Cleanup();
     BHPlayer* GetPlayer() { return &player; }
     ObjectPool<BHBullet>* GetPlayerBulletPool() { return &playerBulletPool; }
     ObjectPool<BHBullet>* GetEnemyBulletPool() { return &enemyBulletPool; }
     ObjectPool<BHEnemy>* GetEnemyPool() { return &enemyPool; }
     ObjectPool<BHBoss>* GetBossPool() { return &bossPool; }
-    vector<BHItem*>* GetItems() const { return items; }
+    vector<BHItem*> GetItems() const { return items; }
     void ClearEnemyBullets();
+    void ClearItems();
 };

@@ -32,10 +32,11 @@ void GameStateManager::Reset()
     gameState.CurrPowerBarFrame = 0;
     gameState.PowerMultiplier = 1.0f;
     gameState.CurrBossHpBarFrame = 350;
-    gameState.IsEnemyPhase = true;
+    gameState.IsEnemyPhase = false;
     gameState.RemainTime = 60;
     
     // 게임 상태 플래그 리셋
+    gameState.isFinish = false;
     gameState.isGameOver = false;
     gameState.isGameClear = false;
     gameState.isPaused = false;

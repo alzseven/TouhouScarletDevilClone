@@ -71,6 +71,7 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     BHObjectManager::GetInstance()->Update(dt);
     
     CircleCollisionManager::GetInstance()->Update();
+    BHObjectManager::GetInstance()->Cleanup();
     finishFlag = GameStateManager::GetInstance()->GetGameState()->PlayerHp == 0;
 
     

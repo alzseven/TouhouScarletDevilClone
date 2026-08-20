@@ -1,13 +1,14 @@
 #pragma once
 #include "BHObject.h"
+#include "ItemBehavior.h"
 
 class D2DImage;
 struct GameState;
-class ItemBehavior;
+// class ItemBehavior;
 class BHItem : public BHObject
 {
 protected:
-	D2DImage* ItemImage;
+	// D2DImage* ItemImage;
 	FPOINT StartPos;
 	GameState* gameState = nullptr;
 	ItemBehavior* itemBehavior = nullptr;
@@ -19,7 +20,11 @@ protected:
 	
 public:
 	BHItem() = default;
-	~BHItem() = default;
+	inline ~BHItem() override
+	{
+		delete itemBehavior;
+		itemBehavior = nullptr;
+	}
 
 
 	void InitGameState(GameState* state) { gameState = state; }
@@ -34,8 +39,8 @@ public:
 	void Shoot(string shapeKey, FPOINT init_pos, float angle, float angleRate, float shootSpeed, float shootSpeedRate) override = 0;
 	void Release() override = 0;
 	
-	bool IsOutofScreen() override { return false; }
-
+	// bool IsOutofScreen() override
+	
 	bool GetIsItemGet() { return isItemGet; }
 
 

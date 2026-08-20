@@ -8,9 +8,14 @@
 #include "Shape.h"
 #include "ScoreItem.h"
 #include "GameStateManager.h"
+#include "ItemType.h"
 #include "PowerUpItem.h"
 
 
+BHEnemy::~BHEnemy()
+{
+    CleanUpActiveSession();
+}
 
 void BHEnemy::Init(string shapeKey, FPOINT pos)
 {
@@ -110,31 +115,47 @@ void BHEnemy::OnHit(ICollideable* hitObject)
 
 void BHEnemy::Release()
 {
-    if (ec) delete ec;
+    CleanUpActiveSession();
 }
 
 void BHEnemy::GetDamaged(int damage)
 {
+    if (!isAlive)
+        return;
+    
     //TODO: Do something(drop score/power ups...)
     isAlive = false;
     GameStateManager::GetInstance()->GetGameState()->Score += 1000;
-    // ������ ����
-	if (items && gameState)
-	{
-        if (rand() % 2 == 0) // 50% Ȯ��
-        {
-            ScoreItem* item = new ScoreItem();
-            item->Init("smallScore",this->position);
-            item->InitGameState(gameState);
-            items->push_back(item);
-        }
-        else
-        {
-            PowerUpItem* item = new PowerUpItem();
-            item->Init("smallPower", this->position);
-            item->InitGameState(gameState);
-            items->push_back(item);
-        }
+    
+    itemType = rand() % 2 == 0 ? ItemType::Point : ItemType::Power;
+    // isBigScore = rand() % 2 == 0;
+    
+    isDropPending = true;
+    
+ //    // ������ ����
+	// if (items && gameState)
+	// {
+ //        if (rand() % 2 == 0) // 50% Ȯ��
+ //        {
+ //            ScoreItem* item = new ScoreItem();
+ //            item->Init("smallScore",this->position);
+ //            item->InitGameState(gameState);
+ //            items->push_back(item);
+ //        }
+ //        else
+ //        {
+ //            PowerUpItem* item = new PowerUpItem();
+ //            item->Init("smallPower", this->position);
+ //            item->InitGameState(gameState);
+ //            items->push_back(item);
+ //        }
+ //
+	// }
+}
 
-	}
+void BHEnemy::CleanUpActiveSession()
+{
+    delete ec;
+    ec = nullptr;
+    // 이거 안해주면 nullptr 안됬던가?
 }

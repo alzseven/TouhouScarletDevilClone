@@ -31,6 +31,10 @@ void PowerUpItem::Update(float dt)
 {
     if (!isAlive) return;
     Move(dt);
+    if (IsOutofScreen())
+    {
+        isAlive = false;
+    }
 }
 
 void PowerUpItem::Render(HDC hdc)
@@ -41,15 +45,18 @@ void PowerUpItem::Render(HDC hdc)
 
 void PowerUpItem::OnHit(ICollideable* hitObject)
 {
+    if (!isAlive)
+        return;
+    
     if (hitObject->GetLayer() == LAYER_PLAYER)
     {
         isItemGet = true;
         isAlive = false;
 
-        BHObjectManager::GetInstance()->GetItems()->erase(
-    std::remove(BHObjectManager::GetInstance()->GetItems()->begin(),
-                BHObjectManager::GetInstance()->GetItems()->end(), this),
-    BHObjectManager::GetInstance()->GetItems()->end());
+    //     BHObjectManager::GetInstance()->GetItems()->erase(
+    // std::remove(BHObjectManager::GetInstance()->GetItems()->begin(),
+    //             BHObjectManager::GetInstance()->GetItems()->end(), this),
+    // BHObjectManager::GetInstance()->GetItems()->end());
 
         if (gameState && itemBehavior)
             itemBehavior->OnCollect(gameState);

@@ -5,18 +5,22 @@
 template<typename T>
 class ObjectPool {
     std::deque<T> pool;
+    // 지금 pool에서 gameplay에 할당되어 있는 slot, source of truth
     std::vector<T*> active;
     std::vector<T*> free;
-    std::vector<T*> updatedActive;
+    
+    std::vector<T*> updateView;
 
 public:
     void Init(int preAlloc = 1000);
     T* Allocate();
     void Release(T* obj);
-    void UpdateActive() { updatedActive = active; }
     void Clear();
     
-    std::vector<T*>& GetActive() { return updatedActive; }
+    std::vector<T*>& GetActive() { return active; }
+    
+    std::vector<T*>& GetUpdateView() { return updateView; }
+    void RefreshUpdateView();
 };
 
 template <typename T>
@@ -59,4 +63,10 @@ void ObjectPool<T>::Clear()
     free.clear();
     active.clear();
     pool.clear();
+}
+
+template <typename T>
+void ObjectPool<T>::RefreshUpdateView()
+{
+    updateView = active;
 }

@@ -103,8 +103,6 @@ void Stage1Wave1Pattern::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> p = GetObjectActionPatterns(spawnedEnemy);
             spawnedEnemy->Init(enemyShapeKey,
                 spawnPoints[currentSpawnCount], p);
-            spawnedEnemy->SetItemList(*BHObjectManager::GetInstance()->GetItems());
-            spawnedEnemy->SetGameState(GameStateManager::GetInstance()->GetGameState());
             spawnedObjects.push_back(spawnedEnemy);
             
             timeElpased -= multiSpawnDelay;

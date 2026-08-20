@@ -115,6 +115,7 @@ void MainGame::Update(float dt)
 		// go to ending or main something
 		if (GameStateManager::GetInstance()->GetGameState()->isFinish)
 		{
+			BHObjectManager::GetInstance()->ClearItems();
 			SoundPlayer::GetInstance()->SoundOff("stage1_boss");
 			SoundPlayer::GetInstance()->SoundOn("title");
 			currentScene = IntroUi;
@@ -279,7 +280,7 @@ void MainGame::ChangeScene(GameScene nextScene)
 
 	switch (nextScene) {
 	case IntroUi:
-		
+		GameStateManager::GetInstance()->Reset();
 		intro = new Intro(&currentScene);
 		intro->Init();
 		break;
@@ -293,8 +294,7 @@ void MainGame::ChangeScene(GameScene nextScene)
 		level->Init();
 		break;
 	case InStage:
-		
-		
+		timer = 0;
 		gameInstance = new TouhouScarletDevilCloneGame();
 		gameInstance->Init();
 		break;
