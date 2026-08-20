@@ -1,9 +1,17 @@
 ﻿#include "IObjectComplexPattern.h"
 
-void IObjectComplexPattern::Init()
+IObjectComplexPattern::~IObjectComplexPattern()
 {
-    // currentPattern = actions->front();
-    // actions->pop();
+    while (!actions.empty())
+    {
+        delete actions.front();
+        actions.pop();
+    }
+
+    for (auto* action : enabledActions)
+        delete action;
+
+    enabledActions.clear();
 }
 
 void IObjectComplexPattern::Update(float dt)
@@ -11,40 +19,30 @@ void IObjectComplexPattern::Update(float dt)
     timeElpased += dt;
     
     while (!actions.empty() && timeElpased >= actions.front()->GetPatternStartTime()) {
-        enabledActions.push_back(std::move(actions.front()));
+        enabledActions.push_back(actions.front());
         actions.pop();
     }
     
-    // for (std::vector<IObjectActionPattern*>::iterator iter = enabledActions.begin(); iter != enabledActions.end(); ++iter)
-    // {
-    //     (*iter)->Update(dt);
-    // }
-    
-    // Update and remove expired
-    enabledActions.erase(
-        std::remove_if(enabledActions.begin(), enabledActions.end(),
-            [dt](const auto& pattern) {
-                pattern->Update(dt);
-                return pattern->IsExpired();
-            }),
-        enabledActions.end()
-    );
-    
-    // if (timeElpased >= currentPattern->GetPatternEndTime())
-    // {
-    //     if (!actions->empty()) {
-    //         timeElpased -= currentPattern->GetPatternEndTime();
-    //         currentPattern = actions->front();
-    //         actions->pop();
-    //     }
-    // }
-    //
-    //
-    // currentPattern->Update(dt);
+   
+    for (auto it = enabledActions.begin(); it != enabledActions.end();)
+    {
+        IObjectActionPattern* pattern = *it;
+
+        pattern->Update(dt);
+
+        if (pattern->IsExpired())
+        {
+            it = enabledActions.erase(it);
+            delete pattern;
+        }
+        else
+        {
+            ++it;
+        }
+    }
 }
 
 bool IObjectComplexPattern::IsExpired() const
 {
-    // return false;
     return actions.empty() && enabledActions.empty();
 }

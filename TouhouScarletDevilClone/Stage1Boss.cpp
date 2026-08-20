@@ -86,7 +86,6 @@ std::vector<IObjectActionPattern*> Stage1Boss::GetObjectActionPatterns(BHObject*
     actionsQueue.push(attackPattern3);
     
     complexPattern->SetActions(actionsQueue);
-    complexPattern->Init();
     
     patterns.push_back(complexPattern);
     return patterns;

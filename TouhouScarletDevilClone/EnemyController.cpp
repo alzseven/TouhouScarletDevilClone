@@ -3,12 +3,18 @@
 #include "BHObject.h"
 #include "IObjectActionPattern.h"
 
-EnemyController::EnemyController()
-{
-}
-
 EnemyController::~EnemyController()
 {
+    while (!actions.empty())
+    {
+        delete actions.front();
+        actions.pop();
+    }
+
+    for (auto* action : enabledActions)
+        delete action;
+
+    enabledActions.clear();
 }
 
 void EnemyController::Init()
@@ -57,32 +63,26 @@ void EnemyController::Update(float dt)
 
     // Add new patterns
     while (!actions.empty() && timeElapsed >= actions.front()->GetPatternStartTime()) {
-        enabledActions.push_back(std::move(actions.front()));
+        enabledActions.push_back(actions.front());
         actions.pop();
     }
     
-    // for (std::vector<IObjectActionPattern*>::iterator iter = enabledActions.begin(); iter != enabledActions.end(); ++iter)
-    // {
-    //     (*iter)->Update(dt);
-    // }
-    
     // Update and remove expired
-    enabledActions.erase(
-        std::remove_if(enabledActions.begin(), enabledActions.end(),
-            [dt](const auto& pattern) {
-                pattern->Update(dt);
-                return pattern->IsExpired();
-            }),
-        enabledActions.end()
-    );
+    for (auto it = enabledActions.begin(); it != enabledActions.end();)
+    {
+        IObjectActionPattern* pattern = *it;
+
+        pattern->Update(dt);
+
+        if (pattern->IsExpired())
+        {
+            it = enabledActions.erase(it);
+            delete pattern;
+        }
+        else
+        {
+            ++it;
+        }
+    }
     
 }
-
-void EnemyController::AddPatternToTarget(IObjectActionPattern* newPattern)
-{
-    enabledActions.push_back(newPattern);
-    // target->AddAction(newPattern);
-    // target->AddPa
-}
-
-// void EnemyController::

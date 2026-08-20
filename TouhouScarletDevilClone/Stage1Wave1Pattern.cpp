@@ -84,7 +84,6 @@ std::vector<IObjectActionPattern*> Stage1Wave1Pattern::GetObjectActionPatterns(B
     complexPattern->SetTarget(target);
     complexPattern->SetActions(actionsQueue);
     
-    complexPattern->Init();
     
     std::vector<IObjectActionPattern*> result = std::vector<IObjectActionPattern*>();
     result.push_back(complexPattern);
