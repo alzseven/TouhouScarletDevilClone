@@ -35,7 +35,7 @@ protected:
     virtual std::vector<FPOINT> GetSpawnPoints(int spawnAmount) = 0;
     virtual std::vector<IObjectActionPattern*> GetObjectActionPatterns(BHObject* target) = 0;
 public:
-    // virtual void Spawn() = 0;
+    virtual ~IStageWavePattern() = default;
 
     virtual void Update(float deltaTime) = 0;
 

@@ -1,24 +1,29 @@
 ﻿#pragma once
 #include <queue>
 #include <vector>
+#include <memory>
 #include "config.h"
+#include "IStageWavePattern.h"
 
 struct GameState;
 class BHItem;
-class IStageWavePattern;
 
 class StageWaveManager
 {
-    std::queue<IStageWavePattern*> stageWavePatterns;
-    IStageWavePattern* currentStageWave;
-    float stageCurrentTime;
-    GameState* gameState;
-    vector<BHItem*>* items;
+    std::queue<std::unique_ptr<IStageWavePattern>> stageWavePatterns;
+    std::unique_ptr<IStageWavePattern> currentStageWave;
+    float stageCurrentTime = 0.0f;
+    // GameState* gameState = nullptr;
+    // bool isStageWaveFinished = false;
 public:
+    StageWaveManager() = default;
+    virtual ~StageWaveManager() = default;
+    
     void Init();
-    void SetIteminfos(GameState* gameState,vector<BHItem*>* items);
-    void SetStageWavePatterns(std::queue<IStageWavePattern*> stageWavePatterns) { this->stageWavePatterns = stageWavePatterns; }
     void Release();
     void Update(float dt);
     void Render();
+    
+    StageWaveManager(const StageWaveManager&) = delete;
+    StageWaveManager& operator=(const StageWaveManager&) = delete;
 };

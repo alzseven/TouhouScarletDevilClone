@@ -122,8 +122,9 @@ void Stage1Boss::Update(float deltaTime)
     }
     
     // 보스가 죽었는지 확인
-    if (isBossSpawned && !boss->IsValid())
+    if (boss && isBossSpawned && !boss->IsValid())
     {
+        boss = nullptr;
         // 보스 처치 효과음 재생
         // SoundPlayer::GetInstance()->SoundOn("boss_defeat");
 
