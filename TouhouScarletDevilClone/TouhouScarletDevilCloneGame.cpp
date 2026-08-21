@@ -61,7 +61,7 @@ void TouhouScarletDevilCloneGame::Release()
 void TouhouScarletDevilCloneGame::Update(float dt)
 {
     
-    if (player) player->Update(dt);
+    // if (player) player->Update(dt);
 
     stageWaveManager->Update(dt);
     
@@ -81,7 +81,7 @@ void TouhouScarletDevilCloneGame::Render(HDC hdc)
 {
     if (bgImage) bgImage->RenderFrameScale(0,0,10,10,1);
 
-    if (player) player->Render(hdc);
+    // if (player) player->Render(hdc);
     
     BHObjectManager::GetInstance()->Render();
     
