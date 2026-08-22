@@ -64,6 +64,10 @@ public:
 	// bool IsBigScore() { return isBigScore; }
 	bool IsDropPending() { return isDropPending; }
 	
-	void ResetDropPending() { isDropPending = false; }
+	void ResetDropPending()
+	{
+		isDropPending = false;
+		itemType = ItemType::None;
+	}
 };
 

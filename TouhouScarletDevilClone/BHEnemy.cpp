@@ -32,6 +32,7 @@ void BHEnemy::Init(string shapeKey, FPOINT pos)
     ec = new EnemyController();
     ec->SetTarget(this);
     ec->Init();
+    
 }
 
 void BHEnemy::Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern*> patterns)
@@ -41,7 +42,9 @@ void BHEnemy::Init(string shapeKey, FPOINT pos, std::vector<IObjectActionPattern
     {
         ec->SetActionPatterns((*it));
     }
-
+    
+    isDropPending = false;
+    itemType = ItemType::None;
 }
 
 void BHEnemy::Move(float angle, float speed, float dt)
@@ -157,5 +160,4 @@ void BHEnemy::CleanUpActiveSession()
 {
     delete ec;
     ec = nullptr;
-    // 이거 안해주면 nullptr 안됬던가?
 }

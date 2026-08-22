@@ -215,6 +215,56 @@ void BHObjectManager::ClearItems()
     items.clear();
 }
 
+void BHObjectManager::CleanupActiveSession()
+{
+    vector<BHEnemy*> eSnapshot = enemyPool.GetActive();
+
+    for (auto* enemy : eSnapshot)
+    {
+        enemy->CleanUpActiveSession();
+        enemy->ResetDropPending();
+        enemyPool.Release(enemy);
+    }
+
+    vector<BHBoss*> bSnapshot = bossPool.GetActive();
+
+    for (auto* boss : bSnapshot)
+    {
+        boss->CleanUpActiveSession();
+        bossPool.Release(boss);
+    }
+
+    vector<BHBullet*> pbSnapshot = playerBulletPool.GetActive();
+
+    for (auto* pb : pbSnapshot)
+    {
+        pb->DeActivate();
+        pb->ResetForReuse();
+        playerBulletPool.Release(pb);
+    }
+
+    vector<BHBullet*> ebSnapshot = enemyBulletPool.GetActive();
+
+    for (auto* eb : ebSnapshot)
+    {
+        eb->DeActivate();
+        eb->ResetForReuse();
+        enemyBulletPool.Release(eb);
+    }
+    
+    for (BHItem* item : items)
+    {
+        delete item;
+    }
+
+    items.clear();
+    
+    enemyPool.RefreshUpdateView();
+    bossPool.RefreshUpdateView();
+    playerBulletPool.RefreshUpdateView();
+    enemyBulletPool.RefreshUpdateView();
+}
+
 // void PoolManager::PauseAll()
 // {
 //     

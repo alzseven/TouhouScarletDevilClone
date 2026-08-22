@@ -34,6 +34,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="GameState.h" />
+	<ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />
@@ -90,7 +91,6 @@
     <ClCompile Include="EnemyController.cpp" />
     <ClCompile Include="GameScene.h" />
     <ClCompile Include="GameStateManager.cpp" />
-    <ClCompile Include="GameStateManager.h" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />

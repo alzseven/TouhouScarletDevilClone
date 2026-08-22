@@ -41,7 +41,7 @@ void TouhouScarletDevilCloneGame::Release()
     //     delete player;
     //     player = nullptr;
     // }
-
+    
     if (stageWaveManager)
     {
         stageWaveManager->Release();
@@ -49,6 +49,8 @@ void TouhouScarletDevilCloneGame::Release()
         stageWaveManager = nullptr;
     }
 
+    BHObjectManager::GetInstance()->CleanupActiveSession();
+    
     if (inGame)
     {
 		delete inGame;
@@ -72,29 +74,26 @@ void TouhouScarletDevilCloneGame::Update(float dt)
     
     CircleCollisionManager::GetInstance()->Update();
     BHObjectManager::GetInstance()->Cleanup();
-    finishFlag = GameStateManager::GetInstance()->GetGameState()->PlayerHp == 0;
+    // finishFlag = GameStateManager::GetInstance()->GetGameState()->PlayerHp == 0;
 
     
 }
 
-void TouhouScarletDevilCloneGame::Render(HDC hdc)
+void TouhouScarletDevilCloneGame::Render()
 {
     if (bgImage) bgImage->RenderFrameScale(0,0,10,10,1);
 
-    // if (player) player->Render(hdc);
-    
     BHObjectManager::GetInstance()->Render();
     
-    CircleCollisionManager::GetInstance()->Render(hdc);
     EffectPlayer::GetInstance()->Render();
-    if (inGame) inGame->Render(hdc);
-    if (GameStateManager::GetInstance()->GetGameState()->isGameClear)
-    {
-        timer++;
-        if (timer > 300)
-        {
-            EffectPlayer::GetInstance()->PlayEffect("result", { WINSIZE_X / 2,WINSIZE_Y / 2 });
-        }
-        return;
-    }
+    if (inGame) inGame->Render(nullptr);
+    // if (GameStateManager::GetInstance()->GetGameState()->isGameClear)
+    // {
+    //     timer++;
+    //     if (timer > 300)
+    //     {
+    //         EffectPlayer::GetInstance()->PlayEffect("result", { WINSIZE_X / 2,WINSIZE_Y / 2 });
+    //     }
+    //     return;
+    // }
 }

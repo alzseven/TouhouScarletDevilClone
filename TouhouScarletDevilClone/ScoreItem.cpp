@@ -25,13 +25,14 @@ void ScoreItem::Init(string shapeKey, FPOINT pos)
     gravity = 400.0f;
     itemBehavior = new ScoreItemBehavior(10000);
     SetCollisionLayer(LAYER_ITEM, LAYER_PLAYER);
+    isInScreen = false;
 }
 
 void ScoreItem::Update(float dt)
 {
     if (!isAlive) return;
     Move(dt);
-    if (IsOutofScreen())
+    if (IsOutofScreen() && !isGoingUpItem && isInScreen)
     {
         isAlive = false;
     }
@@ -79,6 +80,10 @@ void ScoreItem::Move(float dt)
     }
     else
     {
+        if (!isInScreen && !IsOutofScreen())
+        {
+            isInScreen = true;
+        }
         position.y += 130.0f * dt;
     }
     if (position.y > WINSIZE_Y)

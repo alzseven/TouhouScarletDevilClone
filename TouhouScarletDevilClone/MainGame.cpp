@@ -17,11 +17,6 @@ void MainGame::Init()
 	D2DImage::InitD2D(g_hWnd);
 	ShapeManager::GetInstance()->Init();
 	
-
-	gameInstance = new TouhouScarletDevilCloneGame();
-	gameInstance->Init();
-	eSpawn = 100;
-	
 	//SoundPlayer::GetInstance()->SoundOn("background");
 	currentScene = IntroUi;
 	prevScene = Finish;
@@ -61,37 +56,11 @@ void MainGame::Release()
 		level = nullptr;
 	}
 
-	// if (backBuffer)
-	// {
-	// 	backBuffer->Release();
-	// 	delete backBuffer;
-	// 	backBuffer = nullptr;
-	// }
-
-
-
-	// if (background)
-	// {
-	// 	background->Release();
-	// 	delete background;
-	// 	background = nullptr;
-	// }
-	//
-	// if (backBuffer)
-	// {
-	// 	backBuffer->Release();
-	// 	delete backBuffer;
-	// 	backBuffer = nullptr;
-	// }
-
-	
 	ReleaseDC(g_hWnd, hdc);
 }
 
 void MainGame::Update(float dt)
 {
-
-	eTimer += dt;
 	//gameInstance->Update(dt);
 
 	if (prevScene != currentScene)
@@ -111,14 +80,34 @@ void MainGame::Update(float dt)
 		if (level)level->Update(dt);
 		break;
 	case InStage:
-		gameInstance->Update(dt);
-		// go to ending or main something
-		if (GameStateManager::GetInstance()->GetGameState()->isFinish)
+		if (terminalReason == TerminalReason::None)
 		{
-			BHObjectManager::GetInstance()->ClearItems();
-			SoundPlayer::GetInstance()->SoundOff("stage1_boss");
-			SoundPlayer::GetInstance()->SoundOn("title");
-			currentScene = IntroUi;
+			gameInstance->Update(dt);			
+
+			// 반드시 Update 반환 뒤 terminal flag 확인
+			if (GameStateManager::GetInstance()->GetGameState()->isGameClear)
+			{
+				terminalReason = TerminalReason::Clear;
+				terminalElapsed = 0.0f;
+			}
+			else if (GameStateManager::GetInstance()->GetGameState()->isGameOver)
+			{
+				terminalReason = TerminalReason::GameOver;
+				terminalElapsed = 0.0f;
+			}
+		}
+		else
+		{
+			terminalElapsed += dt;
+			
+			// go to ending or main something
+			if (terminalElapsed > 3.0f)
+			{
+				BHObjectManager::GetInstance()->ClearItems();
+				SoundPlayer::GetInstance()->SoundOff("stage1_boss");
+				// SoundPlayer::GetInstance()->SoundOn("title");
+				currentScene = IntroUi;
+			}
 		}
 		break;
 	case Finish:
@@ -130,29 +119,6 @@ void MainGame::Update(float dt)
 	InvalidateRect(g_hWnd, NULL, false);
 
 	EffectPlayer::GetInstance()->Update(dt);
-	/*if (eTimer >= enTimer)
-	{
-		enTimer += 2.f;
-		eCount++;
-		if (eCount > eSpawn) eCount = 0;
-		EffectPlayer::GetInstance()->PlayEffect("Hit_blue", { 100.0f, 200.0f });
-		EffectPlayer::GetInstance()->PlayEffect("Hit_white", { 150.0f, 200.0f });
-		EffectPlayer::GetInstance()->PlayEffect("Hit_red", { 200.0f, 200.0f });
-		EffectPlayer::GetInstance()->PlayEffect("Hit_green", { 250.0f, 200.0f });
-		EffectPlayer::GetInstance()->PlayEffect("Kill", { 100, 250 });
-		EffectPlayer::GetInstance()->PlayEffect("MagicCircle", { 150, 250 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_black", { 200, 250 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_blue", { 250, 250 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_green", { 100, 300 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_purple", { 150, 300 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_red", { 200, 300 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_sky", { 250, 300 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_yellow", { 100, 350 });
-		EffectPlayer::GetInstance()->PlayEffect("NormalShoot_white", { 150, 350 });
-		EffectPlayer::GetInstance()->PlayEffect("Kill_zako", { 100, 400 });
-		EffectPlayer::GetInstance()->PlayEffect("Boss_phase", { 200, 400 });
-		EffectPlayer::GetInstance()->PlayEffect("marisa_bomb", { 100, 400 });
-	}*/
 
 }
 
@@ -181,18 +147,25 @@ void MainGame::Render()
 	case InStage:
 		if (gameInstance)
 		{
-			gameInstance->Render(NULL);
-			if (GameStateManager::GetInstance()->GetGameState()->isGameClear)
+			gameInstance->Render();
+			if (terminalReason == TerminalReason::Clear)
 			{
-				timer++;
-				if (timer > 300)
+				if (terminalElapsed > 1.0f)
 				{
 					result_image->Middle_RenderFrameScale(WINSIZE_X / 2, WINSIZE_Y / 2, 1.4f, 1.4f, 1);
 				}
-				if (timer > 1000)
-				{
-					GameStateManager::GetInstance()->GetGameState()->isFinish = true;
-				}
+				//timer++;
+
+				// if (terminalElapsed > 40.0f)
+				// {
+				// }
+				// if (timer > 300)
+				// {
+				// }
+				// if (timer > 1000)
+				// {
+				// 	GameStateManager::GetInstance()->GetGameState()->isFinish = true;
+				// }
 			}
 			
 		}
@@ -204,41 +177,6 @@ void MainGame::Render()
 		break;
 	}
 
-	// HDC hBackBufferDC = backBuffer->GetMemDC();
-	//
-	// background->Render(hBackBufferDC);
-	// backBuffer->Render(hBackBufferDC);
-	//
-	//if (gameInstance) gameInstance->Render(hdc);
-	//
-	//
-	//
-	// backBuffer->Render(hdc);
-	/*for (int i = 0; i < 30; i++)
-	{
-		for (int j = 0; j < 30; j++)
-		{
-			testImage->Middle_RenderFrameScale(j * 18,i * 18,2,2, frame, angle, false, false, 1.0f);
-		}
-	}*/
-	/*testImage->RenderFrameScale(0,0, 4, 4, frame, 0, false, false, 1.0f);
-	testImage->RenderFrameScale(0, 0, 2, 2, frame, 0, false, false, 1.0f);*/
-	
-	// HDC hBackBufferDC = backBuffer->GetMemDC();
-	//
-	// backBuffer->Render(hBackBufferDC);
-	
-
-
-	// enemyFactory->Render();
-	//
-	// backBuffer->Render(hdc);
-	
-	//도형 출력 예제
-	// D2DImage image;
-	// image.DrawLine({ 200,100 }, { 200,500 }, 4, 4);
-	// image.DrawCircle({ 100,100 }, 20, 1, 2);
-	// image.DrawRect({ 300,200 }, {400,300}, 2, 5);
 
 	D2DImage::EndDraw();
 }
@@ -280,7 +218,7 @@ void MainGame::ChangeScene(GameScene nextScene)
 
 	switch (nextScene) {
 	case IntroUi:
-		GameStateManager::GetInstance()->Reset();
+
 		intro = new Intro(&currentScene);
 		intro->Init();
 		break;
@@ -294,7 +232,9 @@ void MainGame::ChangeScene(GameScene nextScene)
 		level->Init();
 		break;
 	case InStage:
-		timer = 0;
+		GameStateManager::GetInstance()->Reset();
+		terminalReason = TerminalReason::None;
+		terminalElapsed = 0.0f;
 		gameInstance = new TouhouScarletDevilCloneGame();
 		gameInstance->Init();
 		break;

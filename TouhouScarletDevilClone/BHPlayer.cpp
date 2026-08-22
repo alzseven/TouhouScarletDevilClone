@@ -13,7 +13,12 @@
 void BHPlayer::Init(string shapeKey, FPOINT pos)
 {
     BHObject::Init(shapeKey, pos);
-
+    
+    mainWeaponTimer = 0;
+    subWeaponTimer = 0;
+    frameIndex = 0;
+    isPressingShift = false;
+    
     moveShape = ShapeManager::GetInstance()->FindShape("marisa_left");
     moveStartShape = ShapeManager::GetInstance()->FindShape("marisa_goleft");
     subShape = ShapeManager::GetInstance()->FindShape("marisa_sub");

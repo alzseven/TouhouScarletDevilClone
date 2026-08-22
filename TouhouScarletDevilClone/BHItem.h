@@ -17,6 +17,7 @@ protected:
 	float gravity;
 	bool isItemGet;
 	int point;
+	bool isInScreen = false;
 	
 public:
 	BHItem() = default;

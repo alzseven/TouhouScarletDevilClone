@@ -29,4 +29,5 @@ public:
     vector<BHItem*> GetItems() const { return items; }
     void ClearEnemyBullets();
     void ClearItems();
+    void CleanupActiveSession();
 };
