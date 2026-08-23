@@ -21,17 +21,14 @@ void BHBullet::Init(string shapeKey, FPOINT pos, bool isPlayerBullet)
 {
     BHBullet::Init(shapeKey, pos);
     
-    // 총알 풀 설정 - 플레이어 총알인지 적 총알인지 판단
     if (isPlayerBullet)
     {
         // 화면 아래쪽에서 발사된 총알은 플레이어 총알로 간주
-        pool = BHObjectManager::GetInstance()->GetPlayerBulletPool();
         SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);            
     }
     else
     {
         // 화면 위쪽에서 발사된 총알은 적 총알로 간주
-        pool = BHObjectManager::GetInstance()->GetEnemyBulletPool();
         SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
     }
 }
@@ -52,20 +49,17 @@ void BHBullet::Launch(float angleRate, float speedRate, float movementSpeed, boo
     
     if (isPlayerBullet)
     {
-        pool = BHObjectManager::GetInstance()->GetPlayerBulletPool();
         SetCollisionLayer(LAYER_PLAYER_BULLET, LAYER_ENEMY);            
     }
     else
     {
-        pool = BHObjectManager::GetInstance()->GetEnemyBulletPool();
         SetCollisionLayer(LAYER_ENEMY_BULLET, LAYER_PLAYER);
     }
 }
 
 void BHBullet::Release()
 {
-    isAlive = false;
-    Reset();
+    DeActivate();
 }
 
 void BHBullet::Render(HDC hdc)
@@ -105,17 +99,17 @@ void BHBullet::Update(float dt)
     
     if (IsOutofScreen())
     {
-        isAlive = false;
-        Reset();
-        pool->Release(this);
+        // isAlive = false;
+        // Release();
+        DeActivate();
     }
 }
 
 void BHBullet::OnHit(ICollideable* hitObject)
 {
     isAlive = false;
-    Reset();
-    pool->Release(this);
+    // Release();
+    DeActivate();
 }
 
 void BHBullet::Move(float angle, float speed, float dt)
@@ -124,17 +118,6 @@ void BHBullet::Move(float angle, float speed, float dt)
     // update position with using angle and movement speed
     position.x += speed * cosf(angle) * dt;
     position.y += speed * sinf(angle) * dt;
-}
-
-void BHBullet::Reset()
-{
-    isAlive = false;
-    position = {0,0};
-    radianAngle = 0;
-    angleRate = 0;
-    speedRate = 0;
-    movementSpeed = 0;
-    pool->Release(this);
 }
 
 bool BHBullet::IsOutofScreen()
@@ -154,4 +137,21 @@ bool BHBullet::IsOutofScreen()
             return true;
 
     return false;
+}
+
+void BHBullet::DeActivate()
+{
+    isAlive = false;
+}
+
+void BHBullet::ResetForReuse()
+{
+    // 다음 logical Bullet session을 위해
+    // 이전 session의 상태를 제거
+    position = {0, 0};
+    radianAngle = 0;
+    angleRate = 0;
+    speedRate = 0;
+    movementSpeed = 0;
+    imageAngle = 0;
 }

@@ -20,10 +20,10 @@ private:
 
 	Timer* timer;
 
-	vector<POINT> BackGroubdTile;
+	// vector<POINT> BackGroubdTile;
 	D2DImage* BackGround_Image;
-	D2DImage* BackGround;
-	bool isBgReder;
+	// D2DImage* BackGround;
+	// bool isBgReder;
 
 	GameState* gameState = nullptr;
 
@@ -52,12 +52,12 @@ private:
 	static const int MaxHpAndBomb = 8;
 
 	FPOINT PowerPos{ WINSIZE_X - 370, WINSIZE_Y - 380 };	// 파워 위치
-	int elapPowerbarFrame;
+	// int elapPowerbarFrame;
 	D2DImage* PowerImage;
 	D2DImage* PowerBarImage;
 	D2DImage* PowerMaxImage;
-	D2DImage* PowerBarBuffer = nullptr;
-	int prevPowerbarFrame = -1;
+	// D2DImage* PowerBarBuffer = nullptr;
+	// int prevPowerbarFrame = -1;
 
 	FPOINT GrazePos{ WINSIZE_X - 370, WINSIZE_Y - 330 };	// 그레이즈 위치
 	D2DImage* GrazeImage;
@@ -66,8 +66,8 @@ private:
 	FPOINT EnemyPhasePos{ StagePos.x - 5, StagePos.y + 5 };	// 적 등장 위치
 	D2DImage* EnemyPhaseImage;
 	D2DImage* BossHpBarImage;
-	D2DImage* BossHpBarBuffer = nullptr;
-	int prevBossHpBarFrame = -1;
+	// D2DImage* BossHpBarBuffer = nullptr;
+	// int prevBossHpBarFrame = -1;
 
 	// 타이머 관련(보스 등장 시, isEnemyPhase가 true가 되면 카운트 시작)
 	float elapsedTime = 0.0f;
@@ -97,12 +97,12 @@ public:
 
 	//void RenderPowerBarAsImage(HDC hdc, int number, FPOINT Pos);
 	void RenderEnemyPhase(HDC hdc);
-	//void RenderBossHpBar(HDC hdc, int number, FPOINT Pos);
+	// void RenderBossHpBar(HDC hdc, int number, FPOINT Pos);
 	void RenderTimerAsImage(HDC hdc, int number, FPOINT Pos);
 	void RenderFPSAsImage(HDC hdc, unsigned long fps, FPOINT Pos);
 
 
-	inline void SetTimer(Timer* t) { timer = t; }
+	// inline void SetTimer(Timer* t) { timer = t; }
 
 
 };

@@ -40,6 +40,9 @@ InGame::InGame(GameState* state)
 
 InGame::~InGame()
 {
+	timer->Release();
+	delete timer;
+	timer = nullptr;
 	// BackGround_Image = nullptr;
 	// Stage = nullptr;
 	// MaxScoreImage = nullptr;
@@ -87,13 +90,13 @@ void InGame::Update(float dt)
 	// 파워바 프레임 업데이트
 	// if (InputManager::isMoveDown()) {
 	// 	CurrPowerBarFrame(gameState)++;
-		if (CurrPowerBarFrame(gameState) >= 160)
-			CurrPowerBarFrame(gameState) = 159;
+		// if (CurrPowerBarFrame(gameState) >= 160)
+		// 	CurrPowerBarFrame(gameState) = 159;
 	// }
 	// else if (InputManager::isMoveUp()) {
 	// 	CurrPowerBarFrame(gameState)--;
-		if (CurrPowerBarFrame(gameState) < 0)
-			CurrPowerBarFrame(gameState) = 0;
+		// if (CurrPowerBarFrame(gameState) < 0)
+		// 	CurrPowerBarFrame(gameState) = 0;
 	// }
 	//
 	// if (InputManager::isMoveRight()) {
@@ -155,7 +158,25 @@ void InGame::Render(HDC hdc)
 
 	// 파워바
 	//RenderPowerBarAsImage(hdc, CurrPowerBarFrame, PowerPos);
-	PowerBarImage->RenderPercent({ PowerPos.x + 120, PowerPos.y + 5 }, 0, CurrPowerBarFrame(gameState), 1.0f);
+	
+	float powerPercent = 0.0f;
+
+	if (gameState->MaxPowerBarFrame > 0)
+	{
+		powerPercent =
+			static_cast<float>(CurrPowerBarFrame(gameState)) /
+			static_cast<float>(gameState->MaxPowerBarFrame) *
+			100.0f;
+	}
+
+	PowerBarImage->RenderPercent(
+		{ PowerPos.x + 120, PowerPos.y + 5 },
+		0,
+		powerPercent,
+		1.0f
+	);
+	
+	// PowerBarImage->RenderPercent({ PowerPos.x + 120, PowerPos.y + 5 }, 0, CurrPowerBarFrame(gameState), 1.0f);
 	UpdatePowerBarMax(hdc, PowerPos);
 
 	// 보스 등장시 그리기
@@ -313,11 +334,11 @@ void InGame::UpdatePowerBarMax(HDC hdc, FPOINT pos)
 		string key(1, numberStr[i]);
 
 		if (D2DImage* img = ImageManager::GetInstance()->FindImage(key)) {
-			if (number < 159)
+			if (number < gameState->MaxPowerBarFrame)
 				img->Render(pos.x + 130 + i * digitWidth, pos.y + 5);
 		}
 	}
-	if (CurrPowerBarFrame(gameState) == 159)
+	if (CurrPowerBarFrame(gameState) >= gameState->MaxPowerBarFrame)
 		PowerMaxImage->Render(pos.x + 120, pos.y + 5);
 }
 
@@ -372,7 +393,19 @@ void InGame::RenderEnemyPhase(HDC hdc)
 	if (D2DImage* img = ImageManager::GetInstance()->FindImage("EnemyPhase")) {
 		img->Render(EnemyPhasePos.x, EnemyPhasePos.y);
 	}
-	BossHpBarImage->RenderPercent({ EnemyPhasePos.x + 80, EnemyPhasePos.y + 12}, 0, CurrBossHpBarFrame(gameState), 1.0f);
+	
+	float percent = 0.0f;
+
+	auto bossMaxHp = GameStateManager::GetInstance()->GetGameState()->BossMaxHp;
+	auto bossHp = GameStateManager::GetInstance()->GetGameState()->BossHp;
+
+	if (bossMaxHp > 0)
+	{
+		//TODO:
+		percent = bossHp <= 0 ? 0.0f : static_cast<float>(CurrBossHpBarFrame(gameState)) * static_cast<float>(bossHp) / static_cast<float>(bossMaxHp);
+	}
+	
+	BossHpBarImage->RenderPercent({ EnemyPhasePos.x + 80, EnemyPhasePos.y + 12}, 0, percent, 1.0f);
 	//RenderBossHpBar(hdc, currBossHpBarFrame, { EnemyPhasePos.x + 60, EnemyPhasePos.y + 5 });
 }
 

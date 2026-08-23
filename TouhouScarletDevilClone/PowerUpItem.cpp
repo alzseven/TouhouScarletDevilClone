@@ -25,12 +25,17 @@ void PowerUpItem::Init(string shapeKey, FPOINT pos)
     gravity = 400.0f;
     itemBehavior = new PowerUpItemBehavior(10);
     SetCollisionLayer(LAYER_ITEM, LAYER_PLAYER);
+    isInScreen = false;
 }
 
 void PowerUpItem::Update(float dt)
 {
     if (!isAlive) return;
     Move(dt);
+    if (IsOutofScreen() && !isGoingUpItem && isInScreen)
+    {
+        isAlive = false;
+    }
 }
 
 void PowerUpItem::Render(HDC hdc)
@@ -41,15 +46,18 @@ void PowerUpItem::Render(HDC hdc)
 
 void PowerUpItem::OnHit(ICollideable* hitObject)
 {
+    if (!isAlive)
+        return;
+    
     if (hitObject->GetLayer() == LAYER_PLAYER)
     {
         isItemGet = true;
         isAlive = false;
 
-        BHObjectManager::GetInstance()->GetItems()->erase(
-    std::remove(BHObjectManager::GetInstance()->GetItems()->begin(),
-                BHObjectManager::GetInstance()->GetItems()->end(), this),
-    BHObjectManager::GetInstance()->GetItems()->end());
+    //     BHObjectManager::GetInstance()->GetItems()->erase(
+    // std::remove(BHObjectManager::GetInstance()->GetItems()->begin(),
+    //             BHObjectManager::GetInstance()->GetItems()->end(), this),
+    // BHObjectManager::GetInstance()->GetItems()->end());
 
         if (gameState && itemBehavior)
             itemBehavior->OnCollect(gameState);
@@ -70,6 +78,10 @@ void PowerUpItem::Move(float dt)
     }
     else
     {
+        if (!isInScreen && !IsOutofScreen())
+        {
+            isInScreen = true;
+        }
         position.y += 130.0f * dt;
     }
 }

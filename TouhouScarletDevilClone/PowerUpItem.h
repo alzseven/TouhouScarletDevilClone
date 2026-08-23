@@ -5,7 +5,7 @@ class PowerUpItem : public BHItem
 {
 public:
 	PowerUpItem() = default;
-	~PowerUpItem() = default;
+	// ~PowerUpItem() = default;
 	void Init(string shapeKey, FPOINT pos) override;
 	void Update(float dt) override;
 	void Render(HDC hdc) override;

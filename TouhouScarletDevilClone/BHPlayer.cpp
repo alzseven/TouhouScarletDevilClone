@@ -13,7 +13,12 @@
 void BHPlayer::Init(string shapeKey, FPOINT pos)
 {
     BHObject::Init(shapeKey, pos);
-
+    
+    mainWeaponTimer = 0;
+    subWeaponTimer = 0;
+    frameIndex = 0;
+    isPressingShift = false;
+    
     moveShape = ShapeManager::GetInstance()->FindShape("marisa_left");
     moveStartShape = ShapeManager::GetInstance()->FindShape("marisa_goleft");
     subShape = ShapeManager::GetInstance()->FindShape("marisa_sub");
@@ -271,7 +276,7 @@ void BHPlayer::OnHit(ICollideable* hitObject)
         lives--;
         
         // ?¼ê²© ?¨ê³¼?? ?¬ì??
-         SoundPlayer::GetInstance()->SoundOn("player_dead");
+        SoundPlayer::GetInstance()->SoundOn("player_dead");
         
         // ?¼ê²© ?´í???? ?¬ì??
         // EffectPlayer::GetInstance()->PlayEffect("hit_effect", position);
@@ -289,7 +294,7 @@ void BHPlayer::OnHit(ICollideable* hitObject)
                 gameState->PlayerHp = 0;
                 
                 // ê²??? ?¤ë? ?¨ê³¼?? ?¬ì??
-                SoundPlayer::GetInstance()->SoundOn("player_dead");
+                // SoundPlayer::GetInstance()->SoundOn("player_dead");
                 EffectPlayer::GetInstance()->PlayEffect("Boss_phase", position);
             }
         }

@@ -84,7 +84,6 @@ std::vector<IObjectActionPattern*> Stage1Wave1Pattern::GetObjectActionPatterns(B
     complexPattern->SetTarget(target);
     complexPattern->SetActions(actionsQueue);
     
-    complexPattern->Init();
     
     std::vector<IObjectActionPattern*> result = std::vector<IObjectActionPattern*>();
     result.push_back(complexPattern);
@@ -103,8 +102,6 @@ void Stage1Wave1Pattern::Update(float deltaTime)
             const std::vector<IObjectActionPattern*> p = GetObjectActionPatterns(spawnedEnemy);
             spawnedEnemy->Init(enemyShapeKey,
                 spawnPoints[currentSpawnCount], p);
-            spawnedEnemy->SetItemList(*BHObjectManager::GetInstance()->GetItems());
-            spawnedEnemy->SetGameState(GameStateManager::GetInstance()->GetGameState());
             spawnedObjects.push_back(spawnedEnemy);
             
             timeElpased -= multiSpawnDelay;

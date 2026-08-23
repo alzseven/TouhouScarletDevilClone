@@ -23,9 +23,6 @@ void BHBoss::Init(string shapeKey, FPOINT pos)
         gameState->BossHp = health;
         gameState->BossMaxHp = health;
     }
-    // 컨트롤러 초기화
-    ec = new EnemyController();
-    ec->SetTarget(this);
     
     // 초기 패턴 설정
     SetupNormalPattern();
@@ -85,6 +82,8 @@ void BHBoss::Update(float dt)
 
 void BHBoss::GetDamaged(int damage)
 {
+    if (!isAlive)
+        return;
     
     // 페이즈 전환 중에는 데미지를 받지 않음
     // if (isPhaseChanging) return;

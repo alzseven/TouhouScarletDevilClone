@@ -16,7 +16,6 @@
     <ClCompile Include="Finish.cpp" />
     <ClCompile Include="GameScene.h" />
     <ClCompile Include="GameStateManager.cpp" />
-    <ClCompile Include="GameStateManager.h" />
     <ClCompile Include="Intro.cpp" />
     <ClCompile Include="IObjectActionPattern.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -67,6 +66,7 @@
     <ClInclude Include="EnemyController.h" />
     <ClInclude Include="Finish.h" />
     <ClInclude Include="GameState.h" />
+	<ClInclude Include="GameStateManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ICircleCollideable.h" />
     <ClInclude Include="ICollideable.h" />

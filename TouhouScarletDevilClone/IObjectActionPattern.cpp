@@ -3,9 +3,25 @@
 #include "BHEnemy.h"
 #include "BHObject.h"
 
+IObjectActionPattern::IObjectActionPattern() : patternStartTime(0), patternEndTime(0), target(nullptr), moveSpeed(0),
+                                               moveSpeedRate(0),
+                                               moveAngle(0),
+                                               moveAngleRate(0),
+                                               shootDelay(0),
+                                               shootAmount(0),
+                                               shootAngle(0),
+                                               shootAngleRate(0),
+                                               shootSpeed(0),
+                                               shootSpeedRate(0),
+                                               multiShootDelay(0),
+                                               shootTimer(0),
+                                               timeElpased(0)
+{
+}
+
 void IObjectActionPattern::Update(float dt)
 {
-    
+    timeElpased += dt;
     
 }
 

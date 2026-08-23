@@ -18,27 +18,37 @@ private:
 	
 	GameScene currentScene = IntroUi;
 	GameScene prevScene = IntroUi;
-	TouhouScarletDevilCloneGame* gameInstance;
+	TouhouScarletDevilCloneGame* gameInstance = nullptr;
 
-	InGame* ui;
+	// InGame* ui;
 	Intro* intro;
 	Menu* menu;
 	Level* level;
 
-	BHItem* item;
+	// BHItem* item;
 
-	int timer = 0;
-	int frame = 0;
-	float angle = 0;
+	// int timer = 0;
+	// int frame = 0;
+	// float angle = 0;
 
-	float eTimer = 0;
-	float enTimer = 0;
-	int eCount = 0;
-	int eSpawn = 0;
+	// float eTimer = 0;
+	// float enTimer = 0;
+	// int eCount = 0;
+	// int eSpawn = 0;
 	D2DImage* result_image;
-	bool isFinish = false; // If finish game, set [true] and go to main or something
-
-
+	// bool isFinish = false; // If finish game, set [true] and go to main or something
+	D2DImage* gameover_image;
+	
+	enum class TerminalReason
+	{
+		None,
+		Clear,
+		GameOver
+	};
+	
+	TerminalReason terminalReason = TerminalReason::None;
+	float terminalElapsed = 0.0f;
+	
 public:
 	void Init();
 	void Release();

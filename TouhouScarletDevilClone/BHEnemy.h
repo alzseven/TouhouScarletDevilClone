@@ -1,10 +1,12 @@
 #pragma once
 #include "BHObject.h"
 #include "BHItem.h"
+#include "ItemType.h"
 
 class EnemyController;
 class BulletManager;
 class D2DImage;
+enum class ItemType;
 class BHEnemy : public BHObject
 {
 private:
@@ -15,17 +17,21 @@ private:
     int tempLevel;
     D2DImage* moveImage;
     FPOINT moveDir;
-
-    EnemyController* ec;
-
+	
     // 아이템 관련 코드
-    vector<BHItem*>* items = nullptr;
-	GameState* gameState = nullptr;
+    // std::vector<BHItem*> item; // = nullptr;
+	// GameState* gameState = nullptr;
 
+	bool isDropPending = false;
+	ItemType itemType = ItemType::None;
+	
+protected:
+	EnemyController* ec = nullptr;
+	
 public:
     // 생성자
     BHEnemy() = default;
-    virtual ~BHEnemy () = default;
+    virtual ~BHEnemy (); // = default;
 
     inline void SetMoveImage(D2DImage* moveImage) { this->moveImage = moveImage; }
 
@@ -49,7 +55,19 @@ public:
     virtual void GetDamaged(int damage);
 
     // 아이템 관련 코드
-	inline void SetItemList(vector<BHItem*>& itemList) { items = &itemList; }
-	inline void SetGameState(GameState* state) { gameState = state; }
+	// inline void SetItemList(vector<BHItem*>& itemList) { items = &itemList; }
+	// inline void SetGameState(GameState* state) { gameState = state; }
+	
+	void CleanUpActiveSession();
+	
+	ItemType GetItemType() { return itemType; }
+	// bool IsBigScore() { return isBigScore; }
+	bool IsDropPending() { return isDropPending; }
+	
+	void ResetDropPending()
+	{
+		isDropPending = false;
+		itemType = ItemType::None;
+	}
 };
 

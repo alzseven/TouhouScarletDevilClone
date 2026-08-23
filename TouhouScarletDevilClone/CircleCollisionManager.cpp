@@ -7,11 +7,6 @@
 
 void CircleCollisionManager::Release()
 {
-    for (std::vector<ICircleCollideable*>::iterator iter = collisions.begin(); iter != collisions.end(); ++iter)
-    {
-        dynamic_cast<BHObject*>(*iter)->Release();
-        delete *iter;
-    }
     collisions.clear();
     ReleaseInstance();
 }
@@ -29,7 +24,7 @@ void CircleCollisionManager::Update()
     auto bosp = BHObjectManager::GetInstance()->GetBossPool()->GetActive();
     collisions.insert(collisions.end(), bosp.begin(),bosp.end());
     auto ip = BHObjectManager::GetInstance()->GetItems();
-    collisions.insert(collisions.end(), ip->begin(),ip->end());
+    collisions.insert(collisions.end(), ip.begin(),ip.end());
     
     if (collisions.size() < 2) return;
     for (size_t i = 0; i < collisions.size(); ++i)
@@ -48,6 +43,9 @@ void CircleCollisionManager::Update()
             {
                 objA->OnHit(objB);
                 objB->OnHit(objA);
+
+                if (!objA->IsValid())
+                    break;
             }
         }
     }
@@ -87,33 +85,4 @@ bool CircleCollisionManager::ShouldCollide(CollisionLayer layerA, CollisionLayer
     
     // 매트릭스에 정의되지 않은 레이어 조합은 충돌하지 않음
     return false;
-}
-
-void CircleCollisionManager::Render(HDC hdc)
-{
-    // collisions.clear();
-    // collisions.push_back(BHObjectManager::GetInstance()->GetPlayer());
-    // auto ep = BHObjectManager::GetInstance()->GetEnemyPool()->GetActive();
-    // collisions.insert(collisions.end(), ep.begin(),ep.end());
-    // auto ebp = BHObjectManager::GetInstance()->GetEnemyBulletPool()->GetActive();
-    // collisions.insert(collisions.end(), ebp.begin(),ebp.end());
-    // auto pbp = BHObjectManager::GetInstance()->GetPlayerBulletPool()->GetActive();
-    // collisions.insert(collisions.end(), pbp.begin(),pbp.end());
-    // auto bosp = BHObjectManager::GetInstance()->GetBossPool()->GetActive();
-    // collisions.insert(collisions.end(), bosp.begin(),bosp.end());
-    //
-    //
-    // for (size_t i = 0; i < collisions.size(); ++i)
-    // {
-    //     ICircleCollideable* objA = collisions[i];
-    //
-    //     if (objA == nullptr || objA->IsValid() == false) continue;
-    //     
-    //     //Debug
-    //     D2DImage debugImage;
-    //     debugImage.DrawCircle(
-    //         {objA->GetPos()->x, objA->GetPos()->y},
-    //         objA->GetHitRadius(),
-    //         0, 1);
-    // }
 }

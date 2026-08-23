@@ -278,7 +278,8 @@ void EffectPlayer::Init(int size)
 	//ending
 	{
 		Effect* effect = new Effect;
-		image[0] = ImageManager::GetInstance()->AddImage("result", TEXT("Image/Intro/result.jpg"));
+		D2DImage* res = ImageManager::GetInstance()->FindImageAdd("result");
+		image[0] = res != nullptr ? res : ImageManager::GetInstance()->AddImage("result", TEXT("Image/Intro/result.jpg"));
 		EffectTask task;
 		task.Init(image[0], 0, 3);
 		task.setZoom(1.4f, 1.4f);
@@ -492,17 +493,17 @@ void EffectTask::makeSpin(float& angle)
 
 FPOINT EffectTask::calcMove(float time)
 {
-	// ¾ÆÁ÷ ½ÃÀÛ ÀüÀÌ¸é ½ÃÀÛ ÁÂÇ¥ ±×´ë·Î ¹ÝÈ¯
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½×´ï¿½ï¿½ ï¿½ï¿½È¯
 	if (time < startTime)
 		return offset;
 
-	// Á¾·á ÈÄ¶ó¸é, t¸¦ endTime - startTimeÀ¸·Î °íÁ¤
+	// ï¿½ï¿½ï¿½ï¿½ ï¿½Ä¶ï¿½ï¿½, tï¿½ï¿½ endTime - startTimeï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	float dt = (time > endTime) ? (endTime - startTime) : (time - startTime);
 
-	// ÀÌµ¿ °Å¸® °è»ê (µî°¡¼Óµµ ¿îµ¿ °ø½Ä)
+	// ï¿½Ìµï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ (ï¿½î°¡ï¿½Óµï¿½ ï¿½îµ¿ ï¿½ï¿½ï¿½ï¿½)
 	float distance = move_speed * dt + 0.5f * move_speedRate * dt * dt;
 
-	// x, y ÀÌµ¿·® °è»ê
+	// x, y ï¿½Ìµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 	float dx = distance * cosf(DEG_TO_RAD(move_angle));
 	float dy = distance * sinf(DEG_TO_RAD(move_angle));
 

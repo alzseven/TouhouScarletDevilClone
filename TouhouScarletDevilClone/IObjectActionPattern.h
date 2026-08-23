@@ -32,7 +32,8 @@ protected:
     float timeElpased;
 
 public:
-    virtual void Init(){};
+    IObjectActionPattern();
+    virtual ~IObjectActionPattern() = default;
     virtual void Update(float dt);
     inline void SetTarget(BHObject* target) { this->target = target; }
     inline void SetPatternEndTime(float newEndTime) { this->patternEndTime = newEndTime; }
@@ -86,28 +87,28 @@ public:
 
 class ShootStraightPattern : public IObjectActionPattern
 {
-    int currentShootCount;
+    int currentShootCount = 0;
 public:
     void Update(float dt) override;
 };
 
 class ShootSpreadPattern : public IObjectActionPattern
 {
-    int currentShootCount;
+    int currentShootCount = 0;
 public:
     void Update(float dt) override;
 };
 
 class ShootRoundPattern : public IObjectActionPattern
 {
-    int currentShootCount;
+    int currentShootCount = 0;;
 public:
     void Update(float dt) override;
 };
 
 class Stage1BossNormalPattern1 : public IObjectActionPattern
 {
-    int currentShootCount;
+    int currentShootCount = 0;;
 public:
     void Update(float dt) override;
 };

@@ -5,7 +5,7 @@ class ScoreItem : public BHItem
 {
 public:
 	ScoreItem() = default;
-	~ScoreItem() = default;
+	// ~ScoreItem() = default;
 
 	void Init(string shapeKey, FPOINT pos) override;
 	void Update(float dt) override;
