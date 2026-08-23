@@ -20,7 +20,12 @@ void MainGame::Init()
 	//SoundPlayer::GetInstance()->SoundOn("background");
 	currentScene = IntroUi;
 	prevScene = Finish;
-	result_image = ImageManager::GetInstance()->FindImage("result");
+	
+	D2DImage* res = ImageManager::GetInstance()->FindImageAdd("result");
+	result_image = res != nullptr ? res : ImageManager::GetInstance()->AddImage("result", TEXT("Image/Intro/result.jpg"));
+
+	D2DImage* gameover = ImageManager::GetInstance()->FindImageAdd("gameover");
+	gameover_image = gameover != nullptr ? gameover : ImageManager::GetInstance()->AddImage("gameover",TEXT("Image/Intro/gameover.jpg"));
 }
 
 void MainGame::Release()
@@ -105,6 +110,7 @@ void MainGame::Update(float dt)
 			{
 				BHObjectManager::GetInstance()->ClearItems();
 				SoundPlayer::GetInstance()->SoundOff("stage1_boss");
+				SoundPlayer::GetInstance()->SoundOff("stage1_normal");
 				// SoundPlayer::GetInstance()->SoundOn("title");
 				currentScene = IntroUi;
 			}
@@ -148,26 +154,23 @@ void MainGame::Render()
 		if (gameInstance)
 		{
 			gameInstance->Render();
-			if (terminalReason == TerminalReason::Clear)
+			if (terminalReason != TerminalReason::None)
 			{
 				if (terminalElapsed > 1.0f)
 				{
-					result_image->Middle_RenderFrameScale(WINSIZE_X / 2, WINSIZE_Y / 2, 1.4f, 1.4f, 1);
+					switch (terminalReason)
+					{
+					case TerminalReason::Clear:
+						result_image->Middle_RenderFrameScale(WINSIZE_X / 2, WINSIZE_Y / 2, 1.4f, 1.4f, 1);
+						break;
+					case TerminalReason::GameOver:
+						gameover_image->Middle_RenderFrameScale(WINSIZE_X / 2, WINSIZE_Y / 2, 1.4f, 1.4f, 1);
+						break;
+					default:
+						break;
+					}
 				}
-				//timer++;
-
-				// if (terminalElapsed > 40.0f)
-				// {
-				// }
-				// if (timer > 300)
-				// {
-				// }
-				// if (timer > 1000)
-				// {
-				// 	GameStateManager::GetInstance()->GetGameState()->isFinish = true;
-				// }
 			}
-			
 		}
 
 		break;

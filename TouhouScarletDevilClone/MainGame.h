@@ -37,7 +37,8 @@ private:
 	// int eSpawn = 0;
 	D2DImage* result_image;
 	// bool isFinish = false; // If finish game, set [true] and go to main or something
-
+	D2DImage* gameover_image;
+	
 	enum class TerminalReason
 	{
 		None,

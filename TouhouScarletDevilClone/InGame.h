@@ -97,7 +97,7 @@ public:
 
 	//void RenderPowerBarAsImage(HDC hdc, int number, FPOINT Pos);
 	void RenderEnemyPhase(HDC hdc);
-	//void RenderBossHpBar(HDC hdc, int number, FPOINT Pos);
+	// void RenderBossHpBar(HDC hdc, int number, FPOINT Pos);
 	void RenderTimerAsImage(HDC hdc, int number, FPOINT Pos);
 	void RenderFPSAsImage(HDC hdc, unsigned long fps, FPOINT Pos);
 
