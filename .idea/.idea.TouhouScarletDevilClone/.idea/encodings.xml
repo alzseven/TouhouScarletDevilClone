@@ -9,6 +9,8 @@
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/Image.cpp" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/Image.h" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/ImageManager.h" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/InGame.cpp" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/InGame.h" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/MainGame.cpp" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/ShapeManager.h" charset="EUC-KR" />
     <file url="file://$PROJECT_DIR$/TouhouScarletDevilClone/Timer.cpp" charset="EUC-KR" />
